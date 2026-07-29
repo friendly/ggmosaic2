@@ -1,0 +1,64 @@
+Package: ggmosaic2
+Title: Mosaic Plots in the 'ggplot2' Framework, Extended
+Version: 0.5.0
+Authors@R:
+    c(person(given = "Michael",
+             family = "Friendly",
+             role = c("aut", "cre"),
+             email = "friendly@yorku.ca",
+             comment = c(ORCID = "0000-0002-3237-0941")),
+      person(given = "Haley",
+             family = "Jeppson",
+             role = "ctb",
+             email = "hjeppson@iastate.edu",
+             comment = c(ORCID = "0000-0003-2524-4063")),
+      person(given = "Heike",
+             family = "Hofmann",
+             role = "ctb",
+             email = "hofmann@iastate.edu",
+             comment = c(ORCID = "0000-0001-6216-5183")),
+      person(given = "Di",
+             family = "Cook",
+             role = "ctb",
+             email = "dicook@monash.edu",
+             comment= c(ORCID = "0000-0002-3813-7155")),
+      person(given = "Hadley",
+             family = "Wickham",
+             role = "ctb",
+             email = "hadley@posit.co",
+             comment = c(ORCID="0000-0003-4757-117X")))
+Description: Mosaic plots in the 'ggplot2' framework. Mosaic
+    plot functionality is provided in a single 'ggplot2' layer by calling
+    the geom 'mosaic'. This extends the now-defunct `ggmosaic` package  by allowing fitted loglinear models which can be used to
+    show patterns of association among variables in frequency tables.
+License: GPL (>= 2)
+URL: https://friendly.github.io/ggmosaic2/, https://github.com/friendly/ggmosaic2
+BugReports: https://github.com/friendly/ggmosaic2/issues
+Depends:
+    ggplot2 (>= 3.5.0),
+    R (>= 4.1.0)
+Imports:
+    productplots,
+    dplyr,
+    plotly (>= 4.9.3),
+    purrr,
+    rlang,
+    tidyr,
+    ggrepel,
+    scales,
+    withr (>= 2.5.0)
+Suggests:
+    gridExtra,
+    knitr,
+    NHANES,
+    rmarkdown,
+    shiny (>= 1.1.0),
+    patchwork,
+    vcdExtra
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate',
+    'namespace'))
+RoxygenNote: 7.3.3
