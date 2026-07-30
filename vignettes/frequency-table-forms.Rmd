@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r libraries}
-library(ggmosaic)
+library(ggmosaic2)
 library(vcdExtra)
 library(dplyr)
 ```

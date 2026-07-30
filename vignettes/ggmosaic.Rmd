@@ -16,7 +16,7 @@ knitr::opts_chunk$set(fig.width = 6, fig.height = 4, fig.align='center',
 ```
 
 ```{r pkgs, echo=FALSE}
-library(ggmosaic)
+library(ggmosaic2)
 library(gridExtra)
 library(grid)
 library(patchwork)
