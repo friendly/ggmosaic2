@@ -2,7 +2,9 @@
 
 `ggmosaic2` is a standalone continuation of `ggmosaic`, which was removed from CRAN around
 November 2025 and appeared unmaintained (the loglinear-models/residual-shading pull request
-below, https://github.com/haleyjeppson/ggmosaic/pull/86, was never acted on). Rather than take
+below, https://github.com/haleyjeppson/ggmosaic/pull/86, was never acted on). 
+
+Rather than take
 over the original package name, this work continues independently as `ggmosaic2`, maintained by
 Michael Friendly, with original authors Haley Jeppson, Heike Hofmann, and Di Cook credited as
 contributors in `DESCRIPTION`.

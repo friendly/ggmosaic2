@@ -3,37 +3,41 @@
 
 <!-- badges: start -->
 
-[![CRAN
-Status](http://www.r-pkg.org/badges/version/ggmosaic)](https://cran.r-project.org/package=ggmosaic)
-[![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/ggmosaic)](https://www.r-pkg.org/pkg/ggmosaic)
-[![R-CMD-check](https://github.com/haleyjeppson/ggmosaic/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/haleyjeppson/ggmosaic/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-# ggmosaic <img src="man/figures/logo.png" align="right" width="120" />
+# ggmosaic2 <img src="man/figures/logo.png" align="right" width="120" />
 
-This repo is a fork of the `ggmosaic` package, no longer on CRAN and not
-maintained. `ggmosaic` was designed to create visualizations of
-categorical data and is capable of producing bar charts, stacked bar
-charts, mosaic plots, and double decker plots.
+`ggmosaic2` is a standalone continuation of the `ggmosaic` package,
+which was removed from CRAN around November 2025 and appeared
+unmaintained (a [pull
+request](https://github.com/haleyjeppson/ggmosaic/pull/86) adding
+residual-based shading went unanswered). Rather than fork under the
+original name, `ggmosaic2` is developed independently, building on
+`ggmosaic`’s original authors (Haley Jeppson, Heike Hofmann, Di Cook;
+credited as contributors in `DESCRIPTION`). `ggmosaic` was designed to
+create visualizations of categorical data and is capable of producing
+bar charts, stacked bar charts, mosaic plots, and double decker plots.
 
-The current goal is to make this useful again and extend it by allowing
-fitted loglinear models which can be used to show patterns of
+`ggmosaic2` extends this with jittered-point overlays showing individual
+observations (reflecting non-independence as variation in point density,
+a physical analog for departures from independence), residual-based
+shading, and support for fitted loglinear models to show patterns of
 association among variables in frequency tables.
 
 ## Installation
 
-You can install this version of `ggmosaic` from github with:
+You can install `ggmosaic2` from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("friendly/ggmosaic")
+devtools::install_github("friendly/ggmosaic2")
 ```
 
 ## Example
 
 ``` r
-library(ggmosaic)
+library(ggmosaic2)
 library(dplyr)
 happy |> 
   mutate(finrela = forcats::fct_recode(finrela,
@@ -87,7 +91,8 @@ And as ggplot2 continues to evolve, ggmosaic must continue to evolve
 alongside it. Although these changes affect the underlying code and not
 the general usage of ggmosaic, the general user may need to be aware of
 compatibility issues that can arise between versions. The table below
-summarizes the compatibility between versions.
+summarizes the compatibility between versions (inherited history from
+`ggmosaic`, prior to the `ggmosaic2` fork).
 
 | ggmosaic | ggplot2 | Axis labels | Tick marks |
 |----|----|----|----|
