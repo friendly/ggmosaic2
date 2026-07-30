@@ -99,7 +99,7 @@ shinyServer(function(input, output, session) {
     }
     var_index$values[new_index_length] <- new_val
     ## need to also add to divider
-    divs <- ggmosaic::mosaic()(new_index_length)[1]
+    divs <- ggmosaic2::mosaic()(new_index_length)[1]
     div_index$values[new_index_length] <- divs
   })
 
@@ -204,7 +204,7 @@ shinyServer(function(input, output, session) {
     # }
     # else{
     #   new_length <- length(div_index$values) + 1
-    #   add_div <- ggmosaic::mosaic()(new_length)[1]
+    #   add_div <- ggmosaic2::mosaic()(new_length)[1]
     #   div_index$values[new_length] <- add_div
     #
     # }
