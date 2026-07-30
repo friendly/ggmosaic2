@@ -1,3 +1,0 @@
-# Geom proto
-
-Geom proto
