@@ -6,3 +6,8 @@ inst/doc
 
 # MacOS files
 .DS_Store
+
+# Knitted files
+issues/implementation-summary.html
+issues/loglinear-models-quick-reference.html
+issues/vignette-outline-extended-topics.html
