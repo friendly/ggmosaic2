@@ -6,7 +6,7 @@
 [![R-CMD-check](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-# ggmosaic2 <img src="man/figures/logo.png" align="right" width="120" />
+# ggmosaic2 <img src="man/figures/logo.png" align="right" width="200px" />
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
