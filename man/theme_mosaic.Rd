@@ -4,19 +4,22 @@
 \alias{theme_mosaic}
 \title{Theme for mosaic plots}
 \arguments{
-\item{base_size}{base font size}
+\item{base_size}{Base font size. Defaults to 11.}
 
-\item{base_family}{base font family}
+\item{base_family}{Base font family. Defaults to \code{""}, which uses the graphics device's default font family.}
+
+\item{rot_labels}{The angle (in degrees) used to rotate category labels. Defaults to 0 degrees.}
 }
 \description{
 Themes set the general aspect of the plot such as the colour of the
 background, gridlines, the size and colour of fonts.
-\code{theme_mosaic} provides access to the regular ggplot2 theme, but removes any
-background, most of the gridlines, and ensures an aspect ratio of 1 for better
-viewing of the mosaics.
+\code{theme_mosaic} provides access to the regular ggplot2 theme, but removes
+any background, axes ticks, most of the gridlines, and ensures an aspect
+ratio of 1 for better viewing of the mosaics. This theme also applies a bold
+face to axes labels and allows for the convenient rotation of category labels.
 }
 \examples{
-library(ggmosaic)
+library(ggmosaic2)
 data(happy)
 ggplot(data = happy) +
   geom_mosaic(aes(weight=wtssall, x=product(health), fill=happy), na.rm=TRUE) +

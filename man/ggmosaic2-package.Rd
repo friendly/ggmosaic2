@@ -25,13 +25,14 @@ Useful links:
 Authors:
 \itemize{
   \item Michael Friendly \email{friendly@yorku.ca} (\href{https://orcid.org/0000-0002-3237-0941}{ORCID})
+  \item Gavin Klorfine \email{gklorfin@yorku.ca}
+  \item Haley Jeppson \email{hjeppson@iastate.edu} (\href{https://orcid.org/0000-0003-2524-4063}{ORCID})
+  \item Heike Hofmann \email{hofmann@iastate.edu} (\href{https://orcid.org/0000-0001-6216-5183}{ORCID})
+  \item Di Cook \email{dicook@monash.edu} (\href{https://orcid.org/0000-0002-3813-7155}{ORCID})
 }
 
 Other contributors:
 \itemize{
-  \item Haley Jeppson \email{hjeppson@iastate.edu} (\href{https://orcid.org/0000-0003-2524-4063}{ORCID}) [contributor]
-  \item Heike Hofmann \email{hofmann@iastate.edu} (\href{https://orcid.org/0000-0001-6216-5183}{ORCID}) [contributor]
-  \item Di Cook \email{dicook@monash.edu} (\href{https://orcid.org/0000-0002-3813-7155}{ORCID}) [contributor]
   \item Hadley Wickham \email{hadley@posit.co} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID}) [contributor]
 }
 
