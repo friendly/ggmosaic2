@@ -2,7 +2,7 @@
 
 Below is an ongoing list of ideas I have for the package. I will implement these when I get the chance.
 
-[ ] New package logo
+[X] New package logo
 
 [ ] Add a rot_labels argument to `R/theme-mosaic.R`
 
