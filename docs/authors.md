@@ -5,6 +5,8 @@
 - **Michael Friendly**. Author, maintainer.
   [](https://orcid.org/0000-0002-3237-0941)
 
+- **Gavin Klorfine**. Contributor.
+
 - **Haley Jeppson**. Contributor.
   [](https://orcid.org/0000-0003-2524-4063)
 
