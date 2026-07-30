@@ -513,7 +513,7 @@ sessionInfo()
 #> [8] base     
 #> 
 #> other attached packages:
-#> [1] dplyr_1.2.1     vcdExtra_0.9.6  gnm_1.1-5       vcd_1.4-13     
+#> [1] dplyr_1.2.1     vcdExtra_0.9.6  gnm_1.1-5       vcd_1.4-14     
 #> [5] ggmosaic2_0.5.0 ggplot2_4.0.3  
 #> 
 #> loaded via a namespace (and not attached):

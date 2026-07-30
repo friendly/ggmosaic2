@@ -5,15 +5,13 @@
 - **Michael Friendly**. Author, maintainer.
   [](https://orcid.org/0000-0002-3237-0941)
 
-- **Gavin Klorfine**. Contributor.
+- **Gavin Klorfine**. Author.
 
-- **Haley Jeppson**. Contributor.
-  [](https://orcid.org/0000-0003-2524-4063)
+- **Haley Jeppson**. Author. [](https://orcid.org/0000-0003-2524-4063)
 
-- **Heike Hofmann**. Contributor.
-  [](https://orcid.org/0000-0001-6216-5183)
+- **Heike Hofmann**. Author. [](https://orcid.org/0000-0001-6216-5183)
 
-- **Di Cook**. Contributor. [](https://orcid.org/0000-0002-3813-7155)
+- **Di Cook**. Author. [](https://orcid.org/0000-0002-3813-7155)
 
 - **Hadley Wickham**. Contributor.
   [](https://orcid.org/0000-0003-4757-117X)
