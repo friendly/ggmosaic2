@@ -78,6 +78,8 @@ Verified against current `R/` source, not just the docs' own claims.
   - [ ] Perhaps change the main example to a more standard CDA one
   - [ ] Illustrate residual shading, use of `geom_poiont()`
   - [ ] Edit or delete the out of date section "Version compatibility issues with ggplot2"
+  
+- [ ] Edit package citation
 
 ## Reference/historical, not actionable
 
