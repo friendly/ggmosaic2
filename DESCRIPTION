@@ -12,6 +12,7 @@ Authors@R:
              family = "Klorfine",
              role = "aut",
              email = "gklorfin@yorku.ca"),
+             comment = c(ORCID = "0009-0003-0395-4512")),
       person(given = "Haley",
              family = "Jeppson",
              role = "aut",
