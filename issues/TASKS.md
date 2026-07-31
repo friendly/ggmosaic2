@@ -66,8 +66,8 @@ Verified against current `R/` source, not just the docs' own claims.
   the outline itself.
   
 - [ ] From Gavin's `issues/GK-ideas.md` on the `GK-work` branch (not yet merged):
-  - [ ] `rot_labels` argument for `R/theme-mosaic.R`
-  - [ ] `.gitignore` the knitted `.html` files under `issues/` (several present:
+  - [X] `rot_labels` argument for `R/theme-mosaic.R`
+  - [X] `.gitignore` the knitted `.html` files under `issues/` (several present:
     `implementation-summary.html`, `loglinear-models-quick-reference.html`,
     `vignette-outline-extended-topics.html`)
   - [ ] `CLAUDE.md`/`AGENTS.md` for the repo (Gavin's note: write by hand rather than `/init`,
