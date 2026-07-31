@@ -26,16 +26,18 @@ Authors:
 - Michael Friendly <friendly@yorku.ca>
   ([ORCID](https://orcid.org/0000-0002-3237-0941))
 
-Other contributors:
+- Gavin Klorfine <gklorfin@yorku.ca>
 
 - Haley Jeppson <hjeppson@iastate.edu>
-  ([ORCID](https://orcid.org/0000-0003-2524-4063)) \[contributor\]
+  ([ORCID](https://orcid.org/0000-0003-2524-4063))
 
 - Heike Hofmann <hofmann@iastate.edu>
-  ([ORCID](https://orcid.org/0000-0001-6216-5183)) \[contributor\]
+  ([ORCID](https://orcid.org/0000-0001-6216-5183))
 
 - Di Cook <dicook@monash.edu>
-  ([ORCID](https://orcid.org/0000-0002-3813-7155)) \[contributor\]
+  ([ORCID](https://orcid.org/0000-0002-3813-7155))
+
+Other contributors:
 
 - Hadley Wickham <hadley@posit.co>
   ([ORCID](https://orcid.org/0000-0003-4757-117X)) \[contributor\]
