@@ -178,7 +178,11 @@ You can create your own transformation with <code><a href="https://scales.r-lib.
 
 
 <dt id="arg-sec-axis">sec.axis<a class="anchor" aria-label="anchor" href="#arg-sec-axis"></a></dt>
-<dd><p>specify a secondary axis</p></dd>
+<dd><p>specify a secondary axis. By default, category labels for
+the inner variables of the mosaic are displayed on the opposite (top or
+right) side whenever more than one variable is split along a direction.
+Set to <code>NULL</code> to suppress these labels, or supply a
+<code><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">sec_axis</a></code> for full control.</p></dd>
 
 </dl></div>
 

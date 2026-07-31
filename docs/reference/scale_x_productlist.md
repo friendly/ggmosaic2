@@ -175,4 +175,9 @@ ScaleContinuousProduct
 
 - sec.axis:
 
-  specify a secondary axis
+  specify a secondary axis. By default, category labels for the inner
+  variables of the mosaic are displayed on the opposite (top or right)
+  side whenever more than one variable is split along a direction. Set
+  to `NULL` to suppress these labels, or supply a
+  [`sec_axis`](https://ggplot2.tidyverse.org/reference/sec_axis.html)
+  for full control.
