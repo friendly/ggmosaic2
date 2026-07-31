@@ -33,18 +33,15 @@ scale_x_productlist <- function(name = ggplot2::waiver(), breaks = product_break
     guide = ggplot2::waiver(), position = position, super = ScaleContinuousProduct
   )
 
-#browser()
-  # if (!ggplot2::waiver(sec.axis)) {
-  #   if (is.formula(sec.axis)) sec.axis <- ggplot2::sec_axis(sec.axis)
-  #   is.sec_axis = getFromNamespace("is.sec_axis", "ggplot2")
-  #   if (is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
-  #   sc$secondary.axis <- sec.axis
-  # }
-  sc
+  set_product_sec_axis(sc, sec.axis)
 }
 
 #' @rdname scale_x_productlist
-#' @param sec.axis specify a secondary axis
+#' @param sec.axis specify a secondary axis. By default, category labels for
+#'   the inner variables of the mosaic are displayed on the opposite (top or
+#'   right) side whenever more than one variable is split along a direction.
+#'   Set to \code{NULL} to suppress these labels, or supply a
+#'   \code{\link[ggplot2]{sec_axis}} for full control.
 #' @export
 scale_y_productlist <- function(name = ggplot2::waiver(), breaks = product_breaks(),
                                 minor_breaks = NULL, labels = product_labels(),
@@ -60,13 +57,110 @@ scale_y_productlist <- function(name = ggplot2::waiver(), breaks = product_break
     guide = ggplot2::waiver(), position = position, super = ScaleContinuousProduct
   )
 
+  set_product_sec_axis(sc, sec.axis)
+}
+
+# Apply the sec.axis argument of scale_*_productlist() to the scale.
+# A waiver keeps the automatic top/right category labels, NULL suppresses
+# them, and a formula or sec_axis() specifies a secondary axis manually.
+set_product_sec_axis <- function(sc, sec.axis) {
+  if (is.null(sec.axis)) {
+    sc$sec_disabled <- TRUE
+    return(sc)
+  }
   if (!is.waive(sec.axis)) {
     if (is.formula(sec.axis)) sec.axis <- ggplot2::sec_axis(sec.axis)
-    is.sec_axis = getFromNamespace("is.sec_axis", "ggplot2")
-    if (is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+    is.sec_axis <- getFromNamespace("is.sec_axis", "ggplot2")
+    if (!is.sec_axis(sec.axis)) {
+      stop("Secondary axes must be specified using 'sec_axis()' or NULL", call. = FALSE)
+    }
     sc$secondary.axis <- sec.axis
   }
   sc
+}
+
+# Strip the internal aesthetic prefixes off variable names used in scales.
+product_clean_name <- function(x) {
+  x <- gsub("x__alpha__", "", x)
+  x <- gsub("x__fill__", "", x)
+  x <- gsub("x__", "", x)
+  gsub("conds\\d+__", "", x)
+}
+
+# Compute the position scales for a mosaic, including the category labels
+# that belong on the opposite (top/right) sides of the display.
+#
+# `res` must be the full prodcalc() result (all levels, with l/r/b/t
+# columns), `formula` the product formula, and `divider` the vector of
+# dividers aligned with c(marg, cond) in formula order (innermost first).
+#
+# The outermost variable of each direction keeps the primary (bottom/left)
+# axis; any inner variables of the same direction are labelled along the
+# top/right, vcd-style, at the midpoints of the rectangles that touch that
+# side. The secondary information is stashed on the scale objects
+# (sec_name/sec_breaks/sec_labels) and picked up in
+# ScaleContinuousProduct$train().
+product_scales <- function(res, formula, divider) {
+  prs <- parse_product_formula(formula)
+  cols <- c(prs$marg, prs$cond) # innermost variable first
+  p <- length(cols)
+  eps <- 1e-6
+
+  axis_info <- function(dir) {
+    idx <- grep(dir, divider)
+    if (length(idx) == 0) {
+      breaks <- seq(0, 1, length.out = 5)
+      return(list(name = "", breaks = breaks, labels = round(breaks, 2),
+                  sec_name = NULL, sec_breaks = NULL, sec_labels = NULL))
+    }
+
+    # the outermost variable of this direction is labelled along the
+    # primary axis, next to the rectangles that touch the bottom/left edge
+    outer <- max(idx)
+    prim <- res[res$level == p - outer + 1, ]
+    if (dir == "h") {
+      prim <- prim[prim$b < eps, ]
+      prim$pos <- (prim$l + prim$r) / 2
+    } else {
+      prim <- prim[prim$l < eps, ]
+      prim$pos <- (prim$b + prim$t) / 2
+    }
+    prim <- prim[order(prim$pos), ]
+    info <- list(name = cols[outer], breaks = prim$pos,
+                 labels = as.character(prim[[cols[outer]]]),
+                 sec_name = NULL, sec_breaks = NULL, sec_labels = NULL)
+
+    # inner variables of the same direction are labelled along the
+    # opposite side, next to the rectangles that touch the top/right edge
+    inner <- setdiff(idx, outer)
+    if (length(inner) > 0) {
+      sec <- res[res$level == max(res$level), ]
+      if (dir == "h") {
+        sec <- sec[sec$t > max(sec$t) - eps, ]
+        sec$pos <- (sec$l + sec$r) / 2
+      } else {
+        sec <- sec[sec$r > max(sec$r) - eps, ]
+        sec$pos <- (sec$b + sec$t) / 2
+      }
+      sec <- sec[order(sec$pos), ]
+      labels <- do.call(paste, c(unname(sec[cols[inner]]), sep = ":"))
+      info$sec_name <- paste(cols[inner], collapse = ":")
+      info$sec_breaks <- sec$pos
+      info$sec_labels <- labels
+    }
+    info
+  }
+
+  make_scale <- function(scale_fun, info) {
+    sc <- scale_fun(info$name, breaks = info$breaks, labels = info$labels)
+    sc$sec_name <- info$sec_name
+    sc$sec_breaks <- info$sec_breaks
+    sc$sec_labels <- info$sec_labels
+    sc
+  }
+
+  list(x = make_scale(ggplot2::scale_x_continuous, axis_info("h")),
+       y = make_scale(ggplot2::scale_y_continuous, axis_info("v")))
 }
 
 
@@ -87,10 +181,16 @@ ScaleContinuousProduct <- ggproto(
         if (is.function(self$breaks)) self$breaks <- x$breaks
         if (is.function(self$labels)) self$labels <- x$labels
         if (is.waive(self$name)) {
-          self$product_name <- gsub("x__alpha__", "", x$name)
-          self$product_name <- gsub("x__fill__", "", self$product_name)
-          self$product_name <- gsub("x__", "", self$product_name)
-          self$product_name <- gsub("conds\\d__", "", self$product_name)
+          self$product_name <- product_clean_name(x$name)
+        }
+        # category labels for inner variables go on the opposite (top/right)
+        # side, unless a secondary axis was supplied or suppressed (NULL)
+        if (!is.null(x$sec_breaks) && is.waive(self$secondary.axis) &&
+            !isTRUE(self$sec_disabled)) {
+          self$secondary.axis <- ggplot2::sec_axis(
+            ~., name = product_clean_name(x$sec_name),
+            breaks = x$sec_breaks, labels = x$sec_labels
+          )
         }
         #cat("\n")
         return()

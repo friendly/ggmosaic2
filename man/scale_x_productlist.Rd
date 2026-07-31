@@ -126,7 +126,11 @@ You can create your own transformation with \code{\link[scales:new_transform]{sc
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 
-\item{sec.axis}{specify a secondary axis}
+\item{sec.axis}{specify a secondary axis. By default, category labels for
+the inner variables of the mosaic are displayed on the opposite (top or
+right) side whenever more than one variable is split along a direction.
+Set to \code{NULL} to suppress these labels, or supply a
+\code{\link[ggplot2]{sec_axis}} for full control.}
 }
 \description{
 Determining scales for mosaics

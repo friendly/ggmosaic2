@@ -54,6 +54,16 @@ theme_mosaic <- function (base_size = 11, base_family = "", rot_labels = 0)
         angle = rot_labels,
         hjust = cosine,
         vjust = 1 - sine
+      ),
+      axis.text.x.top = element_text(
+        angle = rot_labels,
+        hjust = 1 - sine,
+        vjust = 1 - cosine
+      ),
+      axis.text.y.right = element_text(
+        angle = rot_labels,
+        hjust = 1 - cosine,
+        vjust = sine
       )
     )
 }

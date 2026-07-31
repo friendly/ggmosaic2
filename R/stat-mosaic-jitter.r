@@ -164,11 +164,11 @@ StatMosaicJitter <- ggplot2::ggproto(
     p <- length(c(prs$marg, prs$cond))
     if (is.function(divider)) divider <- divider(p)
 
-    # the level at which things are labelled could be made a parameter.
-    # At the moment the deepest level is being labelled.
-    dflist <- list(data=subset(res, level==max(res$level)), formula=as.formula(formula), divider=divider)
-    scx <- productplots::scale_x_product(dflist)
-    scy <- productplots::scale_y_product(dflist)
+    # compute position scales, including vcd-style category labels on the
+    # top/right for inner variables (needs all levels of res)
+    sc <- product_scales(res, as.formula(formula), divider)
+    scx <- sc$x
+    scy <- sc$y
 
 
     # res is data frame that has xmin, xmax, ymin, ymax
