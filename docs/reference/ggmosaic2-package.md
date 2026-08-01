@@ -27,6 +27,7 @@ Authors:
   ([ORCID](https://orcid.org/0000-0002-3237-0941))
 
 - Gavin Klorfine <gklorfin@yorku.ca>
+  ([ORCID](https://orcid.org/0009-0003-0395-4512))
 
 - Haley Jeppson <hjeppson@iastate.edu>
   ([ORCID](https://orcid.org/0000-0003-2524-4063))
