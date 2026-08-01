@@ -81,6 +81,43 @@ Verified against current `R/` source, not just the docs' own claims.
   
 - [ ] Edit package citation
 
+## Outstanding issues inherited from the original `ggmosaic`
+
+Source: the open issues on the
+[`haleyjeppson/ggmosaic` GitHub issues page](https://github.com/haleyjeppson/ggmosaic/issues),
+reviewed 2026-08-01. Issues already addressed in `ggmosaic2` are omitted (along with an issue related to accessing it off of CRAN).
+
+- [ ] Make product-axis ticks and labels facet-specific
+  ([#78](https://github.com/haleyjeppson/ggmosaic/issues/78)). The positions should be computed
+  from each facet's proportions rather than reused from another panel.
+
+- [ ] Repair user-supplied secondary axes on `scale_x_productlist()` and
+  `scale_y_productlist()` ([#26](https://github.com/haleyjeppson/ggmosaic/issues/26)). The
+  original reversed test was corrected, but the current code looks up ggplot2's removed internal
+  `is.sec_axis()` and therefore still errors with ggplot2 4.0.3.
+
+- [ ] Support variables computed inside aesthetics
+  ([#59](https://github.com/haleyjeppson/ggmosaic/issues/59)), such as
+  `fill = factor(cyl)` or factor transformations inside `product()`. These currently produce an
+  empty layer and an `undefined columns selected` warning unless precomputed in the data.
+
+- [ ] Allow `fill` to colour existing tiles without automatically becoming another partitioning
+  variable ([#15](https://github.com/haleyjeppson/ggmosaic/issues/15)). Residual shading now has
+  a dedicated solution, but arbitrary derived or external fill values can still introduce
+  unintended subdivisions.
+
+- [ ] Allow custom Plotly tooltip text
+  ([#57](https://github.com/haleyjeppson/ggmosaic/issues/57)). The Plotly conversion currently
+  hard-codes category labels and frequency instead of preserving a mapped `text` aesthetic.
+
+- [ ] Permit different tile offsets for horizontal and vertical splits
+  ([#28](https://github.com/haleyjeppson/ggmosaic/issues/28)); the current `offset` argument is a
+  single value applied to both directions.
+
+- [ ] Add a way to calculate and display differences in conditional probabilities
+  ([#10](https://github.com/haleyjeppson/ggmosaic/issues/10)), or document a recommended workflow
+  for deriving and plotting them.
+
 ## Reference/historical, not actionable
 
 `PULL_REQUEST.md` and `README.md` are the original upstream PR description and this folder's own
