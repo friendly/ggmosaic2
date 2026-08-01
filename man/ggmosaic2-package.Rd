@@ -25,7 +25,7 @@ Useful links:
 Authors:
 \itemize{
   \item Michael Friendly \email{friendly@yorku.ca} (\href{https://orcid.org/0000-0002-3237-0941}{ORCID})
-  \item Gavin Klorfine \email{gklorfin@yorku.ca}
+  \item Gavin Klorfine \email{gklorfin@yorku.ca} (\href{https://orcid.org/0009-0003-0395-4512}{ORCID})
   \item Haley Jeppson \email{hjeppson@iastate.edu} (\href{https://orcid.org/0000-0003-2524-4063}{ORCID})
   \item Heike Hofmann \email{hofmann@iastate.edu} (\href{https://orcid.org/0000-0001-6216-5183}{ORCID})
   \item Di Cook \email{dicook@monash.edu} (\href{https://orcid.org/0000-0002-3813-7155}{ORCID})
