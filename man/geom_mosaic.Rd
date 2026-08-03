@@ -122,7 +122,9 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
 
 \item{expected}{Optional loglinear model specification for residual shading.
-See details in \code{\link{prodcalc}}.}
+Positive residuals receive a solid dark blue outline and negative
+residuals a dashed dark red outline by default. See details in
+\code{\link{prodcalc}}.}
 
 \item{...}{other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.}
 

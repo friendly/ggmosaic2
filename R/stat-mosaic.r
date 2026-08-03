@@ -1,7 +1,9 @@
 #' @rdname geom_mosaic
 #' @inheritParams ggplot2::stat_identity
 #' @param expected Optional loglinear model specification for residual shading.
-#'   See details in \code{\link{prodcalc}}.
+#'   Positive residuals receive a solid dark blue outline and negative
+#'   residuals a dashed dark red outline by default. See details in
+#'   \code{\link{prodcalc}}.
 #' @section Computed variables:
 #' \describe{
 #' \item{xmin}{location of bottom left corner}
@@ -90,6 +92,22 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
       ...
     )
   )
+}
+
+
+# Default outlines for residual-shaded cells, determined by residual sign.
+residual_outline_aesthetics <- function(residual) {
+  positive <- !is.na(residual) & residual > 0
+  negative <- !is.na(residual) & residual < 0
+
+  colour <- rep("black", length(residual))
+  colour[positive] <- "darkblue"
+  colour[negative] <- "darkred"
+
+  linetype <- rep("solid", length(residual))
+  linetype[negative] <- "dashed"
+
+  list(colour = colour, linetype = linetype)
 }
 
 
@@ -210,6 +228,17 @@ StatMosaic <- ggplot2::ggproto(
       if (length(fill_idx) == 0) {
         res$fill <- res$.residual
       }
+
+      outline <- residual_outline_aesthetics(res$.residual)
+      if (!"colour" %in% names(data)) {
+        res$colour <- outline$colour
+      }
+      if (!"linetype" %in% names(data)) {
+        res$linetype <- outline$linetype
+      }
+      if (!"linewidth" %in% names(data)) {
+        res$linewidth <- 0.4
+      }
       # Always pass residual column through for manual mapping
     }
 
@@ -218,4 +247,3 @@ StatMosaic <- ggplot2::ggproto(
     res
   }
 )
-
