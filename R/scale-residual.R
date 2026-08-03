@@ -1,13 +1,13 @@
 #' Diverging color scale for Pearson residuals
 #'
-#' Provides a blue-white-red color scale centered at 0 for visualizing
+#' Provides a red-white-blue color scale centered at 0 for visualizing
 #' Pearson residuals from loglinear models. Designed for use with
 #' \code{geom_mosaic()} when \code{expected} parameter is specified.
 #'
 #' @param ... Arguments passed to \code{\link[ggplot2]{scale_fill_gradient2}}
-#' @param low Color for negative residuals (default: "steelblue")
+#' @param low Color for negative residuals (default: "darkred")
 #' @param mid Color for zero residuals (default: "white")
-#' @param high Color for positive residuals (default: "firebrick")
+#' @param high Color for positive residuals (default: "darkblue")
 #' @param midpoint Center point for color scale (default: 0)
 #' @param limits Range of residuals to display. If NULL, uses range of data.
 #' @param name Legend title
@@ -23,7 +23,7 @@
 #' # Custom colors
 #' ggplot(data = titanic) +
 #'   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
-#'   scale_fill_residual(low = "blue", high = "red")
+#'   scale_fill_residual(low = "red", high = "blue")
 #'
 #' # Custom limits to highlight strong deviations
 #' ggplot(data = titanic) +
@@ -31,9 +31,9 @@
 #'               expected = ~ Class + Sex) +
 #'   scale_fill_residual(limits = c(-4, 4))
 scale_fill_residual <- function(...,
-                                low = "darkblue",
+                                low = "darkred",
                                 mid = "white",
-                                high = "darkred",
+                                high = "darkblue",
                                 midpoint = 0,
                                 limits = NULL,
                                 name = "Pearson\nResidual") {

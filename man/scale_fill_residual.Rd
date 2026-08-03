@@ -7,9 +7,9 @@
 \usage{
 scale_fill_residual(
   ...,
-  low = "darkblue",
+  low = "darkred",
   mid = "white",
-  high = "darkred",
+  high = "darkblue",
   midpoint = 0,
   limits = NULL,
   name = "Pearson\\nResidual"
@@ -17,9 +17,9 @@ scale_fill_residual(
 
 scale_fill_residuals(
   ...,
-  low = "darkblue",
+  low = "darkred",
   mid = "white",
-  high = "darkred",
+  high = "darkblue",
   midpoint = 0,
   limits = NULL,
   name = "Pearson\\nResidual"
@@ -28,11 +28,11 @@ scale_fill_residuals(
 \arguments{
 \item{...}{Arguments passed to \code{\link[ggplot2]{scale_fill_gradient2}}}
 
-\item{low}{Color for negative residuals (default: "steelblue")}
+\item{low}{Color for negative residuals (default: "darkred")}
 
 \item{mid}{Color for zero residuals (default: "white")}
 
-\item{high}{Color for positive residuals (default: "firebrick")}
+\item{high}{Color for positive residuals (default: "darkblue")}
 
 \item{midpoint}{Center point for color scale (default: 0)}
 
@@ -41,7 +41,7 @@ scale_fill_residuals(
 \item{name}{Legend title}
 }
 \description{
-Provides a blue-white-red color scale centered at 0 for visualizing
+Provides a red-white-blue color scale centered at 0 for visualizing
 Pearson residuals from loglinear models. Designed for use with
 \code{geom_mosaic()} when \code{expected} parameter is specified.
 }
@@ -56,7 +56,7 @@ ggplot(data = titanic) +
 # Custom colors
 ggplot(data = titanic) +
   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
-  scale_fill_residual(low = "blue", high = "red")
+  scale_fill_residual(low = "red", high = "blue")
 
 # Custom limits to highlight strong deviations
 ggplot(data = titanic) +
