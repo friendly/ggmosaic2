@@ -13,7 +13,8 @@
 #' \item \code{vbar} Vertical bar partition: height constant, width varies.
 #' \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 #' }
-#' @param offset Set the space between the first spine
+#' @param offset Set the fixed gap at the deepest split. Gaps increase by a
+#'   factor of 1.5 toward the outermost split.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with a warning. If \code{TRUE} silently removes missing values.
 #' @param as.label Show as a ggplot label (box with round corners)
 #' @param repel Use ggrepel wo labels don't overlap
@@ -330,6 +331,3 @@ GeomMosaicText <- ggplot2::ggproto(
 
   draw_key = ggplot2::draw_key_rect
 )
-
-
-

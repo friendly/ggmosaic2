@@ -9,7 +9,9 @@
 #'   If \code{FALSE}, areas will be comparable between nested layers.
 #' @param na.rm Logical vector of length 1 - should missing levels be
 #'   silently removed?
-#' @param offset Numeric value specifying the space between mosaic tiles (default: 0.01)
+#' @param offset Numeric value specifying the fixed gap at the deepest split
+#'   (default: 0.01). Gaps increase by a factor of 1.5 toward the outermost
+#'   split.
 #' @param expected Optional. Specification for loglinear model to calculate
 #'   residuals. Can be:
 #'   \itemize{
@@ -49,6 +51,14 @@ prodcalc <- function(data, formula, divider = mosaic(), cascade = 0, scale_max =
 
   if (is.function(divider)) divider <- divider(ncol(wt) - 1)
   if (is.character(divider)) divider <- lapply(divider, match.fun)
+
+  n_splits <- ncol(wt) - 1L
+  if (length(offset) != 1L) {
+    stop("`offset` must be a single number.", call. = FALSE)
+  }
+  # The supplied offset is the innermost gap; each preceding (outer) split
+  # is 1.5 times wider.
+  offset <- offset * 1.5 ^ rev(seq_len(n_splits) - 1L)
 
   max_wt <- if (scale_max) NULL else 1
 

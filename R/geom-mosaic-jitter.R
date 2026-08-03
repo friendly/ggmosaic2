@@ -13,7 +13,8 @@
 #' \item \code{vbar} Vertical bar partition: height constant, width varies.
 #' \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 #' }
-#' @param offset Set the space between the first spine
+#' @param offset Set the fixed gap at the deepest split. Gaps increase by a
+#'   factor of 1.5 toward the outermost split.
 #' @param drop_level Generate points for the max - 1 level
 #' @param seed Random seed passed to \code{\link[base]{set.seed}}. Defaults to
 #'   \code{NA}, which means that \code{set.seed} will not be called.
@@ -220,6 +221,3 @@ GeomMosaicJitter <- ggplot2::ggproto(
 
   draw_key = ggplot2::draw_key_point
 )
-
-
-

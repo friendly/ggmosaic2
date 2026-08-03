@@ -22,6 +22,29 @@ rotate <- function(data) {
    dplyr::rename(data, b=l, t=r, l=b, r=t)
  }
 
+# Convert a gap measured in the mosaic's global [0, 1] coordinate system
+# into the local coordinate system of the rectangle currently being split.
+# The final value is capped so very small parent rectangles retain non-zero
+# area even when the requested fixed gap is wider than the parent.
+local_offset <- function(offset, bounds, n) {
+  if (n <= 1L) return(0)
+
+  level <- if ("level" %in% names(bounds)) bounds$level[[1]] + 1L else 1L
+  global_offset <- offset[min(level, length(offset))]
+  parent_span <- as.numeric(bounds$r[[1]] - bounds$l[[1]])
+
+  if (!is.finite(global_offset) || global_offset < 0) {
+    stop("`offset` must contain finite, non-negative values.", call. = FALSE)
+  }
+  if (!is.finite(parent_span) || parent_span <= 0) return(0)
+
+  max_offset <- parent_span / (n - 1L)
+  global_offset <- min(global_offset,
+                       max_offset * (1 - sqrt(.Machine$double.eps)))
+
+  global_offset / parent_span
+}
+
 #' Spine partition: divide longest dimension.
 #'
 #' @param data bounds data frame
@@ -51,9 +74,8 @@ spine <- function(data, bounds, offset = offset, max = NULL) {
 hspine <- function(data, bounds, offset = offset, max = NULL) {
   n <- length(data)
   # n + 1 offsets
-
-  if (ncol(bounds)>4)  offsets <- ((c(0, rep(1, n - 1), 0) * offset))/sqrt((bounds$level+.1))
-  else offsets <- (c(0, rep(1, n - 1), 0) * offset)
+  gap <- local_offset(offset, bounds, n)
+  offsets <- c(0, rep(gap, n - 1L), 0)
 
   data <- data * (1 - sum(offsets))
 
@@ -93,7 +115,8 @@ hbar <- function(data, bounds, offset = 0.02, max = NULL) {
 
   n <- length(data)
   # n + 1 offsets
-  offsets <- c(0, rep(1, n - 1), 0) * offset
+  gap <- local_offset(offset, bounds, n)
+  offsets <- c(0, rep(gap, n - 1L), 0)
 
   width <- (1 - sum(offsets)) / n
   heights <- data / max

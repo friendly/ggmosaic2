@@ -15,7 +15,8 @@
 #' \item \code{vbar} Vertical bar partition: height constant, width varies.
 #' \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 #' }
-#' @param offset Set the space between the first spine
+#' @param offset Set the fixed gap at the deepest split. Gaps increase by a
+#'   factor of 1.5 toward the outermost split.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with a warning. If \code{TRUE} silently removes missing values.
 #' @param expected Optional specification for loglinear model residual shading.
 #'   Can be a formula (e.g., \code{~ Var1 + Var2}), a character shortcut
@@ -252,6 +253,3 @@ GeomMosaic <- ggplot2::ggproto(
 
   draw_key = ggplot2::draw_key_polygon
 )
-
-
-
