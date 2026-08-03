@@ -7,9 +7,9 @@ request](https://github.com/haleyjeppson/ggmosaic/pull/86) adding
 residual-based shading went unanswered). Rather than fork under the
 original name, `ggmosaic2` is developed independently, building on
 `ggmosaic`’s original authors (Haley Jeppson, Heike Hofmann, Di Cook;
-credited as contributors in `DESCRIPTION`). `ggmosaic` was designed to
-create visualizations of categorical data and is capable of producing
-bar charts, stacked bar charts, mosaic plots, and double decker plots.
+credited as authors in `DESCRIPTION`). `ggmosaic` was designed to create
+visualizations of categorical data and is capable of producing bar
+charts, stacked bar charts, mosaic plots, and double decker plots.
 
 `ggmosaic2` extends this with jittered-point overlays showing individual
 observations (reflecting non-independence as variation in point density,
