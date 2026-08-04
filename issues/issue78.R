@@ -2,6 +2,7 @@
 
 library(tidyverse)
 library(scales)
+library(ggmosaic2)
 
 in_data <-
   structure(list(
@@ -52,7 +53,36 @@ in_data <-
 p <- in_data |>
   ggplot() +
   geom_mosaic(aes(weight = n, x = product(AGE, COUNTRY), fill = AGE)) +
-  facet_grid(. ~ CYCLE) +
+  facet_mosaic_grid(. ~ CYCLE) +
   guides(fill = "none")
 
+issue78_build <- ggplot_build(p)
+p_mosaic <- p + theme_mosaic()
+stopifnot(
+  length(issue78_build$layout$panel_scales_x) == 2L,
+  length(issue78_build$layout$panel_scales_y) == 2L,
+  isTRUE(all.equal(
+    issue78_build$layout$panel_scales_x[[1]]$breaks,
+    c(0.2348325, 0.7348325),
+    tolerance = 1e-6
+  )),
+  isTRUE(all.equal(
+    issue78_build$layout$panel_scales_x[[2]]$breaks,
+    c(0.1383247, 0.4368827, 0.7985580),
+    tolerance = 1e-6
+  )),
+  !isTRUE(all.equal(
+    issue78_build$layout$panel_scales_y[[1]]$breaks,
+    issue78_build$layout$panel_scales_y[[2]]$breaks
+  )),
+  inherits(ggplotGrob(p_mosaic), "gtable")
+)
+
 ggsave("issues/issue78.png", p, dpi = 300)
+ggsave(
+  "issues/issue78-theme-mosaic.png",
+  p_mosaic,
+  width = 10,
+  height = 7,
+  dpi = 300
+)

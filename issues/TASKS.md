@@ -87,9 +87,10 @@ Source: the open issues on the
 [`haleyjeppson/ggmosaic` GitHub issues page](https://github.com/haleyjeppson/ggmosaic/issues),
 reviewed 2026-08-01. Issues already addressed in `ggmosaic2` are omitted (along with an issue related to accessing it off of CRAN).
 
-- [ ] Make product-axis ticks and labels facet-specific
+- [X] Make product-axis ticks and labels facet-specific
   ([#78](https://github.com/haleyjeppson/ggmosaic/issues/78)). The positions should be computed
-  from each facet's proportions rather than reused from another panel.
+  from each facet's proportions rather than reused from another panel. Implemented with
+  `facet_mosaic_grid()`, which assigns separate x and y product scales to every panel.
 
 - [ ] Repair user-supplied secondary axes on `scale_x_productlist()` and
   `scale_y_productlist()` ([#26](https://github.com/haleyjeppson/ggmosaic/issues/26)). The
