@@ -44,6 +44,8 @@ Verified against current `R/` source, not just the docs' own claims.
   referenced from `NEWS.md` 0.4.1.
   Docs: `vignette-summary.md`, `loglin-vignette-additions.md`
 
+- [X] Fixed issue [#82](https://github.com/haleyjeppson/ggmosaic/issues/78) from `haleyjeppson/ggmosaic`, where one couldn't use ggmosaic code without importing it into the current namespace.
+
 ## Open / not yet done
 
 - [ ] `loglinear-residual-shading-plan.md`'s `residuals_type` option

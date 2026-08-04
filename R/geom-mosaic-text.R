@@ -159,7 +159,7 @@ geom_mosaic_text <- function(mapping = NULL, data = NULL, stat = "mosaic",
     }
   }
 
-  ggplot2::layer(
+  add_mosaic_scale_environment(ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -181,7 +181,7 @@ geom_mosaic_text <- function(mapping = NULL, data = NULL, stat = "mosaic",
       expected = expected,
       ...
     )
-  )
+  ))
 }
 
 #' Geom proto

@@ -76,7 +76,7 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
     }
   }
 
-  ggplot2::layer(
+  add_mosaic_scale_environment(ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = StatMosaic,
@@ -92,7 +92,7 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
       expected = expected,
       ...
     )
-  )
+  ))
 }
 
 

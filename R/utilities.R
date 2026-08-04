@@ -21,6 +21,35 @@ product <- function(...) {
   rlang::exprs(...)
 }
 
+# ggplot2 discovers extension scale constructors in the plot environment.
+# When ggmosaic2 is used only through `::`, its exported scale functions are
+# not on the attached search path, so give the plot a private environment in
+# which ggplot2 can find them. Attached-package calls can keep returning an
+# ordinary Layer object.
+add_mosaic_scale_environment <- function(layer) {
+  if ("package:ggmosaic2" %in% search()) {
+    return(layer)
+  }
+
+  structure(list(layer = layer), class = "ggmosaic_namespace_layer")
+}
+
+#' @export
+ggplot_add.ggmosaic_namespace_layer <- function(object, plot, ...) {
+  plot <- ggplot2::ggplot_add(object$layer, plot, ...)
+
+  if (!exists("scale_x_productlist", envir = plot$plot_env,
+              mode = "function", inherits = TRUE)) {
+    plot$plot_env <- rlang::env(
+      plot$plot_env,
+      scale_x_productlist = scale_x_productlist,
+      scale_y_productlist = scale_y_productlist
+    )
+  }
+
+  plot
+}
+
 is.formula <- function (x) inherits(x, "formula")
 
 is.discrete <- function(x) {
@@ -65,6 +94,3 @@ with_seed_null <- function(seed, code) {
     withr::with_seed(seed, code)
   }
 }
-
-
-
