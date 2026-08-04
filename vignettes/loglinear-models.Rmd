@@ -253,9 +253,9 @@ print(ggplot(data = titanic) +
   geom_mosaic(aes(x = product(Class, Sex)),
               expected = "independence") +
   scale_fill_residual(
-    low = "steelblue",
+    low = "firebrick",
     mid = "white",
-    high = "firebrick",
+    high = "steelblue",
     limits = c(-6, 6),  # Set symmetric limits
     name = "Pearson\nResidual"
   ) +

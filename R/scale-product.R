@@ -120,9 +120,11 @@ product_scales <- function(res, formula, divider) {
     prim <- res[res$level == p - outer + 1, ]
     if (dir == "h") {
       prim <- prim[prim$b < eps, ]
+      prim <- prim[prim$r - prim$l > eps, ]
       prim$pos <- (prim$l + prim$r) / 2
     } else {
       prim <- prim[prim$l < eps, ]
+      prim <- prim[prim$t - prim$b > eps, ]
       prim$pos <- (prim$b + prim$t) / 2
     }
     prim <- prim[order(prim$pos), ]
@@ -137,9 +139,11 @@ product_scales <- function(res, formula, divider) {
       sec <- res[res$level == max(res$level), ]
       if (dir == "h") {
         sec <- sec[sec$t > max(sec$t) - eps, ]
+        sec <- sec[sec$r - sec$l > eps, ]
         sec$pos <- (sec$l + sec$r) / 2
       } else {
         sec <- sec[sec$r > max(sec$r) - eps, ]
+        sec <- sec[sec$t - sec$b > eps, ]
         sec$pos <- (sec$b + sec$t) / 2
       }
       sec <- sec[order(sec$pos), ]
@@ -225,4 +229,3 @@ ScaleContinuousProduct <- ggproto(
     else title
   }
 )
-

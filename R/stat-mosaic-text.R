@@ -66,7 +66,7 @@ stat_mosaic_text <- function(mapping = NULL, data = NULL, geom = "Text",
       mapping[[var_conds[i]]] <- aes_conds[[i]]
     }
   }
-  ggplot2::layer(
+  add_mosaic_scale_environment(ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = StatMosaicText,
@@ -81,7 +81,7 @@ stat_mosaic_text <- function(mapping = NULL, data = NULL, geom = "Text",
       offset = offset,
       ...
     )
-  )
+  ))
 }
 
 #' Geom proto
@@ -152,4 +152,3 @@ StatMosaicText <- ggplot2::ggproto(
 
   }
 )
-

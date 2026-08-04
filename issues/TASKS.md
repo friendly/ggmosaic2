@@ -44,6 +44,8 @@ Verified against current `R/` source, not just the docs' own claims.
   referenced from `NEWS.md` 0.4.1.
   Docs: `vignette-summary.md`, `loglin-vignette-additions.md`
 
+- [X] Fixed issue [#82](https://github.com/haleyjeppson/ggmosaic/issues/78) from `haleyjeppson/ggmosaic`, where one couldn't use ggmosaic code without importing it into the current namespace.
+
 ## Open / not yet done
 
 - [ ] `loglinear-residual-shading-plan.md`'s `residuals_type` option
@@ -66,8 +68,8 @@ Verified against current `R/` source, not just the docs' own claims.
   the outline itself.
   
 - [ ] From Gavin's `issues/GK-ideas.md` on the `GK-work` branch (not yet merged):
-  - [ ] `rot_labels` argument for `R/theme-mosaic.R`
-  - [ ] `.gitignore` the knitted `.html` files under `issues/` (several present:
+  - [X] `rot_labels` argument for `R/theme-mosaic.R`
+  - [X] `.gitignore` the knitted `.html` files under `issues/` (several present:
     `implementation-summary.html`, `loglinear-models-quick-reference.html`,
     `vignette-outline-extended-topics.html`)
   - [ ] `CLAUDE.md`/`AGENTS.md` for the repo (Gavin's note: write by hand rather than `/init`,
@@ -87,9 +89,10 @@ Source: the open issues on the
 [`haleyjeppson/ggmosaic` GitHub issues page](https://github.com/haleyjeppson/ggmosaic/issues),
 reviewed 2026-08-01. Issues already addressed in `ggmosaic2` are omitted (along with an issue related to accessing it off of CRAN).
 
-- [ ] Make product-axis ticks and labels facet-specific
+- [X] Make product-axis ticks and labels facet-specific
   ([#78](https://github.com/haleyjeppson/ggmosaic/issues/78)). The positions should be computed
-  from each facet's proportions rather than reused from another panel.
+  from each facet's proportions rather than reused from another panel. Implemented with
+  `facet_mosaic_grid()`, which assigns separate x and y product scales to every panel.
 
 - [ ] Repair user-supplied secondary axes on `scale_x_productlist()` and
   `scale_y_productlist()` ([#26](https://github.com/haleyjeppson/ggmosaic/issues/26)). The

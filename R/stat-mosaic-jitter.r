@@ -69,7 +69,7 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
       mapping[[var_conds[i]]] <- aes_conds[[i]]
     }
   }
-  ggplot2::layer(
+  add_mosaic_scale_environment(ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = StatMosaicJitter,
@@ -86,7 +86,7 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
       seed = seed,
       ...
     )
-  )
+  ))
 }
 
 
@@ -265,4 +265,3 @@ StatMosaicJitter <- ggplot2::ggproto(
     points
   }
 )
-
