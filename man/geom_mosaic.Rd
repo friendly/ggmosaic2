@@ -190,6 +190,10 @@ ggplot(data = titanic) +
 ggplot(data = titanic) +
   geom_mosaic(aes(x = product(Survived, Class), fill = Age))
 
+# Variables can be transformed directly inside mosaic aesthetics
+ggplot(data = mtcars) +
+  geom_mosaic(aes(x = product(factor(gear)), fill = factor(cyl)))
+
 # Just excluded for timing. Examples are included in testing to make sure they work
 \dontrun{
 data(happy)

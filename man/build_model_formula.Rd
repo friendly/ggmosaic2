@@ -4,7 +4,7 @@
 \alias{build_model_formula}
 \title{Build model formula from user specification}
 \usage{
-build_model_formula(expected, vars, conds = NULL)
+build_model_formula(expected, vars, conds = NULL, variable_labels = NULL)
 }
 \arguments{
 \item{expected}{Formula, character shortcut, or NULL}
@@ -12,6 +12,9 @@ build_model_formula(expected, vars, conds = NULL)
 \item{vars}{Character vector of margin variable names (with prefixes like x__Class)}
 
 \item{conds}{Character vector of conditioning variable names (optional, with prefixes)}
+
+\item{variable_labels}{Optional named character vector mapping internal
+variable names to their original expressions.}
 }
 \value{
 Formula object or NULL

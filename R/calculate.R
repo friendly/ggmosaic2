@@ -20,6 +20,9 @@
 #'     \item Character: Shortcut - "independence", "saturated", or "conditional"
 #'   }
 #'   When specified, adds \code{.expected} and \code{.residual} columns to output.
+#' @param variable_labels Optional named character vector mapping internal
+#'   variable names to the expressions shown to users. Used internally by the
+#'   ggplot2 layer wrappers.
 #' @keywords internal
 #' @export
 #' @examples
@@ -28,7 +31,9 @@
 #' prodcalc(happy, ~ happy, "hbar", offset = 0.005)
 #' prodcalc(happy, ~ happy, "hspine", offset = 0.01)
 #' }
-prodcalc <- function(data, formula, divider = mosaic(), cascade = 0, scale_max = TRUE, na.rm = FALSE, offset = 0.01, expected = NULL) {
+prodcalc <- function(data, formula, divider = mosaic(), cascade = 0, scale_max = TRUE,
+                     na.rm = FALSE, offset = 0.01, expected = NULL,
+                     variable_labels = NULL) {
 
   vars <- parse_product_formula(stats::as.formula(formula))
 #browser()
@@ -72,7 +77,8 @@ prodcalc <- function(data, formula, divider = mosaic(), cascade = 0, scale_max =
     all_vars <- c(vars$marg, vars$cond)
 
     # Build model formula from user specification
-    model_formula <- build_model_formula(expected, vars$marg, vars$cond)
+    model_formula <- build_model_formula(expected, vars$marg, vars$cond,
+                                         variable_labels = variable_labels)
 
     # Fit model and calculate residuals
     result <- fit_loglinear_model(result, all_vars, model_formula)

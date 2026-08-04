@@ -21,6 +21,128 @@ product <- function(...) {
   rlang::exprs(...)
 }
 
+# Turn a mosaic mapping into ordinary ggplot2 mappings backed by safe,
+# syntactic variable names.  Mosaic calculations pass their variables through
+# formulas and productplots::margin(), so using expression text (for example,
+# "factor(cyl)") as a data-frame column name is not reliable.
+prepare_mosaic_mapping <- function(mapping = NULL,
+                                   aesthetics = c("fill", "alpha")) {
+  if (is.null(mapping)) {
+    mapping <- ggplot2::aes()
+  }
+
+  if (!is.null(mapping$y)) {
+    stop("stat_mosaic() must not be used with a y aesthetic.", call. = FALSE)
+  }
+  mapping$y <- structure(1L, class = "productlist")
+
+  product_quosures <- function(mapping_quo) {
+    if (is.null(mapping_quo)) {
+      return(list())
+    }
+
+    expr <- rlang::quo_get_expr(mapping_quo)
+    if (rlang::is_call(expr) && identical(rlang::call_name(expr), "product")) {
+      env <- rlang::quo_get_env(mapping_quo)
+      return(lapply(rlang::call_args(expr), rlang::new_quosure, env = env))
+    }
+
+    list(mapping_quo)
+  }
+
+  same_expression <- function(lhs, rhs) {
+    identical(rlang::quo_get_expr(lhs), rlang::quo_get_expr(rhs))
+  }
+
+  x_quos <- product_quosures(mapping$x)
+  cond_quos <- product_quosures(mapping$conds)
+  x_names <- if (length(x_quos)) paste0(".mosaic_x", seq_along(x_quos)) else character()
+  cond_names <- if (length(cond_quos)) paste0(".mosaic_cond", seq_along(cond_quos)) else character()
+
+  labels <- stats::setNames(
+    c(vapply(x_quos, rlang::as_label, character(1)),
+      vapply(cond_quos, rlang::as_label, character(1))),
+    c(x_names, cond_names)
+  )
+
+  aesthetic_vars <- stats::setNames(vector("list", length(aesthetics)), aesthetics)
+  extra_names <- character()
+  extra_quos <- list()
+
+  for (aesthetic in aesthetics) {
+    aesthetic_quo <- mapping[[aesthetic]]
+    if (is.null(aesthetic_quo)) {
+      next
+    }
+
+    matching_x <- which(vapply(
+      x_quos,
+      same_expression,
+      logical(1),
+      rhs = aesthetic_quo
+    ))
+
+    if (length(matching_x)) {
+      aesthetic_vars[[aesthetic]] <- x_names[[matching_x[[1]]]]
+      next
+    }
+
+    internal_name <- paste0(".mosaic_", aesthetic)
+    # A repeated aesthetic name is not expected, but keep IDs unique if this
+    # helper is extended to accept aliases in the future.
+    if (internal_name %in% c(x_names, cond_names, extra_names)) {
+      internal_name <- paste0(internal_name, length(extra_names) + 1L)
+    }
+    aesthetic_vars[[aesthetic]] <- internal_name
+    extra_names <- c(extra_names, internal_name)
+    extra_quos[[internal_name]] <- aesthetic_quo
+    labels[[internal_name]] <- rlang::as_label(aesthetic_quo)
+  }
+
+  # Preserve the historical partition order: mapped aesthetics that are not
+  # already in product() are innermost, followed by the product variables.
+  margin_names <- c(extra_names, x_names)
+
+  if (length(x_quos)) {
+    mapping$x <- structure(1L, class = "productlist")
+  }
+  if (length(cond_quos)) {
+    mapping$conds <- structure(1L, class = "productlist")
+  }
+
+  for (internal_name in names(extra_quos)) {
+    mapping[[internal_name]] <- extra_quos[[internal_name]]
+  }
+  for (i in seq_along(x_names)) {
+    mapping[[x_names[[i]]]] <- x_quos[[i]]
+  }
+  for (i in seq_along(cond_names)) {
+    mapping[[cond_names[[i]]]] <- cond_quos[[i]]
+  }
+
+  list(
+    mapping = mapping,
+    spec = list(
+      marg = margin_names,
+      cond = cond_names,
+      labels = labels,
+      aesthetics = aesthetic_vars
+    )
+  )
+}
+
+mosaic_formula <- function(spec, response = "weight") {
+  marg <- spec$marg %||% character()
+  cond <- spec$cond %||% character()
+  rhs <- if (length(marg)) paste(marg, collapse = "+") else "1"
+
+  formula <- paste(response, "~", rhs)
+  if (length(cond)) {
+    formula <- paste(formula, paste(cond, collapse = "+"), sep = "|")
+  }
+  stats::as.formula(formula)
+}
+
 # ggplot2 discovers extension scale constructors in the plot environment.
 # When ggmosaic2 is used only through `::`, its exported scale functions are
 # not on the attached search path, so give the plot a private environment in

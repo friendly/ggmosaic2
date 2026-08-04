@@ -45,10 +45,13 @@ shortcut_to_formula <- function(shortcut, vars, conds = NULL) {
 #' @param expected Formula, character shortcut, or NULL
 #' @param vars Character vector of margin variable names (with prefixes like x__Class)
 #' @param conds Character vector of conditioning variable names (optional, with prefixes)
+#' @param variable_labels Optional named character vector mapping internal
+#'   variable names to their original expressions.
 #' @return Formula object or NULL
 #' @importFrom stats  as.formula glm poisson predict reformulate setNames terms
 #' @keywords internal
-build_model_formula <- function(expected, vars, conds = NULL) {
+build_model_formula <- function(expected, vars, conds = NULL,
+                                variable_labels = NULL) {
   # If expected is NULL, no model
   if (is.null(expected)) {
     return(NULL)
@@ -64,9 +67,19 @@ build_model_formula <- function(expected, vars, conds = NULL) {
     # We need to strip prefixes to match against user's formula terms
     all_prefixed_vars <- c(vars, conds)
 
-    # Extract original variable names by removing prefixes
-    # Prefixes can be: x__, x__fill__, x__alpha__, conds[0-9]+__
-    original_names <- gsub("^(x__|x__fill__|x__alpha__|conds[0-9]+__)", "", all_prefixed_vars)
+    if (is.null(variable_labels)) {
+      # Backwards-compatible path for direct prodcalc() calls and old-style
+      # internal variable names.
+      original_names <- gsub(
+        "^(x__|x__fill__|x__alpha__|conds[0-9]+__)",
+        "",
+        all_prefixed_vars
+      )
+    } else {
+      original_names <- unname(variable_labels[all_prefixed_vars])
+      missing_labels <- is.na(original_names)
+      original_names[missing_labels] <- all_prefixed_vars[missing_labels]
+    }
 
     # Create mapping: original_name -> prefixed_name
     name_map <- setNames(all_prefixed_vars, original_names)

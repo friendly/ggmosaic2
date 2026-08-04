@@ -70,13 +70,14 @@ for (facet in list(
 for (panel in seq_len(panel_count)) {
   panel_data <- facet_build$data[[1]][facet_build$data[[1]]$PANEL == panel, ]
 
-  x_rectangles <- unique(panel_data[c("x__segment", "xmin", "xmax")])
+  segment_column <- ".mosaic_x2"
+  response_column <- ".mosaic_x1"
+  x_rectangles <- unique(panel_data[c(segment_column, "xmin", "xmax")])
   x_positions <- (x_rectangles$xmin + x_rectangles$xmax) / 2
   x_order <- order(x_positions)
   x_scale <- facet_build$layout$panel_scales_x[[panel]]
 
   y_rectangles <- panel_data[panel_data$xmin < 1e-6, ]
-  response_column <- grep("response$", names(y_rectangles), value = TRUE)[1]
   y_rectangles <- unique(y_rectangles[c(response_column, "ymin", "ymax")])
   y_positions <- (y_rectangles$ymin + y_rectangles$ymax) / 2
   y_order <- order(y_positions)
@@ -84,7 +85,7 @@ for (panel in seq_len(panel_count)) {
 
   stopifnot(
     isTRUE(all.equal(x_scale$breaks, x_positions[x_order])),
-    identical(x_scale$labels, as.character(x_rectangles$x__segment[x_order])),
+    identical(x_scale$labels, as.character(x_rectangles[[segment_column]][x_order])),
     isTRUE(all.equal(y_scale$breaks, y_positions[y_order])),
     identical(
       y_scale$labels,

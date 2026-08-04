@@ -99,10 +99,10 @@ reviewed 2026-08-01. Issues already addressed in `ggmosaic2` are omitted (along 
   original reversed test was corrected, but the current code looks up ggplot2's removed internal
   `is.sec_axis()` and therefore still errors with ggplot2 4.0.3.
 
-- [ ] Support variables computed inside aesthetics
+- [X] Support variables computed inside aesthetics
   ([#59](https://github.com/haleyjeppson/ggmosaic/issues/59)), such as
-  `fill = factor(cyl)` or factor transformations inside `product()`. These currently produce an
-  empty layer and an `undefined columns selected` warning unless precomputed in the data.
+  `fill = factor(cyl)` or factor transformations inside `product()`. Mosaic layers now evaluate
+  these expressions through safe internal variable names while retaining readable plot labels.
 
 - [ ] Allow `fill` to colour existing tiles without automatically becoming another partitioning
   variable ([#15](https://github.com/haleyjeppson/ggmosaic/issues/15)). Residual shading now has

@@ -100,11 +100,18 @@ product_clean_name <- function(x) {
 # side. The secondary information is stashed on the scale objects
 # (sec_name/sec_breaks/sec_labels) and picked up in
 # ScaleContinuousProduct$train().
-product_scales <- function(res, formula, divider) {
+product_scales <- function(res, formula, divider, labels = NULL) {
   prs <- parse_product_formula(formula)
   cols <- c(prs$marg, prs$cond) # innermost variable first
   p <- length(cols)
   eps <- 1e-6
+
+  display_name <- function(column) {
+    if (!is.null(labels) && column %in% names(labels)) {
+      return(unname(labels[[column]]))
+    }
+    product_clean_name(column)
+  }
 
   axis_info <- function(dir) {
     idx <- grep(dir, divider)
@@ -128,7 +135,7 @@ product_scales <- function(res, formula, divider) {
       prim$pos <- (prim$b + prim$t) / 2
     }
     prim <- prim[order(prim$pos), ]
-    info <- list(name = cols[outer], breaks = prim$pos,
+    info <- list(name = display_name(cols[outer]), breaks = prim$pos,
                  labels = as.character(prim[[cols[outer]]]),
                  sec_name = NULL, sec_breaks = NULL, sec_labels = NULL)
 
@@ -148,7 +155,8 @@ product_scales <- function(res, formula, divider) {
       }
       sec <- sec[order(sec$pos), ]
       labels <- do.call(paste, c(unname(sec[cols[inner]]), sep = ":"))
-      info$sec_name <- paste(cols[inner], collapse = ":")
+      info$sec_name <- paste(vapply(cols[inner], display_name, character(1)),
+                             collapse = ":")
       info$sec_breaks <- sec$pos
       info$sec_labels <- labels
     }
