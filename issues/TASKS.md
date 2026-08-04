@@ -104,6 +104,12 @@ reviewed 2026-08-01. Issues already addressed in `ggmosaic2` are omitted (along 
   `fill = factor(cyl)` or factor transformations inside `product()`. Mosaic layers now evaluate
   these expressions through safe internal variable names while retaining readable plot labels.
 
+- [X] Respect user-specified factor ordering
+  ([#77](https://github.com/haleyjeppson/ggmosaic/issues/77)), including reordering helpers such
+  as `forcats::fct_inorder()` inside `product()`. This was resolved by the issue #59 aesthetic-
+  mapping fix; precomputed ordered factors already retain their levels through the mosaic
+  calculation.
+
 - [ ] Allow `fill` to colour existing tiles without automatically becoming another partitioning
   variable ([#15](https://github.com/haleyjeppson/ggmosaic/issues/15)). Residual shading now has
   a dedicated solution, but arbitrary derived or external fill values can still introduce
