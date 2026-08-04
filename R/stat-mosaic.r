@@ -2,8 +2,9 @@
 #' @inheritParams ggplot2::stat_identity
 #' @param expected Optional loglinear model specification for residual shading.
 #'   Positive residuals receive a solid dark blue outline and negative
-#'   residuals a dashed dark red outline by default. See details in
-#'   \code{\link{prodcalc}}.
+#'   residuals a dashed dark red outline by default. Set \code{colour = NA} to
+#'   remove the cell outlines while retaining the residual legend's sign key.
+#'   See details in \code{\link{prodcalc}}.
 #' @section Computed variables:
 #' \describe{
 #' \item{xmin}{location of bottom left corner}

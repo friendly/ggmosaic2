@@ -44,3 +44,45 @@ stopifnot(
   all(override_data$linetype == "dotdash"),
   all(override_data$linewidth == 0.8)
 )
+
+disabled_plot <- ggplot(outline_data) +
+  geom_mosaic(
+    aes(weight = Freq, x = product(Hair, Eye, Sex)),
+    expected = "independence",
+    color = NA
+  ) +
+  scale_fill_residual()
+disabled_data <- ggplot_build(disabled_plot)$data[[1]]
+
+collect_outline_grobs <- function(grob) {
+  result <- list(grob)
+  if (!is.null(grob$grobs)) {
+    result <- c(
+      result,
+      unlist(lapply(grob$grobs, collect_outline_grobs), recursive = FALSE)
+    )
+  }
+  if (!is.null(grob$children)) {
+    result <- c(
+      result,
+      unlist(lapply(grob$children, collect_outline_grobs), recursive = FALSE)
+    )
+  }
+  result
+}
+
+disabled_rects <- Filter(
+  function(grob) inherits(grob, "rect"),
+  collect_outline_grobs(ggplotGrob(disabled_plot))
+)
+disabled_cells <- disabled_rects[vapply(
+  disabled_rects,
+  function(grob) length(grob$gp$fill) == nrow(disabled_data),
+  logical(1)
+)]
+
+stopifnot(
+  all(is.na(disabled_data$colour)),
+  length(disabled_cells) == 1,
+  all(is.na(disabled_cells[[1]]$gp$col))
+)

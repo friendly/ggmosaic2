@@ -24,7 +24,9 @@
 #'   When specified, Pearson residuals are calculated and automatically mapped to fill
 #'   (unless fill aesthetic is explicitly set). Use with \code{\link{scale_fill_residual}}
 #'   for a diverging color scale. Positive residuals receive a solid dark blue
-#'   outline and negative residuals a dashed dark red outline by default.
+#'   outline and negative residuals a dashed dark red outline by default. Set
+#'   \code{colour = NA} to remove the cell outlines while retaining the
+#'   residual legend's sign key.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.
 #' @examples
 #'
@@ -229,7 +231,7 @@ GeomMosaic <- ggplot2::ggproto(
   draw_panel = function(data, panel_scales, coord) {
     #cat("draw_panel in GeomMosaic\n")
     #browser()
-    if (all(is.na(data$colour)))
+    if (all(is.na(data$colour)) && !".residual" %in% names(data))
       data$colour <- scales::alpha(data$fill, data$alpha) # regard alpha in colour determination
 
     GeomRect$draw_panel(subset(data, level==max(data$level)), panel_scales, coord)

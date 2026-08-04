@@ -36,7 +36,8 @@ scale_fill_residuals(
 
 \item{midpoint}{Center point for color scale (default: 0)}
 
-\item{limits}{Range of residuals to display. If NULL, uses range of data.}
+\item{limits}{Range used for the color gradient. Values beyond supplied
+limits receive the corresponding endpoint color.}
 
 \item{name}{Legend title}
 }
@@ -44,6 +45,21 @@ scale_fill_residuals(
 Provides a red-white-blue color scale centered at 0 for visualizing
 Pearson residuals from loglinear models. Designed for use with
 \code{geom_mosaic()} when \code{expected} parameter is specified.
+}
+\details{
+The default legend always labels -4, 0, and 4. It also labels
+supplied limits and the observed minimum and maximum when those differ
+from the limits. The legend extends to every labelled value, with solid
+endpoint color beyond supplied limits. Positive residuals have a solid
+dark blue outline, negative residuals have a dashed dark red outline,
+and an unoutlined midpoint band (white by default) separates them at
+zero. Black ticks are drawn outside the color bar, which stretches with
+the mosaic panel. Nearby vertical labels are separated, and a thin elbow
+connects each displaced label to its exact tick. The neighbouring label
+uses a longer straight tick so nearby text shares a common alignment.
+Automatically generated numeric labels are rounded to one decimal place.
+The legend can be hidden normally with
+\code{theme(legend.position = "none")}.
 }
 \examples{
 data(titanic)
