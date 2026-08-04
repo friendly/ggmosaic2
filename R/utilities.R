@@ -125,6 +125,7 @@ prepare_mosaic_mapping <- function(mapping = NULL,
     spec = list(
       marg = margin_names,
       cond = cond_names,
+      axis = c(x_names, cond_names),
       labels = labels,
       aesthetics = aesthetic_vars
     )

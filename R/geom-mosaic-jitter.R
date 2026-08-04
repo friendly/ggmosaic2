@@ -5,6 +5,12 @@
 #' @description
 #' A mosaic plat with jittered dots
 #'
+#' @details
+#' Variables mapped only to `fill`, `alpha`, or `colour` remain
+#' available to the mosaic calculation and point aesthetics, but are not shown
+#' on automatic product axes. Position axes label only variables explicitly
+#' mapped through `x` or `conds`.
+#'
 #' @inheritParams ggplot2::layer
 #' @param divider Divider function. The default divider function is mosaic() which will use spines in alternating directions. The four options for partitioning:
 #' \itemize{

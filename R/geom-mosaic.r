@@ -6,6 +6,18 @@
 #' A mosaic plot is a convenient graphical summary of the conditional distributions
 #' in a contingency table and is composed of spines in alternating directions.
 #'
+#' @details
+#' Variables mapped only to `fill` or `alpha` retain their historical
+#' role as innermost mosaic partitions, but they are not shown on the automatic
+#' product axes. Position axes label only variables explicitly mapped through
+#' `x` or `conds`. If an aesthetic variable is also included in `product()`, it
+#' remains eligible for an axis label.
+#'
+#' Product variables are ordered from innermost to outermost. With the default
+#' mosaic divider, reversing two variables swaps their horizontal and vertical
+#' roles; for example, `product(predictions, actual)` places `actual`
+#' on the primary x axis.
+#'
 #'
 #' @inheritParams ggplot2::layer
 #' @param divider Divider function. The default divider function is mosaic() which will use spines in alternating directions. The four options for partitioning:
@@ -59,6 +71,22 @@
 #' # Variables can be transformed directly inside mosaic aesthetics
 #' ggplot(data = mtcars) +
 #'   geom_mosaic(aes(x = product(factor(gear)), fill = factor(cyl)))
+#'
+#' # A fill-only variable colours and partitions the tiles without appearing on
+#' # a position axis. Reverse the product order to put `actual` on the x axis.
+#' set.seed(19790801)
+#' predictions <- sample(iris$Species)
+#' confusion <- as.data.frame(table(actual = iris$Species, predictions))
+#' confusion$is_correct <- ifelse(
+#'   confusion$actual == confusion$predictions,
+#'   "Correct prediction", "Incorrect prediction"
+#' )
+#' ggplot(confusion) +
+#'   geom_mosaic(aes(
+#'     weight = Freq,
+#'     x = product(predictions, actual),
+#'     fill = is_correct
+#'   ))
 #'
 #' # Just excluded for timing. Examples are included in testing to make sure they work
 #' \dontrun{

@@ -146,6 +146,18 @@ give the geom as \code{"point"}.
 A mosaic plot is a convenient graphical summary of the conditional distributions
 in a contingency table and is composed of spines in alternating directions.
 }
+\details{
+Variables mapped only to \code{fill} or \code{alpha} retain their historical
+role as innermost mosaic partitions, but they are not shown on the automatic
+product axes. Position axes label only variables explicitly mapped through
+\code{x} or \code{conds}. If an aesthetic variable is also included in \code{product()}, it
+remains eligible for an axis label.
+
+Product variables are ordered from innermost to outermost. With the default
+mosaic divider, reversing two variables swaps their horizontal and vertical
+roles; for example, \code{product(predictions, actual)} places \code{actual}
+on the primary x axis.
+}
 \section{Computed variables}{
 
 \describe{
@@ -193,6 +205,22 @@ ggplot(data = titanic) +
 # Variables can be transformed directly inside mosaic aesthetics
 ggplot(data = mtcars) +
   geom_mosaic(aes(x = product(factor(gear)), fill = factor(cyl)))
+
+# A fill-only variable colours and partitions the tiles without appearing on
+# a position axis. Reverse the product order to put `actual` on the x axis.
+set.seed(19790801)
+predictions <- sample(iris$Species)
+confusion <- as.data.frame(table(actual = iris$Species, predictions))
+confusion$is_correct <- ifelse(
+  confusion$actual == confusion$predictions,
+  "Correct prediction", "Incorrect prediction"
+)
+ggplot(confusion) +
+  geom_mosaic(aes(
+    weight = Freq,
+    x = product(predictions, actual),
+    fill = is_correct
+  ))
 
 # Just excluded for timing. Examples are included in testing to make sure they work
 \dontrun{

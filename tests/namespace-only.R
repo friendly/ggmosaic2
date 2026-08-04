@@ -25,7 +25,15 @@ stopifnot(
     c("Male", "Female")
   ),
   identical(
-    namespace_build$layout$panel_params[[1]]$x.sec$get_labels(),
-    c("No", "Yes", "No", "Yes")
-  )
+    namespace_build$layout$panel_params[[1]]$y$get_labels(),
+    c("1st", "2nd", "3rd", "Crew")
+  ),
+  inherits(
+    namespace_build$layout$panel_scales_x[[1]]$secondary.axis,
+    "waiver"
+  ),
+  !any(c("No", "Yes") %in% c(
+    namespace_build$layout$panel_scales_x[[1]]$labels,
+    namespace_build$layout$panel_scales_y[[1]]$labels
+  ))
 )

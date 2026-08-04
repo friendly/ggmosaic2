@@ -112,7 +112,11 @@ StatMosaicJitter <- ggplot2::ggproto(
 
     # compute position scales, including vcd-style category labels on the
     # top/right for inner variables (needs all levels of res)
-    sc <- product_scales(res, formula, divider, labels = mosaic_spec$labels)
+    sc <- product_scales(
+      res, formula, divider,
+      labels = mosaic_spec$labels,
+      axis_vars = mosaic_spec$axis
+    )
     scx <- sc$x
     scy <- sc$y
 
