@@ -13,6 +13,9 @@
 #'   Base font family. Defaults to \code{""}, which uses the graphics device's default font family.
 #' @param rot_labels
 #'   The angle (in degrees) used to rotate category labels. Defaults to 0 degrees.
+#' @param ...
+#'   Additional arguments passed to [ggplot2::theme()]. These are applied after
+#'   the mosaic theme defaults and can therefore override them.
 #'
 #' @examples
 #' library(ggmosaic2)
@@ -25,7 +28,7 @@
 NULL
 #' @export
 #' @import ggplot2
-theme_mosaic <- function (base_size = 11, base_family = "", rot_labels = 0)
+theme_mosaic <- function (base_size = 11, base_family = "", rot_labels = 0, ...)
 {
   # Match guide_axis() justification for bottom and left axes.
   angle_radians <- rot_labels * pi / 180
@@ -65,5 +68,6 @@ theme_mosaic <- function (base_size = 11, base_family = "", rot_labels = 0)
         hjust = 1 - cosine,
         vjust = sine
       )
-    )
+    ) +
+    theme(...)
 }
