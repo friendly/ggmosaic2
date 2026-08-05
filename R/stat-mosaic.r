@@ -3,7 +3,7 @@
 #' @param expected Optional loglinear model specification for residual shading.
 #'   Positive residuals receive a solid dark blue outline and negative
 #'   residuals a dashed dark red outline by default. Set \code{colour = NA} to
-#'   remove the cell outlines while retaining the residual legend's sign key.
+#'   remove the outlines from both the cells and the residual legend.
 #'   See details in \code{\link{prodcalc}}.
 #' @section Computed variables:
 #' \describe{

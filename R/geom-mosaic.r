@@ -37,8 +37,8 @@
 #'   (unless fill aesthetic is explicitly set). Use with \code{\link{scale_fill_residual}}
 #'   for a diverging color scale. Positive residuals receive a solid dark blue
 #'   outline and negative residuals a dashed dark red outline by default. Set
-#'   \code{colour = NA} to remove the cell outlines while retaining the
-#'   residual legend's sign key.
+#'   \code{colour = NA} to remove the outlines from both the cells and the
+#'   residual legend.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.
 #' @examples
 #'
