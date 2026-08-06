@@ -46,7 +46,9 @@ knitr::include_graphics(c(
 ))
 ```
 
-With `theme_mosaic()` applied:
+### `theme_mosaic()`
+
+With `theme_mosaic()` applied to the above:
 
 ```{r theme-code, eval=FALSE}
 HairEyeColor |>
