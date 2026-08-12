@@ -92,7 +92,8 @@ to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 }}
 
-\item{offset}{Set the space between the first spine}
+\item{offset}{Set the fixed gap at the deepest split. Gaps increase by a
+factor of 1.5 toward the outermost split.}
 
 \item{drop_level}{Generate points for the max - 1 level}
 

@@ -31,7 +31,9 @@ If \code{FALSE}, areas will be comparable between nested layers.}
 \item{na.rm}{Logical vector of length 1 - should missing levels be
 silently removed?}
 
-\item{offset}{Numeric value specifying the space between mosaic tiles (default: 0.01)}
+\item{offset}{Numeric value specifying the fixed gap at the deepest split
+(default: 0.01). Gaps increase by a factor of 1.5 toward the outermost
+split.}
 
 \item{expected}{Optional. Specification for loglinear model to calculate
 residuals. Can be:

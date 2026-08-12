@@ -105,7 +105,8 @@ to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 }}
 
-\item{offset}{Set the space between the first spine}
+\item{offset}{Set the fixed gap at the deepest split. Gaps increase by a
+factor of 1.5 toward the outermost split.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -121,6 +122,9 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
 
 \item{expected}{Optional loglinear model specification for residual shading.
+Positive residuals receive a solid dark blue outline and negative
+residuals a dashed dark red outline by default. Set \code{colour = NA} to
+remove the cell outlines while retaining the residual legend's sign key.
 See details in \code{\link{prodcalc}}.}
 
 \item{...}{other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.}

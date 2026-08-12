@@ -15,14 +15,18 @@
 #' \item \code{vbar} Vertical bar partition: height constant, width varies.
 #' \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 #' }
-#' @param offset Set the space between the first spine
+#' @param offset Set the fixed gap at the deepest split. Gaps increase by a
+#'   factor of 1.5 toward the outermost split.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with a warning. If \code{TRUE} silently removes missing values.
 #' @param expected Optional specification for loglinear model residual shading.
 #'   Can be a formula (e.g., \code{~ Var1 + Var2}), a character shortcut
 #'   ("independence", "saturated", "conditional"), or NULL (default, no model).
 #'   When specified, Pearson residuals are calculated and automatically mapped to fill
 #'   (unless fill aesthetic is explicitly set). Use with \code{\link{scale_fill_residual}}
-#'   for a diverging color scale.
+#'   for a diverging color scale. Positive residuals receive a solid dark blue
+#'   outline and negative residuals a dashed dark red outline by default. Set
+#'   \code{colour = NA} to remove the cell outlines while retaining the
+#'   residual legend's sign key.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.
 #' @examples
 #'
@@ -186,7 +190,7 @@ geom_mosaic <- function(mapping = NULL, data = NULL, stat = "mosaic",
     }
   }
 
-  ggplot2::layer(
+  add_mosaic_scale_environment(ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -202,7 +206,7 @@ geom_mosaic <- function(mapping = NULL, data = NULL, stat = "mosaic",
       expected = expected,
       ...
     )
-  )
+  ))
 }
 
 #' Geom proto
@@ -227,7 +231,7 @@ GeomMosaic <- ggplot2::ggproto(
   draw_panel = function(data, panel_scales, coord) {
     #cat("draw_panel in GeomMosaic\n")
     #browser()
-    if (all(is.na(data$colour)))
+    if (all(is.na(data$colour)) && !".residual" %in% names(data))
       data$colour <- scales::alpha(data$fill, data$alpha) # regard alpha in colour determination
 
     GeomRect$draw_panel(subset(data, level==max(data$level)), panel_scales, coord)
@@ -252,6 +256,3 @@ GeomMosaic <- ggplot2::ggproto(
 
   draw_key = ggplot2::draw_key_polygon
 )
-
-
-

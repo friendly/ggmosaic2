@@ -2,7 +2,7 @@
 
 Below is an ongoing list of ideas I have for the package. I will implement these when I get the chance.
 
-[ ] Wondering if there's a way to make category labels for > 2-way tables appear on the right and top of the display (like in `vcd`)
+[X] Wondering if there's a way to make category labels for > 2-way tables appear on the right and top of the display (like in `vcd`)
 
 ## `R/theme-mosaic.R`
 
