@@ -183,7 +183,8 @@ no_outline_plot <- ggplot(legend_data) +
     expected = "independence",
     color = NA
   ) +
-  scale_fill_residual()
+  scale_fill_residual(limits = c(-4, 4)) +
+  theme_mosaic(rot_labels = 30, legend.position = "bottom")
 no_outline_build <- ggplot_build(no_outline_plot)
 no_outline_gtable <- ggplotGrob(no_outline_plot)
 no_outline_guides <- grep("guide-box", no_outline_gtable$layout$name)
@@ -205,9 +206,45 @@ no_outline_line_colours <- vapply(
 )
 
 stopifnot(
+  is.na(no_outline_plot$layers[[1]]$aes_params$colour),
   all(is.na(no_outline_build$data[[1]]$colour)),
-  all(c("darkblue", "darkred") %in% no_outline_line_colours),
+  !any(c("darkblue", "darkred") %in% no_outline_line_colours),
   any(no_outline_line_colours == "black")
+)
+
+# The British spelling follows the same normalised aes_params path.
+no_outline_colour_plot <- ggplot(legend_data) +
+  geom_mosaic(
+    aes(weight = Freq, x = product(Hair, Eye, Sex)),
+    expected = "independence",
+    colour = NA
+  ) +
+  scale_fill_residual()
+no_outline_colour_gtable <- ggplotGrob(no_outline_colour_plot)
+no_outline_colour_guides <- grep(
+  "guide-box",
+  no_outline_colour_gtable$layout$name
+)
+no_outline_colour_guide <- no_outline_colour_gtable$grobs[
+  no_outline_colour_guides[vapply(
+    no_outline_colour_gtable$grobs[no_outline_colour_guides],
+    function(grob) inherits(grob, "gtable"),
+    logical(1)
+  )]
+][[1]]
+no_outline_colour_lines <- Filter(
+  function(grob) inherits(grob, "polyline"),
+  collect_grobs(no_outline_colour_guide)
+)
+no_outline_colour_line_colours <- vapply(
+  no_outline_colour_lines,
+  function(grob) grob$gp$col,
+  character(1)
+)
+stopifnot(
+  is.na(no_outline_colour_plot$layers[[1]]$aes_params$colour),
+  !any(c("darkblue", "darkred") %in% no_outline_colour_line_colours),
+  any(no_outline_colour_line_colours == "black")
 )
 
 hidden_gtable <- ggplotGrob(

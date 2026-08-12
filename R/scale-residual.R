@@ -16,13 +16,15 @@
 #' @details The default legend always labels -4, 0, and 4. It also labels
 #'   supplied limits and the observed minimum and maximum when those differ
 #'   from the limits. The legend extends to every labelled value, with solid
-#'   endpoint color beyond supplied limits. Positive residuals have a solid
-#'   dark blue outline, negative residuals have a dashed dark red outline,
-#'   and an unoutlined midpoint band (white by default) separates them at
-#'   zero. Black ticks are drawn outside the color bar, which stretches with
-#'   the mosaic panel. Nearby vertical labels are separated, and a thin elbow
-#'   connects each displaced label to its exact tick. The neighbouring label
-#'   uses a longer straight tick so nearby text shares a common alignment.
+#'   endpoint color beyond supplied limits. When the contributing mosaic cells
+#'   have outlines, positive residuals have a solid dark blue outline, negative
+#'   residuals have a dashed dark red outline, and an unoutlined midpoint band
+#'   (white by default) separates them at zero. Setting `colour = NA` on every
+#'   contributing mosaic layer removes these outlines from both the cells and
+#'   the legend. Black ticks are drawn outside the color bar, which stretches
+#'   with the mosaic panel. Nearby vertical labels are separated, and a thin
+#'   elbow connects each displaced label to its exact tick. The neighbouring
+#'   label uses a longer straight tick so nearby text shares a common alignment.
 #'   Automatically generated numeric labels are rounded to one decimal place.
 #'   The legend can be hidden normally with
 #'   `theme(legend.position = "none")`.
@@ -211,6 +213,15 @@ GuideResidual <- ggplot2::ggproto(
       has_residuals <- !is.null(data[[index]]) && ".residual" %in% names(data[[index]])
       !hidden && has_residuals
     }, logical(1))
+
+    # Both color and colour are normalised to colour in aes_params. With
+    # multiple residual layers, retain the sign key unless every contributing
+    # layer explicitly disables its cell outlines.
+    outline_disabled <- vapply(which(include), function(index) {
+      colour <- layers[[index]]$aes_params$colour
+      length(colour) == 1 && is.na(colour)
+    }, logical(1))
+    params$draw_outline <- !length(outline_disabled) || !all(outline_disabled)
 
     processed <- ggplot2::GuideColourbar$process_layers(
       params = params,
@@ -442,20 +453,23 @@ GuideResidual <- ggplot2::ggproto(
       )
     }
 
-    outline <- grid::grobTree(
-      grid::polylineGrob(
-        x = grid::unit(positive_x, "npc"),
-        y = grid::unit(positive_y, "npc"),
-        gp = grid::gpar(col = "darkblue", lwd = 1, lty = "solid")
-      ),
-      grid::polylineGrob(
-        x = grid::unit(negative_x, "npc"),
-        y = grid::unit(negative_y, "npc"),
-        gp = grid::gpar(col = "darkred", lwd = 1, lty = "dashed")
+    if (isTRUE(params$draw_outline)) {
+      outline <- grid::grobTree(
+        grid::polylineGrob(
+          x = grid::unit(positive_x, "npc"),
+          y = grid::unit(positive_y, "npc"),
+          gp = grid::gpar(col = "darkblue", lwd = 1, lty = "solid")
+        ),
+        grid::polylineGrob(
+          x = grid::unit(negative_x, "npc"),
+          y = grid::unit(negative_y, "npc"),
+          gp = grid::gpar(col = "darkred", lwd = 1, lty = "dashed")
+        )
       )
-    )
-
-    result$frame <- grid::grobTree(result$frame, zero_band, outline)
+      result$frame <- grid::grobTree(result$frame, zero_band, outline)
+    } else {
+      result$frame <- grid::grobTree(result$frame, zero_band)
+    }
     result
   }
 )

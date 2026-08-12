@@ -131,6 +131,12 @@ give the geom as \code{"point"}.
 \description{
 A mosaic plat with jittered dots
 }
+\details{
+Variables mapped only to \code{fill}, \code{alpha}, or \code{colour} remain
+available to the mosaic calculation and point aesthetics, but are not shown
+on automatic product axes. Position axes label only variables explicitly
+mapped through \code{x} or \code{conds}.
+}
 \section{Computed variables}{
 
 \describe{

@@ -89,6 +89,12 @@ Source: the open issues on the
 [`haleyjeppson/ggmosaic` GitHub issues page](https://github.com/haleyjeppson/ggmosaic/issues),
 reviewed 2026-08-01. Issues already addressed in `ggmosaic2` are omitted (along with an issue related to accessing it off of CRAN).
 
+- [X] Keep variables mapped only to fill, alpha, or jitter colour off automatic
+  product axes
+  ([#39](https://github.com/haleyjeppson/ggmosaic/issues/39)). These aesthetics
+  retain their historical role as mosaic partitions, but only variables
+  explicitly mapped through `product()` or `conds` are now axis-eligible.
+
 - [X] Make product-axis ticks and labels facet-specific
   ([#78](https://github.com/haleyjeppson/ggmosaic/issues/78)). The positions should be computed
   from each facet's proportions rather than reused from another panel. Implemented with
@@ -99,10 +105,16 @@ reviewed 2026-08-01. Issues already addressed in `ggmosaic2` are omitted (along 
   original reversed test was corrected, but the current code looks up ggplot2's removed internal
   `is.sec_axis()` and therefore still errors with ggplot2 4.0.3.
 
-- [ ] Support variables computed inside aesthetics
+- [X] Support variables computed inside aesthetics
   ([#59](https://github.com/haleyjeppson/ggmosaic/issues/59)), such as
-  `fill = factor(cyl)` or factor transformations inside `product()`. These currently produce an
-  empty layer and an `undefined columns selected` warning unless precomputed in the data.
+  `fill = factor(cyl)` or factor transformations inside `product()`. Mosaic layers now evaluate
+  these expressions through safe internal variable names while retaining readable plot labels.
+
+- [X] Respect user-specified factor ordering
+  ([#77](https://github.com/haleyjeppson/ggmosaic/issues/77)), including reordering helpers such
+  as `forcats::fct_inorder()` inside `product()`. This was resolved by the issue #59 aesthetic-
+  mapping fix; precomputed ordered factors already retain their levels through the mosaic
+  calculation.
 
 - [ ] Allow `fill` to colour existing tiles without automatically becoming another partitioning
   variable ([#15](https://github.com/haleyjeppson/ggmosaic/issues/15)). Residual shading now has

@@ -13,62 +13,8 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
                                show.legend = NA, inherit.aes = TRUE, offset = 0.01,
                                drop_level = FALSE, seed = NA, ...)
 {
-  if (!is.null(mapping$y)) {
-    stop("stat_mosaic() must not be used with a y aesthetic.", call. = FALSE)
-  } else mapping$y <- structure(1L, class = "productlist")
-
-  aes_x <- mapping$x
-  if (!is.null(aes_x)) {
-    aes_x <- rlang::eval_tidy(mapping$x)
-    var_x <- paste0("x__", as.character(aes_x))
-  }
-
-  aes_fill <- mapping$fill
-  var_fill <- ""
-  if (!is.null(aes_fill)) {
-    aes_fill <- rlang::quo_text(mapping$fill)
-    var_fill <- paste0("x__fill__", aes_fill)
-    if (aes_fill %in% as.character(aes_x)) {
-      idx <- which(aes_x == aes_fill)
-      var_x[idx] <- var_fill
-    } else {
-      mapping[[var_fill]] <- mapping$fill
-    }
-  }
-
-  aes_alpha <- mapping$alpha
-  var_alpha <- ""
-  if (!is.null(aes_alpha)) {
-    aes_alpha <- rlang::quo_text(mapping$alpha)
-    var_alpha <- paste0("x__alpha__", aes_alpha)
-    if (aes_alpha %in% as.character(aes_x)) {
-      idx <- which(aes_x == aes_alpha)
-      var_x[idx] <- var_alpha
-    } else {
-      mapping[[var_alpha]] <- mapping$alpha
-    }
-  }
-
-
-  #  aes_x <- mapping$x
-  if (!is.null(aes_x)) {
-    mapping$x <- structure(1L, class = "productlist")
-
-    for (i in seq_along(var_x)) {
-      mapping[[var_x[i]]] <- aes_x[[i]]
-    }
-  }
-
-
-  aes_conds <- mapping$conds
-  if (!is.null(aes_conds)) {
-    aes_conds <- rlang::eval_tidy(mapping$conds)
-    mapping$conds <- structure(1L, class = "productlist")
-    var_conds <- paste0("conds", seq_along(aes_conds), "__", as.character(aes_conds))
-    for (i in seq_along(var_conds)) {
-      mapping[[var_conds[i]]] <- aes_conds[[i]]
-    }
-  }
+  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha", "colour"))
+  mapping <- prepared$mapping
   add_mosaic_scale_environment(ggplot2::layer(
     data = data,
     mapping = mapping,
@@ -84,6 +30,7 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
       offset = offset,
       drop_level = drop_level,
       seed = seed,
+      mosaic_spec = prepared$spec,
       ...
     )
   ))
@@ -120,23 +67,22 @@ StatMosaicJitter <- ggplot2::ggproto(
     data
   },
 
-  compute_panel = function(self, data, scales, na.rm=FALSE, drop_level=FALSE, seed = NA, divider, offset) {
+  compute_panel = function(self, data, scales, na.rm=FALSE, drop_level=FALSE,
+                           seed = NA, divider, offset, mosaic_spec = NULL) {
     #cat("compute_panel from StatMosaic\n")
     #browser()
 
-    #    vars <- names(data)[grep("x[0-9]+__", names(data))]
-    vars <- names(data)[grep("x__", names(data))]
-    conds <- names(data)[grep("conds[0-9]+__", names(data))]
-
-
-    if (length(vars) == 0) formula <- "1"
-    else formula <-  paste(vars, collapse="+")
-
-
-
-    formula <- paste("weight~", formula)
-
-    if (length(conds) > 0) formula <- paste(formula, paste(conds, collapse="+"), sep="|")
+    if (is.null(mosaic_spec)) {
+      mosaic_spec <- list(
+        marg = names(data)[grep("x__", names(data))],
+        cond = names(data)[grep("conds[0-9]+__", names(data))],
+        labels = NULL,
+        aesthetics = list()
+      )
+    }
+    vars <- mosaic_spec$marg
+    conds <- mosaic_spec$cond
+    formula <- mosaic_formula(mosaic_spec)
 
     df <- data
     if (!in_data(df, "weight")) {
@@ -144,7 +90,7 @@ StatMosaicJitter <- ggplot2::ggproto(
     }
 
 
-    res <- prodcalc(df, formula=as.formula(formula),
+    res <- prodcalc(df, formula=formula,
                     divider = divider, cascade=0, scale_max = TRUE,
                     na.rm = na.rm, offset = offset)
 
@@ -152,21 +98,25 @@ StatMosaicJitter <- ggplot2::ggproto(
 
     # consider 2nd weight for points
     if (in_data(df, "weight2")) {
-      formula2 <- str_replace(formula, "weight", "weight2")
-      res2 <- prodcalc(df, formula = as.formula(formula2), divider = divider,
+      formula2 <- mosaic_formula(mosaic_spec, response = "weight2")
+      res2 <- prodcalc(df, formula = formula2, divider = divider,
                        cascade = 0, scale_max = TRUE, na.rm = na.rm, offset = offset)
       res$.n2 <- res2$.n
     }
 
 
     # need to set x variable - I'd rather set the scales here.
-    prs <- parse_product_formula(as.formula(formula))
+    prs <- parse_product_formula(formula)
     p <- length(c(prs$marg, prs$cond))
     if (is.function(divider)) divider <- divider(p)
 
     # compute position scales, including vcd-style category labels on the
     # top/right for inner variables (needs all levels of res)
-    sc <- product_scales(res, as.formula(formula), divider)
+    sc <- product_scales(
+      res, formula, divider,
+      labels = mosaic_spec$labels,
+      axis_vars = mosaic_spec$axis
+    )
     scx <- sc$x
     scy <- sc$y
 
@@ -203,20 +153,11 @@ StatMosaicJitter <- ggplot2::ggproto(
 
     # merge res with data:
     # is there a fill/alpha/color variable?
-    fill_idx <- grep("x__fill", names(data))
-    if (length(fill_idx) > 0) {
-      fill_res_idx <- grep("x__fill", names(res))
-      res$fill <- res[[fill_res_idx]]
-    }
-    alpha_idx <- grep("x__alpha", names(data))
-    if (length(alpha_idx) > 0) {
-      alpha_res_idx <- grep("x__alpha", names(res))
-      res$alpha <- res[[alpha_res_idx]]
-    }
-    colour_idx <- grep("x__colour", names(data))
-    if (length(colour_idx) > 0) {
-      colour_res_idx <- grep("x__colour", names(res)) # find what comes after __colour
-      res$colour <- res[[colour_res_idx]]
+    for (aesthetic in c("fill", "alpha", "colour")) {
+      variable <- mosaic_spec$aesthetics[[aesthetic]]
+      if (!is.null(variable) && variable %in% names(res)) {
+        res[[aesthetic]] <- res[[variable]]
+      }
     }
 
     res$group <- 1 # unique(data$group) # ignore group variable
@@ -232,7 +173,10 @@ StatMosaicJitter <- ggplot2::ggproto(
     sub <- subset(res, level==max(res$level))
     if(drop_level) {
       ll <- subset(res, level==max(res$level)-1)
-      sub <- dplyr::left_join(select(sub, -(xmin:ymax)), select(ll, contains("x__"), xmin:ymax, -contains("col")))
+      sub <- dplyr::left_join(
+        select(sub, -(xmin:ymax)),
+        select(ll, all_of(vars), xmin:ymax, -contains("col"))
+      )
     }
 
 

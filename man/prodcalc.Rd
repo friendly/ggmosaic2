@@ -12,7 +12,8 @@ prodcalc(
   scale_max = TRUE,
   na.rm = FALSE,
   offset = 0.01,
-  expected = NULL
+  expected = NULL,
+  variable_labels = NULL
 )
 }
 \arguments{
@@ -43,6 +44,10 @@ residuals. Can be:
 \item Character: Shortcut - "independence", "saturated", or "conditional"
 }
 When specified, adds \code{.expected} and \code{.residual} columns to output.}
+
+\item{variable_labels}{Optional named character vector mapping internal
+variable names to the expressions shown to users. Used internally by the
+ggplot2 layer wrappers.}
 }
 \description{
 Calculate frequencies.

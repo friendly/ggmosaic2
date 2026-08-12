@@ -9,6 +9,9 @@
 \item{base_family}{Base font family. Defaults to \code{""}, which uses the graphics device's default font family.}
 
 \item{rot_labels}{The angle (in degrees) used to rotate category labels. Defaults to 0 degrees.}
+
+\item{...}{Additional arguments passed to \code{\link[ggplot2:theme]{ggplot2::theme()}}. These are applied after
+the mosaic theme defaults and can therefore override them.}
 }
 \description{
 Themes set the general aspect of the plot such as the colour of the

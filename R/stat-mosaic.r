@@ -3,7 +3,7 @@
 #' @param expected Optional loglinear model specification for residual shading.
 #'   Positive residuals receive a solid dark blue outline and negative
 #'   residuals a dashed dark red outline by default. Set \code{colour = NA} to
-#'   remove the cell outlines while retaining the residual legend's sign key.
+#'   remove the outlines from both the cells and the residual legend.
 #'   See details in \code{\link{prodcalc}}.
 #' @section Computed variables:
 #' \describe{
@@ -18,63 +18,8 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
                         show.legend = NA, inherit.aes = TRUE, offset = 0.01,
                         expected = NULL, ...)
 {
-  if (!is.null(mapping$y)) {
-    stop("stat_mosaic() must not be used with a y aesthetic.", call. = FALSE)
-  } else mapping$y <- structure(1L, class = "productlist")
-
-  aes_x <- mapping$x
-  if (!is.null(aes_x)) {
-    if (grepl("product", rlang::quo_text(mapping$x))) {
-      aes_x <- rlang::eval_tidy(mapping$x)
-    } else aes_x <- list(rlang::quo_get_expr(mapping$x))
-    var_x <- paste0("x__", as.character(aes_x))
-  }
-
-  aes_fill <- mapping$fill
-  var_fill <- ""
-  if (!is.null(aes_fill)) {
-    aes_fill <- rlang::quo_text(mapping$fill)
-    var_fill <- paste0("x__fill__", aes_fill)
-    if (aes_fill %in% as.character(aes_x)) {
-      idx <- which(aes_x == aes_fill)
-      var_x[idx] <- var_fill
-    } else {
-      mapping[[var_fill]] <- mapping$fill
-    }
-  }
-
-  aes_alpha <- mapping$alpha
-  var_alpha <- ""
-  if (!is.null(aes_alpha)) {
-    aes_alpha <- rlang::quo_text(mapping$alpha)
-    var_alpha <- paste0("x__alpha__", aes_alpha)
-    if (aes_alpha %in% as.character(aes_x)) {
-      idx <- which(aes_x == aes_alpha)
-      var_x[idx] <- var_alpha
-    } else {
-      mapping[[var_alpha]] <- mapping$alpha
-    }
-  }
-
-  if (!is.null(aes_x)) {
-    mapping$x <- structure(1L, class = "productlist")
-    for (i in seq_along(var_x)) {
-      mapping[[var_x[i]]] <- aes_x[[i]]
-    }
-  }
-
-  aes_conds <- mapping$conds
-  if (!is.null(aes_conds)) {
-    if (grepl("product", rlang::quo_text(mapping$conds))) {
-      aes_conds <- rlang::eval_tidy(mapping$conds)
-    } else aes_conds <- list(rlang::quo_get_expr(mapping$conds))
-    var_conds <- paste0("conds", seq_along(aes_conds), "__", as.character(aes_conds))
-
-    mapping$conds <- structure(1L, class = "productlist")
-    for (i in seq_along(var_conds)) {
-      mapping[[var_conds[i]]] <- aes_conds[[i]]
-    }
-  }
+  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha"))
+  mapping <- prepared$mapping
 
   add_mosaic_scale_environment(ggplot2::layer(
     data = data,
@@ -90,6 +35,7 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
       divider = divider,
       offset = offset,
       expected = expected,
+      mosaic_spec = prepared$spec,
       ...
     )
   ))
@@ -138,23 +84,22 @@ StatMosaic <- ggplot2::ggproto(
     data
   },
 
-  compute_panel = function(self, data, scales, na.rm=FALSE, divider, offset, expected = NULL) {
+  compute_panel = function(self, data, scales, na.rm=FALSE, divider, offset,
+                           expected = NULL, mosaic_spec = NULL) {
 #    cat("compute_panel from StatMosaic\n")
 #       browser()
 
-    #    vars <- names(data)[grep("x[0-9]+__", names(data))]
-    vars <- names(data)[grep("x__", names(data))]
-    conds <- names(data)[grep("conds[0-9]+__", names(data))]
-
-
-    if (length(vars) == 0) formula <- "1"
-    else formula <-  paste(vars, collapse="+")
-
-
-
-    formula <- paste("weight~", formula)
-
-    if (length(conds) > 0) formula <- paste(formula, paste(conds, collapse="+"), sep="|")
+    if (is.null(mosaic_spec)) {
+      mosaic_spec <- list(
+        marg = names(data)[grep("x__", names(data))],
+        cond = names(data)[grep("conds[0-9]+__", names(data))],
+        labels = NULL,
+        aesthetics = list()
+      )
+    }
+    vars <- mosaic_spec$marg
+    conds <- mosaic_spec$cond
+    formula <- mosaic_formula(mosaic_spec)
 
     df <- data
     if (!in_data(df, "weight")) {
@@ -162,19 +107,24 @@ StatMosaic <- ggplot2::ggproto(
     }
 
 
-    res <- prodcalc(df, formula=as.formula(formula),
+    res <- prodcalc(df, formula=formula,
                     divider = divider, cascade=0, scale_max = TRUE,
-                    na.rm = na.rm, offset = offset, expected = expected)
+                    na.rm = na.rm, offset = offset, expected = expected,
+                    variable_labels = mosaic_spec$labels)
 
 
     # need to set x variable - I'd rather set the scales here.
-    prs <- parse_product_formula(as.formula(formula))
+    prs <- parse_product_formula(formula)
     p <- length(c(prs$marg, prs$cond))
     if (is.function(divider)) divider <- divider(p)
 
     # compute position scales, including vcd-style category labels on the
     # top/right for inner variables (needs all levels of res)
-    sc <- product_scales(res, as.formula(formula), divider)
+    sc <- product_scales(
+      res, formula, divider,
+      labels = mosaic_spec$labels,
+      axis_vars = mosaic_spec$axis
+    )
     scx <- sc$x
     scy <- sc$y
 
@@ -211,22 +161,19 @@ StatMosaic <- ggplot2::ggproto(
 
     # merge res with data:
     # is there a fill variable?
-    fill_idx <- grep("x__fill", names(data))
-    if (length(fill_idx) > 0) {
-      fill_res_idx <- grep("x__fill", names(res))
-      res$fill <- res[[fill_res_idx]]
+    mapped_fill <- mosaic_spec$aesthetics$fill
+    if (!is.null(mapped_fill) && mapped_fill %in% names(res)) {
+      res$fill <- res[[mapped_fill]]
     }
-    alpha_idx <- grep("x__alpha", names(data))
-    if (length(alpha_idx) > 0) {
-      alpha_res_idx <- grep("x__alpha", names(res))
-      res$alpha <- res[[alpha_res_idx]]
+    mapped_alpha <- mosaic_spec$aesthetics$alpha
+    if (!is.null(mapped_alpha) && mapped_alpha %in% names(res)) {
+      res$alpha <- res[[mapped_alpha]]
     }
 
     # Handle residual-based coloring when expected is specified
     if (!is.null(expected) && ".residual" %in% names(res)) {
       # Auto-map residuals to fill only if user hasn't specified fill
-      fill_idx <- grep("x__fill", names(data))
-      if (length(fill_idx) == 0) {
+      if (is.null(mapped_fill)) {
         res$fill <- res$.residual
       }
 
