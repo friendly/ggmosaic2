@@ -17,7 +17,7 @@ face to axes labels and allows for the convenient rotation of category labels.">
 
     <a class="navbar-brand me-2" href="../index.html">ggmosaic2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,6 +30,7 @@ face to axes labels and allows for the convenient rotation of category labels.">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/frequency-table-forms.html">Three Forms of Frequency Tables for Mosaic Displays</a></li>
     <li><a class="dropdown-item" href="../articles/ggmosaic.html">Mosaic plots with `ggplot2`</a></li>
+    <li><a class="dropdown-item" href="../articles/introducing-ggmosaic2.html">Introducing ggmosaic2: an improved and maintained ggmosaic</a></li>
     <li><a class="dropdown-item" href="../articles/loglinear-models.html">ggmosaic and Loglinear Models</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -72,6 +73,11 @@ face to axes labels and allows for the convenient rotation of category labels.</
 
 <dt id="arg-rot-labels">rot_labels<a class="anchor" aria-label="anchor" href="#arg-rot-labels"></a></dt>
 <dd><p>The angle (in degrees) used to rotate category labels. Defaults to 0 degrees.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Additional arguments passed to <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">ggplot2::theme()</a></code>. These are applied after
+the mosaic theme defaults and can therefore override them.</p></dd>
 
 </dl></div>
 

@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ggmosaic2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/frequency-table-forms.html">Three Forms of Frequency Tables for Mosaic Displays</a></li>
     <li><a class="dropdown-item" href="articles/ggmosaic.html">Mosaic plots with `ggplot2`</a></li>
+    <li><a class="dropdown-item" href="articles/introducing-ggmosaic2.html">Introducing ggmosaic2: an improved and maintained ggmosaic</a></li>
     <li><a class="dropdown-item" href="articles/loglinear-models.html">ggmosaic and Loglinear Models</a></li>
   </ul>
 </li>
@@ -76,19 +77,15 @@
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://friendly.github.io/ggmosaic2/">ggmosaic2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="va">happy</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>finrela <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_recode.html" class="external-link">fct_recode</a></span><span class="op">(</span><span class="va">finrela</span>,</span>
-<span>    <span class="st">"far below     "</span> <span class="op">=</span> <span class="st">"far below average"</span>,</span>
-<span>    <span class="st">"    below"</span> <span class="op">=</span> <span class="st">"below average"</span>,</span>
-<span>    <span class="st">"average"</span> <span class="op">=</span> <span class="st">"average"</span>,</span>
-<span>    <span class="st">"above    "</span> <span class="op">=</span> <span class="st">"above average"</span>, </span>
-<span>    <span class="st">"l\n   far above"</span> <span class="op">=</span> <span class="st">"far above average"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span></span>
+<span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="reference/product.html">product</a></span><span class="op">(</span><span class="va">finrela</span><span class="op">)</span>, fill<span class="op">=</span><span class="va">health</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#4575B4"</span>, <span class="st">"#ABD9E9"</span>, <span class="st">"#FEE090"</span>, <span class="st">"#F46D43"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-example-1.png" alt="Mosaicplot of survey participant's perceived health (from poor to excellent) given their financial situation relative to their peers. Perceived health generally increases with better financial situation."></p>
+<span>  <span class="fu"><a href="reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="va">Eye</span>, <span class="va">Hair</span><span class="op">)</span>, weight <span class="op">=</span> <span class="va">Freq</span><span class="op">)</span>,</span>
+<span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-example-1.png" alt="Mosaicplot of the HairEyeColor dataset from base R. Certain combinations of hair colour, eye colour, and biological sex are more/less common than  would be expected if these variables were independent of one another."></p>
 </div>
 <div class="section level2">
 <h2 id="geom_mosaic-setting-the-aesthetics">geom_mosaic: setting the aesthetics<a class="anchor" aria-label="anchor" href="#geom_mosaic-setting-the-aesthetics"></a>
@@ -124,6 +121,9 @@
 </li>
 </ul>
 <p>These values are then sent through repurposed <code>productplots</code> functions to create the desired formula: <code>weight ~ alpha + fill + x | conds</code>.</p>
+<!--
+GK: should we remove the below ("## Version compatibility...")?
+-->
 </div>
 <div class="section level2">
 <h2 id="version-compatibility-issues-with-ggplot2">Version compatibility issues with ggplot2<a class="anchor" aria-label="anchor" href="#version-compatibility-issues-with-ggplot2"></a>

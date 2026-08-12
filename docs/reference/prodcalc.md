@@ -13,7 +13,8 @@ prodcalc(
   scale_max = TRUE,
   na.rm = FALSE,
   offset = 0.01,
-  expected = NULL
+  expected = NULL,
+  variable_labels = NULL
 )
 ```
 
@@ -64,6 +65,12 @@ prodcalc(
   - Character: Shortcut - "independence", "saturated", or "conditional"
 
   When specified, adds `.expected` and `.residual` columns to output.
+
+- variable_labels:
+
+  Optional named character vector mapping internal variable names to the
+  expressions shown to users. Used internally by the ggplot2 layer
+  wrappers.
 
 ## Examples
 

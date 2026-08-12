@@ -32,24 +32,20 @@ devtools::install_github("friendly/ggmosaic2")
 ``` r
 
 library(ggmosaic2)
-library(dplyr)
-happy |> 
-  mutate(finrela = forcats::fct_recode(finrela,
-    "far below     " = "far below average",
-    "    below" = "below average",
-    "average" = "average",
-    "above    " = "above average", 
-    "l\n   far above" = "far above average")) |>
+
+HairEyeColor |>
+  as.data.frame() |>
   ggplot() +
-  geom_mosaic(aes(x = product(finrela), fill=health), show.legend = FALSE) +
-  theme_mosaic() +
-  scale_fill_manual(values = c("#4575B4", "#ABD9E9", "#FEE090", "#F46D43"))
+  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
+              expected = "independence") +
+  scale_fill_residual(limits = c(-4, 4)) +
+  theme_mosaic(rot_labels = 45)
 ```
 
-![Mosaicplot of survey participant's perceived health (from poor to
-excellent) given their financial situation relative to their peers.
-Perceived health generally increases with better financial
-situation.](reference/figures/README-example-1.png)
+![Mosaicplot of the HairEyeColor dataset from base R. Certain
+combinations of hair colour, eye colour, and biological sex are
+more/less common than would be expected if these variables were
+independent of one another.](reference/figures/README-example-1.png)
 
 ## geom_mosaic: setting the aesthetics
 

@@ -514,7 +514,7 @@ sessionInfo()
 #> 
 #> other attached packages:
 #> [1] dplyr_1.2.1     vcdExtra_0.9.7  gnm_1.1-5       vcd_1.4-14     
-#> [5] ggmosaic2_0.5.0 ggplot2_4.0.3  
+#> [5] ggmosaic2_0.5.1 ggplot2_4.0.3  
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] gtable_0.3.6       xfun_0.60          bslib_0.12.0       htmlwidgets_1.6.4 

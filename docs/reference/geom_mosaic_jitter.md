@@ -180,6 +180,13 @@ stat_mosaic_jitter(
     geom](https://ggplot2.tidyverse.org/reference/layer_geoms.html)
     documentation.
 
+## Details
+
+Variables mapped only to `fill`, `alpha`, or `colour` remain available
+to the mosaic calculation and point aesthetics, but are not shown on
+automatic product axes. Position axes label only variables explicitly
+mapped through `x` or `conds`.
+
 ## Computed variables
 
 - xmin:
@@ -211,7 +218,7 @@ ggplot(data = titanic) +
 ggplot(data = titanic) +
   geom_mosaic(aes(x = product(Class)), alpha = 0.1) +
   geom_mosaic_jitter(aes(x = product(Class), color = Survived), drop_level = TRUE)
-#> Joining with `by = join_by(x__Class)`
+#> Joining with `by = join_by(.mosaic_x1)`
 
 
 ggplot(data = titanic) +

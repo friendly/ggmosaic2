@@ -24,6 +24,13 @@ category labels.
   The angle (in degrees) used to rotate category labels. Defaults to 0
   degrees.
 
+- ...:
+
+  Additional arguments passed to
+  [`ggplot2::theme()`](https://ggplot2.tidyverse.org/reference/theme.html).
+  These are applied after the mosaic theme defaults and can therefore
+  override them.
+
 ## Examples
 
 ``` r

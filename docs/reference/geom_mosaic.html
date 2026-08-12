@@ -9,7 +9,7 @@ in a contingency table and is composed of spines in alternating directions."><me
 
     <a class="navbar-brand me-2" href="../index.html">ggmosaic2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@ in a contingency table and is composed of spines in alternating directions."><me
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/frequency-table-forms.html">Three Forms of Frequency Tables for Mosaic Displays</a></li>
     <li><a class="dropdown-item" href="../articles/ggmosaic.html">Mosaic plots with `ggplot2`</a></li>
+    <li><a class="dropdown-item" href="../articles/introducing-ggmosaic2.html">Introducing ggmosaic2: an improved and maintained ggmosaic</a></li>
     <li><a class="dropdown-item" href="../articles/loglinear-models.html">ggmosaic and Loglinear Models</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -178,7 +179,7 @@ the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.or
 <dd><p>Optional loglinear model specification for residual shading.
 Positive residuals receive a solid dark blue outline and negative
 residuals a dashed dark red outline by default. Set <code>colour = NA</code> to
-remove the cell outlines while retaining the residual legend's sign key.
+remove the outlines from both the cells and the residual legend.
 See details in <code><a href="prodcalc.html">prodcalc</a></code>.</p></dd>
 
 
@@ -199,6 +200,18 @@ give the geom as <code>"point"</code>.</p></li>
 </ul></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Variables mapped only to <code>fill</code> or <code>alpha</code> retain their historical
+role as innermost mosaic partitions, but they are not shown on the automatic
+product axes. Position axes label only variables explicitly mapped through
+<code>x</code> or <code>conds</code>. If an aesthetic variable is also included in <code><a href="product.html">product()</a></code>, it
+remains eligible for an axis label.</p>
+<p>Product variables are ordered from innermost to outermost. With the default
+mosaic divider, reversing two variables swaps their horizontal and vertical
+roles; for example, <code>product(predictions, actual)</code> places <code>actual</code>
+on the primary x axis.</p>
+    </div>
     <div class="section level2">
     <h2 id="computed-variables">Computed variables<a class="anchor" aria-label="anchor" href="#computed-variables"></a></h2>
 
@@ -259,6 +272,28 @@ give the geom as <code>"point"</code>.</p></li>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Survived</span>, <span class="va">Class</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Age</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_mosaic-6.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Variables can be transformed directly inside mosaic aesthetics</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_mosaic-7.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># A fill-only variable colours and partitions the tiles without appearing on</span></span></span>
+<span class="r-in"><span><span class="co"># a position axis. Reverse the product order to put `actual` on the x axis.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">19790801</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">confusion</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>actual <span class="op">=</span> <span class="va">iris</span><span class="op">$</span><span class="va">Species</span>, <span class="va">predictions</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">confusion</span><span class="op">$</span><span class="va">is_correct</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">confusion</span><span class="op">$</span><span class="va">actual</span> <span class="op">==</span> <span class="va">confusion</span><span class="op">$</span><span class="va">predictions</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"Correct prediction"</span>, <span class="st">"Incorrect prediction"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">confusion</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    weight <span class="op">=</span> <span class="va">Freq</span>,</span></span>
+<span class="r-in"><span>    x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">predictions</span>, <span class="va">actual</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    fill <span class="op">=</span> <span class="va">is_correct</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_mosaic-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Just excluded for timing. Examples are included in testing to make sure they work</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
