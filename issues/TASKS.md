@@ -67,7 +67,7 @@ Verified against current `R/` source, not just the docs' own claims.
   (statistical testing, model diagnostics, real-world applications, etc.); none written yet beyond
   the outline itself.
   
-- [ ] From Gavin's `issues/GK-ideas.md` on the `GK-work` branch (not yet merged):
+- [X] From Gavin's `issues/GK-ideas.md` on the `GK-work` branch (not yet merged):
   - [X] `rot_labels` argument for `R/theme-mosaic.R`
   - [X] `.gitignore` the knitted `.html` files under `issues/` (several present:
     `implementation-summary.html`, `loglinear-models-quick-reference.html`,
@@ -77,9 +77,11 @@ Verified against current `R/` source, not just the docs' own claims.
   - [X] New package logo — already done (checked off on his list)
 
 - [ ] Revise the `README.Rmd` file. 
-  - [ ] Perhaps change the main example to a more standard CDA one
+  - [X] Add appropriate badges
+  - [ ] Add dynamic version number and pkgdown build date
+  - [ ] The main example, HairEyeColor should start with just a basic display, default shading
   - [ ] Illustrate residual shading, use of `geom_poiont()`
-  - [ ] Edit or delete the out of date section "Version compatibility issues with ggplot2"
+  - [X] Edit or delete the out of date section "Version compatibility issues with ggplot2"
   
 - [ ] Edit package citation
 

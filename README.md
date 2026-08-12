@@ -1,8 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- badges: start -->
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggmosaic2)](https://CRAN.R-project.org/package=ggmosaic2)
+[![R_Universe](https://friendly.r-universe.dev/badges/ggmosaic2)](https://friendly.r-universe.dev)
+[![Last
+Commit](https://img.shields.io/github/last-commit/friendly/ggmosaic2)](https://github.com/friendly/ggmosaic2/)
+[![Docs](https://img.shields.io/badge/pkgdown%20site-blue)](https://friendly.github.io/ggmosaic2/)
 [![R-CMD-check](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -80,25 +84,17 @@ In `geom_mosaic()`, the following aesthetics can be specified:
 These values are then sent through repurposed `productplots` functions
 to create the desired formula: `weight ~ alpha + fill + x | conds`.
 
-<!-- 
-GK: should we remove the below ("## Version compatibility...")?
+<!--
+This section deleted as no longer useful.
+&#10;## Version compatibility issues with ggplot2
+&#10;Since the initial release of ggmosaic, ggplot2 has evolved considerably. And as ggplot2 continues to evolve, ggmosaic must continue to evolve alongside it. Although these changes affect the underlying code and not the general usage of ggmosaic, the general user may need to be aware of compatibility issues that can arise between versions. The table below summarizes the compatibility between versions (inherited history from `ggmosaic`, prior to the `ggmosaic2` fork).
+&#10;
+| ggmosaic | ggplot2 | Axis labels                                                                   | Tick marks    |
+|----------|---------|-------------------------------------------------------------------------------|---------------|
+| [@93e5840](https://github.com/haleyjeppson/ggmosaic/commit/93e5840cc9586524428d36aeb8b33630341d20d7)    | 3.3.4   | x                                                                             | x     |
+| 0.3.3    | 3.3.3   | x                                                                             | x             |
+| 0.3.0    | 3.3.0   | x                                                                             | x             |
+| 0.2.2    | 3.3.0   | Default labels are okay, but must use <br>`scale_*_productlist()` to modify | No tick marks |
+| 0.2.2    | 3.2.0   | Default labels okay, but must use <br>`scale_*_productlist()` to modify     | x             |
+| 0.2.0    | 3.2.0   | Default labels are wrong, but can use <br>`labs()` to modify                  | x             |
 -->
-
-## Version compatibility issues with ggplot2
-
-Since the initial release of ggmosaic, ggplot2 has evolved considerably.
-And as ggplot2 continues to evolve, ggmosaic must continue to evolve
-alongside it. Although these changes affect the underlying code and not
-the general usage of ggmosaic, the general user may need to be aware of
-compatibility issues that can arise between versions. The table below
-summarizes the compatibility between versions (inherited history from
-`ggmosaic`, prior to the `ggmosaic2` fork).
-
-| ggmosaic | ggplot2 | Axis labels | Tick marks |
-|----|----|----|----|
-| [@93e5840](https://github.com/haleyjeppson/ggmosaic/commit/93e5840cc9586524428d36aeb8b33630341d20d7) | 3.3.4 | x | x |
-| 0.3.3 | 3.3.3 | x | x |
-| 0.3.0 | 3.3.0 | x | x |
-| 0.2.2 | 3.3.0 | Default labels are okay, but must use <br>`scale_*_productlist()` to modify | No tick marks |
-| 0.2.2 | 3.2.0 | Default labels okay, but must use <br>`scale_*_productlist()` to modify | x |
-| 0.2.0 | 3.2.0 | Default labels are wrong, but can use <br>`labs()` to modify | x |

@@ -16,6 +16,10 @@ knitr::opts_chunk$set(
 ```
 
 <!-- badges: start -->
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggmosaic2)](https://CRAN.R-project.org/package=ggmosaic2)
+[![R_Universe](https://friendly.r-universe.dev/badges/ggmosaic2)](https://friendly.r-universe.dev)
+[![Last Commit](https://img.shields.io/github/last-commit/friendly/ggmosaic2)](https://github.com/friendly/ggmosaic2/)
+[![Docs](https://img.shields.io/badge/pkgdown%20site-blue)](https://friendly.github.io/ggmosaic2/)
 [![R-CMD-check](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -86,9 +90,8 @@ In `geom_mosaic()`, the following aesthetics can be specified:
 
 These values are then sent through repurposed `productplots` functions to create the desired formula: `weight ~ alpha + fill + x | conds`.
 
-<!-- 
-GK: should we remove the below ("## Version compatibility...")?
--->
+<!--
+This section deleted as no longer useful.
 
 ## Version compatibility issues with ggplot2
 
@@ -103,4 +106,4 @@ Since the initial release of ggmosaic, ggplot2 has evolved considerably. And as 
 | 0.2.2    | 3.3.0   | Default labels are okay, but must use <br>`scale_*_productlist()` to modify | No tick marks |
 | 0.2.2    | 3.2.0   | Default labels okay, but must use <br>`scale_*_productlist()` to modify     | x             |
 | 0.2.0    | 3.2.0   | Default labels are wrong, but can use <br>`labs()` to modify                  | x             |
-
+-->
