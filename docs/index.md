@@ -78,15 +78,3 @@ the following aesthetics can be specified:
 
 These values are then sent through repurposed `productplots` functions
 to create the desired formula: `weight ~ alpha + fill + x | conds`.
-
-## Version compatibility issues with ggplot2
-
-Since the initial release of ggmosaic, ggplot2 has evolved considerably.
-And as ggplot2 continues to evolve, ggmosaic must continue to evolve
-alongside it. Although these changes affect the underlying code and not
-the general usage of ggmosaic, the general user may need to be aware of
-compatibility issues that can arise between versions. The table below
-summarizes the compatibility between versions (inherited history from
-`ggmosaic`, prior to the `ggmosaic2` fork).
-
-[TABLE]

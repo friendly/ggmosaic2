@@ -1,4 +1,4 @@
-# Introducing ggmosaic2: an improved and maintained ggmosaic
+# Introducing ggmosaic2: an enhanced ggmosaic
 
 ``` r
 
@@ -14,11 +14,12 @@ as several aspects of **ggmosaic**s were inferior and/or limited when
 compared to mosaics produced by **vcd** and **vcdExtra**.
 
 This vignette describes the many additions and changes made to
-**ggmosaic** that make up the initial release of **ggmosaic2**. Note
-that one of these changes, residual shading, is associated with its own
-vignette (so detail in this vignette will be minimal; see [ggmosaic and
-Loglinear
-Models](https://friendly.github.io/ggmosaic2/articles/loglinear-models.md)).
+**ggmosaic** that make up the initial release of **ggmosaic2**. The most
+important of these changes, is the introduction of *residual shading*,
+to show the pattern of association in a frequency table in relation to
+some loglinear model. This is described in its own vignette [ggmosaic
+and Loglinear
+Models](https://friendly.github.io/ggmosaic2/articles/loglinear-models.md).
 
 ## Basic Appearance
 

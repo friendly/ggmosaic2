@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Introducing ggmosaic2: an improved and maintained ggmosaic • ggmosaic2</title>
+<title>Introducing ggmosaic2: an enhanced ggmosaic • ggmosaic2</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introducing ggmosaic2: an improved and maintained ggmosaic">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introducing ggmosaic2: an enhanced ggmosaic">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -35,7 +35,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/frequency-table-forms.html">Three Forms of Frequency Tables for Mosaic Displays</a></li>
     <li><a class="dropdown-item" href="../articles/ggmosaic.html">Mosaic plots with `ggplot2`</a></li>
-    <li><a class="dropdown-item" href="../articles/introducing-ggmosaic2.html">Introducing ggmosaic2: an improved and maintained ggmosaic</a></li>
+    <li><a class="dropdown-item" href="../articles/introducing-ggmosaic2.html">Introducing ggmosaic2: an enhanced ggmosaic</a></li>
     <li><a class="dropdown-item" href="../articles/loglinear-models.html">ggmosaic and Loglinear Models</a></li>
   </ul>
 </li>
@@ -58,8 +58,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Introducing ggmosaic2: an improved and maintained ggmosaic</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Introducing ggmosaic2: an enhanced ggmosaic</h1>
+                        <h4 data-toc-skip class="author">Gavin
+Klorfine</h4>
             
+            <h4 data-toc-skip class="date">2026-08-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/master/vignettes/introducing-ggmosaic2.Rmd" class="external-link"><code>vignettes/introducing-ggmosaic2.Rmd</code></a></small>
       <div class="d-none name"><code>introducing-ggmosaic2.Rmd</code></div>
@@ -80,10 +83,10 @@ mosaics produced by <strong>vcd</strong> and
 <strong>vcdExtra</strong>.</p>
 <p>This vignette describes the many additions and changes made to
 <strong>ggmosaic</strong> that make up the initial release of
-<strong>ggmosaic2</strong>. Note that one of these changes, residual
-shading, is associated with its own vignette (so detail in this vignette
-will be minimal; see <a href="loglinear-models.html">ggmosaic and
-Loglinear Models</a>).</p>
+<strong>ggmosaic2</strong>. The most important of these changes, is the
+introduction of <em>residual shading</em>, to show the pattern of
+association in a frequency table in relation to some loglinear model.
+This is described in its own vignette <a href="loglinear-models.html">ggmosaic and Loglinear Models</a>.</p>
 <div class="section level2">
 <h2 id="basic-appearance">Basic Appearance<a class="anchor" aria-label="anchor" href="#basic-appearance"></a>
 </h2>
