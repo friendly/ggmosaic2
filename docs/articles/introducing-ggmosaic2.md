@@ -84,7 +84,7 @@ HairEyeColor |>
 ### Spacing of cells
 
 You might already have noticed that the innermost spacing of cells in
-mosaic displays has been increased in `ggmosaic2`. Re-using an example
+mosaic displays has been increased in **ggmosaic2**. Re-using an example
 from “Utilizing the top and right axes,” differentiating between cells
 is now easier:
 
