@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggmosaic2)](https://CRAN.R-project.org/package=ggmosaic2)
@@ -12,7 +13,7 @@ Commit](https://img.shields.io/github/last-commit/friendly/ggmosaic2)](https://g
 
 # ggmosaic2 <img src="man/figures/logo.png" align="right" width="200px" />
 
-*Version 0.5.1, built 2026-08-12*
+*Version 0.5.0, built 2026-08-12*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -29,7 +30,10 @@ charts, stacked bar charts, mosaic plots, and double decker plots.
 observations (reflecting non-independence as variation in point density,
 a physical analog for departures from independence), residual-based
 shading, and support for fitted loglinear models to show patterns of
-association among variables in frequency tables.
+association among variables in frequency tables. Additional improvements
+include improved spacing, theme appearance, and proper faceting. These
+extensions and improvements are illustrated in the package vignette
+[`introducing-ggmosaic2.Rmd`](https://friendly.github.io/ggmosaic2/articles/introducing-ggmosaic2.html).
 
 ## Installation
 
@@ -74,9 +78,7 @@ dataset using `ggmosaic2`.
 
 With default shading, a mosaic plot just shows the relative frequencies
 of each combination of `Sex`, `Eye`, and `Hair`, via the area of each
-tile. To accommodate the alternate splitting in horizontal and vertical
-directions, `geom_mosaic()` uses a `product()` to specify the
-geometrical aesthetic of the plot.
+tile.
 
 ``` r
 library(ggmosaic2)
@@ -89,6 +91,14 @@ HairEyeColor |>
 ```
 
 <img src="man/figures/README-example-basic-1.png" alt="Basic mosaicplot of the HairEyeColor dataset from base R, with default shading. Tile area reflects the relative frequency of each combination of hair color, eye color, and biological sex."  />
+
+Data must be in either frequency form (i.e., containing a `"Freq"`
+column or equivalent) or case form (i.e., each row contains an
+individual observation) to be used with `geom_mosaic()`. Data in
+frequency form must have its frequency column mapped to the `weight=`
+argument of `geom_mosaic()`. To accommodate the alternate splitting in
+horizontal and vertical directions, `geom_mosaic()` uses a `product()`
+to specify the geometrical aesthetic of the plot.
 
 ### Residual-shaded mosaic plot
 
@@ -131,35 +141,22 @@ HairEyeColor |>
 
 <img src="man/figures/README-example-jitter-1.png" alt="Mosaicplot of the HairEyeColor dataset shaded by residuals from a loglinear model of independence, overlaid with a jittered point for each of the 592 individual students."  />
 
-## geom_mosaic: setting the aesthetics
-
-In `geom_mosaic()`, the following aesthetics can be specified:
-
-- `weight`: select a weighting variable. This is useful when your data
-  is in frequency form, consisting of a dataset of factor variables and
-  a variable (`count` or `Freq`) giving the frequency in each cell of an
-  n-way table.
-
-- `x`: select variables to add to formula
-
-  - declared as `x = product(var2, var1, ...)`
-
-- `alpha`: add an alpha transparency to the selected variable
-
-  - unless the variable is called in `x`, it will be added to the
-    formula in the first position
-
-- `fill`: select a variable to be filled
-
-  - unless the variable is called in `x`, it will be added to the
-    formula in the first position after the optional `alpha` variable.
-
-- `conds` : select a variable to condition on
-
-  - declared as `conds = product(cond1, cond2, ...)`
-
-These values are then sent through repurposed `productplots` functions
-to create the desired formula: `weight ~ alpha + fill + x | conds`.
+<!--
+GK: Folded this into the above (see paragraph "Data must be in ..."). Feel free to modify/revert
+&#10;## geom_mosaic: setting the aesthetics
+ &#10;In `geom_mosaic()`, the following aesthetics can be specified:
+&#10;-   `weight`: select a weighting variable. This is useful when your data is in frequency form, consisting of a dataset of factor
+     variables and a variable (`count` or `Freq`) giving the frequency in each cell of an n-way table.
+&#10;-   `x`: select variables to add to formula
+&#10;    -   declared as `x = product(var2, var1, ...)`
+&#10;-   `alpha`: add an alpha transparency to the selected variable
+&#10;    -   unless the variable is called in `x`, it will be added to the formula in the first position
+&#10;-   `fill`: select a variable to be filled
+&#10;    -   unless the variable is called in `x`, it will be added to the formula in the first position after the optional `alpha` variable.
+&#10;-   `conds` : select a variable to condition on
+&#10;    -   declared as `conds = product(cond1, cond2, ...)`
+&#10;These values are then sent through repurposed `productplots` functions to create the desired formula: `weight ~ alpha + fill + x | conds`.
+-->
 
 <!--
 This section deleted as no longer useful.
