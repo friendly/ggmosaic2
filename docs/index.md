@@ -1,6 +1,6 @@
 # ggmosaic2
 
-*Version 0.5.1, built 2026-08-12*
+*Version 0.5.0, built 2026-08-12*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -17,7 +17,10 @@ charts, stacked bar charts, mosaic plots, and double decker plots.
 observations (reflecting non-independence as variation in point density,
 a physical analog for departures from independence), residual-based
 shading, and support for fitted loglinear models to show patterns of
-association among variables in frequency tables.
+association among variables in frequency tables. Additional improvements
+include improved spacing, theme appearance, and proper faceting. These
+extensions and improvements are illustrated in the package vignette
+[`introducing-ggmosaic2.Rmd`](https://friendly.github.io/ggmosaic2/articles/introducing-ggmosaic2.html).
 
 ## Installation
 
@@ -65,12 +68,7 @@ dataset using `ggmosaic2`.
 
 With default shading, a mosaic plot just shows the relative frequencies
 of each combination of `Sex`, `Eye`, and `Hair`, via the area of each
-tile. To accommodate the alternate splitting in horizontal and vertical
-directions,
-[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
-uses a
-[`product()`](https://friendly.github.io/ggmosaic2/reference/product.md)
-to specify the geometrical aesthetic of the plot.
+tile.
 
 ``` r
 
@@ -87,6 +85,20 @@ HairEyeColor |>
 shading. Tile area reflects the relative frequency of each combination
 of hair color, eye color, and biological
 sex.](reference/figures/README-example-basic-1.png)
+
+Data must be in either frequency form (i.e., containing a `"Freq"`
+column or equivalent) or case form (i.e., each row contains an
+individual observation) to be used with
+[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md).
+Data in frequency form must have its frequency column mapped to the
+`weight=` argument of
+[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md).
+To accommodate the alternate splitting in horizontal and vertical
+directions,
+[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
+uses a
+[`product()`](https://friendly.github.io/ggmosaic2/reference/product.md)
+to specify the geometrical aesthetic of the plot.
 
 ### Residual-shaded mosaic plot
 
@@ -140,35 +152,3 @@ HairEyeColor |>
 loglinear model of independence, overlaid with a jittered point for each
 of the 592 individual
 students.](reference/figures/README-example-jitter-1.png)
-
-## geom_mosaic: setting the aesthetics
-
-In
-[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
-the following aesthetics can be specified:
-
-- `weight`: select a weighting variable. This is useful when your data
-  is in frequency form, consisting of a dataset of factor variables and
-  a variable (`count` or `Freq`) giving the frequency in each cell of an
-  n-way table.
-
-- `x`: select variables to add to formula
-
-  - declared as `x = product(var2, var1, ...)`
-
-- `alpha`: add an alpha transparency to the selected variable
-
-  - unless the variable is called in `x`, it will be added to the
-    formula in the first position
-
-- `fill`: select a variable to be filled
-
-  - unless the variable is called in `x`, it will be added to the
-    formula in the first position after the optional `alpha` variable.
-
-- `conds` : select a variable to condition on
-
-  - declared as `conds = product(cond1, cond2, ...)`
-
-These values are then sent through repurposed `productplots` functions
-to create the desired formula: `weight ~ alpha + fill + x | conds`.
