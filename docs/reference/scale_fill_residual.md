@@ -1,6 +1,6 @@
 # Diverging color scale for Pearson residuals
 
-Provides a blue-white-red color scale centered at 0 for visualizing
+Provides a red-white-blue color scale centered at 0 for visualizing
 Pearson residuals from loglinear models. Designed for use with
 [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
 when `expected` parameter is specified.
@@ -10,9 +10,9 @@ when `expected` parameter is specified.
 ``` r
 scale_fill_residual(
   ...,
-  low = "darkblue",
+  low = "darkred",
   mid = "white",
-  high = "darkred",
+  high = "darkblue",
   midpoint = 0,
   limits = NULL,
   name = "Pearson\nResidual"
@@ -20,9 +20,9 @@ scale_fill_residual(
 
 scale_fill_residuals(
   ...,
-  low = "darkblue",
+  low = "darkred",
   mid = "white",
-  high = "darkred",
+  high = "darkblue",
   midpoint = 0,
   limits = NULL,
   name = "Pearson\nResidual"
@@ -38,7 +38,7 @@ scale_fill_residuals(
 
 - low:
 
-  Color for negative residuals (default: "steelblue")
+  Color for negative residuals (default: "darkred")
 
 - mid:
 
@@ -46,7 +46,7 @@ scale_fill_residuals(
 
 - high:
 
-  Color for positive residuals (default: "firebrick")
+  Color for positive residuals (default: "darkblue")
 
 - midpoint:
 
@@ -54,11 +54,28 @@ scale_fill_residuals(
 
 - limits:
 
-  Range of residuals to display. If NULL, uses range of data.
+  Range used for the color gradient. Values beyond supplied limits
+  receive the corresponding endpoint color.
 
 - name:
 
   Legend title
+
+## Details
+
+The default legend always labels -4, 0, and 4. It also labels supplied
+limits and the observed minimum and maximum when those differ from the
+limits. The legend extends to every labelled value, with solid endpoint
+color beyond supplied limits. Positive residuals have a solid dark blue
+outline, negative residuals have a dashed dark red outline, and an
+unoutlined midpoint band (white by default) separates them at zero.
+Black ticks are drawn outside the color bar, which stretches with the
+mosaic panel. Nearby vertical labels are separated, and a thin elbow
+connects each displaced label to its exact tick. The neighbouring label
+uses a longer straight tick so nearby text shares a common alignment.
+Automatically generated numeric labels are rounded to one decimal place.
+The legend can be hidden normally with
+`theme(legend.position = "none")`.
 
 ## Examples
 
@@ -74,7 +91,7 @@ ggplot(data = titanic) +
 # Custom colors
 ggplot(data = titanic) +
   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
-  scale_fill_residual(low = "blue", high = "red")
+  scale_fill_residual(low = "red", high = "blue")
 
 
 # Custom limits to highlight strong deviations

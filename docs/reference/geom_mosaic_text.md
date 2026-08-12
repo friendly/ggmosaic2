@@ -115,7 +115,8 @@ geom_mosaic_text(
 
 - offset:
 
-  Set the space between the first spine
+  Set the fixed gap at the deepest split. Gaps increase by a factor of
+  1.5 toward the outermost split.
 
 - show.legend:
 

@@ -115,6 +115,8 @@ summarizes the compatibility between versions (inherited history from
   : Template for a double decker plot. A double decker plot is composed
   of a sequence of spines in the same direction, with the final spine in
   the opposite direction.
+- [`facet_mosaic_grid()`](https://friendly.github.io/ggmosaic2/reference/facet_mosaic_grid.md)
+  : Facet mosaic plots with panel-specific axes
 - [`fly`](https://friendly.github.io/ggmosaic2/reference/fly.md) :
   Flying Etiquette Survey Data
 - [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)

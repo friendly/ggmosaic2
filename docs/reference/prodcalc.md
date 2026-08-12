@@ -48,8 +48,8 @@ prodcalc(
 
 - offset:
 
-  Numeric value specifying the space between mosaic tiles (default:
-  0.01)
+  Numeric value specifying the fixed gap at the deepest split (default:
+  0.01). Gaps increase by a factor of 1.5 toward the outermost split.
 
 - expected:
 

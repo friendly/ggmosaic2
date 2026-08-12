@@ -138,7 +138,8 @@ stat_mosaic(
 
 - offset:
 
-  Set the space between the first spine
+  Set the fixed gap at the deepest split. Gaps increase by a factor of
+  1.5 toward the outermost split.
 
 - show.legend:
 
@@ -159,7 +160,10 @@ stat_mosaic(
 
 - expected:
 
-  Optional loglinear model specification for residual shading. See
+  Optional loglinear model specification for residual shading. Positive
+  residuals receive a solid dark blue outline and negative residuals a
+  dashed dark red outline by default. Set `colour = NA` to remove the
+  cell outlines while retaining the residual legend's sign key. See
   details in
   [`prodcalc`](https://friendly.github.io/ggmosaic2/reference/prodcalc.md).
 
