@@ -38,7 +38,7 @@ bar charts, stacked bar charts, mosaic plots, and double decker plots.
 `ggmosaic2` extends this with jittered-point overlays showing individual observations (reflecting
 non-independence as variation in point density, a physical analog for departures from
 independence), residual-based shading, and support for fitted loglinear models to show patterns
-of association among variables in frequency tables.
+of association among variables in frequency tables. Additional improvements include improved spacing, theme appearance, and proper faceting. These extensions and improvements are illustrated in the package vignette [`introducing-ggmosaic2.Rmd`](https://friendly.github.io/ggmosaic2/articles/introducing-ggmosaic2.html).
 
 ## Installation
 
@@ -65,14 +65,12 @@ To provide some context, the main questions here are:
 * Is this the same for males and females?
 
 See: REFS-HERE for more..
-Here, we just illustrate how to display this dataset using  `ggmosaic2`.
+Here, we just illustrate how to display this dataset using `ggmosaic2`.
 
 ### Basic mosaic plot
 
 With default shading, a mosaic plot just shows the relative frequencies of each combination of
-`Sex`, `Eye`, and `Hair`, via the area of each tile. To accommodate the alternate splitting
-in horizontal and vertical directions, `geom_mosaic()` uses a `product()` to specify the
-geometrical aesthetic of the plot. 
+`Sex`, `Eye`, and `Hair`, via the area of each tile. 
 
 ```{r example-basic}
 #| fig.alt: >
@@ -87,6 +85,8 @@ HairEyeColor |>
   geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
   theme_mosaic(rot_labels = 45)
 ```
+
+Data must be in either frequency form (i.e., containing a `"Freq"` column or equivalent) or case form (i.e., each row contains an individual observation) to be used with `geom_mosaic()`. Data in frequency form must have its frequency column mapped to the `weight=` argument of `geom_mosaic()`. To accommodate the alternate splitting in horizontal and vertical directions, `geom_mosaic()` uses a `product()` to specify the geometrical aesthetic of the plot.
 
 ### Residual-shaded mosaic plot
 
@@ -132,6 +132,9 @@ HairEyeColor |>
   theme_mosaic(rot_labels = 45)
 ```
 
+<!--
+GK: Folded this into the above (see paragraph "Data must be in ..."). Feel free to modify/revert
+
 ## geom_mosaic: setting the aesthetics
  
 In `geom_mosaic()`, the following aesthetics can be specified:
@@ -156,6 +159,7 @@ In `geom_mosaic()`, the following aesthetics can be specified:
     -   declared as `conds = product(cond1, cond2, ...)`
 
 These values are then sent through repurposed `productplots` functions to create the desired formula: `weight ~ alpha + fill + x | conds`.
+-->
 
 <!--
 This section deleted as no longer useful.
