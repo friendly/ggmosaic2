@@ -47,6 +47,16 @@ loglinear/residual-shading side, and one just on the three ways frequency data s
 
 Authors@R still lists Haley, Heike, and Di as authors, and the original R Journal paper
 (Jeppson & Hofmann, 2023) is still the primary citation for the package -- that doesn't
-change just because I forked it.
+change just because I forked it
+
+```
+> citation("ggmosaic2")
+To cite package ‘ggmosaic2’ in publications use:
+
+  Friendly M, Klorfine G, Jeppson H, Hofmann H, Cook D (2026). _ggmosaic2: Mosaic Plots in the 'ggplot2' Framework, Extended_. R package version 0.5.1,
+  <https://friendly.github.io/ggmosaic2/>.
+
+  Jeppson & Hofmann, "The R Journal: Generalized Mosaic Plots in the ggplot2 Framework", The R Journal, 2023
+```
 
 @teunbrand, re: the GPL 2+ point from earlier -- yes, kept that.
