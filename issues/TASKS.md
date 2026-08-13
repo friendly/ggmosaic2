@@ -84,9 +84,12 @@ Verified against current `R/` source, not just the docs' own claims.
   - [X] Edit or delete the out of date section "Version compatibility issues with ggplot2"
   - [ ] Show an example using the `fill = ` aesthetic, which was the only shading in original `ggmosiac`
   
-- [X] Edit package citation
+- [X] Edit package citation -- Keep original Jeppson & Hoffman _R Journal_ citation
 
 - [ ] Elide or remove the stale `R/ggmosaic_app/R`. No idea it this works
+
+- [ ] Cleanup `issues/`: Many are historical & solved-- perhaps move to a `done/ subfolder.
+  - [ ] Going forward, should we do this as formal issues in the GH repo, so progress is visible to others?
 
 ## Outstanding issues inherited from the original `ggmosaic`
 

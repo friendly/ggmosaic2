@@ -20,6 +20,7 @@ ftable(Hair ~ Eye, data = HairEye)
 ftable(Hair ~ Eye + Sex, data = HairEyeColor)
 
 # NB: color_table doesn't use the same syntax, i.e, a formula as `x`, and a `data=`
+#     Could we use a `color_table()` example in the README or a vignette?
 vcdExtra::color_table(HairEye)
 vcdExtra::color_table(HairEyeColor)
 

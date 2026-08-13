@@ -22,11 +22,14 @@ So, how to do this without stepping on toes of those previously involved?
 
 ## TODOs
 
-- Revise README to describe what is new / changed here. [DONE]
-- This could also be the topic of a new vignette [DONE]
-- Put it on R-universe [DONE] https://friendly.r-universe.dev/ggmosaic2
+- [DONE] Revise README to describe what is new / changed here. 
+- [DONE] This could also be the topic of a new vignette 
+- [DONE] Put it on R-universe  https://friendly.r-universe.dev/ggmosaic2
 - Perhaps tone down the 'origin story' bits in the README / vignettes
+- Write back a comment to the gg-extenders club on what we've done.
 
 - Write to old authors, essentially asking their blessing (but not permission)
   - NB: Kept all previous authors / contributors listed in ggmosaic2
+  - [DONE] Keep original Jeppson, Hoffman in `inst/CITATION 
+
 
