@@ -119,7 +119,7 @@
 <div class="section level3">
 <h3 id="residual-shaded-mosaic-plot">Residual-shaded mosaic plot<a class="anchor" aria-label="anchor" href="#residual-shaded-mosaic-plot"></a>
 </h3>
-<p>To see whether hair and eye color are associated, fit a loglinear model of independence (<code>expected = "independence"</code>) and shade each tile by its residual from that model with <code><a href="reference/scale_fill_residual.html">scale_fill_residual()</a></code>. Tiles shaded blue occur more often than expected under independence; tiles shaded red occur less often.</p>
+<p>To see whether hair and eye color are associated, fit a loglinear model of <strong>joint</strong> independence (<code>expected = "independence"</code>) and shade each tile by its residual from that model with <code><a href="reference/scale_fill_residual.html">scale_fill_residual()</a></code>. Tiles shaded blue occur more often than expected under independence; tiles shaded red occur less often.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
