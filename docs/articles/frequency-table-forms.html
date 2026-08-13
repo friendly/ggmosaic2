@@ -150,6 +150,560 @@ and level information</p>
 <p>The <code>HairEyeColor</code> dataset is a 4 × 4 × 2 contingency
 table with 592 observations classified by hair color, eye color, and
 sex.</p>
+<p>Table form can also be displayed as a heatmap-style <strong>color
+table</strong>, using <code><a href="https://friendly.github.io/vcdExtra/reference/color_table.html" class="external-link">vcdExtra::color_table()</a></code>, which shades
+each cell background by its frequency. This gives a quick visual sense
+of where the data are concentrated, as a complement to the mosaic plots
+introduced below – useful for readers less familiar with reading mosaic
+displays.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://friendly.github.io/vcdExtra/reference/color_table.html" class="external-link">color_table</a></span><span class="op">(</span><span class="va">HairEyeColor</span>, shade <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span></span></code></pre></div>
+<div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mwlefoodfi table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#mwlefoodfi thead, #mwlefoodfi tbody, #mwlefoodfi tfoot, #mwlefoodfi tr, #mwlefoodfi td, #mwlefoodfi th {
+  border-style: none;
+}
+
+#mwlefoodfi p {
+  margin: 0;
+  padding: 0;
+}
+
+#mwlefoodfi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#mwlefoodfi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#mwlefoodfi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#mwlefoodfi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#mwlefoodfi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#mwlefoodfi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#mwlefoodfi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#mwlefoodfi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#mwlefoodfi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#mwlefoodfi .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#mwlefoodfi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#mwlefoodfi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#mwlefoodfi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#mwlefoodfi .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#mwlefoodfi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#mwlefoodfi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#mwlefoodfi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#mwlefoodfi .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mwlefoodfi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mwlefoodfi .gt_left {
+  text-align: left;
+}
+
+#mwlefoodfi .gt_center {
+  text-align: center;
+}
+
+#mwlefoodfi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#mwlefoodfi .gt_font_normal {
+  font-weight: normal;
+}
+
+#mwlefoodfi .gt_font_bold {
+  font-weight: bold;
+}
+
+#mwlefoodfi .gt_font_italic {
+  font-style: italic;
+}
+
+#mwlefoodfi .gt_super {
+  font-size: 65%;
+}
+
+#mwlefoodfi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#mwlefoodfi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#mwlefoodfi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#mwlefoodfi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#mwlefoodfi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#mwlefoodfi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#mwlefoodfi .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#mwlefoodfi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#mwlefoodfi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="2" scope="colgroup" id="a::stub"></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" scope="colgroup" id="Eye">
+        <div class="gt_column_spanner">Eye</div>
+      </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="2" colspan="1" style="font-style: italic;" scope="col" id="Total">Total</th>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Brown">Brown</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Blue">Blue</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Hazel">Hazel</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Green">Green</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<th id="stub_1_1" scope="rowgroup" rowspan="2" class="gt_row gt_center gt_stub" style="font-weight: bold;; border-right-width: 1px">Black</th>
+<th id="stub_1_1" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Male</th>
+<td headers="stub_1_1 Brown" class="gt_row gt_center" style="background-color: #E5998D; color: #000000;">32</td>
+<td headers="stub_1_1 Blue" class="gt_row gt_center" style="background-color: #F9DCD6; color: #000000;">11</td>
+<td headers="stub_1_1 Hazel" class="gt_row gt_center" style="background-color: #FADFDA; color: #000000;">10</td>
+<td headers="stub_1_1 Green" class="gt_row gt_center" style="background-color: #FEF5F4; color: #000000;"> 3</td>
+<td headers="stub_1_1 Total" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;"> 56</td>
+</tr>
+<tr>
+<th id="stub_1_2" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Female</th>
+<td headers="stub_1_2 stub_2" class="gt_row gt_center" style="background-color: #E18C7F; color: #000000;">36</td>
+<td headers="stub_1_2 Brown" class="gt_row gt_center" style="background-color: #FAE2DE; color: #000000;"> 9</td>
+<td headers="stub_1_2 Blue" class="gt_row gt_center" style="background-color: #FDEFEC; color: #000000;"> 5</td>
+<td headers="stub_1_2 Hazel" class="gt_row gt_center" style="background-color: #FEF9F8; color: #000000;"> 2</td>
+<td headers="stub_1_2 Green" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;"> 52</td>
+</tr>
+<tr>
+<th id="stub_1_3" scope="rowgroup" rowspan="2" class="gt_row gt_center gt_stub" style="font-weight: bold;; border-right-width: 1px">Brown</th>
+<th id="stub_1_3" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Male</th>
+<td headers="stub_1_3 Brown" class="gt_row gt_center" style="background-color: #C85549; color: #000000;">53</td>
+<td headers="stub_1_3 Blue" class="gt_row gt_center" style="background-color: #CD5F52; color: #000000;">50</td>
+<td headers="stub_1_3 Hazel" class="gt_row gt_center" style="background-color: #EDAFA5; color: #000000;">25</td>
+<td headers="stub_1_3 Green" class="gt_row gt_center" style="background-color: #F6CFC8; color: #000000;">15</td>
+<td headers="stub_1_3 Total" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;">143</td>
+</tr>
+<tr>
+<th id="stub_1_4" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Female</th>
+<td headers="stub_1_4 stub_2" class="gt_row gt_center" style="background-color: #B22222; color: #FFFFFF;">66</td>
+<td headers="stub_1_4 Brown" class="gt_row gt_center" style="background-color: #E39386; color: #000000;">34</td>
+<td headers="stub_1_4 Blue" class="gt_row gt_center" style="background-color: #E9A397; color: #000000;">29</td>
+<td headers="stub_1_4 Hazel" class="gt_row gt_center" style="background-color: #F7D2CC; color: #000000;">14</td>
+<td headers="stub_1_4 Green" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;">143</td>
+</tr>
+<tr>
+<th id="stub_1_5" scope="rowgroup" rowspan="2" class="gt_row gt_center gt_stub" style="font-weight: bold;; border-right-width: 1px">Red</th>
+<th id="stub_1_5" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Male</th>
+<td headers="stub_1_5 Brown" class="gt_row gt_center" style="background-color: #FADFDA; color: #000000;">10</td>
+<td headers="stub_1_5 Blue" class="gt_row gt_center" style="background-color: #FADFDA; color: #000000;">10</td>
+<td headers="stub_1_5 Hazel" class="gt_row gt_center" style="background-color: #FCE8E5; color: #000000;"> 7</td>
+<td headers="stub_1_5 Green" class="gt_row gt_center" style="background-color: #FCE8E5; color: #000000;"> 7</td>
+<td headers="stub_1_5 Total" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;"> 34</td>
+</tr>
+<tr>
+<th id="stub_1_6" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Female</th>
+<td headers="stub_1_6 stub_2" class="gt_row gt_center" style="background-color: #F5CCC4; color: #000000;">16</td>
+<td headers="stub_1_6 Brown" class="gt_row gt_center" style="background-color: #FCE8E5; color: #000000;"> 7</td>
+<td headers="stub_1_6 Blue" class="gt_row gt_center" style="background-color: #FCE8E5; color: #000000;"> 7</td>
+<td headers="stub_1_6 Hazel" class="gt_row gt_center" style="background-color: #FCE8E5; color: #000000;"> 7</td>
+<td headers="stub_1_6 Green" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;"> 37</td>
+</tr>
+<tr>
+<th id="stub_1_7" scope="rowgroup" rowspan="2" class="gt_row gt_center gt_stub" style="font-weight: bold;; border-right-width: 1px">Blond</th>
+<th id="stub_1_7" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Male</th>
+<td headers="stub_1_7 Brown" class="gt_row gt_center" style="background-color: #FEF5F4; color: #000000;"> 3</td>
+<td headers="stub_1_7 Blue" class="gt_row gt_center" style="background-color: #E89F93; color: #000000;">30</td>
+<td headers="stub_1_7 Hazel" class="gt_row gt_center" style="background-color: #FDEFEC; color: #000000;"> 5</td>
+<td headers="stub_1_7 Green" class="gt_row gt_center" style="background-color: #FBE5E1; color: #000000;"> 8</td>
+<td headers="stub_1_7 Total" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;"> 46</td>
+</tr>
+<tr>
+<th id="stub_1_8" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Female</th>
+<td headers="stub_1_8 stub_2" class="gt_row gt_center" style="background-color: #FDF2F0; color: #000000;"> 4</td>
+<td headers="stub_1_8 Brown" class="gt_row gt_center" style="background-color: #B62C28; color: #FFFFFF;">64</td>
+<td headers="stub_1_8 Blue" class="gt_row gt_center" style="background-color: #FDEFEC; color: #000000;"> 5</td>
+<td headers="stub_1_8 Hazel" class="gt_row gt_center" style="background-color: #FBE5E1; color: #000000;"> 8</td>
+<td headers="stub_1_8 Green" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;"> 81</td>
+</tr>
+<tr>
+<th id="stub_1_9" scope="row" class="gt_row gt_center gt_stub" style="background-color: #D1FFBD; font-style: italic; font-weight: bold;; border-right-width: 1px">Total</th>
+<th id="stub_1_9" scope="row" class="gt_row gt_center gt_stub" style="background-color: #D1FFBD; font-style: italic; font-weight: bold;"></th>
+<td headers="stub_1_9 Brown" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;">220</td>
+<td headers="stub_1_9 Blue" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;">215</td>
+<td headers="stub_1_9 Hazel" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;">93</td>
+<td headers="stub_1_9 Green" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;">64</td>
+<td headers="stub_1_9 Total" class="gt_row gt_center" style="background-color: #D1FFBD; font-style: italic;">592</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level3">
 <h3 id="frequency-form">Frequency Form<a class="anchor" aria-label="anchor" href="#frequency-form"></a>
@@ -161,7 +715,7 @@ the cell’s coordinates - A frequency column (typically
 = <code>sum(df$Freq)</code></p>
 <p>This form is convenient for modeling and is the output from
 <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code> applied to tables.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert table to frequency form</span></span>
 <span><span class="va">hair_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">HairEyeColor</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hair_freq</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -196,7 +750,7 @@ that individual - No frequency column needed - Total observations =
 <code>nrow(df)</code></p>
 <p>This is the “raw data” format and most intuitive for those familiar
 with data collection.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert frequency form to case form using vcdExtra::expand.dft()</span></span>
 <span><span class="va">hair_case</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://friendly.github.io/vcdExtra/reference/expand.dft.html" class="external-link">expand.dft</a></span><span class="op">(</span><span class="va">hair_freq</span>, freq <span class="op">=</span> <span class="st">"Freq"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hair_case</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -260,10 +814,16 @@ with data collection.</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Note</strong>: These conversions are clearly untidy and hard
+to remember which to use. They have now been implemented in a collection
+of <code>vcdExtra::as_*()</code> functions which take whatever you give
+it and return the desired form.</p>
+<!-- TODO: swap the table/examples above to use `vcdExtra::as_*()` directly. Holding off for now --
+     these functions may need more explanation than a simple swap-in provides. -->
 <div class="section level3">
 <h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Case → Frequency (count occurrences)</span></span>
 <span><span class="va">hair_case</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span>, name <span class="op">=</span> <span class="st">"Freq"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -294,14 +854,14 @@ with data collection.</p>
 <p>Let’s demonstrate how to use each of the three forms with
 <code><a href="../reference/geom_mosaic.html">geom_mosaic()</a></code> using the full <code>HairEyeColor</code>
 dataset.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># From frequency form (most common)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Three-Way Mosaic: Hair × Eye × Sex"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Frequency form with weight aesthetic"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/mosaic-3way-frequency-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># From case form</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_case</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -320,7 +880,7 @@ counts as 1)</p>
 </h4>
 <p>The <code>conds</code> aesthetic allows you to condition on one or
 more variables:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Condition on Sex</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>,</span>
@@ -346,7 +906,7 @@ whether patterns are statistically meaningful.</p>
 <p>By default, <code><a href="../reference/geom_mosaic.html">geom_mosaic()</a></code> uses the <code>fill</code>
 aesthetic to color tiles, typically showing one of the categorical
 variables:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye Color: Default Shading"</span>,</span>
@@ -383,7 +943,7 @@ approximately α = 0.05</li>
 <p>For a two-way table, we can visualize just Hair and Eye color. The
 most common model is <strong>independence</strong> (main effects
 only):</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -403,7 +963,7 @@ significant association between hair and eye color</p>
 </h4>
 <p>We can display the actual residual values in each cell using
 <code><a href="../reference/geom_mosaic_text.html">geom_mosaic_text()</a></code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -425,7 +985,7 @@ departures from independence.</p>
 </h4>
 <p>For the three-way table, the independence model tests whether all
 three variables are mutually independent:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -439,7 +999,7 @@ three variables are mutually independent:</p>
 </h4>
 <p>You can specify custom loglinear models using formula syntax. For
 example, testing whether the Hair-Eye association differs by Sex:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Model: Hair and Eye are associated, but independent of Sex</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -456,7 +1016,7 @@ Hair-Eye association is similar for males and females.</p>
 <h3 id="comparing-observed-and-expected">Comparing Observed and Expected<a class="anchor" aria-label="anchor" href="#comparing-observed-and-expected"></a>
 </h3>
 <p>We can also display the expected counts under a model:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -471,7 +1031,7 @@ Hair-Eye association is similar for males and females.</p>
 <span>       subtitle <span class="op">=</span> <span class="st">"Compare with observed to see associations"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/expected-values-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>And the observed counts:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_mosaic_text.html">geom_mosaic_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -587,7 +1147,7 @@ Computational and Graphical Statistics</em>, 16(3), 507-525.</li>
 <div class="section level2">
 <h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
@@ -620,19 +1180,19 @@ Computational and Graphical Statistics</em>, 16(3), 507-525.</li>
 <span><span class="co">#&gt;  [9] vctrs_0.7.3        tools_4.6.1        ps_1.9.3           generics_0.1.4    </span></span>
 <span><span class="co">#&gt; [13] tibble_3.3.1       ca_0.71.1          pkgconfig_2.0.3    Matrix_1.7-5      </span></span>
 <span><span class="co">#&gt; [17] data.table_1.18.4  RColorBrewer_1.1-3 S7_0.2.2           desc_1.4.3        </span></span>
-<span><span class="co">#&gt; [21] lifecycle_1.0.5    compiler_4.6.1     farver_2.1.2       textshaping_1.0.5 </span></span>
-<span><span class="co">#&gt; [25] chromote_0.5.1     htmltools_0.5.9    sass_0.4.10        yaml_2.3.12       </span></span>
-<span><span class="co">#&gt; [29] plotly_4.12.1      pillar_1.11.1      pkgdown_2.2.1      later_1.4.8       </span></span>
-<span><span class="co">#&gt; [33] jquerylib_0.1.4    tidyr_1.3.2        MASS_7.3-65        cachem_1.1.0      </span></span>
-<span><span class="co">#&gt; [37] webshot2_0.1.2     tidyselect_1.2.1   digest_0.6.39      purrr_1.2.2       </span></span>
-<span><span class="co">#&gt; [41] qvcalc_1.0.4       forcats_1.0.1      fastmap_1.2.0      colorspace_2.1-3  </span></span>
-<span><span class="co">#&gt; [45] cli_3.6.6          magrittr_2.0.5     productplots_0.1.2 relimp_1.0-5      </span></span>
-<span><span class="co">#&gt; [49] withr_3.0.3        scales_1.4.0       promises_1.5.0     rmarkdown_2.31    </span></span>
-<span><span class="co">#&gt; [53] httr_1.4.8         otel_0.2.0         nnet_7.3-20        ragg_1.5.2        </span></span>
-<span><span class="co">#&gt; [57] zoo_1.9-0          evaluate_1.0.5     knitr_1.51         lmtest_0.9-40     </span></span>
-<span><span class="co">#&gt; [61] viridisLite_0.4.3  rlang_1.3.0        Rcpp_1.1.2         glue_1.8.1        </span></span>
-<span><span class="co">#&gt; [65] jsonlite_2.0.0     R6_2.6.1           plyr_1.8.9         systemfonts_1.3.2 </span></span>
-<span><span class="co">#&gt; [69] fs_2.1.0</span></span></code></pre></div>
+<span><span class="co">#&gt; [21] gt_1.3.0           lifecycle_1.0.5    compiler_4.6.1     farver_2.1.2      </span></span>
+<span><span class="co">#&gt; [25] textshaping_1.0.5  chromote_0.5.1     htmltools_0.5.9    sass_0.4.10       </span></span>
+<span><span class="co">#&gt; [29] yaml_2.3.12        plotly_4.12.1      pillar_1.11.1      pkgdown_2.2.1     </span></span>
+<span><span class="co">#&gt; [33] later_1.4.8        jquerylib_0.1.4    tidyr_1.3.2        MASS_7.3-65       </span></span>
+<span><span class="co">#&gt; [37] cachem_1.1.0       webshot2_0.1.2     tidyselect_1.2.1   digest_0.6.39     </span></span>
+<span><span class="co">#&gt; [41] purrr_1.2.2        qvcalc_1.0.4       forcats_1.0.1      fastmap_1.2.0     </span></span>
+<span><span class="co">#&gt; [45] colorspace_2.1-3   cli_3.6.6          magrittr_2.0.5     productplots_0.1.2</span></span>
+<span><span class="co">#&gt; [49] relimp_1.0-5       withr_3.0.3        scales_1.4.0       promises_1.5.0    </span></span>
+<span><span class="co">#&gt; [53] rmarkdown_2.31     httr_1.4.8         otel_0.2.0         nnet_7.3-20       </span></span>
+<span><span class="co">#&gt; [57] ragg_1.5.2         zoo_1.9-0          evaluate_1.0.5     knitr_1.51        </span></span>
+<span><span class="co">#&gt; [61] lmtest_0.9-40      viridisLite_0.4.3  rlang_1.3.0        Rcpp_1.1.2        </span></span>
+<span><span class="co">#&gt; [65] glue_1.8.1         xml2_1.6.0         jsonlite_2.0.0     R6_2.6.1          </span></span>
+<span><span class="co">#&gt; [69] plyr_1.8.9         systemfonts_1.3.2  fs_2.1.0</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

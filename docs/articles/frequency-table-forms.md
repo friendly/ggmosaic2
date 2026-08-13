@@ -84,6 +84,21 @@ sum(HairEyeColor)
 The `HairEyeColor` dataset is a 4 × 4 × 2 contingency table with 592
 observations classified by hair color, eye color, and sex.
 
+Table form can also be displayed as a heatmap-style **color table**,
+using
+[`vcdExtra::color_table()`](https://friendly.github.io/vcdExtra/reference/color_table.html),
+which shades each cell background by its frequency. This gives a quick
+visual sense of where the data are concentrated, as a complement to the
+mosaic plots introduced below – useful for readers less familiar with
+reading mosaic displays.
+
+``` r
+
+color_table(HairEyeColor, shade = "freq")
+```
+
+[TABLE]
+
 ### Frequency Form
 
 **Frequency form** is a data frame where: - Each row represents one cell
@@ -173,6 +188,11 @@ The table below summarizes conversion functions:
 | **Table** | — | [`as.data.frame()`](https://rdrr.io/r/base/as.data.frame.html) | [`expand.dft()`](https://friendly.github.io/vcdExtra/reference/expand.dft.html) |
 | **Frequency** | `xtabs(Freq ~ ...)` | — | [`expand.dft()`](https://friendly.github.io/vcdExtra/reference/expand.dft.html) |
 | **Case** | [`table()`](https://rdrr.io/r/base/table.html), [`xtabs()`](https://rdrr.io/r/stats/xtabs.html) | [`count()`](https://dplyr.tidyverse.org/reference/count.html), [`xtabs()`](https://rdrr.io/r/stats/xtabs.html) | — |
+
+**Note**: These conversions are clearly untidy and hard to remember
+which to use. They have now been implemented in a collection of
+`vcdExtra::as_*()` functions which take whatever you give it and return
+the desired form.
 
 ### Examples
 
@@ -522,17 +542,17 @@ sessionInfo()
 #>  [9] vctrs_0.7.3        tools_4.6.1        ps_1.9.3           generics_0.1.4    
 #> [13] tibble_3.3.1       ca_0.71.1          pkgconfig_2.0.3    Matrix_1.7-5      
 #> [17] data.table_1.18.4  RColorBrewer_1.1-3 S7_0.2.2           desc_1.4.3        
-#> [21] lifecycle_1.0.5    compiler_4.6.1     farver_2.1.2       textshaping_1.0.5 
-#> [25] chromote_0.5.1     htmltools_0.5.9    sass_0.4.10        yaml_2.3.12       
-#> [29] plotly_4.12.1      pillar_1.11.1      pkgdown_2.2.1      later_1.4.8       
-#> [33] jquerylib_0.1.4    tidyr_1.3.2        MASS_7.3-65        cachem_1.1.0      
-#> [37] webshot2_0.1.2     tidyselect_1.2.1   digest_0.6.39      purrr_1.2.2       
-#> [41] qvcalc_1.0.4       forcats_1.0.1      fastmap_1.2.0      colorspace_2.1-3  
-#> [45] cli_3.6.6          magrittr_2.0.5     productplots_0.1.2 relimp_1.0-5      
-#> [49] withr_3.0.3        scales_1.4.0       promises_1.5.0     rmarkdown_2.31    
-#> [53] httr_1.4.8         otel_0.2.0         nnet_7.3-20        ragg_1.5.2        
-#> [57] zoo_1.9-0          evaluate_1.0.5     knitr_1.51         lmtest_0.9-40     
-#> [61] viridisLite_0.4.3  rlang_1.3.0        Rcpp_1.1.2         glue_1.8.1        
-#> [65] jsonlite_2.0.0     R6_2.6.1           plyr_1.8.9         systemfonts_1.3.2 
-#> [69] fs_2.1.0
+#> [21] gt_1.3.0           lifecycle_1.0.5    compiler_4.6.1     farver_2.1.2      
+#> [25] textshaping_1.0.5  chromote_0.5.1     htmltools_0.5.9    sass_0.4.10       
+#> [29] yaml_2.3.12        plotly_4.12.1      pillar_1.11.1      pkgdown_2.2.1     
+#> [33] later_1.4.8        jquerylib_0.1.4    tidyr_1.3.2        MASS_7.3-65       
+#> [37] cachem_1.1.0       webshot2_0.1.2     tidyselect_1.2.1   digest_0.6.39     
+#> [41] purrr_1.2.2        qvcalc_1.0.4       forcats_1.0.1      fastmap_1.2.0     
+#> [45] colorspace_2.1-3   cli_3.6.6          magrittr_2.0.5     productplots_0.1.2
+#> [49] relimp_1.0-5       withr_3.0.3        scales_1.4.0       promises_1.5.0    
+#> [53] rmarkdown_2.31     httr_1.4.8         otel_0.2.0         nnet_7.3-20       
+#> [57] ragg_1.5.2         zoo_1.9-0          evaluate_1.0.5     knitr_1.51        
+#> [61] lmtest_0.9-40      viridisLite_0.4.3  rlang_1.3.0        Rcpp_1.1.2        
+#> [65] glue_1.8.1         xml2_1.6.0         jsonlite_2.0.0     R6_2.6.1          
+#> [69] plyr_1.8.9         systemfonts_1.3.2  fs_2.1.0
 ```
