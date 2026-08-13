@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![Project Status:
@@ -18,7 +19,7 @@ DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/friendly/ggmosai
 
 # ggmosaic2 <img src="man/figures/logo.png" align="right" width="200px" />
 
-*Version 0.5.1, built 2026-08-13*
+*Version 0.5.0, built 2026-08-13*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -36,9 +37,7 @@ observations (reflecting non-independence as variation in point density,
 a physical analog for departures from independence), residual-based
 shading, and support for fitted loglinear models to show patterns of
 association among variables in frequency tables. Additional improvements
-include improved spacing, theme appearance, and proper faceting. These
-extensions and improvements are illustrated in the package vignette
-[`introducing-ggmosaic2.Rmd`](https://friendly.github.io/ggmosaic2/articles/introducing-ggmosaic2.html).
+include improved spacing, theme appearance, and proper faceting.
 
 See Friendly (1994, 1999) for the theory of mosaic displays and Jeppson
 & Hofmann (2023) for the description of the original `ggplot2`

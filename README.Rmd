@@ -43,7 +43,7 @@ bar charts, stacked bar charts, mosaic plots, and double decker plots.
 `ggmosaic2` extends this with jittered-point overlays showing individual observations (reflecting
 non-independence as variation in point density, a physical analog for departures from
 independence), residual-based shading, and support for fitted loglinear models to show patterns
-of association among variables in frequency tables. Additional improvements include improved spacing, theme appearance, and proper faceting. These extensions and improvements are illustrated in the package vignette [`introducing-ggmosaic2.Rmd`](https://friendly.github.io/ggmosaic2/articles/introducing-ggmosaic2.html).
+of association among variables in frequency tables. Additional improvements include improved spacing, theme appearance, and proper faceting.
 
 See Friendly (1994, 1999) for the theory of mosaic displays and Jeppson & Hofmann (2023) for the description of the original
 `ggplot2` implementation. Full citations are in [References](#references) below.
