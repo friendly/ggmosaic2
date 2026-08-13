@@ -1,6 +1,6 @@
 # ggmosaic2
 
-*Version 0.5.0, built 2026-08-13*
+*Version 0.5.1, built 2026-08-13*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
