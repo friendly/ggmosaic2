@@ -90,6 +90,8 @@ Verified against current `R/` source, not just the docs' own claims.
 
 - [ ] Cleanup `issues/`: Many are historical & solved-- perhaps move to a `done/ subfolder.
   - [ ] Going forward, should we do this as formal issues in the GH repo, so progress is visible to others?
+  
+  GK: Created `issues/solved/` subfolder. I think using formal issues is a good idea.
 
 ## Outstanding issues inherited from the original `ggmosaic`
 
