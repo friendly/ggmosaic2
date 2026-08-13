@@ -71,6 +71,15 @@ sum(HairEyeColor)
 
 The `HairEyeColor` dataset is a 4 × 4 × 2 contingency table with `r sum(HairEyeColor)` observations classified by hair color, eye color, and sex.
 
+Table form can also be displayed as a heatmap-style **color table**, using `vcdExtra::color_table()`,
+which shades each cell background by its frequency. This gives a quick visual sense of where the
+data are concentrated, as a complement to the mosaic plots introduced below -- useful for readers
+less familiar with reading mosaic displays.
+
+```{r color-table}
+color_table(HairEyeColor, shade = "freq")
+```
+
 ### Frequency Form
 
 **Frequency form** is a data frame where:
@@ -131,6 +140,13 @@ The table below summarizes conversion functions:
 | **Table** | — | `as.data.frame()` | `expand.dft()` |
 | **Frequency** | `xtabs(Freq ~ ...)` | — | `expand.dft()` |
 | **Case** | `table()`, `xtabs()` | `count()`, `xtabs()` | — |
+
+**Note**: These conversions are clearly untidy and hard to remember which to use. They have now been
+implemented in a collection of `vcdExtra::as_*()` functions which take whatever you give it
+and return the desired form.
+
+<!-- TODO: swap the table/examples above to use `vcdExtra::as_*()` directly. Holding off for now --
+     these functions may need more explanation than a simple swap-in provides. -->
 
 ### Examples
 
