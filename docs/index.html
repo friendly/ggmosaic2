@@ -62,9 +62,10 @@
 <img src="logo.png" class="logo" alt=""><h1 id="ggmosaic2-">ggmosaic2 <a class="anchor" aria-label="anchor" href="#ggmosaic2-"></a>
 </h1>
 </div>
-<p><em>Version 0.5.1, built 2026-08-12</em></p>
+<p><em>Version 0.5.1, built 2026-08-13</em></p>
 <p><code>ggmosaic2</code> is a standalone continuation of the <code>ggmosaic</code> package, which was removed from CRAN around November 2025 and appeared unmaintained (a <a href="https://github.com/haleyjeppson/ggmosaic/pull/86" class="external-link">pull request</a> adding residual-based shading went unanswered). Rather than fork under the original name, <code>ggmosaic2</code> is developed independently, building on <code>ggmosaic</code>’s original authors (Haley Jeppson, Heike Hofmann, Di Cook; credited as authors in <code>DESCRIPTION</code>). <code>ggmosaic</code> was designed to create visualizations of categorical data and is capable of producing bar charts, stacked bar charts, mosaic plots, and double decker plots.</p>
 <p><code>ggmosaic2</code> extends this with jittered-point overlays showing individual observations (reflecting non-independence as variation in point density, a physical analog for departures from independence), residual-based shading, and support for fitted loglinear models to show patterns of association among variables in frequency tables. Additional improvements include improved spacing, theme appearance, and proper faceting. These extensions and improvements are illustrated in the package vignette <a href="https://friendly.github.io/ggmosaic2/articles/introducing-ggmosaic2.html"><code>introducing-ggmosaic2.Rmd</code></a>.</p>
+<p>See Friendly (1994, 1999) for the theory of mosaic displays and Jeppson &amp; Hofmann (2023) for the description of the original <code>ggplot2</code> implementation. Full citations are in <a href="#references">References</a> below.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -79,7 +80,7 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>The <code><a href="https://rdrr.io/r/datasets/HairEyeColor.html" class="external-link">datasets::HairEyeColor</a></code> is a classic example of what can be learned from a mosaic plot. It is a 3-way table, containing the frequencies of 592 students who were asked to give their hair color and eye color, classified by <code>Sex</code></p>
+<p>The <code><a href="https://rdrr.io/r/datasets/HairEyeColor.html" class="external-link">datasets::HairEyeColor</a></code> is a classic example of what can be learned from a mosaic plot. It is a 3-way table, containing the frequencies of 592 students who were asked to give their hair color and eye color, classified by <code>Sex</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/ftable.html" class="external-link">ftable</a></span><span class="op">(</span><span class="va">Hair</span> <span class="op">~</span> <span class="va">Eye</span> <span class="op">+</span> <span class="va">Sex</span>, data<span class="op">=</span><span class="va">HairEyeColor</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              Hair Black Brown Red Blond</span></span>
@@ -98,11 +99,11 @@
 <li>If so, what is the nature/pattern of association?</li>
 <li>Is this the same for males and females?</li>
 </ul>
-<p>See: REFS-HERE for more.. Here, we just illustrate how to display this dataset using <code>ggmosaic2</code>.</p>
+<!-- TODO: See: REFS-HERE for other analyses of this dataset. Is this necessary / useful? --><p>Here, we just illustrate how to display this dataset using <code>ggmosaic2</code>. See the vignette, <a href="https://friendly.github.io/ggmosaic2/articles/introducing-ggmosaic2.html">Introducing ggmosaic2: an enhanced ggmosaic</a> for how the current implementation differs from that in the original <code>ggmosaic</code> package, including use of the <code>fill=</code> aesthetic for Marimekko-style shading and the use of spacing of the tiles to preserve a visual hierarchy of the cells belonging to the various factors in the table.</p>
 <div class="section level3">
 <h3 id="basic-mosaic-plot">Basic mosaic plot<a class="anchor" aria-label="anchor" href="#basic-mosaic-plot"></a>
 </h3>
-<p>With default shading, a mosaic plot just shows the relative frequencies of each combination of <code>Sex</code>, <code>Eye</code>, and <code>Hair</code>, via the area of each tile.</p>
+<p>With default (uniform) shading, a mosaic plot just shows the relative frequencies of each combination of <code>Sex</code>, <code>Eye</code>, and <code>Hair</code>, via the area of each tile. The total frequency is first split by <code>Hair</code> color, then subdivided by <code>Eye</code> color, and finally by <code>Sex</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://friendly.github.io/ggmosaic2/">ggmosaic2</a></span><span class="op">)</span></span>
 <span></span>
@@ -111,8 +112,9 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="va">Eye</span>, <span class="va">Hair</span><span class="op">)</span>, weight <span class="op">=</span> <span class="va">Freq</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-example-basic-1.png" alt="Basic mosaicplot of the HairEyeColor dataset from base R, with default shading. Tile area reflects the relative frequency of each combination of hair color, eye color, and biological sex."></p>
+<p><img src="reference/figures/README-example-basic-1.png" alt="Basic mosaicplot of the HairEyeColor dataset, with default shading. Tile area reflects the relative frequency of each combination of hair color, eye color, and reported sex."></p>
 <p>Data must be in either frequency form (i.e., containing a <code>"Freq"</code> column or equivalent) or case form (i.e., each row contains an individual observation) to be used with <code><a href="reference/geom_mosaic.html">geom_mosaic()</a></code>. Data in frequency form must have its frequency column mapped to the <code>weight=</code> argument of <code><a href="reference/geom_mosaic.html">geom_mosaic()</a></code>. To accommodate the alternate splitting in horizontal and vertical directions, <code><a href="reference/geom_mosaic.html">geom_mosaic()</a></code> uses a <code><a href="reference/product.html">product()</a></code> to specify the geometrical aesthetic of the plot.</p>
+<p>See the vignette <a href="https://friendly.github.io/ggmosaic2/articles/frequency-table-forms.html">Three Forms of Frequency Tables for Mosaic Displays</a> for a fuller discussion of case form, frequency form, and table form, and how to convert between them.</p>
 </div>
 <div class="section level3">
 <h3 id="residual-shaded-mosaic-plot">Residual-shaded mosaic plot<a class="anchor" aria-label="anchor" href="#residual-shaded-mosaic-plot"></a>
@@ -126,14 +128,17 @@
 <span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-example-residual-1.png" alt="Mosaicplot of the HairEyeColor dataset from base R, shaded by residuals from a loglinear model of independence. Certain combinations of hair colour, eye colour, and biological sex are more/less common than would be expected if these variables were independent of one another."></p>
+<p><img src="reference/figures/README-example-residual-1.png" alt="Mosaicplot of the HairEyeColor dataset, shaded by residuals from a loglinear model of independence. Certain combinations of hair color, eye color, and sex are more/less common than would be expected if these variables were independent of one another."></p>
+<p>The <code>expected</code> argument also accepts <code>"saturated"</code> and <code>"conditional"</code> shortcuts, or a custom model formula, for fitting other loglinear models. See the vignette <a href="https://friendly.github.io/ggmosaic2/articles/loglinear-models.html">ggmosaic and Loglinear Models</a> for a fuller treatment of model fitting and residual-based shading.</p>
 </div>
 <div class="section level3">
 <h3 id="jittered-points-showing-individual-observations">Jittered points: showing individual observations<a class="anchor" aria-label="anchor" href="#jittered-points-showing-individual-observations"></a>
 </h3>
 <p><code><a href="reference/geom_mosaic_jitter.html">geom_mosaic_jitter()</a></code> overlays one jittered point per individual observation on top of a mosaic plot, so that non-independence shows up both as residual shading and as variation in point density within each tile. It needs one row per observation, so first expand <code>HairEyeColor</code> from its frequency-table form using <code><a href="https://tidyr.tidyverse.org/reference/uncount.html" class="external-link">tidyr::uncount()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1945</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/uncount.html" class="external-link">uncount</a></span><span class="op">(</span><span class="va">Freq</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -158,21 +163,23 @@ GK: Folded this into the above (see paragraph "Data must be in ..."). Feel free 
 &#10;    -   declared as `conds = product(cond1, cond2, ...)`
 &#10;These values are then sent through repurposed `productplots` functions to create the desired formula: `weight ~ alpha + fill + x | conds`.
 -->
-<!--
-This section deleted as no longer useful.
-&#10;## Version compatibility issues with ggplot2
-&#10;Since the initial release of ggmosaic, ggplot2 has evolved considerably. And as ggplot2 continues to evolve, ggmosaic must continue to evolve alongside it. Although these changes affect the underlying code and not the general usage of ggmosaic, the general user may need to be aware of compatibility issues that can arise between versions. The table below summarizes the compatibility between versions (inherited history from `ggmosaic`, prior to the `ggmosaic2` fork).
-&#10;
-| ggmosaic | ggplot2 | Axis labels                                                                   | Tick marks    |
-|----------|---------|-------------------------------------------------------------------------------|---------------|
-| [@93e5840](https://github.com/haleyjeppson/ggmosaic/commit/93e5840cc9586524428d36aeb8b33630341d20d7)    | 3.3.4   | x                                                                             | x     |
-| 0.3.3    | 3.3.3   | x                                                                             | x             |
-| 0.3.0    | 3.3.0   | x                                                                             | x             |
-| 0.2.2    | 3.3.0   | Default labels are okay, but must use <br>`scale_*_productlist()` to modify | No tick marks |
-| 0.2.2    | 3.2.0   | Default labels okay, but must use <br>`scale_*_productlist()` to modify     | x             |
-| 0.2.0    | 3.2.0   | Default labels are wrong, but can use <br>`labs()` to modify                  | x             |
--->
 </div>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p><strong>Mosaic displays</strong></p>
+<ul>
+<li>Friendly, M. (1994). Mosaic Displays for Multi-Way Contingency Tables. <em>Journal of the American Statistical Association</em>, 89(425), 190–200. <a href="https://doi.org/10.1080/01621459.1994.10476460" class="external-link">doi:10.1080/01621459.1994.10476460</a>
+</li>
+<li>Friendly, M. (1999). Extending Mosaic Displays: Marginal, Conditional, and Partial Views of Categorical Data. <em>Journal of Computational and Graphical Statistics</em>, 8(3), 373–395. <a href="https://doi.org/10.1080/10618600.1999.10474820" class="external-link">doi:10.1080/10618600.1999.10474820</a>
+</li>
+</ul>
+<p><strong>ggmosaic</strong></p>
+<ul>
+<li>Jeppson, H., &amp; Hofmann, H. (2023). Generalized Mosaic Plots in the ggplot2 Framework. <em>The R Journal</em>, 14(4), 50–78. <a href="https://doi.org/10.32614/RJ-2023-013" class="external-link">doi:10.32614/RJ-2023-013</a>
+</li>
+</ul>
 </div>
 </div>
 
