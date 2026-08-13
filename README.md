@@ -19,7 +19,7 @@ DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/friendly/ggmosai
 
 # ggmosaic2 <img src="man/figures/logo.png" align="right" width="200px" />
 
-*Version 0.5.0, built 2026-08-13*
+*Version 0.5.1, built 2026-08-13*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
