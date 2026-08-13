@@ -58,7 +58,7 @@ Verified against current `R/` source, not just the docs' own claims.
   
 - [ ] No formal test suite (`tests/testthat/`) — `check-fixes.md` explicitly recommends adding
   tests for `divide_once()` edge cases, namespace conflicts, and ggplot2 version compatibility;
-  none exist yet, only the manual scripts in `issues/`.
+  none exist yet, only the manual scripts in `issues/`. Low priority.
   
 - [ ] Consider a `Conflicts`-style note in `DESCRIPTION` documenting the `vcd::mosaic()` /
   `ggmosaic::mosaic()` name collision (`check-fixes.md` recommendation).
@@ -80,10 +80,13 @@ Verified against current `R/` source, not just the docs' own claims.
   - [X] Add appropriate badges
   - [X] Add dynamic version number and pkgdown build date
   - [X] The main example, HairEyeColor should start with just a basic display, default shading
-  - [ ] Illustrate residual shading, use of `geom_poiont()`
+  - [X] Illustrate point density, use of `geom_mosaic_jitter()`
   - [X] Edit or delete the out of date section "Version compatibility issues with ggplot2"
+  - [ ] Show an example using the `fill = ` aesthetic, which was the only shading in original `ggmosiac`
   
-- [ ] Edit package citation
+- [X] Edit package citation
+
+- [ ] Elide or remove the stale `R/ggmosaic_app/R`. No idea it this works
 
 ## Outstanding issues inherited from the original `ggmosaic`
 

@@ -2,14 +2,16 @@ year = sub('.*(2[[:digit:]]{3})-.*', '\\1', meta$Date, perl = TRUE)
 vers = paste('R package version', meta$Version)
 if (length(year) == 0) year = format(Sys.Date(), '%Y')
 
+auts = eval(parse(text = meta$"Authors@R"))
+auts = auts[sapply(auts, function(p) "aut" %in% p$role)]
 
 bibentry(
-  bibtype="manual",
-  title = "ggmosaic: Mosaic Plots in the 'ggplot2' Framework",
-  author = "Haley Jeppson and Heike Hofmann and Dianne H. Cook",
-  year = 2023,
+  bibtype = "Manual",
+  title = "ggmosaic2: Mosaic Plots in the 'ggplot2' Framework, Extended",
+  author = auts,
+  year = year,
   note = vers,
-  url = meta$URL
+  url = "https://friendly.github.io/ggmosaic2/"
 )
 
 
