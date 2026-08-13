@@ -25,8 +25,15 @@ So, how to do this without stepping on toes of those previously involved?
 - [DONE] Revise README to describe what is new / changed here. 
 - [DONE] This could also be the topic of a new vignette 
 - [DONE] Put it on R-universe  https://friendly.r-universe.dev/ggmosaic2
+
 - Perhaps tone down the 'origin story' bits in the README / vignettes
 - Write back a comment to the gg-extenders club on what we've done.
+  - Mention issues solved from `ggmosaic`, more than just caused CRAN removal,perhaps referencing `issues/solved`
+  - Mention the new vignettes
+  - Mention keeping the original authors and references retained.
+  - Write this in `issues/gg-extenders-reply.md` as something to work on before posting. This should NOT read as AI generated.
+    Perhaps necessary to break it up into two replies, one that makes the main points about publishing `ggmosaic2` to CRAN
+    and another to provide details.
 
 - Write to old authors, essentially asking their blessing (but not permission)
   - NB: Kept all previous authors / contributors listed in ggmosaic2
