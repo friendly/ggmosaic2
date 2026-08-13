@@ -21,17 +21,16 @@
 Source:
 [`inst/CITATION`](https://github.com/friendly/ggmosaic2/blob/master/inst/CITATION)
 
-Jeppson H, Hofmann H, Cook DH (2023). *ggmosaic: Mosaic Plots in the
-'ggplot2' Framework*. R package version 0.5.1,
-[https://friendly.github.io/ggmosaic2/,
-https://github.com/friendly/ggmosaic2](https://friendly.github.io/ggmosaic2/,%20https://github.com/friendly/ggmosaic2).
+Friendly M, Klorfine G, Jeppson H, Hofmann H, Cook D (2026). *ggmosaic2:
+Mosaic Plots in the 'ggplot2' Framework, Extended*. R package version
+0.5.1, <https://friendly.github.io/ggmosaic2/>.
 
     @Manual{,
-      title = {ggmosaic: Mosaic Plots in the 'ggplot2' Framework},
-      author = {Haley Jeppson and Heike Hofmann and Dianne H. Cook},
-      year = {2023},
+      title = {ggmosaic2: Mosaic Plots in the 'ggplot2' Framework, Extended},
+      author = {Michael Friendly and Gavin Klorfine and Haley Jeppson and Heike Hofmann and Di Cook},
+      year = {2026},
       note = {R package version 0.5.1},
-      url = {https://friendly.github.io/ggmosaic2/, https://github.com/friendly/ggmosaic2},
+      url = {https://friendly.github.io/ggmosaic2/},
     }
 
 Jeppson & Hofmann, "The R Journal: Generalized Mosaic Plots in the
