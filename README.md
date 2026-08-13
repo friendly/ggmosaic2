@@ -3,17 +3,23 @@
 
 <!-- badges: start -->
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggmosaic2)](https://CRAN.R-project.org/package=ggmosaic2)
+[![Project Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R_Universe](https://friendly.r-universe.dev/badges/ggmosaic2)](https://friendly.r-universe.dev)
 [![Last
 Commit](https://img.shields.io/github/last-commit/friendly/ggmosaic2)](https://github.com/friendly/ggmosaic2/)
 [![Docs](https://img.shields.io/badge/pkgdown%20site-blue)](https://friendly.github.io/ggmosaic2/)
+[![Ask
+DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/friendly/ggmosaic2)
+<!--
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggmosaic2)](https://CRAN.R-project.org/package=ggmosaic2)
+
 [![R-CMD-check](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->
+--> <!-- badges: end -->
 
 # ggmosaic2 <img src="man/figures/logo.png" align="right" width="200px" />
 
-*Version 0.5.0, built 2026-08-12*
+*Version 0.5.1, built 2026-08-12*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -37,7 +43,14 @@ extensions and improvements are illustrated in the package vignette
 
 ## Installation
 
-You can install `ggmosaic2` from GitHub with:
+You can install the latest version of `ggmosaic2` from
+[R-universe](https://friendly.r-universe.dev/ggmosaic2) with:
+
+``` r
+install.packages("ggmosaic2", repos = "https://friendly.r-universe.dev")
+```
+
+or from GitHub with:
 
 ``` r
 # install.packages("devtools")

@@ -16,11 +16,16 @@ knitr::opts_chunk$set(
 ```
 
 <!-- badges: start -->
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggmosaic2)](https://CRAN.R-project.org/package=ggmosaic2)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R_Universe](https://friendly.r-universe.dev/badges/ggmosaic2)](https://friendly.r-universe.dev)
 [![Last Commit](https://img.shields.io/github/last-commit/friendly/ggmosaic2)](https://github.com/friendly/ggmosaic2/)
 [![Docs](https://img.shields.io/badge/pkgdown%20site-blue)](https://friendly.github.io/ggmosaic2/)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/friendly/ggmosaic2)
+<!--
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggmosaic2)](https://CRAN.R-project.org/package=ggmosaic2)
+
 [![R-CMD-check](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml)
+-->
 <!-- badges: end -->
 
 # ggmosaic2 <img src="man/figures/logo.png" align="right" width="200px" />
@@ -42,7 +47,13 @@ of association among variables in frequency tables. Additional improvements incl
 
 ## Installation
 
-You can install `ggmosaic2` from GitHub with:
+You can install the latest version of `ggmosaic2` from [R-universe](https://friendly.r-universe.dev/ggmosaic2) with:
+
+```{r r-universe-installation, eval = FALSE}
+install.packages("ggmosaic2", repos = "https://friendly.r-universe.dev")
+```
+
+or from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
