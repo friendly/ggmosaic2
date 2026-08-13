@@ -1,6 +1,6 @@
 # ggmosaic2
 
-*Version 0.5.0, built 2026-08-12*
+*Version 0.5.1, built 2026-08-12*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -24,7 +24,15 @@ extensions and improvements are illustrated in the package vignette
 
 ## Installation
 
-You can install `ggmosaic2` from GitHub with:
+You can install the latest version of `ggmosaic2` from
+[R-universe](https://friendly.r-universe.dev/ggmosaic2) with:
+
+``` r
+
+install.packages("ggmosaic2", repos = "https://friendly.r-universe.dev")
+```
+
+or from GitHub with:
 
 ``` r
 
