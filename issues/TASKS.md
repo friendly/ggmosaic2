@@ -78,8 +78,8 @@ Verified against current `R/` source, not just the docs' own claims.
 
 - [ ] Revise the `README.Rmd` file. 
   - [X] Add appropriate badges
-  - [ ] Add dynamic version number and pkgdown build date
-  - [ ] The main example, HairEyeColor should start with just a basic display, default shading
+  - [X] Add dynamic version number and pkgdown build date
+  - [X] The main example, HairEyeColor should start with just a basic display, default shading
   - [ ] Illustrate residual shading, use of `geom_poiont()`
   - [X] Edit or delete the out of date section "Version compatibility issues with ggplot2"
   
