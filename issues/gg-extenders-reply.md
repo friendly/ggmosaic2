@@ -9,10 +9,12 @@ posting -- these are a first pass.
 
 ## Reply 1 (main point)
 
-Update on this: My student & I went ahead and did it. `ggmosaic2` is up on R-universe
+Update on this: My student Gavin & I went ahead and did it! `ggmosaic2` v. 0.5.1 is up on R-universe
 (https://friendly.r-universe.dev/ggmosaic2) and on GitHub
-(https://github.com/friendly/ggmosaic2), and I'm working toward a CRAN submission.
-But is want to avoid stepping on toes, so this is still in a holding pattern.
+(https://github.com/friendly/ggmosaic2), with pkgdown documentation (https://friendly.github.io/ggmosaic2/index.html).
+
+So, I'm working toward a CRAN submission.
+But I want to avoid stepping on toes, so this is still in a holding pattern.
 
 Never heard back from Haley, Heike, or Di after the emails, so I kept the original PR's
 work, and fully credited all three as authors, then built on it from there rather than let it sit as abandonned.
@@ -58,5 +60,9 @@ To cite package ‘ggmosaic2’ in publications use:
 
   Jeppson & Hofmann, "The R Journal: Generalized Mosaic Plots in the ggplot2 Framework", The R Journal, 2023
 ```
+
+I will of course contact Haley, Heike, and Di before going further, but thought it prudent to run this by gg-extenders
+because this is such an unusual situation.
+
 
 @teunbrand, re: the GPL 2+ point from earlier -- yes, kept that.
