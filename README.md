@@ -133,10 +133,10 @@ and how to convert between them.
 ### Residual-shaded mosaic plot
 
 To see whether hair and eye color are associated, fit a loglinear model
-of independence (`expected = "independence"`) and shade each tile by its
-residual from that model with `scale_fill_residual()`. Tiles shaded blue
-occur more often than expected under independence; tiles shaded red
-occur less often.
+of **joint** independence (`expected = "independence"`) and shade each
+tile by its residual from that model with `scale_fill_residual()`. Tiles
+shaded blue occur more often than expected under independence; tiles
+shaded red occur less often.
 
 ``` r
 HairEyeColor |>
