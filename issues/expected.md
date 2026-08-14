@@ -43,6 +43,11 @@ Alternatively, should the API coordinate the two layers through a helper or
 some other mechanism? In particular, adding a jitter layer should not silently
 change the construction of another layer.
 
+MF: This is perfectly true. The current implementation doesn't allow constructing
+the mosaic tiles with area ~ expected frequency.
+TODO: Check on how `vcd::mosaic()` allows this. `vcdExtra` has some code for
+adding points in these displays, but not shipped. Investigate.
+
 ## API choices
 
 The layout arguments cannot legitimately differ between the tiles and points:
