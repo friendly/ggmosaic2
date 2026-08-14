@@ -9,30 +9,32 @@ posting -- these are a first pass.
 
 ## Reply 1 (main point)
 
-Update on this: My student Gavin & I went ahead and did it! `ggmosaic2` v. 0.5.1 is up on R-universe
+Update on this: My student Gavin & I went ahead and did it! `
+
+ggmosaic2` v. 0.5.1 is up on R-universe
 (https://friendly.r-universe.dev/ggmosaic2) and on GitHub
 (https://github.com/friendly/ggmosaic2), with pkgdown documentation (https://friendly.github.io/ggmosaic2/index.html).
 
-So, I'm working toward a CRAN submission.
-But I want to avoid stepping on toes, so this is still in a holding pattern.
+So, I'm working toward a CRAN submission. But I want to avoid stepping on toes, so this is still in a holding pattern.
 
 Never heard back from Haley, Heike, or Di after the emails, so I kept the original PR's
-work, and fully credited all three as authors, then built on it from there rather than let it sit as abandonned.
-Details are the next comment, for anyone who wants them.
+work (haleyjeppson/ggmosaic#86), fully crediting all three as authors. We built on it from there rather than let it sit as abandoned.
+Details are the next comment, for anyone who wants them. Any guidance from gg-extenders is welcome
+in this unusual and somewhat tricky situation.
 
 ## Reply 2 (details)
 
 A few specifics, for anyone still following this thread.
 
 The compatibility break that got `ggmosaic` pulled from CRAN is fixed, obviously -- but
-that was really the smaller part of it. I also cleared out a handful of longstanding open
+that was really the smaller part of it. We also cleared out a handful of longstanding open
 issues on the original repo: 
 
-* #39 (fill/alpha/jitter variables no longer force themselves onto the product axes), 
-* #78 (facet-specific product-axis ticks, via a new `facet_mosaic_grid()`), 
-* #59 (computed aesthetics like `fill = factor(cyl)` now work inside`product()`), 
-* #77 (factor ordering, e.g. from `forcats::fct_inorder()`, is respected), and
-* #82 (fully-qualified calls like `ggmosaic2::geom_mosaic()` without attaching the package).
+* haleyjeppson/ggmosaic#39 (fill/alpha/jitter variables no longer force themselves onto the product axes), 
+* haleyjeppson/ggmosaic#78 (facet-specific product-axis ticks, via a new `facet_mosaic_grid()`), 
+* haleyjeppson/ggmosaic#59 (computed aesthetics like `fill = factor(cyl)` now work inside`product()`), 
+* haleyjeppson/ggmosaic#77 (factor ordering, e.g. from `forcats::fct_inorder()`, is respected), and
+* haleyjeppson/ggmosaic#82 (fully-qualified calls like `ggmosaic2::geom_mosaic()` without attaching the package).
 
 Beyond the bug fixes, the residual-shading work from my original PR is still the core of
 it -- fit a loglinear model, shade tiles by Pearson residuals, same idea as `vcd`'s

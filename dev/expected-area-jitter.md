@@ -26,7 +26,8 @@ shading/counting**, rather than adding a parallel "expected mosaic" code path.
   It has no say in rectangle geometry — it only reads the already-computed
   panel viewports and drops points into them.
 
-So structurally there are three independent pieces: (1) fit the model once,
+So structurally there are three independent pieces: 
+(1) fit the model once,
 (2) build rectangle geometry from *one* chosen table (observed or expected),
 (3) drop points into the finished cells from *one* chosen table (almost
 always observed — that's the whole point of the display). vcd keeps these
