@@ -62,9 +62,9 @@
 <img src="logo.png" class="logo" alt=""><h1 id="ggmosaic2-">ggmosaic2 <a class="anchor" aria-label="anchor" href="#ggmosaic2-"></a>
 </h1>
 </div>
-<p><em>Version 0.5.1, built 2026-08-13</em></p>
+<p><em>Version 0.5.1, built 2026-08-14</em></p>
 <p><code>ggmosaic2</code> is a standalone continuation of the <code>ggmosaic</code> package, which was removed from CRAN around November 2025 and appeared unmaintained (a <a href="https://github.com/haleyjeppson/ggmosaic/pull/86" class="external-link">pull request</a> adding residual-based shading went unanswered). Rather than fork under the original name, <code>ggmosaic2</code> is developed independently, building on <code>ggmosaic</code>’s original authors (Haley Jeppson, Heike Hofmann, Di Cook; credited as authors in <code>DESCRIPTION</code>). <code>ggmosaic</code> was designed to create visualizations of categorical data and is capable of producing bar charts, stacked bar charts, mosaic plots, and double decker plots.</p>
-<p><code>ggmosaic2</code> extends this with jittered-point overlays showing individual observations (reflecting non-independence as variation in point density, a physical analog for departures from independence), residual-based shading, and support for fitted loglinear models to show patterns of association among variables in frequency tables. Additional improvements include improved spacing, theme appearance, and proper faceting.</p>
+<p><code>ggmosaic2</code> extends this with support for fitted loglinear models to show patterns of association among variables in frequency tables via residual-based shading, which was its’ original intention, as opposed to the “fill by factor levels” (Marimekko shading) of the original <code>ggmosaic</code> package. It also adds jittered-point overlays showing individual observations, reflecting non-independence as variation in point density, a physical analog for departures from independence (Friendly, 1995). Additional improvements include improved spacing, theme appearance, and proper faceting.</p>
 <p>See Friendly (1994, 1999) for the theory of mosaic displays and Jeppson &amp; Hofmann (2023) for the description of the original <code>ggplot2</code> implementation. Full citations are in <a href="#references">References</a> below.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -110,17 +110,44 @@
 <span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="va">Eye</span>, <span class="va">Hair</span><span class="op">)</span>, weight <span class="op">=</span> <span class="va">Freq</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="va">Eye</span>, <span class="va">Hair</span><span class="op">)</span>, </span>
+<span>                  weight <span class="op">=</span> <span class="va">Freq</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-basic-1.png" alt="Basic mosaicplot of the HairEyeColor dataset, with default shading. Tile area reflects the relative frequency of each combination of hair color, eye color, and reported sex."></p>
 <p>Data must be in either frequency form (i.e., containing a <code>"Freq"</code> column or equivalent) or case form (i.e., each row contains an individual observation) to be used with <code><a href="reference/geom_mosaic.html">geom_mosaic()</a></code>. Data in frequency form must have its frequency column mapped to the <code>weight=</code> argument of <code><a href="reference/geom_mosaic.html">geom_mosaic()</a></code>. To accommodate the alternate splitting in horizontal and vertical directions, <code><a href="reference/geom_mosaic.html">geom_mosaic()</a></code> uses a <code><a href="reference/product.html">product()</a></code> to specify the geometrical aesthetic of the plot.</p>
 <p>See the vignette <a href="https://friendly.github.io/ggmosaic2/articles/frequency-table-forms.html">Three Forms of Frequency Tables for Mosaic Displays</a> for a fuller discussion of case form, frequency form, and table form, and how to convert between them.</p>
 </div>
 <div class="section level3">
+<h3 id="marimekko-shading">Marimekko shading<a class="anchor" aria-label="anchor" href="#marimekko-shading"></a>
+</h3>
+<p>These basic mosaic displays are easier to read if the tiles are colored according to the levels of one of the factors, allowing your eye to more easily track its levels across the splits by other factors. You can do this using the <code>fill</code> aesthetic, giving the name of one of the factors in the table. Doing this for <code>Hair</code> color and <code>Sex</code> facilitates different comparisons among the frequencies.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="va">Eye</span>, <span class="va">Hair</span><span class="op">)</span>,</span>
+<span>                  weight <span class="op">=</span> <span class="va">Freq</span>,</span>
+<span>                  fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="va">Eye</span>, <span class="va">Hair</span><span class="op">)</span>,</span>
+<span>                  weight <span class="op">=</span> <span class="va">Freq</span>,</span>
+<span>                  fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></code></pre></div>
+<p><img src="reference/figures/README-example-filled-1.png" alt="Basic mosaicplot of the HairEyeColor dataset, shaded by Eye color and Sex" width="90%"></p>
+</div>
+<div class="section level3">
 <h3 id="residual-shaded-mosaic-plot">Residual-shaded mosaic plot<a class="anchor" aria-label="anchor" href="#residual-shaded-mosaic-plot"></a>
 </h3>
 <p>To see whether hair and eye color are associated, fit a loglinear model of <strong>joint</strong> independence (<code>expected = "independence"</code>) and shade each tile by its residual from that model with <code><a href="reference/scale_fill_residual.html">scale_fill_residual()</a></code>. Tiles shaded blue occur more often than expected under independence; tiles shaded red occur less often.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -135,7 +162,7 @@
 <h3 id="jittered-points-showing-individual-observations">Jittered points: showing individual observations<a class="anchor" aria-label="anchor" href="#jittered-points-showing-individual-observations"></a>
 </h3>
 <p><code><a href="reference/geom_mosaic_jitter.html">geom_mosaic_jitter()</a></code> overlays one jittered point per individual observation on top of a mosaic plot, so that non-independence shows up both as residual shading and as variation in point density within each tile. It needs one row per observation, so first expand <code>HairEyeColor</code> from its frequency-table form using <code><a href="https://tidyr.tidyverse.org/reference/uncount.html" class="external-link">tidyr::uncount()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1945</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
@@ -170,10 +197,9 @@ GK: Folded this into the above (see paragraph "Data must be in ..."). Feel free 
 </h2>
 <p><strong>Mosaic displays</strong></p>
 <ul>
-<li>Friendly, M. (1994). Mosaic Displays for Multi-Way Contingency Tables. <em>Journal of the American Statistical Association</em>, 89(425), 190–200. <a href="https://doi.org/10.1080/01621459.1994.10476460" class="external-link">doi:10.1080/01621459.1994.10476460</a>
-</li>
-<li>Friendly, M. (1999). Extending Mosaic Displays: Marginal, Conditional, and Partial Views of Categorical Data. <em>Journal of Computational and Graphical Statistics</em>, 8(3), 373–395. <a href="https://doi.org/10.1080/10618600.1999.10474820" class="external-link">doi:10.1080/10618600.1999.10474820</a>
-</li>
+<li><p>Friendly, M. (1994). Mosaic Displays for Multi-Way Contingency Tables. <em>Journal of the American Statistical Association</em>, <strong>89</strong>(425), 190–200. <a href="https://doi.org/10.1080/01621459.1994.10476460" class="external-link">doi:10.1080/01621459.1994.10476460</a></p></li>
+<li><p>Friendly, M. (1995). Conceptual and Visual Models for Categorical Data. <em>The American Statistician</em>, <strong>49</strong>(2), 153–160. <a href="https://doi.org/10.1080/00031305.1995.10476134" class="external-link">doi:10.1080/00031305.1995.10476134</a></p></li>
+<li><p>Friendly, M. (1999). Extending Mosaic Displays: Marginal, Conditional, and Partial Views of Categorical Data. <em>Journal of Computational and Graphical Statistics</em>, <strong>8</strong>(3), 373–395. <a href="https://doi.org/10.1080/10618600.1999.10474820" class="external-link">doi:10.1080/10618600.1999.10474820</a></p></li>
 </ul>
 <p><strong>ggmosaic</strong></p>
 <ul>

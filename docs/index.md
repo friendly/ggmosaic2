@@ -1,6 +1,6 @@
 # ggmosaic2
 
-*Version 0.5.1, built 2026-08-13*
+*Version 0.5.1, built 2026-08-14*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -13,12 +13,15 @@ credited as authors in `DESCRIPTION`). `ggmosaic` was designed to create
 visualizations of categorical data and is capable of producing bar
 charts, stacked bar charts, mosaic plots, and double decker plots.
 
-`ggmosaic2` extends this with jittered-point overlays showing individual
-observations (reflecting non-independence as variation in point density,
-a physical analog for departures from independence), residual-based
-shading, and support for fitted loglinear models to show patterns of
-association among variables in frequency tables. Additional improvements
-include improved spacing, theme appearance, and proper faceting.
+`ggmosaic2` extends this with support for fitted loglinear models to
+show patterns of association among variables in frequency tables via
+residual-based shading, which was its’ original intention, as opposed to
+the “fill by factor levels” (Marimekko shading) of the original
+`ggmosaic` package. It also adds jittered-point overlays showing
+individual observations, reflecting non-independence as variation in
+point density, a physical analog for departures from independence
+(Friendly, 1995). Additional improvements include improved spacing,
+theme appearance, and proper faceting.
 
 See Friendly (1994, 1999) for the theory of mosaic displays and Jeppson
 & Hofmann (2023) for the description of the original `ggplot2`
@@ -94,7 +97,8 @@ library(ggmosaic2)
 HairEyeColor |>
   as.data.frame() |>
   ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(aes(x = product(Sex, Eye, Hair), 
+                  weight = Freq)) +
   theme_mosaic(rot_labels = 45)
 ```
 
@@ -121,6 +125,41 @@ See the vignette [Three Forms of Frequency Tables for Mosaic
 Displays](https://friendly.github.io/ggmosaic2/articles/frequency-table-forms.html)
 for a fuller discussion of case form, frequency form, and table form,
 and how to convert between them.
+
+### Marimekko shading
+
+These basic mosaic displays are easier to read if the tiles are colored
+according to the levels of one of the factors, allowing your eye to more
+easily track its levels across the splits by other factors. You can do
+this using the `fill` aesthetic, giving the name of one of the factors
+in the table. Doing this for `Hair` color and `Sex` facilitates
+different comparisons among the frequencies.
+
+``` r
+
+library(patchwork)
+p1 <- HairEyeColor |>
+  as.data.frame() |>
+  ggplot() +
+  geom_mosaic(aes(x = product(Sex, Eye, Hair),
+                  weight = Freq,
+                  fill = Eye)) +
+  theme_mosaic(rot_labels = 30) +
+  theme(legend.position = "none")
+p2 <- HairEyeColor |>
+  as.data.frame() |>
+  ggplot() +
+  geom_mosaic(aes(x = product(Sex, Eye, Hair),
+                  weight = Freq,
+                  fill = Sex)) +
+  theme_mosaic(rot_labels = 30) +
+  theme(legend.position = "none")
+
+p1 + p2
+```
+
+![Basic mosaicplot of the HairEyeColor dataset, shaded by Eye color and
+Sex](reference/figures/README-example-filled-1.png)
 
 ### Residual-shaded mosaic plot
 
@@ -188,11 +227,17 @@ students.](reference/figures/README-example-jitter-1.png)
 **Mosaic displays**
 
 - Friendly, M. (1994). Mosaic Displays for Multi-Way Contingency Tables.
-  *Journal of the American Statistical Association*, 89(425), 190–200.
+  *Journal of the American Statistical Association*, **89**(425),
+  190–200.
   [doi:10.1080/01621459.1994.10476460](https://doi.org/10.1080/01621459.1994.10476460)
+
+- Friendly, M. (1995). Conceptual and Visual Models for Categorical
+  Data. *The American Statistician*, **49**(2), 153–160.
+  [doi:10.1080/00031305.1995.10476134](https://doi.org/10.1080/00031305.1995.10476134)
+
 - Friendly, M. (1999). Extending Mosaic Displays: Marginal, Conditional,
   and Partial Views of Categorical Data. *Journal of Computational and
-  Graphical Statistics*, 8(3), 373–395.
+  Graphical Statistics*, **8**(3), 373–395.
   [doi:10.1080/10618600.1999.10474820](https://doi.org/10.1080/10618600.1999.10474820)
 
 **ggmosaic**
