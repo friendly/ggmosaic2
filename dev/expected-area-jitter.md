@@ -1,6 +1,6 @@
 # Expected-area mosaics with observed-count jitter: how vcd does it, and a sketch for ggmosaic2
 
-See `issues/expected.md` for the original issue and Gavin's API discussion.
+See `dev/expected.md` for the original issue and Gavin's API discussion.
 This is a design sketch only — nothing here should be implemented in `R/` yet.
 
 ## How vcd/vcdExtra do it
@@ -27,6 +27,7 @@ shading/counting**, rather than adding a parallel "expected mosaic" code path.
   panel viewports and drops points into them.
 
 So structurally there are three independent pieces: 
+
 (1) fit the model once,
 (2) build rectangle geometry from *one* chosen table (observed or expected),
 (3) drop points into the finished cells from *one* chosen table (almost
@@ -37,7 +38,7 @@ lookup rather than each other.
 ## Sketch for ggmosaic2
 
 The same orthogonality is the fix for the "layers must not disagree"
-problem raised in `issues/expected.md`. Right now `geom_mosaic()` and
+problem raised in `dev/expected.md`. Right now `geom_mosaic()` and
 `geom_mosaic_jitter()` are two independent ggplot2 layers with two
 independent `Stat`s, each free to reinvent the split — hence options 1-4
 in the issue trying to force them to agree via repetition, inheritance, or
@@ -49,7 +50,8 @@ layout rather than a shared constructor:
 1. **One Stat computes the mosaic tree once.** `StatMosaic` already fits
    the loglinear model when `expected = ` is given (for shading) and
    already computes the recursive rectangle split (for tile geometry).
-   Give it an `area = c("observed", "expected")` argument that selects
+   
+   So, give it an `area = c("observed", "expected")` argument that selects
    *which* table (`x` or the model's fitted values) drives the split —
    directly mirroring vcd's `type` swap. Shading residuals are unaffected,
    exactly as in vcd.
@@ -114,12 +116,85 @@ layout rather than a shared constructor:
 
 - Confirm `area = "expected"` requires `expected` to be non-NULL (mirrors
   vcd's own constraint; already noted in `issues/expected.md`).
+  --> Not clear exactly what this means, but REQUIRE non-NULL seems sensible
   
 - Decide the fate of `geom_mosaic_jitter()` as a standalone geom once
   `jitter = TRUE` exists on `geom_mosaic()` — deprecate vs. keep as a
-  documented lower-level escape hatch.
+  documented lower-level escape hatch. --> KEEP FOR NOW
   
 - Zero cells / small expected counts: vcd's `struc_mosaic()` and
   `labeling_points()` both have existing handling for these (worth reading
   before reinventing) — `vcd/R/mosaic.R` and the installed
   `vcdExtra::labeling_points` source are the reference points.
+  --> This should be considered, but not for now.
+
+## Implementation plan
+
+  - Do this in `dev/` for now, copying / editing files from R/.
+  - Test using HEC HairEye example in `dev/HEC-jitter.R`
+
+### Mechanism for `area = "expected"`
+
+`productplots::margin()` is a plain weighted aggregation — it sums whatever
+`.wt` column it's handed, grouped by the requested variables. So the vcd
+trick ("marginalize whichever full table you picked") works here for free:
+fit the loglinear model on the **finest cross-classification** of all mosaic
+variables (one fitted count per full combination — `fit_loglinear_model()`
+already effectively computes this, just too late in the current pipeline),
+then feed *that* table's `.expected` column through the same `margin()` /
+`divide()` call currently used for observed `.wt`. Every recursive split
+inherits self-consistent margins automatically, regardless of whether the
+model is independence / conditional / custom / saturated — no per-level
+consistency math needed.
+
+Concretely, `prodcalc()` needs reordering: compute the finest-cell table and
+fit the model *before* building `wt` (today the model is fit after `divide()`
+has already run), then branch on `area`:
+
+```r
+data_for_wt <- if (area == "expected") rename(finest_table, .wt = .expected) else data
+wt <- margin(data_for_wt, vars$marg, vars$cond)   # same divide() call as today from here on
+```
+
+Observed `.n` (for point counts and residuals) still comes from the finest
+table regardless of `area`, so shading and point-count logic are untouched.
+
+### Phases
+
+1. **`dev/calculate.R`** — copy of `prodcalc()` / `fit_loglinear_model()`
+   reordered as above, adding `area = c("observed", "expected")`, erroring if
+   `area == "expected"` and `expected` is `NULL`.
+
+2. **`dev/stat-mosaic.r`** — copy of `StatMosaic` threading `area` through
+   to the dev `prodcalc`.
+
+3. **`dev/geom-mosaic.r`** — copy of `geom_mosaic()` / `GeomMosaic` adding
+   `jitter`, `jitter_mapping`, `jitter_size`, `jitter_alpha`, `seed`. Rather
+   than a shared cache/environment between two stats, fold point-generation
+   into `GeomMosaic$draw_panel()` itself: when `jitter = TRUE`, it reads
+   `.n` off the *same* per-cell rows already used to draw the rects, does
+   the runif-scatter (porting the logic straight from
+   `GeomMosaicJitter$draw_panel`), and draws a `grobTree()` of `GeomRect` +
+   `GeomPoint`. Since both come from literally the same data frame in the
+   same draw call, the two-stats-disagreeing problem can't happen by
+   construction — this is a deviation from the three coordination
+   mechanisms floated above, simpler than any of them.
+
+4. **`dev/stat-mosaic-jitter.r`** — copy of `StatMosaicJitter` /
+   `stat_mosaic_jitter()`, also threading `expected` / `area` through to the
+   dev `prodcalc` (in scope for this round, unlike the original "defer"
+   note above — `geom_mosaic_jitter()` gets expected-area support alongside
+   `geom_mosaic(jitter = TRUE)`, not just the latter).
+
+5. **`dev/HEC-jitter.R`** — extend with an `area = "expected", jitter = TRUE`
+   case on HairEyeColor (both via `geom_mosaic(jitter = TRUE)` and via the
+   two-layer `geom_mosaic() + geom_mosaic_jitter()` form), and a side-by-side
+   `vcd::mosaic(HairEyeColor, expected = ~Hair+Eye, type = "expected")` (vcd
+   and vcdExtra are already installed locally) as a sanity check that areas
+   and point counts match.
+
+6. Once validated, port from `dev/` into `R/` for real (new commits, updated
+   roxygen docs/examples for `area`, `jitter`, `jitter_mapping`,
+   `jitter_size`, `jitter_alpha`, `seed` on both `geom_mosaic()` and
+   `geom_mosaic_jitter()`).
+
