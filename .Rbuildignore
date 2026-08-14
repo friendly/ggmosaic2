@@ -15,6 +15,7 @@
 ^CRAN-RELEASE$
 ^issues$
 ^examples$
+^dev$
 ^.claude$
 ^\.positai$
 ^\.claude$
