@@ -2,17 +2,16 @@ Draft replies to post back on
 https://github.com/ggplot2-extenders/ggplot-extension-club/discussions/134
 
 Two separate comments, per the plan in `staging.md`: a short one making the main point
-(ggmosaic2 exists, working toward CRAN), and a follow-up with the details. Edit before
-posting -- these are a first pass.
+(ggmosaic2 exists, working toward CRAN), and a follow-up with the details. 
+
 
 ---
 
 ## Reply 1 (main point)
 
-Update on this: My student Gavin & I went ahead and did it! `
+Update on this: My student Gavin Klorfine & I went ahead and did it!
 
-ggmosaic2` v. 0.5.1 is up on R-universe
-(https://friendly.r-universe.dev/ggmosaic2) and on GitHub
+ggmosaic2` v. 0.5.1 is up on R-universe (https://friendly.r-universe.dev/ggmosaic2) and on GitHub
 (https://github.com/friendly/ggmosaic2), with pkgdown documentation (https://friendly.github.io/ggmosaic2/index.html).
 
 So, I'm working toward a CRAN submission. But I want to avoid stepping on toes, so this is still in a holding pattern.
@@ -26,7 +25,7 @@ in this unusual and somewhat tricky situation.
 
 A few specifics, for anyone still following this thread.
 
-The compatibility break that got `ggmosaic` pulled from CRAN is fixed, obviously -- but
+The compatibility break that got `ggmosaic` pulled from CRAN is fixed, but
 that was really the smaller part of it. We also cleared out a handful of longstanding open
 issues on the original repo: 
 
@@ -36,23 +35,22 @@ issues on the original repo:
 * haleyjeppson/ggmosaic#77 (factor ordering, e.g. from `forcats::fct_inorder()`, is respected), and
 * haleyjeppson/ggmosaic#82 (fully-qualified calls like `ggmosaic2::geom_mosaic()` without attaching the package).
 
-Beyond the bug fixes, the residual-shading work from my original PR is still the core of
-it -- fit a loglinear model, shade tiles by Pearson residuals, same idea as `vcd`'s
-strucplot shading but inside a `ggplot2` layer. 
+Beyond the bug fixes, the residual-shading work from my original PR is still the core of our enhancements -- fit a loglinear model, shade tiles by Pearson residuals, same idea as `vcd`'s
+`strucplot` "Friendly" shading but inside a `ggplot2` layer. 
 
 There's also a jittered-point overlay now
 (`geom_mosaic_jitter()`), so you can show individual observations on top of the shaded
 tiles -- @EvaMaeRey, that's the "ideal gas law" one you noticed in the code I posted back in
 January, now with a proper `geom_`.
 
-Three vignettes cover this: one on what's new/changed relative to `ggmosaic`, one on the
-loglinear/residual-shading side, and one just on the three ways frequency data shows up
-(table, frequency, case form) and converting between them, since that trips people up.
+Three vignettes cover this: 
+
+* what's [new/changed relative to `ggmosaic`](https://friendly.github.io/ggmosaic2/articles/introducing-ggmosaic2.html), 
+* [loglinear/residual-shading](https://friendly.github.io/ggmosaic2/articles/loglinear-models.html), and 
+* [three forms of frequency data (table, frequency, case form)](https://friendly.github.io/ggmosaic2/articles/frequency-table-forms.html) and converting between them, since that trips people up.
 
 Authors@R still lists Haley, Heike, and Di as authors, and the original R Journal paper
-(Jeppson & Hofmann, 2023) is still the primary citation for the package -- that doesn't
-change just because I forked it
-
+(Jeppson & Hofmann, 2023) is still a primary citation for the package.
 ```
 > citation("ggmosaic2")
 To cite package ‘ggmosaic2’ in publications use:
