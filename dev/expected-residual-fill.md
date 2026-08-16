@@ -28,9 +28,17 @@ Caused by error:
 colours encodes as numbers must be positive
 ```
 
-Adding `scale_fill_residual()` makes the plot render, but residual shading is
-not necessarily wanted in this display. The point density already represents
-`observed / expected`, so residual fill can be redundant or distracting.
+There are currently two ways to make the plot render: add
+`scale_fill_residual()` to display residual shading, or supply a fixed valid
+fill such as `fill = "grey"` for neutral tiles. These are different, equally
+valid display choices.
+
+Point density is proportional to `observed / expected`, whereas Pearson
+residual fill represents `(observed - expected) / sqrt(expected)`. The two
+encodings are related but not equivalent: residual fill can add useful
+information about the signed, standardized departure, while neutral fill can
+place more visual emphasis on point density. The rendering error should not
+force either choice implicitly.
 
 ## Why the error occurs
 
@@ -55,6 +63,38 @@ This problem is independent of expected-area geometry and jitter placement.
 The fitted counts, rectangle boundaries, observed point counts, and jitter
 coordinates are calculated correctly.
 
+## Current rendering choices
+
+Supplying any valid fixed fill makes the plot render with neutral tiles. For
+example:
+
+```r
+ggplot(data = HEC_df) +
+  geom_mosaic(
+    aes(weight = Freq, x = product(Hair, Eye, Sex)),
+    expected = "independence",
+    area = "expected",
+    jitter = TRUE,
+    jitter_mapping = aes(colour = Hair),
+    jitter_size = 2,
+    jitter_alpha = 0.8,
+    seed = 123,
+    fill = "grey"
+  )
+```
+
+The fixed `fill` is applied as a geom aesthetic after the stat calculation, so
+it overrides the raw numeric residuals that `StatMosaic` placed in the
+computed `fill` column. `GeomRect` therefore receives a valid colour instead
+of positive and negative numbers.
+
+This is a valid way to request neutral tiles with the current implementation;
+`fill = "grey95"`, `fill = "white"`, or any other valid colour works as well.
+Alternatively, adding `scale_fill_residual()` maps the computed residuals to
+the package's diverging palette. The unresolved issue is what should happen
+when neither a fixed fill nor a residual scale is supplied: that case currently
+errors instead of producing a defined default appearance.
+
 ## Why `after_stat(.residual)` is not the complete fix
 
 A conventional ggplot2 fix would declare a computed aesthetic mapping:
@@ -69,14 +109,15 @@ scale; with `scale_fill_residual()`, the package-specific diverging scale would
 replace it.
 
 This would prevent the rendering error and make `scale_fill_residual()`
-optional for rendering. However, it would still automatically colour the
-tiles by residual. It would not preserve `GeomMosaic`'s normal grey fill.
+optional for rendering. However, it would automatically colour the tiles by
+residual using ggplot2's generic continuous palette. It would not preserve
+`GeomMosaic`'s normal grey fill.
 
-For an expected-area mosaic whose primary diagnostic is observed-point
-density, automatically substituting a generic continuous gradient is not the
-desired default.
+That may be appropriate when residual shading is intended, but it is not a
+neutral fallback. The API still needs to distinguish a request for residual
+fill from a request for ordinary tile fill.
 
-## Desired semantic separation
+## Semantic choices to separate
 
 Three choices should remain independent:
 
@@ -85,7 +126,7 @@ Three choices should remain independent:
    geometry.
 3. A separate option selects whether residuals determine tile fill.
 
-The preferred default for this construction is therefore:
+One possible neutral construction is:
 
 ```r
 geom_mosaic(
@@ -96,11 +137,11 @@ geom_mosaic(
 )
 ```
 
-The model is fitted, expected counts determine area, observed counts determine
-point density, and tiles retain the geom's ordinary grey fill.
+Here the model is fitted, expected counts determine area, observed counts
+determine point density, and tiles retain the geom's ordinary grey fill.
 
 Residuals should still be calculated and remain available as `.residual`, but
-they should affect fill only when explicitly requested.
+whether they affect fill is a separate display decision.
 
 ## API complication
 
@@ -202,11 +243,11 @@ However, scales normally do not mutate layer mappings. This approach would be
 surprising, couple the scale tightly to particular layer implementations, and
 be harder to reason about with multiple layers. It is not recommended.
 
-## Recommended direction
+## Proposed direction
 
-Use an explicit `residual_fill` argument, or the equivalent narrowly scoped
-`shade` argument, rather than automatically mapping every fitted model to
-fill.
+An explicit `residual_fill` argument, or the equivalent narrowly scoped
+`shade` argument, would make the display choice unambiguous instead of making
+it a side effect of model fitting.
 
 The intended behavior would be:
 
