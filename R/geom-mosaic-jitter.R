@@ -24,6 +24,12 @@
 #' @param drop_level Generate points for the max - 1 level
 #' @param seed Random seed passed to \code{\link[base]{set.seed}}. Defaults to
 #'   \code{NA}, which means that \code{set.seed} will not be called.
+#' @param expected Optional loglinear model specification. See
+#'   \code{\link{prodcalc}}.
+#' @param area Values used to construct the point-containing rectangles:
+#'   \code{"observed"} (the default) or fitted \code{"expected"} counts.
+#'   This compatibility interface calculates its own layout; prefer
+#'   \code{geom_mosaic(jitter = TRUE)} when combining tiles and points.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with a warning. If \code{TRUE} silently removes missing values.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.
 #' @examples
@@ -51,8 +57,11 @@
 geom_mosaic_jitter <- function(mapping = NULL, data = NULL, stat = "mosaic_jitter",
                                position = "identity", na.rm = FALSE,  divider = mosaic(),
                                offset = 0.01, drop_level = FALSE, seed = NA,
+                               expected = NULL,
+                               area = c("observed", "expected"),
                                show.legend = NA, inherit.aes = FALSE, ...)
 {
+  area <- match.arg(area)
   prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha", "colour"))
   mapping <- prepared$mapping
   add_mosaic_scale_environment(ggplot2::layer(
@@ -70,6 +79,8 @@ geom_mosaic_jitter <- function(mapping = NULL, data = NULL, stat = "mosaic_jitte
       offset = offset,
       drop_level = drop_level,
       seed = seed,
+      expected = expected,
+      area = area,
       mosaic_spec = prepared$spec,
       ...
     )

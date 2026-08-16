@@ -39,6 +39,20 @@
 #'   outline and negative residuals a dashed dark red outline by default. Set
 #'   \code{colour = NA} to remove the outlines from both the cells and the
 #'   residual legend.
+#' @param area Values used to construct mosaic rectangles: \code{"observed"}
+#'   (the default) or fitted \code{"expected"} counts. Expected-area mosaics
+#'   require a non-\code{NULL} \code{expected} model specification.
+#' @param jitter If \code{TRUE}, draw one jittered point per unit of observed
+#'   count inside each mosaic cell. Point counts are rounded to whole numbers.
+#' @param jitter_mapping An optional \code{aes()} mapping for the jittered
+#'   points. The supported aesthetics are \code{colour}, \code{shape},
+#'   \code{size}, and \code{stroke}. Mapped variables must also occur in
+#'   \code{x}, \code{conds}, \code{fill}, or \code{alpha}, ensuring that each
+#'   mosaic cell has one point-aesthetic value.
+#' @param jitter_size,jitter_alpha Fixed size and alpha used for jittered
+#'   points unless the corresponding aesthetic is mapped.
+#' @param seed Random seed for point placement. A numeric seed makes placement
+#'   reproducible. The default, \code{NA}, generates a fresh placement.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.
 #' @examples
 #'
@@ -151,6 +165,15 @@
 #'   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
 #'   scale_fill_residual()
 #'
+#' # Expected areas make observed point density proportional to observed / fitted
+#' ggplot(data = titanic) +
+#'   geom_mosaic(
+#'     aes(weight = Freq, x = product(Class, Sex)),
+#'     expected = "independence", area = "expected", jitter = TRUE,
+#'     jitter_mapping = aes(colour = Sex), seed = 1
+#'   ) +
+#'   scale_fill_residual()
+#'
 #' # Custom model formula
 #' ggplot(data = titanic) +
 #'   geom_mosaic(aes(x = product(Class, Sex, Survived)),
@@ -160,10 +183,34 @@
 
 geom_mosaic <- function(mapping = NULL, data = NULL, stat = "mosaic",
                         position = "identity", na.rm = FALSE,  divider = mosaic(), offset = 0.01,
-                        show.legend = NA, inherit.aes = FALSE, expected = NULL, ...)
+                        show.legend = NA, inherit.aes = FALSE, expected = NULL,
+                        area = c("observed", "expected"), jitter = FALSE,
+                        jitter_mapping = NULL, jitter_size = 1,
+                        jitter_alpha = 0.8, seed = NA, ...)
 {
+  area <- match.arg(area)
+  if (!isTRUE(jitter) && !is.null(jitter_mapping)) {
+    stop("`jitter_mapping` can only be used when `jitter = TRUE`.", call. = FALSE)
+  }
+
   prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha"))
-  mapping <- prepared$mapping
+  integrated <- prepare_integrated_jitter_mapping(
+    prepared$mapping, jitter_mapping, prepared$spec
+  )
+  mapping <- integrated$mapping
+  mosaic_spec <- integrated$spec
+
+  dots <- list(...)
+  tile_colour <- NULL
+  if (isTRUE(jitter)) {
+    if ("colour" %in% names(dots)) {
+      tile_colour <- dots$colour
+      dots$colour <- NULL
+    } else if ("color" %in% names(dots)) {
+      tile_colour <- dots$color
+      dots$color <- NULL
+    }
+  }
 
   add_mosaic_scale_environment(ggplot2::layer(
     data = data,
@@ -174,15 +221,47 @@ geom_mosaic <- function(mapping = NULL, data = NULL, stat = "mosaic",
     show.legend = show.legend,
     check.aes = FALSE,
     inherit.aes = FALSE, # only FALSE to turn the warning off
-    params = list(
+    params = c(list(
       na.rm = na.rm,
       divider = divider,
       offset = offset,
       expected = expected,
-      mosaic_spec = prepared$spec,
-      ...
-    )
+      area = area,
+      jitter = jitter,
+      jitter_size = jitter_size,
+      jitter_alpha = jitter_alpha,
+      seed = seed,
+      tile_colour = tile_colour,
+      jitter_aesthetics = names(mosaic_spec$jitter_aesthetics),
+      mosaic_spec = mosaic_spec
+    ), dots)
   ))
+}
+
+integrated_mosaic_jitter_data <- function(data, seed = NA) {
+  counts <- round(data$.n)
+  counts[!is.finite(counts) | counts < 1] <- 0
+  indices <- rep.int(seq_len(nrow(data)), counts)
+  if (!length(indices)) {
+    points <- data[FALSE, , drop = FALSE]
+    points$x <- numeric()
+    points$y <- numeric()
+    return(points)
+  }
+
+  if (!is.null(seed) && length(seed) == 1L && is.na(seed)) {
+    seed <- sample.int(.Machine$integer.max, 1L)
+  }
+  coordinates <- with_seed_null(seed, list(
+    x = stats::runif(length(indices)),
+    y = stats::runif(length(indices))
+  ))
+
+  points <- data[indices, , drop = FALSE]
+  rownames(points) <- NULL
+  points$x <- coordinates$x
+  points$y <- coordinates$y
+  points
 }
 
 #' Geom proto
@@ -204,13 +283,68 @@ GeomMosaic <- ggplot2::ggproto(
                              size = .1, fill = "grey55", alpha = .8, stroke = 0.1,
                              linewidth=.1, weight = 1, x = NULL, y = NULL, conds = NULL),
 
-  draw_panel = function(data, panel_scales, coord) {
+  draw_panel = function(data, panel_scales, coord, jitter = FALSE,
+                        jitter_size = 1, jitter_alpha = 0.8, seed = NA,
+                        tile_colour = NULL, jitter_aesthetics = character()) {
     #cat("draw_panel in GeomMosaic\n")
     #browser()
-    if (all(is.na(data$colour)) && !".residual" %in% names(data))
-      data$colour <- scales::alpha(data$fill, data$alpha) # regard alpha in colour determination
+    data <- subset(data, level == max(data$level))
+    tile_data <- data
 
-    GeomRect$draw_panel(subset(data, level==max(data$level)), panel_scales, coord)
+    if (!is.null(tile_colour)) {
+      tile_data$colour <- tile_colour
+    } else if (isTRUE(jitter) && "colour" %in% jitter_aesthetics &&
+               ".mosaic_tile_colour" %in% names(tile_data)) {
+      tile_data$colour <- tile_data$.mosaic_tile_colour
+    } else if (isTRUE(jitter) && "colour" %in% jitter_aesthetics) {
+      tile_data$colour <- scales::alpha(tile_data$fill, tile_data$alpha)
+    } else if (all(is.na(tile_data$colour)) && !".residual" %in% names(tile_data)) {
+      # Regard alpha in colour determination, preserving the historical tile
+      # outline when integrated jitter is not using the colour aesthetic.
+      tile_data$colour <- scales::alpha(tile_data$fill, tile_data$alpha)
+    }
+
+    rect_grob <- GeomRect$draw_panel(tile_data, panel_scales, coord)
+    if (!isTRUE(jitter)) {
+      return(rect_grob)
+    }
+
+    points <- integrated_mosaic_jitter_data(data, seed = seed)
+    if (!nrow(points)) {
+      return(rect_grob)
+    }
+
+    if (!"colour" %in% jitter_aesthetics) points$colour <- "grey30"
+    if (!"shape" %in% jitter_aesthetics) points$shape <- 19
+    if (!"size" %in% jitter_aesthetics) points$size <- jitter_size
+    if (!"stroke" %in% jitter_aesthetics) points$stroke <- 0.5
+    points$alpha <- jitter_alpha
+    points$fill <- NA
+
+    dx <- grid::convertX(grid::unit(.pt, "points"), "npc", valueOnly = TRUE)
+    dy <- grid::convertY(grid::unit(.pt, "points"), "npc", valueOnly = TRUE)
+    x_min <- points$xmin + points$size * dx
+    x_max <- points$xmax - points$size * dx
+    y_min <- points$ymin + points$size * dy
+    y_max <- points$ymax - points$size * dy
+    x_mid <- (points$xmin + points$xmax) / 2
+    y_mid <- (points$ymin + points$ymax) / 2
+    collapsed_x <- x_min > x_max
+    collapsed_y <- y_min > y_max
+    x_min[collapsed_x] <- x_mid[collapsed_x]
+    x_max[collapsed_x] <- x_mid[collapsed_x]
+    y_min[collapsed_y] <- y_mid[collapsed_y]
+    y_max[collapsed_y] <- y_mid[collapsed_y]
+    points$x <- points$x * (x_max - x_min) + x_min
+    points$y <- points$y * (y_max - y_min) + y_min
+
+    ggplot2:::ggname(
+      "geom_mosaic",
+      grid::grobTree(
+        rect_grob,
+        GeomPoint$draw_panel(points, panel_scales, coord)
+      )
+    )
   },
 
   check_aesthetics = function(x, n) {
@@ -230,5 +364,28 @@ GeomMosaic <- ggplot2::ggproto(
     )
   },
 
-  draw_key = ggplot2::draw_key_polygon
+  draw_key = function(data, params, size) {
+    if (!isTRUE(params$jitter)) {
+      return(ggplot2::draw_key_polygon(data, params, size))
+    }
+
+    tile_data <- data
+    if (!is.null(params$tile_colour)) {
+      tile_data$colour <- params$tile_colour
+    } else if ("colour" %in% params$jitter_aesthetics) {
+      tile_data$colour <- NA
+    }
+    point_data <- data
+    if (!"colour" %in% params$jitter_aesthetics) point_data$colour <- "grey30"
+    if (!"shape" %in% params$jitter_aesthetics) point_data$shape <- 19
+    if (!"size" %in% params$jitter_aesthetics) point_data$size <- params$jitter_size
+    if (!"stroke" %in% params$jitter_aesthetics) point_data$stroke <- 0.5
+    point_data$alpha <- params$jitter_alpha
+    point_data$fill <- NA
+
+    grid::grobTree(
+      ggplot2::draw_key_polygon(tile_data, params, size),
+      ggplot2::draw_key_point(point_data, params, size)
+    )
+  }
 )

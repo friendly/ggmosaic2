@@ -18,6 +18,12 @@ geom_mosaic(
   show.legend = NA,
   inherit.aes = FALSE,
   expected = NULL,
+  area = c("observed", "expected"),
+  jitter = FALSE,
+  jitter_mapping = NULL,
+  jitter_size = 1,
+  jitter_alpha = 0.8,
+  seed = NA,
   ...
 )
 
@@ -45,6 +51,7 @@ stat_mosaic(
   inherit.aes = TRUE,
   offset = 0.01,
   expected = NULL,
+  area = c("observed", "expected"),
   ...
 )
 }
@@ -126,6 +133,25 @@ Positive residuals receive a solid dark blue outline and negative
 residuals a dashed dark red outline by default. Set \code{colour = NA} to
 remove the outlines from both the cells and the residual legend.
 See details in \code{\link{prodcalc}}.}
+
+\item{area}{Values used to construct mosaic rectangles: \code{"observed"}
+(the default) or fitted \code{"expected"} counts. Expected-area mosaics
+require a non-\code{NULL} \code{expected} model specification.}
+
+\item{jitter}{If \code{TRUE}, draw one jittered point per unit of observed
+count inside each mosaic cell. Point counts are rounded to whole numbers.}
+
+\item{jitter_mapping}{An optional \code{aes()} mapping for the jittered
+points. The supported aesthetics are \code{colour}, \code{shape},
+\code{size}, and \code{stroke}. Mapped variables must also occur in
+\code{x}, \code{conds}, \code{fill}, or \code{alpha}, ensuring that each
+mosaic cell has one point-aesthetic value.}
+
+\item{jitter_size, jitter_alpha}{Fixed size and alpha used for jittered
+points unless the corresponding aesthetic is mapped.}
+
+\item{seed}{Random seed for point placement. A numeric seed makes placement
+reproducible. The default, \code{NA}, generates a fresh placement.}
 
 \item{...}{other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.}
 
@@ -283,6 +309,15 @@ ggplot(data = happy) +
 # Residual shading with independence model
 ggplot(data = titanic) +
   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+  scale_fill_residual()
+
+# Expected areas make observed point density proportional to observed / fitted
+ggplot(data = titanic) +
+  geom_mosaic(
+    aes(weight = Freq, x = product(Class, Sex)),
+    expected = "independence", area = "expected", jitter = TRUE,
+    jitter_mapping = aes(colour = Sex), seed = 1
+  ) +
   scale_fill_residual()
 
 # Custom model formula

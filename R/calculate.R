@@ -20,6 +20,11 @@
 #'     \item Character: Shortcut - "independence", "saturated", or "conditional"
 #'   }
 #'   When specified, adds \code{.expected} and \code{.residual} columns to output.
+#' @param area Values used to construct the mosaic rectangles. \code{"observed"}
+#'   (the default) uses observed counts. \code{"expected"} uses the fitted
+#'   counts from \code{expected} and therefore requires a non-\code{NULL}
+#'   \code{expected} specification. Observed counts are retained in \code{.n}
+#'   in either case.
 #' @param variable_labels Optional named character vector mapping internal
 #'   variable names to the expressions shown to users. Used internally by the
 #'   ggplot2 layer wrappers.
@@ -33,9 +38,15 @@
 #' }
 prodcalc <- function(data, formula, divider = mosaic(), cascade = 0, scale_max = TRUE,
                      na.rm = FALSE, offset = 0.01, expected = NULL,
-                     variable_labels = NULL) {
+                     variable_labels = NULL,
+                     area = c("observed", "expected")) {
 
   vars <- parse_product_formula(stats::as.formula(formula))
+  area <- match.arg(area)
+  if (identical(area, "expected") && is.null(expected)) {
+    stop("`area = \"expected\"` requires a non-NULL `expected` specification.",
+         call. = FALSE)
+  }
 #browser()
   if (length(vars$wt) == 1) {
     data$.wt <- data[[vars$wt]]
@@ -44,8 +55,30 @@ prodcalc <- function(data, formula, divider = mosaic(), cascade = 0, scale_max =
   }
   margin <- getFromNamespace("margin", "productplots")
 
-  wt <- margin(data, vars$marg, vars$cond)
-  wt2 <- margin(data, c(vars$marg, vars$cond)) # getting margins
+  all_vars <- c(vars$marg, vars$cond)
+
+  # Keep one row per finest cross-classification throughout model fitting.
+  # Geometry can then be calculated from either the observed or fitted count
+  # column while .n, .expected, and .residual retain their usual meanings.
+  finest <- margin(data, all_vars)
+  finest <- dplyr::rename(finest, .n = ".wt")
+
+  if (!is.null(expected)) {
+    model_formula <- build_model_formula(
+      expected, vars$marg, vars$cond,
+      variable_labels = variable_labels
+    )
+    finest <- fit_loglinear_model(finest, all_vars, model_formula)
+  }
+
+  if (identical(area, "expected")) {
+    data_for_wt <- finest[, c(all_vars, ".expected"), drop = FALSE]
+    data_for_wt <- dplyr::rename(data_for_wt, .wt = ".expected")
+  } else {
+    data_for_wt <- data
+  }
+
+  wt <- margin(data_for_wt, vars$marg, vars$cond)
   #browser()
   #wt$.n <- wt2$.wt
 
@@ -69,20 +102,7 @@ prodcalc <- function(data, formula, divider = mosaic(), cascade = 0, scale_max =
 
   df <- divide(wt, divider = rev(divider), cascade = cascade, max_wt = max_wt, offset = offset)
 #  browser()
-  wt2 <- dplyr::rename(wt2, .n=".wt")
-  result <- dplyr::left_join(df, wt2, by = setdiff(names(wt2), ".n"))
-
-  # Fit loglinear model if expected is specified
-  if (!is.null(expected)) {
-    all_vars <- c(vars$marg, vars$cond)
-
-    # Build model formula from user specification
-    model_formula <- build_model_formula(expected, vars$marg, vars$cond,
-                                         variable_labels = variable_labels)
-
-    # Fit model and calculate residuals
-    result <- fit_loglinear_model(result, all_vars, model_formula)
-  }
+  result <- dplyr::left_join(df, finest, by = all_vars)
 
   result
 }

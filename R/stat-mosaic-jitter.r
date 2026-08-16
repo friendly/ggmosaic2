@@ -11,8 +11,10 @@
 stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitter",
                                position = "identity", na.rm = FALSE,  divider = mosaic(),
                                show.legend = NA, inherit.aes = TRUE, offset = 0.01,
-                               drop_level = FALSE, seed = NA, ...)
+                               drop_level = FALSE, seed = NA, expected = NULL,
+                               area = c("observed", "expected"), ...)
 {
+  area <- match.arg(area)
   prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha", "colour"))
   mapping <- prepared$mapping
   add_mosaic_scale_environment(ggplot2::layer(
@@ -30,6 +32,8 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
       offset = offset,
       drop_level = drop_level,
       seed = seed,
+      expected = expected,
+      area = area,
       mosaic_spec = prepared$spec,
       ...
     )
@@ -68,7 +72,8 @@ StatMosaicJitter <- ggplot2::ggproto(
   },
 
   compute_panel = function(self, data, scales, na.rm=FALSE, drop_level=FALSE,
-                           seed = NA, divider, offset, mosaic_spec = NULL) {
+                           seed = NA, divider, offset, expected = NULL,
+                           area = "observed", mosaic_spec = NULL) {
     #cat("compute_panel from StatMosaic\n")
     #browser()
 
@@ -92,7 +97,8 @@ StatMosaicJitter <- ggplot2::ggproto(
 
     res <- prodcalc(df, formula=formula,
                     divider = divider, cascade=0, scale_max = TRUE,
-                    na.rm = na.rm, offset = offset)
+                    na.rm = na.rm, offset = offset, expected = expected,
+                    variable_labels = mosaic_spec$labels, area = area)
 
     # browser()
 
@@ -100,7 +106,9 @@ StatMosaicJitter <- ggplot2::ggproto(
     if (in_data(df, "weight2")) {
       formula2 <- mosaic_formula(mosaic_spec, response = "weight2")
       res2 <- prodcalc(df, formula = formula2, divider = divider,
-                       cascade = 0, scale_max = TRUE, na.rm = na.rm, offset = offset)
+                       cascade = 0, scale_max = TRUE, na.rm = na.rm,
+                       offset = offset, expected = expected,
+                       variable_labels = mosaic_spec$labels, area = area)
       res$.n2 <- res2$.n
     }
 

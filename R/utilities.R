@@ -132,6 +132,52 @@ prepare_mosaic_mapping <- function(mapping = NULL,
   )
 }
 
+# Add point mappings to an integrated mosaic-jitter layer without changing
+# the variables that define the mosaic cells. A point aesthetic must therefore
+# refer to a variable that is already part of x, conds, fill, or alpha.
+prepare_integrated_jitter_mapping <- function(mapping, jitter_mapping, spec) {
+  if (is.null(jitter_mapping)) {
+    spec$jitter_aesthetics <- list()
+    return(list(mapping = mapping, spec = spec))
+  }
+  if (!inherits(jitter_mapping, "uneval")) {
+    stop("`jitter_mapping` must be created by `aes()`.", call. = FALSE)
+  }
+
+  allowed <- c("colour", "shape", "size", "stroke")
+  unsupported <- setdiff(names(jitter_mapping), allowed)
+  if (length(unsupported)) {
+    stop(
+      "Unsupported `jitter_mapping` aesthetic", if (length(unsupported) > 1) "s" else "",
+      ": ", paste(unsupported, collapse = ", "),
+      ". Supported aesthetics are colour, shape, size, and stroke.",
+      call. = FALSE
+    )
+  }
+
+  labels <- unname(spec$labels)
+  jitter_aesthetics <- list()
+  for (aesthetic in names(jitter_mapping)) {
+    expression_label <- rlang::as_label(jitter_mapping[[aesthetic]])
+    matches <- which(labels == expression_label)
+    if (!length(matches)) {
+      stop(
+        "`jitter_mapping` variable `", expression_label,
+        "` must also appear in `x`, `conds`, `fill`, or `alpha` so that ",
+        "each mosaic cell has one point-aesthetic value.",
+        call. = FALSE
+      )
+    }
+
+    internal_name <- names(spec$labels)[matches[[1]]]
+    mapping[[aesthetic]] <- jitter_mapping[[aesthetic]]
+    jitter_aesthetics[[aesthetic]] <- internal_name
+  }
+
+  spec$jitter_aesthetics <- jitter_aesthetics
+  list(mapping = mapping, spec = spec)
+}
+
 mosaic_formula <- function(spec, response = "weight") {
   marg <- spec$marg %||% character()
   cond <- spec$cond %||% character()

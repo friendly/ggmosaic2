@@ -13,7 +13,8 @@ prodcalc(
   na.rm = FALSE,
   offset = 0.01,
   expected = NULL,
-  variable_labels = NULL
+  variable_labels = NULL,
+  area = c("observed", "expected")
 )
 }
 \arguments{
@@ -48,6 +49,12 @@ When specified, adds \code{.expected} and \code{.residual} columns to output.}
 \item{variable_labels}{Optional named character vector mapping internal
 variable names to the expressions shown to users. Used internally by the
 ggplot2 layer wrappers.}
+
+\item{area}{Values used to construct the mosaic rectangles. \code{"observed"}
+(the default) uses observed counts. \code{"expected"} uses the fitted
+counts from \code{expected} and therefore requires a non-\code{NULL}
+\code{expected} specification. Observed counts are retained in \code{.n}
+in either case.}
 }
 \description{
 Calculate frequencies.

@@ -5,6 +5,9 @@
 #'   residuals a dashed dark red outline by default. Set \code{colour = NA} to
 #'   remove the outlines from both the cells and the residual legend.
 #'   See details in \code{\link{prodcalc}}.
+#' @param area Values used to construct mosaic rectangles: \code{"observed"}
+#'   (the default) or fitted \code{"expected"} counts. Expected-area mosaics
+#'   require a non-\code{NULL} \code{expected} model specification.
 #' @section Computed variables:
 #' \describe{
 #' \item{xmin}{location of bottom left corner}
@@ -16,8 +19,9 @@
 stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
                         position = "identity", na.rm = FALSE,  divider = mosaic(),
                         show.legend = NA, inherit.aes = TRUE, offset = 0.01,
-                        expected = NULL, ...)
+                        expected = NULL, area = c("observed", "expected"), ...)
 {
+  area <- match.arg(area)
   prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha"))
   mapping <- prepared$mapping
 
@@ -35,6 +39,7 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
       divider = divider,
       offset = offset,
       expected = expected,
+      area = area,
       mosaic_spec = prepared$spec,
       ...
     )
@@ -85,7 +90,8 @@ StatMosaic <- ggplot2::ggproto(
   },
 
   compute_panel = function(self, data, scales, na.rm=FALSE, divider, offset,
-                           expected = NULL, mosaic_spec = NULL) {
+                           expected = NULL, area = "observed",
+                           mosaic_spec = NULL) {
 #    cat("compute_panel from StatMosaic\n")
 #       browser()
 
@@ -110,7 +116,7 @@ StatMosaic <- ggplot2::ggproto(
     res <- prodcalc(df, formula=formula,
                     divider = divider, cascade=0, scale_max = TRUE,
                     na.rm = na.rm, offset = offset, expected = expected,
-                    variable_labels = mosaic_spec$labels)
+                    variable_labels = mosaic_spec$labels, area = area)
 
 
     # need to set x variable - I'd rather set the scales here.
@@ -169,6 +175,12 @@ StatMosaic <- ggplot2::ggproto(
     if (!is.null(mapped_alpha) && mapped_alpha %in% names(res)) {
       res$alpha <- res[[mapped_alpha]]
     }
+    for (aesthetic in names(mosaic_spec$jitter_aesthetics)) {
+      variable <- mosaic_spec$jitter_aesthetics[[aesthetic]]
+      if (!is.null(variable) && variable %in% names(res)) {
+        res[[aesthetic]] <- res[[variable]]
+      }
+    }
 
     # Handle residual-based coloring when expected is specified
     if (!is.null(expected) && ".residual" %in% names(res)) {
@@ -178,6 +190,9 @@ StatMosaic <- ggplot2::ggproto(
       }
 
       outline <- residual_outline_aesthetics(res$.residual)
+      # Integrated jitter can use the ordinary colour aesthetic for points;
+      # retain the residual outline separately for rectangle drawing.
+      res$.mosaic_tile_colour <- outline$colour
       if (!"colour" %in% names(data)) {
         res$colour <- outline$colour
       }

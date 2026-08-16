@@ -15,6 +15,8 @@ geom_mosaic_jitter(
   offset = 0.01,
   drop_level = FALSE,
   seed = NA,
+  expected = NULL,
+  area = c("observed", "expected"),
   show.legend = NA,
   inherit.aes = FALSE,
   ...
@@ -32,6 +34,8 @@ stat_mosaic_jitter(
   offset = 0.01,
   drop_level = FALSE,
   seed = NA,
+  expected = NULL,
+  area = c("observed", "expected"),
   ...
 )
 }
@@ -99,6 +103,14 @@ factor of 1.5 toward the outermost split.}
 
 \item{seed}{Random seed passed to \code{\link[base]{set.seed}}. Defaults to
 \code{NA}, which means that \code{set.seed} will not be called.}
+
+\item{expected}{Optional loglinear model specification. See
+\code{\link{prodcalc}}.}
+
+\item{area}{Values used to construct the point-containing rectangles:
+\code{"observed"} (the default) or fitted \code{"expected"} counts.
+This compatibility interface calculates its own layout; prefer
+\code{geom_mosaic(jitter = TRUE)} when combining tiles and points.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
