@@ -2,14 +2,15 @@
 # attaching the package first.
 stopifnot(!"package:ggmosaic2" %in% search())
 
-namespace_plot <- ggplot2::ggplot(as.data.frame(Titanic)) +
-  ggmosaic2::geom_mosaic(
-    ggplot2::aes(
-      weight = Freq,
-      x = ggmosaic2::product(Class, Sex),
-      fill = Survived
-    )
+namespace_plot <- ggplot2::ggplot(
+  as.data.frame(Titanic),
+  ggplot2::aes(
+    weight = Freq,
+    x = ggmosaic2::product(Class, Sex),
+    fill = Survived
   )
+) +
+  ggmosaic2::geom_mosaic()
 
 namespace_build <- ggplot2::ggplot_build(namespace_plot)
 

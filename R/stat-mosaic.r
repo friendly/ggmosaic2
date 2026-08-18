@@ -18,10 +18,7 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
                         show.legend = NA, inherit.aes = TRUE, offset = 0.01,
                         expected = NULL, ...)
 {
-  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha"))
-  mapping <- prepared$mapping
-
-  add_mosaic_scale_environment(ggplot2::layer(
+  mosaic_layer(
     data = data,
     mapping = mapping,
     stat = StatMosaic,
@@ -29,16 +26,15 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    check.aes = FALSE,
+    aesthetics = c("fill", "alpha"),
     params = list(
       na.rm = na.rm,
       divider = divider,
       offset = offset,
       expected = expected,
-      mosaic_spec = prepared$spec,
       ...
     )
-  ))
+  )
 }
 
 

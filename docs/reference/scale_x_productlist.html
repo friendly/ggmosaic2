@@ -35,7 +35,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Determining scales for mosaics</h1>
-      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/master/R/scale-product.R" class="external-link"><code>R/scale-product.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/R/scale-product.R" class="external-link"><code>R/scale-product.R</code></a></small>
       <div class="d-none name"><code>scale_x_productlist.Rd</code></div>
     </div>
 
@@ -46,31 +46,31 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_x_productlist</span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  name <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu">product_breaks</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  minor_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  labels <span class="op">=</span> <span class="fu">product_labels</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">censor</a></span>,</span>
+<span>  expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/scales/man/oob.html" class="external-link">censor</a></span>,</span>
 <span>  na.value <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
 <span>  transform <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
-<span>  sec.axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  sec.axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_y_productlist</span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  name <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu">product_breaks</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  minor_breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  labels <span class="op">=</span> <span class="fu">product_labels</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">censor</a></span>,</span>
+<span>  expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/scales/man/oob.html" class="external-link">censor</a></span>,</span>
 <span>  na.value <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
 <span>  transform <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  position <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>  sec.axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  sec.axis <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ScaleContinuousProduct</span></span></code></pre></div>
@@ -86,23 +86,23 @@
 
 <dt id="arg-breaks">breaks<a class="anchor" aria-label="anchor" href="#arg-breaks"></a></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks computed by the
-<a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">transformation object</a></p></li>
+<li><p><code>waiver()</code> for the default breaks computed by the
+<a href="https://rdrr.io/pkg/scales/man/new_transform.html" class="external-link">transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by <code><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
+as output (e.g., a function returned by <code><a href="https://rdrr.io/pkg/scales/man/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
 Note that for position scales, limits are provided after scale expansion.
-Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
+Also accepts rlang <a href="https://rdrr.io/pkg/rlang/man/as_function.html" class="external-link">lambda</a> function notation.</p></li>
 </ul></dd>
 
 
 <dt id="arg-minor-breaks">minor_breaks<a class="anchor" aria-label="anchor" href="#arg-minor-breaks"></a></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no minor breaks</p></li>
-<li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks (none for discrete, one minor break
+<li><p><code>waiver()</code> for the default breaks (none for discrete, one minor break
 between each major break for continuous)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks. Also
-accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation. When
+accepts rlang <a href="https://rdrr.io/pkg/rlang/man/as_function.html" class="external-link">lambda</a> function notation. When
 the function has two arguments, it will be given the limits and major
 break positions.</p></li>
 </ul></dd>
@@ -112,12 +112,12 @@ break positions.</p></li>
 <dd><p>One of the options below. Please note that when <code>labels</code> is a
 vector, it is highly recommended to also set the <code>breaks</code> argument as a
 vector to protect against unintended mismatches.</p><ul><li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default labels computed by the
+<li><p><code>waiver()</code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
 <li><p>An expression vector (must be the same length as breaks). See ?plotmath for details.</p></li>
 <li><p>A function that takes the breaks as input and returns labels
-as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
+as output. Also accepts rlang <a href="https://rdrr.io/pkg/rlang/man/as_function.html" class="external-link">lambda</a> function
 notation.</p></li>
 </ul></dd>
 
@@ -127,18 +127,18 @@ notation.</p></li>
 <li><p>A numeric vector of length two providing limits of the scale.
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
-new limits. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
+new limits. Also accepts rlang <a href="https://rdrr.io/pkg/rlang/man/as_function.html" class="external-link">lambda</a> function
 notation.
 Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
 If the purpose is to zoom, use the limit argument in the coordinate system
-(see <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian()</a></code>).</p></li>
+(see <code><a href="https://rdrr.io/pkg/ggplot2/man/coord_cartesian.html" class="external-link">coord_cartesian()</a></code>).</p></li>
 </ul></dd>
 
 
 <dt id="arg-expand">expand<a class="anchor" aria-label="anchor" href="#arg-expand"></a></dt>
 <dd><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion()</a></code>
+away from the axes. Use the convenience function <code><a href="https://rdrr.io/pkg/ggplot2/man/expansion.html" class="external-link">expansion()</a></code>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></dd>
@@ -146,12 +146,12 @@ expand the scale by 5% on each side for continuous variables, and by
 
 <dt id="arg-oob">oob<a class="anchor" aria-label="anchor" href="#arg-oob"></a></dt>
 <dd><p>One of:</p><ul><li><p>Function that handles limits outside of the scale limits
-(out of bounds). Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a>
+(out of bounds). Also accepts rlang <a href="https://rdrr.io/pkg/rlang/man/as_function.html" class="external-link">lambda</a>
 function notation.</p></li>
-<li><p>The default (<code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::censor()</a></code>) replaces out of
+<li><p>The default (<code><a href="https://rdrr.io/pkg/scales/man/oob.html" class="external-link">scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
-<li><p><code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
-<li><p><code><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/scales/man/oob.html" class="external-link">scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/scales/man/oob.html" class="external-link">scales::squish_infinite()</a></code> for squishing infinite values into range.</p></li>
 </ul></dd>
 
 
@@ -169,8 +169,8 @@ or the object itself. Built-in transformations include "asn", "atanh",
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>transform_&lt;name&gt;</code>. If
 transformations require arguments, you can call them from the scales
-package, e.g. <code><a href="https://scales.r-lib.org/reference/transform_boxcox.html" class="external-link">scales::transform_boxcox(p = 2)</a></code>.
-You can create your own transformation with <code><a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">scales::new_transform()</a></code>.</p></dd>
+package, e.g. <code><a href="https://rdrr.io/pkg/scales/man/transform_boxcox.html" class="external-link">scales::transform_boxcox(p = 2)</a></code>.
+You can create your own transformation with <code><a href="https://rdrr.io/pkg/scales/man/new_transform.html" class="external-link">scales::new_transform()</a></code>.</p></dd>
 
 
 <dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
@@ -183,7 +183,7 @@ You can create your own transformation with <code><a href="https://scales.r-lib.
 the inner variables of the mosaic are displayed on the opposite (top or
 right) side whenever more than one variable is split along a direction.
 Set to <code>NULL</code> to suppress these labels, or supply a
-<code><a href="https://ggplot2.tidyverse.org/reference/sec_axis.html" class="external-link">sec_axis</a></code> for full control.</p></dd>
+<code><a href="https://rdrr.io/pkg/ggplot2/man/sec_axis.html" class="external-link">sec_axis</a></code> for full control.</p></dd>
 
 </dl></div>
 
@@ -196,7 +196,7 @@ Set to <code>NULL</code> to suppress these labels, or supply a
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

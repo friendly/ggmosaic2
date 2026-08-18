@@ -15,8 +15,9 @@ parse_product_formula <- getFromNamespace("parse_product_formula", "productplots
 #' @export
 #' @examples
 #' data(titanic)
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Survived, Class), fill = Survived))
+#' ggplot(data = titanic,
+#'        aes(x = product(Survived, Class), fill = Survived)) +
+#'   geom_mosaic()
 product <- function(...) {
   rlang::exprs(...)
 }
@@ -144,23 +145,65 @@ mosaic_formula <- function(spec, response = "weight") {
   stats::as.formula(formula)
 }
 
-# ggplot2 discovers extension scale constructors in the plot environment.
-# When ggmosaic2 is used only through `::`, its exported scale functions are
-# not on the attached search path, so give the plot a private environment in
-# which ggplot2 can find them. Attached-package calls can keep returning an
-# ordinary Layer object.
-add_mosaic_scale_environment <- function(layer) {
-  if ("package:ggmosaic2" %in% search()) {
-    return(layer)
-  }
+# Defer construction until the layer is added to a plot. Mosaic mappings must
+# be rewritten before ggplot2 evaluates them, but plot-level mappings are not
+# available to a geom/stat constructor.
+mosaic_layer <- function(data, mapping, stat, geom, position, show.legend,
+                         inherit.aes, aesthetics, params) {
+  structure(
+    list(
+      data = data,
+      mapping = mapping,
+      stat = stat,
+      geom = geom,
+      position = position,
+      show.legend = show.legend,
+      inherit.aes = inherit.aes,
+      aesthetics = aesthetics,
+      params = params
+    ),
+    class = "ggmosaic_layer"
+  )
+}
 
-  structure(list(layer = layer), class = "ggmosaic_namespace_layer")
+# Merge mappings without dropping their ggplot2 mapping class or the quosure
+# environments attached to individual expressions. Layer mappings take
+# precedence over plot mappings, matching ggplot2::layer() inheritance.
+combine_mosaic_mappings <- function(plot_mapping, layer_mapping) {
+  mapping <- plot_mapping %||% ggplot2::aes()
+  layer_mapping <- layer_mapping %||% ggplot2::aes()
+  mapping[names(layer_mapping)] <- layer_mapping
+  mapping
 }
 
 #' @export
-ggplot_add.ggmosaic_namespace_layer <- function(object, plot, ...) {
-  plot <- ggplot2::ggplot_add(object$layer, plot, ...)
+ggplot_add.ggmosaic_layer <- function(object, plot, ...) {
+  mapping <- if (isTRUE(object$inherit.aes)) {
+    combine_mosaic_mappings(plot$mapping, object$mapping)
+  } else {
+    object$mapping
+  }
+  prepared <- prepare_mosaic_mapping(mapping, object$aesthetics)
 
+  params <- object$params
+  params$mosaic_spec <- prepared$spec
+
+  layer <- ggplot2::layer(
+    data = object$data,
+    mapping = prepared$mapping,
+    stat = object$stat,
+    geom = object$geom,
+    position = object$position,
+    show.legend = object$show.legend,
+    inherit.aes = FALSE,
+    check.aes = FALSE,
+    params = params
+  )
+  plot <- ggplot2::ggplot_add(layer, plot, ...)
+
+  # ggplot2 discovers extension scale constructors in the plot environment.
+  # Install them privately so namespace-only calls work without attaching the
+  # package. This is harmless when the package is attached as well.
   if (!exists("scale_x_productlist", envir = plot$plot_env,
               mode = "function", inherits = TRUE)) {
     plot$plot_env <- rlang::env(

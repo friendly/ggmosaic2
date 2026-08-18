@@ -44,33 +44,37 @@
 #'
 #' data(titanic)
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class), fill = Survived))
+#' ggplot(data = titanic, aes(x = product(Class), fill = Survived)) +
+#'   geom_mosaic()
 #' # good practice: use the 'dependent' variable (or most important variable)
 #' # as fill variable
 #'
 #' # if there is only one variable inside `product()`,
 #' # `product()` can be omitted
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = Class, fill = Survived))
+#' ggplot(data = titanic, aes(x = Class, fill = Survived)) +
+#'   geom_mosaic()
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Age), fill = Survived))
+#' ggplot(data = titanic,
+#'        aes(x = product(Class, Age), fill = Survived)) +
+#'   geom_mosaic()
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class), conds = product(Age), fill = Survived))
+#' ggplot(data = titanic,
+#'        aes(x = product(Class), conds = product(Age), fill = Survived)) +
+#'   geom_mosaic()
 #'
 #' # if there is only one variable inside `product()`,
 #' # `product()` can be omitted
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = Class, conds = Age, fill = Survived))
+#' ggplot(data = titanic, aes(x = Class, conds = Age, fill = Survived)) +
+#'   geom_mosaic()
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Survived, Class), fill = Age))
+#' ggplot(data = titanic,
+#'        aes(x = product(Survived, Class), fill = Age)) +
+#'   geom_mosaic()
 #'
 #' # Variables can be transformed directly inside mosaic aesthetics
-#' ggplot(data = mtcars) +
-#'   geom_mosaic(aes(x = product(factor(gear)), fill = factor(cyl)))
+#' ggplot(data = mtcars,
+#'        aes(x = product(factor(gear)), fill = factor(cyl))) +
+#'   geom_mosaic()
 #'
 #' # A fill-only variable colours and partitions the tiles without appearing on
 #' # a position axis. Reverse the product order to put `actual` on the x axis.
@@ -81,108 +85,114 @@
 #'   confusion$actual == confusion$predictions,
 #'   "Correct prediction", "Incorrect prediction"
 #' )
-#' ggplot(confusion) +
-#'   geom_mosaic(aes(
+#' ggplot(confusion, aes(
 #'     weight = Freq,
 #'     x = product(predictions, actual),
 #'     fill = is_correct
-#'   ))
+#'   )) +
+#'   geom_mosaic()
 #'
 #' # Just excluded for timing. Examples are included in testing to make sure they work
 #' \dontrun{
 #' data(happy)
 #'
-#' ggplot(data = happy) + geom_mosaic(aes(x = product(happy)), divider="hbar")
+#' ggplot(data = happy, aes(x = product(happy))) +
+#'   geom_mosaic(divider = "hbar")
 #'
-#' ggplot(data = happy) + geom_mosaic(aes(x = product(happy))) +
+#' ggplot(data = happy, aes(x = product(happy))) +
+#'   geom_mosaic() +
 #'   coord_flip()
 #'
 #' # weighting is important
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(weight=wtssall, x=product(happy)))
+#' ggplot(data = happy, aes(weight = wtssall, x = product(happy))) +
+#'   geom_mosaic()
 #'
-#' ggplot(data = happy) + geom_mosaic(aes(weight=wtssall, x=product(health), fill=happy)) +
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(health), fill = happy)) +
+#'   geom_mosaic() +
 #'   theme(axis.text.x=element_text(angle=35))
 #'
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(weight=wtssall, x=product(health), fill=happy), na.rm=TRUE)
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(health), fill = happy)) +
+#'   geom_mosaic(na.rm = TRUE)
 #'
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(weight=wtssall, x=product(health, sex, degree), fill=happy),
-#'   na.rm=TRUE)
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(health, sex, degree), fill = happy)) +
+#'   geom_mosaic(na.rm = TRUE)
 #'
 #' # here is where a bit more control over the spacing of the bars is helpful:
 #' # set labels manually:
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(weight=wtssall, x=product(age), fill=happy), na.rm=TRUE, offset=0) +
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(age), fill = happy)) +
+#'   geom_mosaic(na.rm = TRUE, offset = 0) +
 #'   scale_x_productlist("Age", labels=c(17+1:72))
 #'
 #' # thin out labels manually:
 #' labels <- c(17+1:72)
 #' labels[labels %% 5 != 0] <- ""
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(weight=wtssall, x=product(age), fill=happy), na.rm=TRUE, offset=0) +
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(age), fill = happy)) +
+#'   geom_mosaic(na.rm = TRUE, offset = 0) +
 #'   scale_x_productlist("Age", labels=labels)
 #'
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(weight=wtssall, x=product(age), fill=happy, conds = product(sex)),
-#'   divider=mosaic("v"), na.rm=TRUE, offset=0.001) +
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(age), fill = happy,
+#'            conds = product(sex))) +
+#'   geom_mosaic(divider = mosaic("v"), na.rm = TRUE, offset = 0.001) +
 #'   scale_x_productlist("Age", labels=labels)
 #'
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(weight=wtssall, x=product(age), fill=happy), na.rm=TRUE, offset = 0) +
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(age), fill = happy)) +
+#'   geom_mosaic(na.rm = TRUE, offset = 0) +
 #'   facet_grid(sex~.) +
 #'   scale_x_productlist("Age", labels=labels)
 #'
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(weight = wtssall, x = product(happy, finrela, health)),
-#'   divider=mosaic("h"))
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(happy, finrela, health))) +
+#'   geom_mosaic(divider = mosaic("h"))
 #'
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(weight = wtssall, x = product(happy, finrela, health)), offset=.005)
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(happy, finrela, health))) +
+#'   geom_mosaic(offset = .005)
 #'
 #' # Spine example
-#' ggplot(data = happy) +
-#'  geom_mosaic(aes(weight = wtssall, x = product(health), fill = health)) +
+#' ggplot(data = happy,
+#'        aes(weight = wtssall, x = product(health), fill = health)) +
+#'  geom_mosaic() +
 #'  facet_grid(happy~.)
 #'
 #' # Residual shading with independence model
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic(expected = "independence") +
 #'   scale_fill_residual()
 #'
 #' # Custom model formula
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Sex, Survived)),
-#'               expected = ~ Class + Sex) +
+#' ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+#'   geom_mosaic(expected = ~ Class + Sex) +
 #'   scale_fill_residual()
 #' } # end of don't run
 
 geom_mosaic <- function(mapping = NULL, data = NULL, stat = "mosaic",
                         position = "identity", na.rm = FALSE,  divider = mosaic(), offset = 0.01,
-                        show.legend = NA, inherit.aes = FALSE, expected = NULL, ...)
+                        show.legend = NA, inherit.aes = TRUE, expected = NULL, ...)
 {
-  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha"))
-  mapping <- prepared$mapping
-
-  add_mosaic_scale_environment(ggplot2::layer(
+  mosaic_layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomMosaic,
     position = position,
     show.legend = show.legend,
-    check.aes = FALSE,
-    inherit.aes = FALSE, # only FALSE to turn the warning off
+    inherit.aes = inherit.aes,
+    aesthetics = c("fill", "alpha"),
     params = list(
       na.rm = na.rm,
       divider = divider,
       offset = offset,
       expected = expected,
-      mosaic_spec = prepared$spec,
       ...
     )
-  ))
+  )
 }
 
 #' Geom proto

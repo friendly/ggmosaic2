@@ -39,79 +39,77 @@
 #' @examples
 #' data(titanic)
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class), fill = Survived)) +
-#'   geom_mosaic_text(aes(x = product(Class), fill = Survived))
+#' ggplot(data = titanic, aes(x = product(Class), fill = Survived)) +
+#'   geom_mosaic() +
+#'   geom_mosaic_text()
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Sex),  fill = Survived),
-#'               divider = c("vspine", "hspine", "hspine")) +
-#'   geom_mosaic_text(aes(x = product(Class, Sex), fill = Survived),
-#'               divider = c("vspine", "hspine", "hspine"), size = 2)
+#' ggplot(data = titanic, aes(x = product(Class, Sex), fill = Survived)) +
+#'   geom_mosaic(divider = c("vspine", "hspine", "hspine")) +
+#'   geom_mosaic_text(
+#'     divider = c("vspine", "hspine", "hspine"), size = 2
+#'   )
 #'
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(x = product(health), fill = happy), na.rm = TRUE, show.legend = FALSE) +
-#'   geom_mosaic_text(aes(x = product(happy, health)), na.rm = TRUE)
+#' ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +
+#'   geom_mosaic(aes(x = product(health)), na.rm = TRUE, show.legend = FALSE) +
+#'   geom_mosaic_text(na.rm = TRUE, show.legend = FALSE)
 #'
 #' # avoid overlapping text
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(x = product(health), fill = happy), na.rm = TRUE, show.legend = FALSE) +
-#'   geom_mosaic_text(aes(x = product(happy, health)), na.rm = TRUE, check_overlap = TRUE)
+#' ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +
+#'   geom_mosaic(aes(x = product(health)), na.rm = TRUE, show.legend = FALSE) +
+#'   geom_mosaic_text(na.rm = TRUE, check_overlap = TRUE, show.legend = FALSE)
 #'
 #' # or use ggrepel
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(x = product(health), fill = happy), na.rm = TRUE, show.legend = FALSE) +
-#'   geom_mosaic_text(aes(x = product(happy, health)), na.rm = TRUE, repel = TRUE)
+#' ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +
+#'   geom_mosaic(aes(x = product(health)), na.rm = TRUE, show.legend = FALSE) +
+#'   geom_mosaic_text(na.rm = TRUE, repel = TRUE, show.legend = FALSE)
 #'
 #' # and as a label
-#' ggplot(data = happy) +
-#'   geom_mosaic(aes(x = product(health), fill = happy), na.rm = TRUE, show.legend = FALSE) +
-#'   geom_mosaic_text(aes(x = product(happy, health)), na.rm = TRUE, repel = TRUE, as.label=TRUE)
+#' ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +
+#'   geom_mosaic(aes(x = product(health)), na.rm = TRUE, show.legend = FALSE) +
+#'   geom_mosaic_text(
+#'     na.rm = TRUE, repel = TRUE, as.label = TRUE,
+#'     fill = "white", show.legend = FALSE
+#'   )
 #'
 #' # Display observed counts in cells
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Sex), fill = Survived)) +
-#'   geom_mosaic_text(aes(x = product(Class, Sex)), display_values = "observed")
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic(aes(fill = Survived)) +
+#'   geom_mosaic_text(display_values = "observed")
 #'
 #' # Display residuals with residual shading
 #' # Note: expected parameter must be specified in BOTH layers
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic(expected = "independence") +
 #'   scale_fill_residual() +
-#'   geom_mosaic_text(aes(x = product(Class, Sex)),
-#'                    expected = "independence",
+#'   geom_mosaic_text(expected = "independence",
 #'                    display_values = "residual",
 #'                    format_digits = 2)
 #'
 #' # Display expected values
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic(expected = "independence") +
 #'   scale_fill_residual() +
-#'   geom_mosaic_text(aes(x = product(Class, Sex)),
-#'                    expected = "independence",
+#'   geom_mosaic_text(expected = "independence",
 #'                    display_values = "expected",
 #'                    format_digits = 1)
 #'
 geom_mosaic_text <- function(mapping = NULL, data = NULL, stat = "mosaic",
                              position = "identity", na.rm = FALSE,  divider = mosaic(), offset = 0.01,
-                             show.legend = NA, inherit.aes = FALSE, as.label = FALSE, repel = FALSE,
+                             show.legend = NA, inherit.aes = TRUE, as.label = FALSE, repel = FALSE,
                              repel_params = NULL, check_overlap = FALSE,
                              display_values = "label", format_digits = 1,
                              expected = NULL,
                              ...)
 {
-  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha"))
-  mapping <- prepared$mapping
-
-  add_mosaic_scale_environment(ggplot2::layer(
+  mosaic_layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomMosaicText,
     position = position,
     show.legend = show.legend,
-    check.aes = FALSE,
-    inherit.aes = FALSE, # only FALSE to turn the warning off
+    inherit.aes = inherit.aes,
+    aesthetics = c("fill", "alpha"),
     params = list(
       na.rm = na.rm,
       divider = divider,
@@ -123,10 +121,9 @@ geom_mosaic_text <- function(mapping = NULL, data = NULL, stat = "mosaic",
       display_values = display_values,
       format_digits = format_digits,
       expected = expected,
-      mosaic_spec = prepared$spec,
       ...
     )
-  ))
+  )
 }
 
 #' Geom proto

@@ -34,13 +34,13 @@ A few things were done to alter the basic appearance of mosaics, both with and w
 
 ### Utilizing the top and right axes
 
-When three or more variables are used, the top (three or more variables) and right (four or more variables) axes will now be utilized. The below code is run using `haleyjeppson/ggmosaic` (**Old**) and `friendly/ggmosaic2` (**New**):
+When three or more variables are used, the top (three or more variables) and right (four or more variables) axes will now be utilized. The figures compare the historical `haleyjeppson/ggmosaic` output (**Old**) with `friendly/ggmosaic2` (**New**); the current **ggmosaic2** syntax below declares its aesthetics globally:
 
 ```{r topright-code, eval=FALSE}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-    geom_mosaic(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq))
+  ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+    geom_mosaic()
 ```
 
 ```{r topright-display, out.width='47%', fig.show='hold', echo=FALSE}
@@ -57,8 +57,8 @@ With `theme_mosaic()` applied to the above:
 ```{r theme-code, eval=FALSE}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-    geom_mosaic(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+  ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+    geom_mosaic() +
     theme_mosaic()
 ```
 
@@ -76,8 +76,8 @@ New to `theme_mosaic()` is a convenience argument `rot_labels` that can rotate c
 ```{r rot-labels, fig.width=9, fig.height=7, dpi=300, fig.align='center', out.width='86%'}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-    geom_mosaic(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+  ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+    geom_mosaic() +
     theme_mosaic(rot_labels = 30)
 ```
 
@@ -88,8 +88,8 @@ You might already have noticed that the innermost spacing of cells in mosaic dis
 ```{r reuse-code, eval=FALSE}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-    geom_mosaic(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+  ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+    geom_mosaic() +
     theme_mosaic()
 ```
 
@@ -115,8 +115,8 @@ The old **ggmosaic** had an [issue](https://github.com/haleyjeppson/ggmosaic/iss
 ```{r facet-old-code, eval=FALSE}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Eye, Hair), fill = Hair, weight = Freq)) +
+  ggplot(aes(x = product(Eye, Hair), fill = Hair, weight = Freq)) +
+  geom_mosaic() +
   theme_mosaic() +
   facet_grid(. ~ Sex)
 ```
@@ -130,8 +130,8 @@ The new function `facet_mosaic_grid()` corrects this behaviour, generating label
 ```{r facet-new-code, eval=FALSE}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Eye, Hair), fill = Hair, weight = Freq)) +
+  ggplot(aes(x = product(Eye, Hair), fill = Hair, weight = Freq)) +
+  geom_mosaic() +
   theme_mosaic() +
   facet_mosaic_grid(. ~ Sex)
 ```
@@ -149,9 +149,8 @@ To apply residual-based shading to the `HairEyeColor` example, we will need to s
 ```{r residual, fig.width=9, fig.height=7, dpi=300, fig.align='center', out.width='86%'}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence") +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   theme_mosaic(rot_labels = 30)
 ```
@@ -161,9 +160,8 @@ For a shading scheme that accentuates residuals $\geq \pm4$ (similar to the defa
 ```{r residual-limit, fig.width=9, fig.height=7, dpi=300, fig.align='center', out.width='86%'}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence") +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(limits = c(-4,4)) +
   theme_mosaic(rot_labels = 30)
 ```
@@ -173,9 +171,8 @@ The legend can be re-positioned or disabled through the usual means:
 ```{r residual-legend-1, fig.width=9, fig.height=7, dpi=300, fig.align='center', out.width='86%'}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence") + # `show.legend = FALSE` works as well
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence") + # `show.legend = FALSE` works as well
   scale_fill_residual(limits = c(-4,4)) +
   theme_mosaic(rot_labels = 30, legend.position = "none")
 ```
@@ -183,9 +180,8 @@ HairEyeColor |>
 ```{r residual-legend-2, fig.width=9, fig.height=7, dpi=300, fig.align='center', out.width='86%'}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence") +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(limits = c(-4,4)) +
   theme_mosaic(rot_labels = 30, legend.position = "bottom")
 ```
@@ -195,9 +191,8 @@ Custom outlines can also be disabled through the usual means:
 ```{r residual-outlines, fig.width=9, fig.height=7, dpi=300, fig.align='center', out.width='86%'}
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence",
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence",
               color = NA) +
   scale_fill_residual(limits = c(-4,4)) +
   theme_mosaic(rot_labels = 30, legend.position = "bottom")

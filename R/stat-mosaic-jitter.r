@@ -13,9 +13,7 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
                                show.legend = NA, inherit.aes = TRUE, offset = 0.01,
                                drop_level = FALSE, seed = NA, ...)
 {
-  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha", "colour"))
-  mapping <- prepared$mapping
-  add_mosaic_scale_environment(ggplot2::layer(
+  mosaic_layer(
     data = data,
     mapping = mapping,
     stat = StatMosaicJitter,
@@ -23,17 +21,16 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    check.aes = FALSE,
+    aesthetics = c("fill", "alpha", "colour"),
     params = list(
       na.rm = na.rm,
       divider = divider,
       offset = offset,
       drop_level = drop_level,
       seed = seed,
-      mosaic_spec = prepared$spec,
       ...
     )
-  ))
+  )
 }
 
 
