@@ -1,5 +1,12 @@
 # Current potential issues
 
+## Problem
+
+For some situations we want to allow to construct the `geom_mosaic()` display based on `area ~ expected` frequencies under
+a loglinear model as an alternative to the standard display based on  `area ~ observed`.
+But if we also want to display values in the cells, using `geom_mosaic_text()`, the `expected`
+argument must be passed to both calls.
+
 ## `expected` is not shared between layers
 
 Layer parameters are not inherited between sibling ggplot2 layers. To label
