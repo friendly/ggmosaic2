@@ -1,7 +1,7 @@
 I'm stuck on a design question in ggmosaic2 (mosaic plots, ggplot2 extension)
 and would like advice from people who've built layered stat/geom
 extensions before.
-This question also relates to: <TODO: link to earlier ggmosaic Q>
+This question also relates to: [Add Loglinear Model Residual Shading to ggmosaic (#134)](https://github.com/ggplot2-extenders/ggplot-extension-club/discussions/134)
 
 `geom_mosaic()` and `geom_mosaic_text()` need to agree on several things that
 aren't aesthetics: the loglinear model used for `expected` counts, and the
@@ -9,7 +9,19 @@ aren't aesthetics: the loglinear model used for `expected` counts, and the
 layers separately, which means the model gets fit twice and the two layers
 can silently disagree if you don't keep the calls in sync.
 
-TODO: Example here
+```r
+HairEyeColor |>
+    as.data.frame() |>
+    ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+    geom_mosaic(expected = "independence", 
+                offset = .02) +
+    geom_mosaic_text(expected = "independence",   # Need to match
+                     offset = .02,                # the above
+                     display_values = "expected",
+                     color = "black") +
+    scale_fill_residual(limits = c(-4,4)) +
+    theme_mosaic(rot_labels = 30)
+```
 
 I got normal `aes()` inheritance working (plot-level `aes()` now reaches
 mosaic layers the way it does for any other geom), by resolving the merged
