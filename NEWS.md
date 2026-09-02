@@ -1,3 +1,39 @@
+# ggmosaic2 0.5.1
+
+* Added `facet_mosaic_grid()` for mosaic-aware faceting (haleyjeppson/ggmosaic#78): each facet
+  panel gets independent x/y product scales and category axes drawn at panel-specific positions,
+  and it supports multiple mosaic layers, `theme_mosaic()`, `coord_flip()`, manual product scales,
+  margins, and residual shading.
+
+* Improved Pearson residual shading: negative residuals are now dark red and positive residuals
+  dark blue, with matching dashed/solid cell outlines (disable via `colour = NA`, or override
+  colour/linetype/linewidth directly). Added a custom residual legend with signed labels, observed
+  extrema, supplied limits, reference values at -4/0/+4, endpoint colour squishing, and
+  collision-aware ticks/labels, in both vertical and horizontal layouts.
+
+* Fixed mosaic spacing: `offset` is now the fixed gap at the deepest split, with gaps increasing
+  by a factor of 1.5 toward outer splits (previously inconsistent), converted to local rectangle
+  coordinates and safely constrained for very small cells; `offset` is validated as a single
+  finite, non-negative value. **This changes spacing output relative to earlier versions.**
+
+* Fixed namespace-only use (haleyjeppson/ggmosaic#82): calls such as `ggmosaic2::geom_mosaic()`
+  and `ggmosaic2::product()` now work without `library(ggmosaic2)`.
+
+* Variables mapped only to `fill` or `alpha` (and `colour` in `geom_mosaic_jitter()`) remain
+  available to the mosaic calculation and point aesthetics, but are no longer shown on the
+  automatic product axes; only variables mapped through `x` or `conds` are labeled there
+  (haleyjeppson/ggmosaic#39, haleyjeppson/ggmosaic#77). Variables can now be created within
+  `geom_mosaic()`, and factors can be reordered for display.
+
+* `theme_mosaic()` now passes additional arguments through `...` to `ggplot2::theme()`.
+
+* Added the `introducing-ggmosaic2` vignette.
+
+* Lightened the default `geom_mosaic()` tile fill (`grey30` -> `grey55`).
+
+* Fixed `inst/CITATION` for the `ggmosaic2` fork: retitled from `ggmosaic`, authors and year are
+  now pulled from `DESCRIPTION` instead of hardcoded, and a broken multi-URL field is fixed.
+
 # ggmosaic2 0.5.0
 
 `ggmosaic2` is a standalone continuation of `ggmosaic`, which was removed from CRAN around
