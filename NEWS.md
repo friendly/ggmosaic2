@@ -55,7 +55,7 @@ entry is inherited `ggmosaic` history, prior to the fork.
 
 # ggmosaic 0.4.1
 
-Extensive changes to intoduce fitting loglinear models and residual-based shading, described in https://github.com/haleyjeppson/ggmosaic/pull/86
+Extensive changes to introduce fitting loglinear models and residual-based shading, described in https://github.com/haleyjeppson/ggmosaic/pull/86
 
 * added labeling for cells (obs/exp/res)
 * added loglinear-models vignette to explain this

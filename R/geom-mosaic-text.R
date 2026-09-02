@@ -17,7 +17,7 @@
 #'   factor of 1.5 toward the outermost split.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with a warning. If \code{TRUE} silently removes missing values.
 #' @param as.label Show as a ggplot label (box with round corners)
-#' @param repel Use ggrepel wo labels don't overlap
+#' @param repel Use ggrepel so labels don't overlap
 #' @param repel_params List of ggrepel parameters (e.g. list(point.padding = 0))
 #' @param check_overlap If `TRUE`, text that overlaps previous text in the
 #'   same layer will not be plotted. `check_overlap` happens at draw time and in

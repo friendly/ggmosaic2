@@ -49,7 +49,7 @@ Pearson residuals from loglinear models. Designed for use with
 \details{
 The default legend always labels -4, 0, and 4. It also labels
 supplied limits and the observed minimum and maximum when those differ
-from the limits. The legend extends to every labelled value, with solid
+from the limits. The legend extends to every labeled value, with solid
 endpoint color beyond supplied limits. When the contributing mosaic cells
 have outlines, positive residuals have a solid dark blue outline, negative
 residuals have a dashed dark red outline, and an unoutlined midpoint band
@@ -57,7 +57,7 @@ residuals have a dashed dark red outline, and an unoutlined midpoint band
 contributing mosaic layer removes these outlines from both the cells and
 the legend. Black ticks are drawn outside the color bar, which stretches
 with the mosaic panel. Nearby vertical labels are separated, and a thin
-elbow connects each displaced label to its exact tick. The neighbouring
+elbow connects each displaced label to its exact tick. The neighboring
 label uses a longer straight tick so nearby text shares a common alignment.
 Automatically generated numeric labels are rounded to one decimal place.
 The legend can be hidden normally with

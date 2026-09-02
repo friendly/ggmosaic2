@@ -99,7 +99,7 @@ the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{ann
 
 \item{as.label}{Show as a ggplot label (box with round corners)}
 
-\item{repel}{Use ggrepel wo labels don't overlap}
+\item{repel}{Use ggrepel so labels don't overlap}
 
 \item{repel_params}{List of ggrepel parameters (e.g. list(point.padding = 0))}
 

@@ -69,7 +69,7 @@ knitr::include_graphics(c(
 ))
 ```
 
-Axis labels had a bold face applied to be consistent with mosaics made using **vcd** and **vcdExtra**. Axis ticks were removed, as they are unneccessary for mosaic displays.
+Axis labels had a bold face applied to be consistent with mosaics made using **vcd** and **vcdExtra**. Axis ticks were removed, as they are unnecessary for mosaic displays.
 
 New to `theme_mosaic()` is a convenience argument `rot_labels` that can rotate category labels to a user-specified angle (in degrees):
 
@@ -125,7 +125,7 @@ HairEyeColor |>
 knitr::include_graphics("fig/facet-old.png")
 ```
 
-The new function `facet_mosaic_grid()` corrects this behaviour, generating labels per facet:
+The new function `facet_mosaic_grid()` corrects this behavior, generating labels per facet:
 
 ```{r facet-new-code, eval=FALSE}
 HairEyeColor |>

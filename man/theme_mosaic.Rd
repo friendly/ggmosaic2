@@ -14,8 +14,8 @@
 the mosaic theme defaults and can therefore override them.}
 }
 \description{
-Themes set the general aspect of the plot such as the colour of the
-background, gridlines, the size and colour of fonts.
+Themes set the general aspect of the plot such as the color of the
+background, gridlines, the size and color of fonts.
 \code{theme_mosaic} provides access to the regular ggplot2 theme, but removes
 any background, axes ticks, most of the gridlines, and ensures an aspect
 ratio of 1 for better viewing of the mosaics. This theme also applies a bold
