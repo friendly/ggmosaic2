@@ -505,6 +505,6 @@ sessionInfo()
 #> [40] grid_4.6.1          lifecycle_1.0.5     vctrs_0.7.3        
 #> [43] data.table_1.18.6.1 evaluate_1.0.5      glue_1.8.1         
 #> [46] farver_2.1.2        ragg_1.5.2          purrr_1.2.2        
-#> [49] httr_1.4.8          rmarkdown_2.31      tools_4.6.1        
+#> [49] httr_1.4.9          rmarkdown_2.32      tools_4.6.1        
 #> [52] pkgconfig_2.0.3     htmltools_0.5.9
 ```
