@@ -533,26 +533,32 @@ sessionInfo()
 #> [8] base     
 #> 
 #> other attached packages:
-#> [1] dplyr_1.2.1     vcdExtra_0.9.7  gnm_1.1-5       vcd_1.4-14     
+#> [1] dplyr_1.2.1     vcdExtra_0.9.8  gnm_1.1-5       vcd_1.4-14     
 #> [5] ggmosaic2_0.5.1 ggplot2_4.0.3  
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] gtable_0.3.6       xfun_0.60          bslib_0.12.0       htmlwidgets_1.6.4 
-#>  [5] websocket_1.4.4    ggrepel_0.9.8      processx_3.9.0     lattice_0.22-9    
-#>  [9] vctrs_0.7.3        tools_4.6.1        ps_1.9.3           generics_0.1.4    
-#> [13] tibble_3.3.1       ca_0.71.1          pkgconfig_2.0.3    Matrix_1.7-5      
-#> [17] data.table_1.18.4  RColorBrewer_1.1-3 S7_0.2.2           desc_1.4.3        
-#> [21] gt_1.3.0           lifecycle_1.0.5    compiler_4.6.1     farver_2.1.2      
-#> [25] textshaping_1.0.5  chromote_0.5.1     htmltools_0.5.9    sass_0.4.10       
-#> [29] yaml_2.3.12        plotly_4.12.1      pillar_1.11.1      pkgdown_2.2.1     
-#> [33] later_1.4.8        jquerylib_0.1.4    tidyr_1.3.2        MASS_7.3-65       
-#> [37] cachem_1.1.0       webshot2_0.1.2     tidyselect_1.2.1   digest_0.6.39     
-#> [41] purrr_1.2.2        qvcalc_1.0.4       forcats_1.0.1      fastmap_1.2.0     
-#> [45] colorspace_2.1-3   cli_3.6.6          magrittr_2.0.5     productplots_0.1.2
-#> [49] relimp_1.0-5       withr_3.0.3        scales_1.4.0       promises_1.5.0    
-#> [53] rmarkdown_2.31     httr_1.4.8         otel_0.2.0         nnet_7.3-20       
-#> [57] ragg_1.5.2         zoo_1.9-0          evaluate_1.0.5     knitr_1.51        
-#> [61] lmtest_0.9-40      viridisLite_0.4.3  rlang_1.3.0        Rcpp_1.1.2        
-#> [65] glue_1.8.1         xml2_1.6.0         jsonlite_2.0.0     R6_2.6.1          
-#> [69] plyr_1.8.9         systemfonts_1.3.2  fs_2.1.0
+#>  [1] gtable_0.3.6        xfun_0.60           bslib_0.12.0       
+#>  [4] htmlwidgets_1.6.4   websocket_1.4.4     ggrepel_0.9.8      
+#>  [7] processx_3.9.0      lattice_0.22-9      vctrs_0.7.3        
+#> [10] tools_4.6.1         ps_1.9.3            generics_0.1.4     
+#> [13] tibble_3.3.1        ca_0.71.1           pkgconfig_2.0.3    
+#> [16] Matrix_1.7-5        data.table_1.18.6.1 RColorBrewer_1.1-3 
+#> [19] S7_0.2.2            desc_1.4.3          gt_1.3.0           
+#> [22] lifecycle_1.0.5     compiler_4.6.1      farver_2.1.2       
+#> [25] textshaping_1.0.5   chromote_0.5.1      htmltools_0.5.9    
+#> [28] sass_0.4.10         yaml_2.3.12         plotly_4.12.1      
+#> [31] pillar_1.11.1       pkgdown_2.2.1       later_1.4.8        
+#> [34] jquerylib_0.1.4     tidyr_1.3.2         MASS_7.3-65        
+#> [37] cachem_1.1.0        webshot2_0.1.2      tidyselect_1.2.1   
+#> [40] digest_0.6.39       purrr_1.2.2         qvcalc_1.0.4       
+#> [43] forcats_1.0.1       fastmap_1.2.0       colorspace_2.1-3   
+#> [46] cli_3.6.6           magrittr_2.0.5      productplots_0.1.2 
+#> [49] relimp_1.0-5        withr_3.0.3         scales_1.4.0       
+#> [52] promises_1.5.0      rmarkdown_2.31      httr_1.4.8         
+#> [55] otel_0.2.0          nnet_7.3-20         ragg_1.5.2         
+#> [58] zoo_1.9-0           evaluate_1.0.5      knitr_1.51         
+#> [61] lmtest_0.9-40       viridisLite_0.4.3   rlang_1.3.0        
+#> [64] Rcpp_1.1.2          glue_1.8.1          xml2_1.6.0         
+#> [67] jsonlite_2.0.0      R6_2.6.1            plyr_1.8.9         
+#> [70] systemfonts_1.3.2   fs_2.1.0
 ```

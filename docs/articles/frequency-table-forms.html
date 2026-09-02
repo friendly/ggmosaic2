@@ -62,9 +62,9 @@
                         <h4 data-toc-skip class="author">Michael
 Friendly</h4>
             
-            <h4 data-toc-skip class="date">2026-08-18</h4>
+            <h4 data-toc-skip class="date">2026-09-02</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/vignettes/frequency-table-forms.Rmd" class="external-link"><code>vignettes/frequency-table-forms.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/master/vignettes/frequency-table-forms.Rmd" class="external-link"><code>vignettes/frequency-table-forms.Rmd</code></a></small>
       <div class="d-none name"><code>frequency-table-forms.Rmd</code></div>
     </div>
 
@@ -151,13 +151,13 @@ and level information</p>
 table with 592 observations classified by hair color, eye color, and
 sex.</p>
 <p>Table form can also be displayed as a heatmap-style <strong>color
-table</strong>, using <code><a href="https://rdrr.io/pkg/vcdExtra/man/color_table.html" class="external-link">vcdExtra::color_table()</a></code>, which shades
+table</strong>, using <code><a href="https://friendly.github.io/vcdExtra/reference/color_table.html" class="external-link">vcdExtra::color_table()</a></code>, which shades
 each cell background by its frequency. This gives a quick visual sense
 of where the data are concentrated, as a complement to the mosaic plots
 introduced below – useful for readers less familiar with reading mosaic
 displays.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/vcdExtra/man/color_table.html" class="external-link">color_table</a></span><span class="op">(</span><span class="va">HairEyeColor</span>, shade <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://friendly.github.io/vcdExtra/reference/color_table.html" class="external-link">color_table</a></span><span class="op">(</span><span class="va">HairEyeColor</span>, shade <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span></span></code></pre></div>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mwlefoodfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -752,7 +752,7 @@ that individual - No frequency column needed - Total observations =
 with data collection.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert frequency form to case form using vcdExtra::expand.dft()</span></span>
-<span><span class="va">hair_case</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/vcdExtra/man/expand.dft.html" class="external-link">expand.dft</a></span><span class="op">(</span><span class="va">hair_freq</span>, freq <span class="op">=</span> <span class="st">"Freq"</span><span class="op">)</span></span>
+<span><span class="va">hair_case</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://friendly.github.io/vcdExtra/reference/expand.dft.html" class="external-link">expand.dft</a></span><span class="op">(</span><span class="va">hair_freq</span>, freq <span class="op">=</span> <span class="st">"Freq"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">hair_case</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     Hair   Eye  Sex</span></span>
 <span><span class="co">#&gt; 1  Black Brown Male</span></span>
@@ -794,13 +794,13 @@ with data collection.</p>
 <td><strong>Table</strong></td>
 <td>—</td>
 <td><code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code></td>
-<td><code><a href="https://rdrr.io/pkg/vcdExtra/man/expand.dft.html" class="external-link">expand.dft()</a></code></td>
+<td><code><a href="https://friendly.github.io/vcdExtra/reference/expand.dft.html" class="external-link">expand.dft()</a></code></td>
 </tr>
 <tr class="even">
 <td><strong>Frequency</strong></td>
 <td><code>xtabs(Freq ~ ...)</code></td>
 <td>—</td>
-<td><code><a href="https://rdrr.io/pkg/vcdExtra/man/expand.dft.html" class="external-link">expand.dft()</a></code></td>
+<td><code><a href="https://friendly.github.io/vcdExtra/reference/expand.dft.html" class="external-link">expand.dft()</a></code></td>
 </tr>
 <tr class="odd">
 <td><strong>Case</strong></td>
@@ -808,7 +808,7 @@ with data collection.</p>
 <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code>, <code><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs()</a></code>
 </td>
 <td>
-<code><a href="https://rdrr.io/pkg/dplyr/man/count.html" class="external-link">count()</a></code>, <code><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs()</a></code>
+<code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count()</a></code>, <code><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs()</a></code>
 </td>
 <td>—</td>
 </tr>
@@ -826,7 +826,7 @@ it and return the desired form.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Case → Frequency (count occurrences)</span></span>
 <span><span class="va">hair_case</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span>, name <span class="op">=</span> <span class="st">"Freq"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span>, name <span class="op">=</span> <span class="st">"Freq"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    Hair   Eye    Sex Freq</span></span>
 <span><span class="co">#&gt; 1 Black  Blue Female    9</span></span>
@@ -856,18 +856,16 @@ it and return the desired form.</p>
 dataset.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># From frequency form (most common)</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Three-Way Mosaic: Hair × Eye × Sex"</span>,</span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Three-Way Mosaic: Hair × Eye × Sex"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Frequency form with weight aesthetic"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/mosaic-3way-frequency-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># From case form</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_case</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Three-Way Mosaic: Hair × Eye × Sex"</span>,</span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_case</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Three-Way Mosaic: Hair × Eye × Sex"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Case form without weight"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/mosaic-3way-case-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Both forms produce identical plots. The key difference: -
@@ -884,13 +882,12 @@ counts as 1)</p>
 more variables:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Condition on Sex</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>,</span>
-<span>           x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span>,</span>
-<span>           conds <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span><span class="op">)</span>,</span>
-<span>           fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye | Sex"</span>,</span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>,</span>
+<span>                  x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span>,</span>
+<span>                  conds <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span><span class="op">)</span>,</span>
+<span>                  fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye | Sex"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Conditioned on Sex"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/mosaic-conds-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
@@ -910,10 +907,9 @@ whether patterns are statistically meaningful.</p>
 aesthetic to color tiles, typically showing one of the categorical
 variables:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye Color: Default Shading"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye Color: Default Shading"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Fill shows Eye color levels"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/default-shading-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>This clearly shows the marginal and conditional distributions, but
@@ -948,11 +944,11 @@ approximately α = 0.05</li>
 most common model is <strong>independence</strong> (main effects
 only):</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span>expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye Color: Independence Model"</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye Color: Independence Model"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Blue = more than expected, Red = fewer than expected"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/residual-2way-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>The residual shading reveals: - <strong>Blue tiles</strong> (positive
@@ -968,16 +964,17 @@ significant association between hair and eye color</p>
 <p>We can display the actual residual values in each cell using
 <code><a href="../reference/geom_mosaic_text.html">geom_mosaic_text()</a></code>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span>expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic_text.html">geom_mosaic_text</a></span><span class="op">(</span>expected <span class="op">=</span> <span class="st">"independence"</span>,  <span class="co"># Must match!</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic_text.html">geom_mosaic_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                   expected <span class="op">=</span> <span class="st">"independence"</span>,  <span class="co"># Must match!</span></span>
 <span>                   display_values <span class="op">=</span> <span class="st">"residual"</span>,</span>
 <span>                   format_digits <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                   size <span class="op">=</span> <span class="fl">3.5</span>,</span>
 <span>                   colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye Independence Model with Residual Values"</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye Independence Model with Residual Values"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Numbers show Pearson residuals"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/residual-labels-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Values greater than 2 in absolute value indicate significant
@@ -989,11 +986,11 @@ departures from independence.</p>
 <p>For the three-way table, the independence model tests whether all
 three variables are mutually independent:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span>expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye × Sex: Complete Independence"</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Hair × Eye × Sex: Complete Independence"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Model: ~ Hair + Eye + Sex (no interactions)"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/residual-3way-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
@@ -1004,11 +1001,11 @@ three variables are mutually independent:</p>
 example, testing whether the Hair-Eye association differs by Sex:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Model: Hair and Eye are associated, but independent of Sex</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span>expected <span class="op">=</span> <span class="op">~</span> <span class="va">Hair</span> <span class="op">*</span> <span class="va">Eye</span> <span class="op">+</span> <span class="va">Sex</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span>, <span class="va">Sex</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>              expected <span class="op">=</span> <span class="op">~</span> <span class="va">Hair</span> <span class="op">*</span> <span class="va">Eye</span> <span class="op">+</span> <span class="va">Sex</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Model: (Hair × Eye) Independent of Sex"</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Model: (Hair × Eye) Independent of Sex"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"~ Hair * Eye + Sex"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/custom-model-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Residuals close to zero suggest this model fits reasonably well—the
@@ -1020,28 +1017,29 @@ Hair-Eye association is similar for males and females.</p>
 </h3>
 <p>We can also display the expected counts under a model:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span>expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>              expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic_text.html">geom_mosaic_text</a></span><span class="op">(</span>expected <span class="op">=</span> <span class="st">"independence"</span>,</span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic_text.html">geom_mosaic_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                   expected <span class="op">=</span> <span class="st">"independence"</span>,</span>
 <span>                   display_values <span class="op">=</span> <span class="st">"expected"</span>,</span>
 <span>                   format_digits <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                   size <span class="op">=</span> <span class="fl">3.5</span>,</span>
 <span>                   colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Expected Frequencies Under Independence"</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Expected Frequencies Under Independence"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Compare with observed to see associations"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/expected-values-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>And the observed counts:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span>,</span>
-<span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_mosaic_text.html">geom_mosaic_text</a></span><span class="op">(</span>display_values <span class="op">=</span> <span class="st">"observed"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hair_freq</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Eye</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic_text.html">geom_mosaic_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">Freq</span>, x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Hair</span>, <span class="va">Eye</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                   display_values <span class="op">=</span> <span class="st">"observed"</span>,</span>
 <span>                   format_digits <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                   size <span class="op">=</span> <span class="fl">3.5</span>,</span>
 <span>                   colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Observed Frequencies"</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Observed Frequencies"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Actual counts in each cell"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="frequency-table-forms_files/figure-html/observed-values-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
@@ -1073,7 +1071,7 @@ individual-level data</li>
 <strong>Converting between forms</strong> is straightforward:
 <ul>
 <li>Use <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code> for table → frequency</li>
-<li>Use <code><a href="https://rdrr.io/pkg/vcdExtra/man/expand.dft.html" class="external-link">expand.dft()</a></code> for frequency → case</li>
+<li>Use <code><a href="https://friendly.github.io/vcdExtra/reference/expand.dft.html" class="external-link">expand.dft()</a></code> for frequency → case</li>
 <li>Use <code><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs()</a></code> or <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code> for case/frequency
 → table</li>
 </ul>
@@ -1152,46 +1150,55 @@ Computational and Graphical Statistics</em>, 16(3), 507-525.</li>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
-<span><span class="co">#&gt; Platform: aarch64-apple-darwin23</span></span>
-<span><span class="co">#&gt; Running under: macOS Tahoe 26.5.2</span></span>
+<span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
+<span><span class="co">#&gt; Running under: Ubuntu 24.04.4 LTS</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib </span></span>
-<span><span class="co">#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
+<span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span><span class="co">#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; locale:</span></span>
-<span><span class="co">#&gt; [1] C.UTF-8/C.UTF-8/C.UTF-8/C/C.UTF-8/C.UTF-8</span></span>
+<span><span class="co">#&gt;  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
+<span><span class="co">#&gt;  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
+<span><span class="co">#&gt;  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
+<span><span class="co">#&gt; [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; time zone: America/Toronto</span></span>
-<span><span class="co">#&gt; tzcode source: internal</span></span>
+<span><span class="co">#&gt; time zone: UTC</span></span>
+<span><span class="co">#&gt; tzcode source: system (glibc)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attached base packages:</span></span>
 <span><span class="co">#&gt; [1] grid      stats     graphics  grDevices utils     datasets  methods  </span></span>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] dplyr_1.2.1     vcdExtra_0.9.8  gnm_1.1-5       vcd_1.4-13     </span></span>
+<span><span class="co">#&gt; [1] dplyr_1.2.1     vcdExtra_0.9.8  gnm_1.1-5       vcd_1.4-14     </span></span>
 <span><span class="co">#&gt; [5] ggmosaic2_0.5.1 ggplot2_4.0.3  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] gtable_0.3.6       xfun_0.60          bslib_0.12.0       htmlwidgets_1.6.4 </span></span>
-<span><span class="co">#&gt;  [5] websocket_1.4.4    ggrepel_0.9.8      processx_3.9.0     lattice_0.22-9    </span></span>
-<span><span class="co">#&gt;  [9] vctrs_0.7.3        tools_4.6.1        generics_0.1.4     tibble_3.3.1      </span></span>
-<span><span class="co">#&gt; [13] ca_0.71.1          pkgconfig_2.0.3    Matrix_1.7-5       data.table_1.18.4 </span></span>
-<span><span class="co">#&gt; [17] RColorBrewer_1.1-3 S7_0.2.2           desc_1.4.3         gt_1.3.0          </span></span>
-<span><span class="co">#&gt; [21] lifecycle_1.0.5    compiler_4.6.1     farver_2.1.2       textshaping_1.0.5 </span></span>
-<span><span class="co">#&gt; [25] chromote_0.5.1     htmltools_0.5.9    sass_0.4.10        yaml_2.3.12       </span></span>
-<span><span class="co">#&gt; [29] plotly_4.12.1      pillar_1.11.1      pkgdown_2.2.0      later_1.4.8       </span></span>
-<span><span class="co">#&gt; [33] jquerylib_0.1.4    tidyr_1.3.2        MASS_7.3-65        cachem_1.1.0      </span></span>
-<span><span class="co">#&gt; [37] webshot2_0.1.2     tidyselect_1.2.1   digest_0.6.39      purrr_1.2.2       </span></span>
-<span><span class="co">#&gt; [41] qvcalc_1.0.4       forcats_1.0.1      fastmap_1.2.0      colorspace_2.1-2  </span></span>
-<span><span class="co">#&gt; [45] cli_3.6.6          magrittr_2.0.5     productplots_0.1.2 relimp_1.0-5      </span></span>
-<span><span class="co">#&gt; [49] withr_3.0.3        scales_1.4.0       promises_1.5.0     rmarkdown_2.31    </span></span>
-<span><span class="co">#&gt; [53] httr_1.4.8         otel_0.2.0         nnet_7.3-20        ragg_1.5.2        </span></span>
-<span><span class="co">#&gt; [57] zoo_1.8-15         evaluate_1.0.5     knitr_1.51         lmtest_0.9-40     </span></span>
-<span><span class="co">#&gt; [61] viridisLite_0.4.3  rlang_1.3.0        Rcpp_1.1.2         glue_1.8.1        </span></span>
-<span><span class="co">#&gt; [65] xml2_1.6.0         jsonlite_2.0.0     R6_2.6.1           plyr_1.8.9        </span></span>
-<span><span class="co">#&gt; [69] systemfonts_1.3.2  fs_2.1.0</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] gtable_0.3.6        xfun_0.60           bslib_0.12.0       </span></span>
+<span><span class="co">#&gt;  [4] htmlwidgets_1.6.4   websocket_1.4.4     ggrepel_0.9.8      </span></span>
+<span><span class="co">#&gt;  [7] processx_3.9.0      lattice_0.22-9      vctrs_0.7.3        </span></span>
+<span><span class="co">#&gt; [10] tools_4.6.1         ps_1.9.3            generics_0.1.4     </span></span>
+<span><span class="co">#&gt; [13] tibble_3.3.1        ca_0.71.1           pkgconfig_2.0.3    </span></span>
+<span><span class="co">#&gt; [16] Matrix_1.7-5        data.table_1.18.6.1 RColorBrewer_1.1-3 </span></span>
+<span><span class="co">#&gt; [19] S7_0.2.2            desc_1.4.3          gt_1.3.0           </span></span>
+<span><span class="co">#&gt; [22] lifecycle_1.0.5     compiler_4.6.1      farver_2.1.2       </span></span>
+<span><span class="co">#&gt; [25] textshaping_1.0.5   chromote_0.5.1      htmltools_0.5.9    </span></span>
+<span><span class="co">#&gt; [28] sass_0.4.10         yaml_2.3.12         plotly_4.12.1      </span></span>
+<span><span class="co">#&gt; [31] pillar_1.11.1       pkgdown_2.2.1       later_1.4.8        </span></span>
+<span><span class="co">#&gt; [34] jquerylib_0.1.4     tidyr_1.3.2         MASS_7.3-65        </span></span>
+<span><span class="co">#&gt; [37] cachem_1.1.0        webshot2_0.1.2      tidyselect_1.2.1   </span></span>
+<span><span class="co">#&gt; [40] digest_0.6.39       purrr_1.2.2         qvcalc_1.0.4       </span></span>
+<span><span class="co">#&gt; [43] forcats_1.0.1       fastmap_1.2.0       colorspace_2.1-3   </span></span>
+<span><span class="co">#&gt; [46] cli_3.6.6           magrittr_2.0.5      productplots_0.1.2 </span></span>
+<span><span class="co">#&gt; [49] relimp_1.0-5        withr_3.0.3         scales_1.4.0       </span></span>
+<span><span class="co">#&gt; [52] promises_1.5.0      rmarkdown_2.31      httr_1.4.8         </span></span>
+<span><span class="co">#&gt; [55] otel_0.2.0          nnet_7.3-20         ragg_1.5.2         </span></span>
+<span><span class="co">#&gt; [58] zoo_1.9-0           evaluate_1.0.5      knitr_1.51         </span></span>
+<span><span class="co">#&gt; [61] lmtest_0.9-40       viridisLite_0.4.3   rlang_1.3.0        </span></span>
+<span><span class="co">#&gt; [64] Rcpp_1.1.2          glue_1.8.1          xml2_1.6.0         </span></span>
+<span><span class="co">#&gt; [67] jsonlite_2.0.0      R6_2.6.1            plyr_1.8.9         </span></span>
+<span><span class="co">#&gt; [70] systemfonts_1.3.2   fs_2.1.0</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -1204,7 +1211,7 @@ Computational and Graphical Statistics</em>, 16(3), 507-525.</li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
