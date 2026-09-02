@@ -4,7 +4,7 @@ author: "Gavin Klorfine"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introducing ggmosaic2}
+  %\VignetteIndexEntry{Introducing ggmosaic2: an enhanced ggmosaic}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

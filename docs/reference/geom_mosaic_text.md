@@ -141,7 +141,7 @@ geom_mosaic_text(
 
 - repel:
 
-  Use ggrepel wo labels don't overlap
+  Use ggrepel so labels don't overlap
 
 - repel_params:
 

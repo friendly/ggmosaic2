@@ -1,6 +1,6 @@
 # ggmosaic2
 
-*Version 0.5.1, built 2026-08-14*
+*Version 0.5.1, built 2026-09-01*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -15,7 +15,7 @@ charts, stacked bar charts, mosaic plots, and double decker plots.
 
 `ggmosaic2` extends this with support for fitted loglinear models to
 show patterns of association among variables in frequency tables via
-residual-based shading, which was its’ original intention, as opposed to
+residual-based shading, which was its original intention, as opposed to
 the “fill by factor levels” (Marimekko shading) of the original
 `ggmosaic` package. It also adds jittered-point overlays showing
 individual observations, reflecting non-independence as variation in
@@ -250,18 +250,6 @@ students.](reference/figures/README-example-jitter-1.png)
 
 ## All functions
 
-- [`GeomMosaic`](https://friendly.github.io/ggmosaic2/reference/GeomMosaic.md)
-  : Geom proto
-- [`GeomMosaicJitter`](https://friendly.github.io/ggmosaic2/reference/GeomMosaicJitter.md)
-  : Geom proto
-- [`GeomMosaicText`](https://friendly.github.io/ggmosaic2/reference/GeomMosaicText.md)
-  : Geom proto
-- [`StatMosaic`](https://friendly.github.io/ggmosaic2/reference/StatMosaic.md)
-  : Geom proto
-- [`StatMosaicJitter`](https://friendly.github.io/ggmosaic2/reference/StatMosaicJitter.md)
-  : Geom proto
-- [`StatMosaicText`](https://friendly.github.io/ggmosaic2/reference/StatMosaicText.md)
-  : Geom proto
 - [`ddecker()`](https://friendly.github.io/ggmosaic2/reference/ddecker.md)
   : Template for a double decker plot. A double decker plot is composed
   of a sequence of spines in the same direction, with the final spine in
@@ -270,6 +258,12 @@ students.](reference/figures/README-example-jitter-1.png)
   : Facet mosaic plots with panel-specific axes
 - [`fly`](https://friendly.github.io/ggmosaic2/reference/fly.md) :
   Flying Etiquette Survey Data
+- [`GeomMosaic`](https://friendly.github.io/ggmosaic2/reference/GeomMosaic.md)
+  : Geom proto
+- [`GeomMosaicJitter`](https://friendly.github.io/ggmosaic2/reference/GeomMosaicJitter.md)
+  : Geom proto
+- [`GeomMosaicText`](https://friendly.github.io/ggmosaic2/reference/GeomMosaicText.md)
+  : Geom proto
 - [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
   [`stat_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
   [`stat_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
@@ -305,6 +299,12 @@ students.](reference/figures/README-example-jitter-1.png)
   Spine partition: divide longest dimension.
 - [`squeeze()`](https://friendly.github.io/ggmosaic2/reference/squeeze.md)
   : Internal helper function
+- [`StatMosaic`](https://friendly.github.io/ggmosaic2/reference/StatMosaic.md)
+  : Geom proto
+- [`StatMosaicJitter`](https://friendly.github.io/ggmosaic2/reference/StatMosaicJitter.md)
+  : Geom proto
+- [`StatMosaicText`](https://friendly.github.io/ggmosaic2/reference/StatMosaicText.md)
+  : Geom proto
 - [`theme_mosaic`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
   : Theme for mosaic plots
 - [`titanic`](https://friendly.github.io/ggmosaic2/reference/titanic.md)
