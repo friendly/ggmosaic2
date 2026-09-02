@@ -41,12 +41,12 @@ place one panel's ticks and labels on another panel's mosaic."><meta property="o
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Facet mosaic plots with panel-specific axes</h1>
-      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/R/facet-mosaic.R" class="external-link"><code>R/facet-mosaic.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/master/R/facet-mosaic.R" class="external-link"><code>R/facet-mosaic.R</code></a></small>
       <div class="d-none name"><code>facet_mosaic_grid.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
-    <p><code>facet_mosaic_grid()</code> lays panels out like <code><a href="https://rdrr.io/pkg/ggplot2/man/facet_grid.html" class="external-link">ggplot2::facet_grid()</a></code>, but gives
+    <p><code>facet_mosaic_grid()</code> lays panels out like <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">ggplot2::facet_grid()</a></code>, but gives
 every panel its own x and y position scales. Mosaic category breaks depend on
 the proportions calculated inside a panel, so sharing a position scale can
 place one panel's ticks and labels on another panel's mosaic.</p>
@@ -75,7 +75,7 @@ place one panel's ticks and labels on another panel's mosaic.</p>
 
 <dl><dt id="arg-rows-cols">rows, cols<a class="anchor" aria-label="anchor" href="#arg-rows-cols"></a></dt>
 <dd><p>A set of variables or expressions quoted by
-<code><a href="https://rdrr.io/pkg/ggplot2/man/vars.html" class="external-link">vars()</a></code> and defining faceting groups on the rows or columns
+<code><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars()</a></code> and defining faceting groups on the rows or columns
 dimension. The variables can be named (the names are passed to
 <code>labeller</code>).</p>
 <p>For compatibility with the classic interface, <code>rows</code> can also be
@@ -106,9 +106,9 @@ column corresponds to one factor. Thus there will be more than
 one with <code>vars(cyl, am)</code>. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with <code><a href="https://rdrr.io/pkg/ggplot2/man/labeller.html" class="external-link">labeller()</a></code>. You can use different labeling
-functions for different kind of labels, for example use <code><a href="https://rdrr.io/pkg/ggplot2/man/labellers.html" class="external-link">label_parsed()</a></code> for
-formatting facet labels. <code><a href="https://rdrr.io/pkg/ggplot2/man/labellers.html" class="external-link">label_value()</a></code> is used by default,
+for compatibility with <code><a href="https://ggplot2.tidyverse.org/reference/labeller.html" class="external-link">labeller()</a></code>. You can use different labeling
+functions for different kind of labels, for example use <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html" class="external-link">label_parsed()</a></code> for
+formatting facet labels. <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html" class="external-link">label_value()</a></code> is used by default,
 check it for more details and pointers to other options.</p></dd>
 
 
@@ -179,10 +179,10 @@ theme intentionally hides the tick marks themselves.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">facet_data</span><span class="op">$</span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">10</span>, <span class="fl">35</span>, <span class="fl">40</span>, <span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">facet_data</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">n</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">response</span>, <span class="va">group</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">response</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">facet_data</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">n</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">response</span>, <span class="va">group</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">response</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">facet_mosaic_grid</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">vars</span><span class="op">(</span><span class="va">period</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">facet_mosaic_grid</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">period</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="facet_mosaic_grid-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -195,7 +195,7 @@ theme intentionally hides the tick marks themselves.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -45,7 +45,7 @@ face to axes labels and allows for the convenient rotation of category labels.">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Theme for mosaic plots</h1>
-      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/R/theme-mosaic.R" class="external-link"><code>R/theme-mosaic.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/master/R/theme-mosaic.R" class="external-link"><code>R/theme-mosaic.R</code></a></small>
       <div class="d-none name"><code>theme_mosaic.Rd</code></div>
     </div>
 
@@ -76,7 +76,7 @@ face to axes labels and allows for the convenient rotation of category labels.</
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional arguments passed to <code><a href="https://rdrr.io/pkg/ggplot2/man/theme.html" class="external-link">ggplot2::theme()</a></code>. These are applied after
+<dd><p>Additional arguments passed to <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">ggplot2::theme()</a></code>. These are applied after
 the mosaic theme defaults and can therefore override them.</p></dd>
 
 </dl></div>
@@ -85,8 +85,8 @@ the mosaic theme defaults and can therefore override them.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://friendly.github.io/ggmosaic2/">ggmosaic2</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">happy</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">theme_mosaic</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="theme_mosaic-1.png" alt="" width="700" height="433"></span>
@@ -102,7 +102,7 @@ the mosaic theme defaults and can therefore override them.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

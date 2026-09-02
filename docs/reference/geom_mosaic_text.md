@@ -14,7 +14,7 @@ geom_mosaic_text(
   divider = mosaic(),
   offset = 0.01,
   show.legend = NA,
-  inherit.aes = FALSE,
+  inherit.aes = TRUE,
   as.label = FALSE,
   repel = FALSE,
   repel_params = NULL,
@@ -174,7 +174,9 @@ geom_mosaic_text(
 
   Optional loglinear model specification (same as in `geom_mosaic`).
   Required when using display_values = "expected" or "residual". Can be
-  a formula, character shortcut, or NULL.
+  a formula, character shortcut, or NULL, and can be inherited from
+  [`mosaic_settings`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md)
+  when omitted.
 
 - ...:
 
@@ -235,22 +237,21 @@ ggplot(data = titanic, aes(x = product(Class, Sex))) +
   geom_mosaic_text(display_values = "observed")
 
 
-# Display residuals with residual shading
-# Note: expected parameter must be specified in BOTH layers
+# Display residuals with one shared model specification
 ggplot(data = titanic, aes(x = product(Class, Sex))) +
-  geom_mosaic(expected = "independence") +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(expected = "independence",
-                   display_values = "residual",
+  geom_mosaic_text(display_values = "residual",
                    format_digits = 2)
 
 
 # Display expected values
 ggplot(data = titanic, aes(x = product(Class, Sex))) +
-  geom_mosaic(expected = "independence") +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(expected = "independence",
-                   display_values = "expected",
+  geom_mosaic_text(display_values = "expected",
                    format_digits = 1)
 
 ```

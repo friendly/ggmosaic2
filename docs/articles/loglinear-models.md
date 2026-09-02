@@ -58,8 +58,9 @@ First, let’s create a basic mosaic plot showing Class by Survival:
 
 ``` r
 
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Survived), fill = Survived)) +
+print(ggplot(data = titanic,
+             aes(x = product(Class, Survived), fill = Survived)) +
+  geom_mosaic() +
   labs(title = "Titanic: Class by Survival",
        subtitle = "Basic mosaic plot") +
   theme_mosaic())
@@ -77,9 +78,8 @@ frequencies:
 
 ``` r
 
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Survived)),
-              expected = "independence") +
+print(ggplot(data = titanic, aes(x = product(Class, Survived))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   labs(title = "Titanic: Class by Survival",
        subtitle = "Independence model with residual shading") +
@@ -108,18 +108,16 @@ Three convenient shortcuts for common models:
 ``` r
 
 # Independence model
-p1 <- ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)),
-              expected = "independence") +
+p1 <- ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   labs(title = "Independence Model",
        subtitle = "~ Class + Sex") +
   theme_mosaic()
 
 # Saturated model (no residuals - perfect fit)
-p2 <- ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)),
-              expected = "saturated") +
+p2 <- ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(expected = "saturated") +
   scale_fill_residual() +
   labs(title = "Saturated Model",
        subtitle = "~ Class * Sex") +
@@ -147,9 +145,8 @@ You can specify custom loglinear models using R’s formula syntax:
 ``` r
 
 # Model with Class + Sex main effects only (no interaction)
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex, Survived)),
-              expected = ~ Class + Sex) +
+print(ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+  geom_mosaic(expected = ~ Class + Sex) +
   scale_fill_residual() +
   labs(title = "Custom Model: Class + Sex",
        subtitle = "Testing for Survival associations given Class and Sex") +
@@ -169,9 +166,9 @@ shortcut is particularly useful:
 ``` r
 
 # Conditional independence: Health and Marital Status given Sex
-ggplot(data = happy) +
-  geom_mosaic(aes(x = product(health, marital), conds = sex),
-              expected = "conditional") +
+ggplot(data = happy,
+       aes(x = product(health, marital), conds = sex)) +
+  geom_mosaic(expected = "conditional") +
   scale_fill_residual() +
   labs(title = "Health × Marital | Sex") +
   theme_mosaic()
@@ -196,9 +193,8 @@ tables:
 
 ``` r
 
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex, Survived)),
-              expected = "independence") +
+print(ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   labs(title = "Titanic: Complete Independence Model",
        subtitle = "Class, Sex, and Survival all independent") +
@@ -221,10 +217,9 @@ in cells using
 
 ``` r
 
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex), fill = Survived)) +
-  geom_mosaic_text(aes(x = product(Class, Sex)),
-                   display_values = "observed",
+print(ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(aes(fill = Survived)) +
+  geom_mosaic_text(display_values = "observed",
                    format_digits = 0,
                    size = 3) +
   labs(title = "Observed Frequencies") +
@@ -240,12 +235,10 @@ values:
 
 ``` r
 
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)),
-              expected = "independence") +
+print(ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
-  geom_mosaic_text(aes(x = product(Class, Sex)),
-                   expected = "independence",  # Must match geom_mosaic()
+  geom_mosaic_text(expected = "independence",  # Must match geom_mosaic()
                    display_values = "residual",
                    format_digits = 2,
                    colour = "black",
@@ -269,12 +262,10 @@ You can also show what the model expects:
 
 ``` r
 
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Survived)),
-              expected = "independence") +
+print(ggplot(data = titanic, aes(x = product(Class, Survived))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
-  geom_mosaic_text(aes(x = product(Class, Survived)),
-                   expected = "independence",
+  geom_mosaic_text(expected = "independence",
                    display_values = "expected",
                    format_digits = 1,
                    colour = "black",
@@ -305,9 +296,8 @@ customize it:
 
 ``` r
 
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)),
-              expected = "independence") +
+print(ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(
     low = "firebrick",
     mid = "white",
@@ -315,8 +305,7 @@ print(ggplot(data = titanic) +
     limits = c(-6, 6),  # Set symmetric limits
     name = "Pearson\nResidual"
   ) +
-  geom_mosaic_text(aes(x = product(Class, Sex)),
-                   expected = "independence",
+  geom_mosaic_text(expected = "independence",
                    display_values = "residual",
                    format_digits = 1,
                    size = 3) +
@@ -330,9 +319,8 @@ You can also use any ggplot2 diverging scale:
 
 ``` r
 
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Survived)),
-              expected = "independence") +
+print(ggplot(data = titanic, aes(x = product(Class, Survived))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_gradient2(
     low = "purple",
     mid = "gray95",
@@ -353,12 +341,10 @@ All standard ggplot2 text aesthetics work with
 
 ``` r
 
-print(ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Survived)),
-              expected = "independence") +
+print(ggplot(data = titanic, aes(x = product(Class, Survived))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
-  geom_mosaic_text(aes(x = product(Class, Survived)),
-                   expected = "independence",
+  geom_mosaic_text(expected = "independence",
                    display_values = "residual",
                    format_digits = 2,
                    size = 4,           # Text size
@@ -383,12 +369,10 @@ Let’s compare three different models for the same data:
 ``` r
 
 # 1. Independence of all three variables
-p1 <- ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex, Survived)),
-              expected = "independence") +
+p1 <- ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(limits = c(-10, 10)) +
-  geom_mosaic_text(aes(x = product(Class, Sex, Survived)),
-                   expected = "independence",
+  geom_mosaic_text(expected = "independence",
                    display_values = "residual",
                    format_digits = 1,
                    size = 2.5) +
@@ -397,12 +381,10 @@ p1 <- ggplot(data = titanic) +
   theme_mosaic()
 
 # 2. Survival independent of Class and Sex jointly
-p2 <- ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex, Survived)),
-              expected = ~ Class + Sex) +
+p2 <- ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+  geom_mosaic(expected = ~ Class + Sex) +
   scale_fill_residual(limits = c(-10, 10)) +
-  geom_mosaic_text(aes(x = product(Class, Sex, Survived)),
-                   expected = ~ Class + Sex,
+  geom_mosaic_text(expected = ~ Class + Sex,
                    display_values = "residual",
                    format_digits = 1,
                    size = 2.5) +
@@ -411,12 +393,10 @@ p2 <- ggplot(data = titanic) +
   theme_mosaic()
 
 # 3. Class and Sex independent, both related to Survival
-p3 <- ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex, Survived)),
-              expected = ~ Class + Sex + Survived + Class:Survived + Sex:Survived) +
+p3 <- ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+  geom_mosaic(expected = ~ Class + Sex + Survived + Class:Survived + Sex:Survived) +
   scale_fill_residual(limits = c(-10, 10)) +
-  geom_mosaic_text(aes(x = product(Class, Sex, Survived)),
-                   expected = ~ Class + Sex + Survived + Class:Survived + Sex:Survived,
+  geom_mosaic_text(expected = ~ Class + Sex + Survived + Class:Survived + Sex:Survived,
                    display_values = "residual",
                    format_digits = 1,
                    size = 2.5) +

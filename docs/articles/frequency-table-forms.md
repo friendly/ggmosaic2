@@ -230,8 +230,9 @@ using the full `HairEyeColor` dataset.
 ``` r
 
 # From frequency form (most common)
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye, Sex), fill = Eye)) +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye, Sex), fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Three-Way Mosaic: Hair × Eye × Sex",
        subtitle = "Frequency form with weight aesthetic")
 ```
@@ -241,8 +242,9 @@ ggplot(data = hair_freq) +
 ``` r
 
 # From case form
-ggplot(data = hair_case) +
-  geom_mosaic(aes(x = product(Hair, Eye, Sex), fill = Eye)) +
+ggplot(data = hair_case,
+       aes(x = product(Hair, Eye, Sex), fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Three-Way Mosaic: Hair × Eye × Sex",
        subtitle = "Case form without weight")
 ```
@@ -265,11 +267,12 @@ The `conds` aesthetic allows you to condition on one or more variables:
 ``` r
 
 # Condition on Sex
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq,
-                  x = product(Hair, Eye),
-                  conds = product(Sex),
-                  fill = Eye)) +
+ggplot(data = hair_freq,
+       aes(weight = Freq,
+           x = product(Hair, Eye),
+           conds = product(Sex),
+           fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Hair × Eye | Sex",
        subtitle = "Conditioned on Sex")
 ```
@@ -292,8 +295,9 @@ categorical variables:
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Hair × Eye Color: Default Shading",
        subtitle = "Fill shows Eye color levels")
 ```
@@ -326,9 +330,9 @@ common model is **independence** (main effects only):
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   labs(title = "Hair × Eye Color: Independence Model",
        subtitle = "Blue = more than expected, Red = fewer than expected")
@@ -350,12 +354,11 @@ We can display the actual residual values in each cell using
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
-  geom_mosaic_text(aes(weight = Freq, x = product(Hair, Eye)),
-                   expected = "independence",  # Must match!
+  geom_mosaic_text(expected = "independence",  # Must match!
                    display_values = "residual",
                    format_digits = 1,
                    size = 3.5,
@@ -376,9 +379,9 @@ variables are mutually independent:
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye, Sex)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   labs(title = "Hair × Eye × Sex: Complete Independence",
        subtitle = "Model: ~ Hair + Eye + Sex (no interactions)")
@@ -394,9 +397,9 @@ example, testing whether the Hair-Eye association differs by Sex:
 ``` r
 
 # Model: Hair and Eye are associated, but independent of Sex
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye, Sex)),
-              expected = ~ Hair * Eye + Sex) +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+  geom_mosaic(expected = ~ Hair * Eye + Sex) +
   scale_fill_residual() +
   labs(title = "Model: (Hair × Eye) Independent of Sex",
        subtitle = "~ Hair * Eye + Sex")
@@ -413,12 +416,11 @@ We can also display the expected counts under a model:
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
-  geom_mosaic_text(aes(weight = Freq, x = product(Hair, Eye)),
-                   expected = "independence",
+  geom_mosaic_text(expected = "independence",
                    display_values = "expected",
                    format_digits = 1,
                    size = 3.5,
@@ -433,10 +435,10 @@ And the observed counts:
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
-  geom_mosaic_text(aes(weight = Freq, x = product(Hair, Eye)),
-                   display_values = "observed",
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  geom_mosaic(aes(fill = Eye)) +
+  geom_mosaic_text(display_values = "observed",
                    format_digits = 0,
                    size = 3.5,
                    colour = "white") +

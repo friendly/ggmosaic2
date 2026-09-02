@@ -37,7 +37,7 @@ in a contingency table and is composed of spines in alternating directions."><me
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Mosaic plots.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/R/geom-mosaic.r" class="external-link"><code>R/geom-mosaic.r</code></a>, <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/R/stat-mosaic-text.R" class="external-link"><code>R/stat-mosaic-text.R</code></a>, <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/R/stat-mosaic.r" class="external-link"><code>R/stat-mosaic.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/master/R/geom-mosaic.r" class="external-link"><code>R/geom-mosaic.r</code></a>, <a href="https://github.com/friendly/ggmosaic2/blob/master/R/stat-mosaic-text.R" class="external-link"><code>R/stat-mosaic-text.R</code></a>, <a href="https://github.com/friendly/ggmosaic2/blob/master/R/stat-mosaic.r" class="external-link"><code>R/stat-mosaic.r</code></a></small>
       <div class="d-none name"><code>geom_mosaic.Rd</code></div>
     </div>
 
@@ -72,6 +72,7 @@ in a contingency table and is composed of spines in alternating directions.</p>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  offset <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>  expected <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -95,7 +96,7 @@ in a contingency table and is composed of spines in alternating directions.</p>
 
 
 <dl><dt id="arg-mapping">mapping<a class="anchor" aria-label="anchor" href="#arg-mapping"></a></dt>
-<dd><p>Set of aesthetic mappings created by <code><a href="https://rdrr.io/pkg/ggplot2/man/aes.html" class="external-link">aes()</a></code>. If specified and
+<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>. If specified and
 <code>inherit.aes = TRUE</code> (the default), it is combined with the default mapping
 at the top level of the plot. You must supply <code>mapping</code> if there is no plot
 mapping.</p></dd>
@@ -105,10 +106,10 @@ mapping.</p></dd>
 <dd><p>The data to be displayed in this layer. There are three
 options:</p>
 <p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html" class="external-link">ggplot()</a></code>.</p>
+data as specified in the call to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code>.</p>
 <p>A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-<code><a href="https://rdrr.io/pkg/ggplot2/man/fortify.html" class="external-link">fortify()</a></code> for which variables will be created.</p>
+<code><a href="https://ggplot2.tidyverse.org/reference/fortify.html" class="external-link">fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
@@ -121,23 +122,23 @@ When using a <code>geom_*()</code> function to construct a layer, the <code>stat
 argument can be used to override the default coupling between geoms and
 stats. The <code>stat</code> argument accepts the following:</p><ul><li><p>A <code>Stat</code> ggproto subclass, for example <code>StatCount</code>.</p></li>
 <li><p>A string naming the stat. To give the stat as a string, strip the
-function name of the <code>stat_</code> prefix. For example, to use <code>stat_count()</code>,
+function name of the <code>stat_</code> prefix. For example, to use <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">stat_count()</a></code>,
 give the stat as <code>"count"</code>.</p></li>
 <li><p>For more information and other ways to specify the stat, see the
-<a href="https://rdrr.io/pkg/ggplot2/man/layer_stats.html" class="external-link">layer stat</a> documentation.</p></li>
+<a href="https://ggplot2.tidyverse.org/reference/layer_stats.html" class="external-link">layer stat</a> documentation.</p></li>
 </ul></dd>
 
 
 <dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
 <dd><p>A position adjustment to use on the data for this layer. This
 can be used in various ways, including to prevent overplotting and
-improving the display. The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code>position_jitter()</code>.
+improving the display. The <code>position</code> argument accepts the following:</p><ul><li><p>The result of calling a position function, such as <code><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html" class="external-link">position_jitter()</a></code>.
 This method allows for passing extra arguments to the position.</p></li>
 <li><p>A string naming the position adjustment. To give the position as a
 string, strip the function name of the <code>position_</code> prefix. For example,
-to use <code>position_jitter()</code>, give the position as <code>"jitter"</code>.</p></li>
+to use <code><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html" class="external-link">position_jitter()</a></code>, give the position as <code>"jitter"</code>.</p></li>
 <li><p>For more information and other ways to specify the position, see the
-<a href="https://rdrr.io/pkg/ggplot2/man/layer_positions.html" class="external-link">layer position</a> documentation.</p></li>
+<a href="https://ggplot2.tidyverse.org/reference/layer_positions.html" class="external-link">layer position</a> documentation.</p></li>
 </ul></dd>
 
 
@@ -172,7 +173,7 @@ but unobserved levels are omitted.</p></dd>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. <code><a href="https://rdrr.io/pkg/ggplot2/man/annotation_borders.html" class="external-link">annotation_borders()</a></code>.</p></dd>
+the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.org/reference/annotation_borders.html" class="external-link">annotation_borders()</a></code>.</p></dd>
 
 
 <dt id="arg-expected">expected<a class="anchor" aria-label="anchor" href="#arg-expected"></a></dt>
@@ -193,10 +194,10 @@ When using a <code>stat_*()</code> function to construct a layer, the <code>geom
 can be used to override the default coupling between stats and geoms. The
 <code>geom</code> argument accepts the following:</p><ul><li><p>A <code>Geom</code> ggproto subclass, for example <code>GeomPoint</code>.</p></li>
 <li><p>A string naming the geom. To give the geom as a string, strip the
-function name of the <code>geom_</code> prefix. For example, to use <code>geom_point()</code>,
+function name of the <code>geom_</code> prefix. For example, to use <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point()</a></code>,
 give the geom as <code>"point"</code>.</p></li>
 <li><p>For more information and other ways to specify the geom, see the
-<a href="https://rdrr.io/pkg/ggplot2/man/layer_geoms.html" class="external-link">layer geom</a> documentation.</p></li>
+<a href="https://ggplot2.tidyverse.org/reference/layer_geoms.html" class="external-link">layer geom</a> documentation.</p></li>
 </ul></dd>
 
 </dl></div>
@@ -243,7 +244,7 @@ on the primary x axis.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">titanic</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_mosaic-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># good practice: use the 'dependent' variable (or most important variable)</span></span></span>
@@ -251,34 +252,34 @@ on the primary x axis.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># if there is only one variable inside `product()`,</span></span></span>
 <span class="r-in"><span><span class="co"># `product()` can be omitted</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Class</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Class</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_mosaic-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span>, <span class="va">Age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span>, <span class="va">Age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_mosaic-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span><span class="op">)</span>, conds <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span><span class="op">)</span>, conds <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_mosaic-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># if there is only one variable inside `product()`,</span></span></span>
 <span class="r-in"><span><span class="co"># `product()` can be omitted</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Class</span>, conds <span class="op">=</span> <span class="va">Age</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Class</span>, conds <span class="op">=</span> <span class="va">Age</span>, fill <span class="op">=</span> <span class="va">Survived</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_mosaic-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Survived</span>, <span class="va">Class</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Survived</span>, <span class="va">Class</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_mosaic-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Variables can be transformed directly inside mosaic aesthetics</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_mosaic-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -291,7 +292,7 @@ on the primary x axis.</p>
 <span class="r-in"><span>  <span class="va">confusion</span><span class="op">$</span><span class="va">actual</span> <span class="op">==</span> <span class="va">confusion</span><span class="op">$</span><span class="va">predictions</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Correct prediction"</span>, <span class="st">"Incorrect prediction"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">confusion</span>, <span class="fu">aes</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">confusion</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    weight <span class="op">=</span> <span class="va">Freq</span>,</span></span>
 <span class="r-in"><span>    x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">predictions</span>, <span class="va">actual</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    fill <span class="op">=</span> <span class="va">is_correct</span></span></span>
@@ -303,78 +304,78 @@ on the primary x axis.</p>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">happy</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>divider <span class="op">=</span> <span class="st">"hbar"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># weighting is important</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>, <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">theme</span><span class="op">(</span>axis.text.x<span class="op">=</span><span class="fu">element_text</span><span class="op">(</span>angle<span class="op">=</span><span class="fl">35</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle<span class="op">=</span><span class="fl">35</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span>, <span class="va">sex</span>, <span class="va">degree</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span>, <span class="va">sex</span>, <span class="va">degree</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># here is where a bit more control over the spacing of the bars is helpful:</span></span></span>
 <span class="r-in"><span><span class="co"># set labels manually:</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span>, offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_x_productlist.html">scale_x_productlist</a></span><span class="op">(</span><span class="st">"Age"</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">17</span><span class="op">+</span><span class="fl">1</span><span class="op">:</span><span class="fl">72</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># thin out labels manually:</span></span></span>
 <span class="r-in"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">17</span><span class="op">+</span><span class="fl">1</span><span class="op">:</span><span class="fl">72</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">labels</span><span class="op">[</span><span class="va">labels</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">5</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">""</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span>, offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_x_productlist.html">scale_x_productlist</a></span><span class="op">(</span><span class="st">"Age"</span>, labels<span class="op">=</span><span class="va">labels</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span>,</span></span>
 <span class="r-in"><span>           conds <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>divider <span class="op">=</span> <span class="fu"><a href="mosaic.html">mosaic</a></span><span class="op">(</span><span class="st">"v"</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, offset <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_x_productlist.html">scale_x_productlist</a></span><span class="op">(</span><span class="st">"Age"</span>, labels<span class="op">=</span><span class="va">labels</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">happy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span>, offset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">sex</span><span class="op">~</span><span class="va">.</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">sex</span><span class="op">~</span><span class="va">.</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_x_productlist.html">scale_x_productlist</a></span><span class="op">(</span><span class="st">"Age"</span>, labels<span class="op">=</span><span class="va">labels</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span>, <span class="va">finrela</span>, <span class="va">health</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span>, <span class="va">finrela</span>, <span class="va">health</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>divider <span class="op">=</span> <span class="fu"><a href="mosaic.html">mosaic</a></span><span class="op">(</span><span class="st">"h"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span>, <span class="va">finrela</span>, <span class="va">health</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">happy</span>, <span class="va">finrela</span>, <span class="va">health</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">.005</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Spine example</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
-<span class="r-in"><span>       <span class="fu">aes</span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">health</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">happy</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>weight <span class="op">=</span> <span class="va">wtssall</span>, x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">health</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">health</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu">geom_mosaic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span> <span class="fu">facet_grid</span><span class="op">(</span><span class="va">happy</span><span class="op">~</span><span class="va">.</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">happy</span><span class="op">~</span><span class="va">.</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Residual shading with independence model</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span>, <span class="va">Sex</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span>, <span class="va">Sex</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Custom model formula</span></span></span>
-<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span>, <span class="va">Sex</span>, <span class="va">Survived</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">titanic</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="product.html">product</a></span><span class="op">(</span><span class="va">Class</span>, <span class="va">Sex</span>, <span class="va">Survived</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_mosaic</span><span class="op">(</span>expected <span class="op">=</span> <span class="op">~</span> <span class="va">Class</span> <span class="op">+</span> <span class="va">Sex</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># } # end of don't run</span></span></span>
@@ -389,7 +390,7 @@ on the primary x axis.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
