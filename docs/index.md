@@ -1,6 +1,6 @@
 # ggmosaic2
 
-*Version 0.5.1, built 2026-08-14*
+*Version 0.5.1, built 2026-09-01*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -15,7 +15,7 @@ charts, stacked bar charts, mosaic plots, and double decker plots.
 
 `ggmosaic2` extends this with support for fitted loglinear models to
 show patterns of association among variables in frequency tables via
-residual-based shading, which was its’ original intention, as opposed to
+residual-based shading, which was its original intention, as opposed to
 the “fill by factor levels” (Marimekko shading) of the original
 `ggmosaic` package. It also adds jittered-point overlays showing
 individual observations, reflecting non-independence as variation in
