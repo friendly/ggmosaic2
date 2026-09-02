@@ -14,6 +14,7 @@ Wrapper for a list
 }
 \examples{
 data(titanic)
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Survived, Class), fill = Survived))
+ggplot(data = titanic,
+       aes(x = product(Survived, Class), fill = Survived)) +
+  geom_mosaic()
 }

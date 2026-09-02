@@ -82,3 +82,14 @@ ggplot(HEC_indiv) +
   scale_fill_residual(limits = c(-4, 4)) +
   geom_mosaic_jitter(aes(x = product(Sex, Eye, Hair)), alpha = 0.3) +
   theme_mosaic(rot_labels = 45)
+
+# 09/02/26: `mosaic_settings()` example
+
+HairEyeColor |>
+  as.data.frame() |>
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  mosaic_settings(expected = "independence", offset = .02) +
+  geom_mosaic() +
+  geom_mosaic_text(colour = "black", display_values = "residual") +
+  scale_fill_residual() +
+  theme_mosaic(rot_labels = 35)

@@ -29,51 +29,56 @@
 #' @examples
 #' data(titanic)
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class), fill = Survived), alpha = 0.3) +
-#'   geom_mosaic_jitter(aes(x = product(Class), color = Survived))
+#' ggplot(data = titanic, aes(x = product(Class))) +
+#'   geom_mosaic(aes(fill = Survived), alpha = 0.3) +
+#'   geom_mosaic_jitter(aes(color = Survived))
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class)), alpha = 0.1) +
-#'   geom_mosaic_jitter(aes(x = product(Class), color = Survived), drop_level = TRUE)
+#' ggplot(data = titanic, aes(x = product(Class))) +
+#'   geom_mosaic(alpha = 0.1) +
+#'   geom_mosaic_jitter(aes(color = Survived), drop_level = TRUE)
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(alpha = 0.3, aes(x = product(Class, Sex),  fill = Survived),
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic(alpha = 0.3, aes(fill = Survived),
 #'               divider = c("vspine", "hspine", "hspine")) +
-#'   geom_mosaic_jitter(aes(x = product(Class, Sex), color = Survived),
+#'   geom_mosaic_jitter(aes(color = Survived),
 #'               divider = c("vspine", "hspine", "hspine"))
 #'
-#'  ggplot(data = titanic) +
-#'   geom_mosaic(alpha = 0.3, aes(x = product(Class), conds = product(Sex),  fill = Survived),
+#'  ggplot(data = titanic,
+#'         aes(x = product(Class), conds = product(Sex), fill = Survived)) +
+#'   geom_mosaic(alpha = 0.3,
 #'               divider = c("vspine", "hspine", "hspine")) +
-#'   geom_mosaic_jitter(aes(x = product(Class), conds = product(Sex), fill = Survived),
+#'   geom_mosaic_jitter(
 #'               divider = c("vspine", "hspine", "hspine"))
 geom_mosaic_jitter <- function(mapping = NULL, data = NULL, stat = "mosaic_jitter",
                                position = "identity", na.rm = FALSE,  divider = mosaic(),
                                offset = 0.01, drop_level = FALSE, seed = NA,
-                               show.legend = NA, inherit.aes = FALSE, ...)
+                               show.legend = NA, inherit.aes = TRUE, ...)
 {
-  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha", "colour"))
-  mapping <- prepared$mapping
-  add_mosaic_scale_environment(ggplot2::layer(
+  divider_missing <- missing(divider)
+  offset_missing <- missing(offset)
+
+  mosaic_layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomMosaicJitter,
     position = position,
     show.legend = show.legend,
-    check.aes = FALSE,
-    inherit.aes = FALSE, # only FALSE to turn the warning off
+    inherit.aes = inherit.aes,
+    aesthetics = c("fill", "alpha", "colour"),
     params = list(
       na.rm = na.rm,
-      divider = divider,
-      offset = offset,
+      divider = if (divider_missing) .mosaic_inherit_setting else divider,
+      offset = if (offset_missing) .mosaic_inherit_setting else offset,
       drop_level = drop_level,
       seed = seed,
-      mosaic_spec = prepared$spec,
       ...
+    ),
+    setting_defaults = list(
+      divider = mosaic(),
+      offset = 0.01
     )
-  ))
+  )
 }
 
 #' Geom proto
