@@ -33,6 +33,7 @@
 #' @param expected Optional specification for loglinear model residual shading.
 #'   Can be a formula (e.g., \code{~ Var1 + Var2}), a character shortcut
 #'   ("independence", "saturated", "conditional"), or NULL (default, no model).
+#'   When omitted, the value can be inherited from \code{\link{mosaic_settings}}.
 #'   When specified, Pearson residuals are calculated and automatically mapped to fill
 #'   (unless fill aesthetic is explicitly set). Use with \code{\link{scale_fill_residual}}
 #'   for a diverging color scale. Positive residuals receive a solid dark blue
@@ -176,6 +177,10 @@ geom_mosaic <- function(mapping = NULL, data = NULL, stat = "mosaic",
                         position = "identity", na.rm = FALSE,  divider = mosaic(), offset = 0.01,
                         show.legend = NA, inherit.aes = TRUE, expected = NULL, ...)
 {
+  divider_missing <- missing(divider)
+  offset_missing <- missing(offset)
+  expected_missing <- missing(expected)
+
   mosaic_layer(
     data = data,
     mapping = mapping,
@@ -187,10 +192,15 @@ geom_mosaic <- function(mapping = NULL, data = NULL, stat = "mosaic",
     aesthetics = c("fill", "alpha"),
     params = list(
       na.rm = na.rm,
-      divider = divider,
-      offset = offset,
-      expected = expected,
+      divider = if (divider_missing) .mosaic_inherit_setting else divider,
+      offset = if (offset_missing) .mosaic_inherit_setting else offset,
+      expected = if (expected_missing) .mosaic_inherit_setting else expected,
       ...
+    ),
+    setting_defaults = list(
+      divider = mosaic(),
+      offset = 0.01,
+      expected = NULL
     )
   )
 }

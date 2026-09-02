@@ -145,61 +145,109 @@ mosaic_formula <- function(spec, response = "weight") {
   stats::as.formula(formula)
 }
 
-# Defer construction until the layer is added to a plot. Mosaic mappings must
-# be rewritten before ggplot2 evaluates them, but plot-level mappings are not
-# available to a geom/stat constructor.
-mosaic_layer <- function(data, mapping, stat, geom, position, show.legend,
-                         inherit.aes, aesthetics, params) {
-  structure(
-    list(
-      data = data,
-      mapping = mapping,
-      stat = stat,
-      geom = geom,
-      position = position,
-      show.legend = show.legend,
-      inherit.aes = inherit.aes,
-      aesthetics = aesthetics,
-      params = params
-    ),
-    class = "ggmosaic_layer"
-  )
+# `layer_class` is an internal ggplot2 extension point. Keep the lookup and all
+# parent dispatch in one place so compatibility changes are localized.
+.ggplot2_layer_parent <- getFromNamespace("Layer", "ggplot2")
+
+.mosaic_inherit_setting <- structure(
+  "<inherited>",
+  class = "ggmosaic_inherit_setting"
+)
+
+is_mosaic_inherit_setting <- function(x) {
+  inherits(x, "ggmosaic_inherit_setting")
 }
 
-# Merge mappings without dropping their ggplot2 mapping class or the quosure
-# environments attached to individual expressions. Layer mappings take
-# precedence over plot mappings, matching ggplot2::layer() inheritance.
-combine_mosaic_mappings <- function(plot_mapping, layer_mapping) {
-  mapping <- plot_mapping %||% ggplot2::aes()
-  layer_mapping <- layer_mapping %||% ggplot2::aes()
-  mapping[names(layer_mapping)] <- layer_mapping
-  mapping
+resolve_mosaic_layer_settings <- function(stat_params, defaults,
+                                          plot_settings = list()) {
+  applicable <- intersect(names(defaults), names(stat_params))
+  resolved <- list()
+
+  for (setting in applicable) {
+    value <- stat_params[[setting]]
+    if (is_mosaic_inherit_setting(value)) {
+      if (setting %in% names(plot_settings)) {
+        resolved[setting] <- plot_settings[setting]
+      } else {
+        resolved[setting] <- defaults[setting]
+      }
+    } else {
+      resolved[setting] <- stat_params[setting]
+    }
+  }
+
+  resolved
+}
+
+LayerMosaic <- ggplot2::ggproto(
+  "LayerMosaic", .ggplot2_layer_parent,
+
+  setup_layer = function(self, data, plot) {
+    data <- ggplot2::ggproto_parent(
+      .ggplot2_layer_parent, self
+    )$setup_layer(data, plot)
+
+    prepared <- prepare_mosaic_mapping(
+      self$computed_mapping,
+      self$mosaic_aesthetics
+    )
+    self$computed_mapping <- prepared$mapping
+    self$mosaic_computed_spec <- prepared$spec
+    self$mosaic_resolved_settings <- resolve_mosaic_layer_settings(
+      self$stat_params,
+      self$mosaic_setting_defaults,
+      plot$ggmosaic2_settings %||% list()
+    )
+
+    data
+  },
+
+  compute_statistic = function(self, data, layout) {
+    original_params <- self$stat_params
+    on.exit(self$stat_params <- original_params, add = TRUE)
+
+    resolved_params <- original_params
+    for (setting in names(self$mosaic_resolved_settings)) {
+      resolved_params[setting] <- self$mosaic_resolved_settings[setting]
+    }
+
+    if ("mosaic_spec" %in% self$stat$parameters(TRUE)) {
+      resolved_params["mosaic_spec"] <- list(self$mosaic_computed_spec)
+    }
+    self$stat_params <- resolved_params
+
+    ggplot2::ggproto_parent(
+      .ggplot2_layer_parent, self
+    )$compute_statistic(data, layout)
+  }
+)
+
+# Construct an ordinary ggplot2 layer immediately. Mosaic mappings and shared
+# settings are resolved later, in LayerMosaic$setup_layer(), when the final
+# plot mapping and metadata are available.
+mosaic_layer <- function(data, mapping, stat, geom, position, show.legend,
+                         inherit.aes, aesthetics, params,
+                         setting_defaults = list()) {
+  layer <- ggplot2::layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    check.aes = FALSE,
+    layer_class = LayerMosaic,
+    params = params
+  )
+  layer$mosaic_aesthetics <- aesthetics
+  layer$mosaic_setting_defaults <- setting_defaults
+  layer
 }
 
 #' @export
-ggplot_add.ggmosaic_layer <- function(object, plot, ...) {
-  mapping <- if (isTRUE(object$inherit.aes)) {
-    combine_mosaic_mappings(plot$mapping, object$mapping)
-  } else {
-    object$mapping
-  }
-  prepared <- prepare_mosaic_mapping(mapping, object$aesthetics)
-
-  params <- object$params
-  params$mosaic_spec <- prepared$spec
-
-  layer <- ggplot2::layer(
-    data = object$data,
-    mapping = prepared$mapping,
-    stat = object$stat,
-    geom = object$geom,
-    position = object$position,
-    show.legend = object$show.legend,
-    inherit.aes = FALSE,
-    check.aes = FALSE,
-    params = params
-  )
-  plot <- ggplot2::ggplot_add(layer, plot, ...)
+ggplot_add.LayerMosaic <- function(object, plot, ...) {
+  plot <- NextMethod()
 
   # ggplot2 discovers extension scale constructors in the plot environment.
   # Install them privately so namespace-only calls work without attaching the

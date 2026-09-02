@@ -10,6 +10,7 @@ namespace_plot <- ggplot2::ggplot(
     fill = Survived
   )
 ) +
+  ggmosaic2::mosaic_settings(expected = "independence") +
   ggmosaic2::geom_mosaic()
 
 namespace_build <- ggplot2::ggplot_build(namespace_plot)
@@ -17,6 +18,7 @@ namespace_build <- ggplot2::ggplot_build(namespace_plot)
 stopifnot(
   !"package:ggmosaic2" %in% search(),
   nrow(namespace_build$data[[1]]) == 16,
+  all(c(".expected", ".residual") %in% names(namespace_build$data[[1]])),
   inherits(
     namespace_build$layout$panel_scales_x[[1]],
     "ScaleContinuousProduct"

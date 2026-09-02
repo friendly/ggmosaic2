@@ -8,8 +8,13 @@
 #' @export
 stat_mosaic_text <- function(mapping = NULL, data = NULL, geom = "Text",
                         position = "identity", na.rm = FALSE,  divider = mosaic(),
-                        show.legend = NA, inherit.aes = TRUE, offset = 0.01, ...)
+                        show.legend = NA, inherit.aes = TRUE, offset = 0.01,
+                        expected = NULL, ...)
 {
+  divider_missing <- missing(divider)
+  offset_missing <- missing(offset)
+  expected_missing <- missing(expected)
+
   mosaic_layer(
     data = data,
     mapping = mapping,
@@ -21,9 +26,15 @@ stat_mosaic_text <- function(mapping = NULL, data = NULL, geom = "Text",
     aesthetics = c("fill", "alpha"),
     params = list(
       na.rm = na.rm,
-      divider = divider,
-      offset = offset,
+      divider = if (divider_missing) .mosaic_inherit_setting else divider,
+      offset = if (offset_missing) .mosaic_inherit_setting else offset,
+      expected = if (expected_missing) .mosaic_inherit_setting else expected,
       ...
+    ),
+    setting_defaults = list(
+      divider = mosaic(),
+      offset = 0.01,
+      expected = NULL
     )
   )
 }
@@ -55,11 +66,11 @@ StatMosaicText <- ggplot2::ggproto(
   },
 
   compute_panel = function(self, data, scales, na.rm=FALSE, divider, offset,
-                           mosaic_spec = NULL) {
+                           expected = NULL, mosaic_spec = NULL) {
 
     first_stage <- StatMosaic$compute_panel(
       data, scales, na.rm = na.rm, divider = divider, offset = offset,
-      mosaic_spec = mosaic_spec
+      expected = expected, mosaic_spec = mosaic_spec
     )
 
      # if (all(is.na(first_stage$colour)))

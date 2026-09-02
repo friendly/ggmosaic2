@@ -54,6 +54,9 @@ geom_mosaic_jitter <- function(mapping = NULL, data = NULL, stat = "mosaic_jitte
                                offset = 0.01, drop_level = FALSE, seed = NA,
                                show.legend = NA, inherit.aes = TRUE, ...)
 {
+  divider_missing <- missing(divider)
+  offset_missing <- missing(offset)
+
   mosaic_layer(
     data = data,
     mapping = mapping,
@@ -65,11 +68,15 @@ geom_mosaic_jitter <- function(mapping = NULL, data = NULL, stat = "mosaic_jitte
     aesthetics = c("fill", "alpha", "colour"),
     params = list(
       na.rm = na.rm,
-      divider = divider,
-      offset = offset,
+      divider = if (divider_missing) .mosaic_inherit_setting else divider,
+      offset = if (offset_missing) .mosaic_inherit_setting else offset,
       drop_level = drop_level,
       seed = seed,
       ...
+    ),
+    setting_defaults = list(
+      divider = mosaic(),
+      offset = 0.01
     )
   )
 }

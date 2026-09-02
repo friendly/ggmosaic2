@@ -18,6 +18,10 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
                         show.legend = NA, inherit.aes = TRUE, offset = 0.01,
                         expected = NULL, ...)
 {
+  divider_missing <- missing(divider)
+  offset_missing <- missing(offset)
+  expected_missing <- missing(expected)
+
   mosaic_layer(
     data = data,
     mapping = mapping,
@@ -29,10 +33,15 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
     aesthetics = c("fill", "alpha"),
     params = list(
       na.rm = na.rm,
-      divider = divider,
-      offset = offset,
-      expected = expected,
+      divider = if (divider_missing) .mosaic_inherit_setting else divider,
+      offset = if (offset_missing) .mosaic_inherit_setting else offset,
+      expected = if (expected_missing) .mosaic_inherit_setting else expected,
       ...
+    ),
+    setting_defaults = list(
+      divider = mosaic(),
+      offset = 0.01,
+      expected = NULL
     )
   )
 }

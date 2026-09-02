@@ -84,7 +84,7 @@ weighted_alpha_build <- build_without_warnings(
     geom_mosaic() +
     scale_alpha_manual(values = c("0" = 0.4, "1" = 1))
 )
-weighted_alpha_spec <- weighted_alpha_build$plot$layers[[1]]$stat_params$mosaic_spec
+weighted_alpha_spec <- weighted_alpha_build$plot$layers[[1]]$mosaic_computed_spec
 stopifnot(
   identical(weighted_alpha_spec$aesthetics$fill, ".mosaic_x1"),
   identical(weighted_alpha_spec$aesthetics$alpha, ".mosaic_alpha"),
@@ -105,7 +105,7 @@ conditioned_build <- build_without_warnings(
   ) +
     geom_mosaic()
 )
-conditioned_spec <- conditioned_build$plot$layers[[1]]$stat_params$mosaic_spec
+conditioned_spec <- conditioned_build$plot$layers[[1]]$mosaic_computed_spec
 stopifnot(
   identical(unname(conditioned_spec$labels[conditioned_spec$cond]), "Sex"),
   identical(conditioned_spec$aesthetics$fill, ".mosaic_fill"),
@@ -126,7 +126,7 @@ transformed_build <- build_without_warnings(
     geom_mosaic() +
     scale_fill_discrete()
 )
-transformed_spec <- transformed_build$plot$layers[[1]]$stat_params$mosaic_spec
+transformed_spec <- transformed_build$plot$layers[[1]]$mosaic_computed_spec
 stopifnot(
   identical(unname(transformed_spec$labels[transformed_spec$marg]),
             c("factor(vs)", "factor(gear)")),
@@ -139,7 +139,7 @@ override_build <- build_without_warnings(
   ggplot(hair_freq, aes(weight = Freq, x = product(Hair), fill = Hair)) +
     geom_mosaic(aes(x = product(Eye), fill = Eye))
 )
-override_spec <- override_build$plot$layers[[1]]$stat_params$mosaic_spec
+override_spec <- override_build$plot$layers[[1]]$mosaic_computed_spec
 stopifnot(
   identical(unname(override_spec$labels[override_spec$axis]), "Eye"),
   identical(override_spec$aesthetics$fill, ".mosaic_x1"),
@@ -152,7 +152,7 @@ isolated_build <- build_without_warnings(
   ggplot(hair_freq, aes(weight = Freq, x = product(Hair), fill = Hair)) +
     geom_mosaic(aes(x = product(Eye)), inherit.aes = FALSE)
 )
-isolated_spec <- isolated_build$plot$layers[[1]]$stat_params$mosaic_spec
+isolated_spec <- isolated_build$plot$layers[[1]]$mosaic_computed_spec
 stopifnot(
   is.null(isolated_spec$aesthetics$fill),
   identical(unname(isolated_spec$labels[isolated_spec$axis]), "Eye"),

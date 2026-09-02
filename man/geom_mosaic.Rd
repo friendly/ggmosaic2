@@ -31,6 +31,7 @@ stat_mosaic_text(
   show.legend = NA,
   inherit.aes = TRUE,
   offset = 0.01,
+  expected = NULL,
   ...
 )
 

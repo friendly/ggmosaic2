@@ -31,7 +31,8 @@
 #'   Only used when display_values is not "label".
 #' @param expected Optional loglinear model specification (same as in \code{geom_mosaic}).
 #'   Required when using display_values = "expected" or "residual".
-#'   Can be a formula, character shortcut, or NULL.
+#'   Can be a formula, character shortcut, or NULL, and can be inherited from
+#'   \code{\link{mosaic_settings}} when omitted.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}.
 #'   Text aesthetics that can be controlled include: \code{size} (default: 2.7), \code{colour}/\code{color}, \code{fontface} ('plain', 'bold', 'italic', 'bold.italic'),
 #'   \code{family} (font family), \code{angle} (rotation in degrees), \code{hjust}/\code{vjust} (justification), and \code{lineheight}.
@@ -76,21 +77,20 @@
 #'   geom_mosaic(aes(fill = Survived)) +
 #'   geom_mosaic_text(display_values = "observed")
 #'
-#' # Display residuals with residual shading
-#' # Note: expected parameter must be specified in BOTH layers
+#' # Display residuals with one shared model specification
 #' ggplot(data = titanic, aes(x = product(Class, Sex))) +
-#'   geom_mosaic(expected = "independence") +
+#'   mosaic_settings(expected = "independence") +
+#'   geom_mosaic() +
 #'   scale_fill_residual() +
-#'   geom_mosaic_text(expected = "independence",
-#'                    display_values = "residual",
+#'   geom_mosaic_text(display_values = "residual",
 #'                    format_digits = 2)
 #'
 #' # Display expected values
 #' ggplot(data = titanic, aes(x = product(Class, Sex))) +
-#'   geom_mosaic(expected = "independence") +
+#'   mosaic_settings(expected = "independence") +
+#'   geom_mosaic() +
 #'   scale_fill_residual() +
-#'   geom_mosaic_text(expected = "independence",
-#'                    display_values = "expected",
+#'   geom_mosaic_text(display_values = "expected",
 #'                    format_digits = 1)
 #'
 geom_mosaic_text <- function(mapping = NULL, data = NULL, stat = "mosaic",
@@ -101,6 +101,10 @@ geom_mosaic_text <- function(mapping = NULL, data = NULL, stat = "mosaic",
                              expected = NULL,
                              ...)
 {
+  divider_missing <- missing(divider)
+  offset_missing <- missing(offset)
+  expected_missing <- missing(expected)
+
   mosaic_layer(
     data = data,
     mapping = mapping,
@@ -112,16 +116,21 @@ geom_mosaic_text <- function(mapping = NULL, data = NULL, stat = "mosaic",
     aesthetics = c("fill", "alpha"),
     params = list(
       na.rm = na.rm,
-      divider = divider,
-      offset = offset,
+      divider = if (divider_missing) .mosaic_inherit_setting else divider,
+      offset = if (offset_missing) .mosaic_inherit_setting else offset,
       as.label = as.label,
       repel = repel,
       repel_params = repel_params,
       check_overlap = check_overlap,
       display_values = display_values,
       format_digits = format_digits,
-      expected = expected,
+      expected = if (expected_missing) .mosaic_inherit_setting else expected,
       ...
+    ),
+    setting_defaults = list(
+      divider = mosaic(),
+      offset = 0.01,
+      expected = NULL
     )
   )
 }
@@ -177,7 +186,7 @@ GeomMosaicText <- ggplot2::ggproto(
     } else if (display_values == "expected") {
       # Display expected values (from model)
       if (!".expected" %in% names(text)) {
-        warning("Expected values not available. Use 'expected' parameter in geom_mosaic().",
+        warning("Expected values not available. Supply `expected` to this layer or use `mosaic_settings()`.",
                 call. = FALSE)
         text$display_text <- ""
       } else {
@@ -186,7 +195,7 @@ GeomMosaicText <- ggplot2::ggproto(
     } else if (display_values == "residual") {
       # Display Pearson residuals
       if (!".residual" %in% names(text)) {
-        warning("Residuals not available. Use 'expected' parameter in geom_mosaic().",
+        warning("Residuals not available. Supply `expected` to this layer or use `mosaic_settings()`.",
                 call. = FALSE)
         text$display_text <- ""
       } else {
