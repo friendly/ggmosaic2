@@ -12,6 +12,12 @@ documented, and covered by the package regression suite. Changes 3 and 4 remain
 optional future work; the partition-semantics and overlay-diagnostics project
 remains explicitly out of scope.
 
+The minimum dependency is ggplot2 4.0.0. Testing against ggplot2 3.5.2 exposed
+incompatible internal scale and guide method signatures outside this feature.
+Because ggmosaic2 extends ggplot2's internal layer, scale, guide, and facet
+APIs, the release targets the 4.x lifecycle rather than maintaining parallel
+compatibility branches for 3.5.x.
+
 The work is divided into small stages with a compatibility gate after each
 stage. A stage should not proceed until the package's existing checks and the
 new focused regression tests pass under both the minimum and current supported
@@ -83,7 +89,7 @@ The following are release requirements, not optional goals:
 9. Namespace-only use through `ggmosaic2::geom_mosaic()` must continue to
    install the product-scale constructors privately without attaching the
    package.
-10. The implementation must work with ggplot2 3.5.x and ggplot2 4.x.
+10. The implementation must work with ggplot2 4.0.0 and current ggplot2 4.x.
 
 ## Scope of the first release
 
@@ -207,7 +213,7 @@ Define an internal `LayerMosaic` ggproto subclass of ggplot2's internal
 ggplot2::layer(..., layer_class = LayerMosaic)
 ```
 
-ggplot2 3.5.0 contains both `setup_layer(data, plot)` and the `layer_class`
+ggplot2 4.0.0 contains both `setup_layer(data, plot)` and the `layer_class`
 argument, although `layer_class` is documented as internal. Obtain the parent
 class through one small compatibility helper rather than scattering
 `ggplot2:::` references through the package.
@@ -314,8 +320,7 @@ explicitly supplied values. Its addition method merges those values into one
 namespaced plot field, for example `plot$ggmosaic2_settings`.
 
 Use the public `$` plot interface rather than directly manipulating ggplot2
-4.x S7 slots. In ggplot2 3.5.x this is an ordinary list field; in ggplot2 4.x
-custom `$` fields are stored in plot metadata.
+4.x S7 slots. Custom `$` fields are stored in plot metadata.
 
 The plot metadata must contain ordinary immutable lists and values only. Do
 not attach a cache environment or other mutable build state to it.
@@ -332,9 +337,8 @@ Register `ggplot_add.LayerMosaic()`. It should:
 It must not merge mappings, call `prepare_mosaic_mapping()`, or resolve mosaic
 settings. Those operations belong to the build lifecycle.
 
-Delegating through the next method is important across supported versions:
-ggplot2 3.5.x has an S3 `ggplot_add.Layer` method, while ggplot2 4.x routes the
-default addition path through `update_ggplot()`.
+Delegating through the next method preserves ggplot2 4.x's default addition
+path through `update_ggplot()`.
 
 ### 7. Make the text-stat interface symmetric
 
@@ -420,13 +424,13 @@ Run every existing script in `tests/` in addition to these focused tests.
 
 ## Version and CI matrix
 
-The current CI matrix varies R versions but does not pin the minimum ggplot2
-dependency. Add a dedicated compatibility job that installs ggplot2 3.5.x, in
-addition to jobs using the current ggplot2 release.
+The current CI matrix varies R versions but does not otherwise pin the minimum
+ggplot2 dependency. Add a dedicated compatibility job that installs ggplot2
+4.0.0, in addition to jobs using the current ggplot2 release.
 
 At minimum, test:
 
-- ggplot2 3.5.0 or the latest 3.5.x patch release;
+- ggplot2 4.0.0;
 - the current ggplot2 4.x release;
 - R release on Linux, macOS, and Windows through the existing matrix; and
 - R CMD check plus the script-based regression suite.

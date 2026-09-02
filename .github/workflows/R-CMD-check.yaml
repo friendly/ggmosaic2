@@ -51,7 +51,7 @@ jobs:
   ggplot2-minimum:
     runs-on: ubuntu-latest
 
-    name: ubuntu-latest (ggplot2 3.5.2)
+    name: ubuntu-latest (ggplot2 4.0.0)
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -74,8 +74,8 @@ jobs:
 
       - name: Install minimum supported ggplot2 series
         run: |
-          pak::pkg_install("ggplot2@3.5.2")
-          stopifnot(utils::packageVersion("ggplot2") == "3.5.2")
+          pak::pkg_install("ggplot2@4.0.0")
+          stopifnot(utils::packageVersion("ggplot2") == "4.0.0")
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
