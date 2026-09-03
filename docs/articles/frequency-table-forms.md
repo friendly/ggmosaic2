@@ -356,10 +356,10 @@ We can display the actual residual values in each cell using
 
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye))) +
-  geom_mosaic(expected = "independence") +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(expected = "independence",  # Must match!
-                   display_values = "residual",
+  geom_mosaic_text(display_values = "residual",
                    format_digits = 1,
                    size = 3.5,
                    colour = "black") +
@@ -418,10 +418,10 @@ We can also display the expected counts under a model:
 
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye))) +
-  geom_mosaic(expected = "independence") +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(expected = "independence",
-                   display_values = "expected",
+  geom_mosaic_text(display_values = "expected",
                    format_digits = 1,
                    size = 3.5,
                    colour = "black") +

@@ -137,10 +137,15 @@ stat_mosaic(
 
   - `hbar` Horizontal bar partition: width constant, height varies.
 
+  When omitted, `divider` can be inherited from
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
+
 - offset:
 
   Set the fixed gap at the deepest split. Gaps increase by a factor of
-  1.5 toward the outermost split.
+  1.5 toward the outermost split. When omitted, the value can be
+  inherited from
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
 
 - show.legend:
 
@@ -161,13 +166,21 @@ stat_mosaic(
 
 - expected:
 
-  Optional loglinear model specification for residual shading. Positive
-  residuals receive a solid dark blue outline and negative residuals a
-  dashed dark red outline by default. Residuals within numerical
-  tolerance of zero receive a solid black outline. Set `colour = NA` to
-  remove the outlines from both the cells and the residual legend. See
-  details in
-  [`prodcalc`](https://friendly.github.io/ggmosaic2/reference/prodcalc.md).
+  Optional specification for loglinear model residual shading. Can be a
+  formula (e.g., `~ Var1 + Var2`), a character shortcut
+  ("independence", "saturated", "conditional"), or NULL (default, no
+  model). When omitted, the value can be inherited from
+  [`mosaic_settings`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
+  An explicitly supplied layer value takes priority; in particular,
+  `expected = NULL` turns off a plot-level model for that layer. When
+  specified, Pearson residuals are calculated and automatically mapped
+  to fill (unless fill aesthetic is explicitly set). Use with
+  [`scale_fill_residual`](https://friendly.github.io/ggmosaic2/reference/scale_fill_residual.md)
+  for a diverging color scale. Positive residuals receive a solid dark
+  blue outline and negative residuals a dashed dark red outline by
+  default. Residuals within numerical tolerance of zero receive a solid
+  black outline. Set `colour = NA` to remove the outlines from both the
+  cells and the residual legend.
 
 - ...:
 

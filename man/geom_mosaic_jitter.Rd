@@ -90,10 +90,12 @@ to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item \code{hspine}  Horizontal spine partition: height constant, width varies.
 \item \code{vbar} Vertical bar partition: height constant, width varies.
 \item \code{hbar}  Horizontal bar partition: width constant, height varies.
-}}
+}
+When omitted, \code{divider} can be inherited from \code{\link[=mosaic_settings]{mosaic_settings()}}.}
 
 \item{offset}{Set the fixed gap at the deepest split. Gaps increase by a
-factor of 1.5 toward the outermost split.}
+factor of 1.5 toward the outermost split. When omitted, the value can be
+inherited from \code{\link[=mosaic_settings]{mosaic_settings()}}.}
 
 \item{drop_level}{Generate points for the max - 1 level}
 
@@ -159,10 +161,9 @@ ggplot(data = titanic, aes(x = product(Class))) +
   geom_mosaic_jitter(aes(color = Survived), drop_level = TRUE)
 
 ggplot(data = titanic, aes(x = product(Class, Sex))) +
-  geom_mosaic(alpha = 0.3, aes(fill = Survived),
-              divider = c("vspine", "hspine", "hspine")) +
-  geom_mosaic_jitter(aes(color = Survived),
-              divider = c("vspine", "hspine", "hspine"))
+  mosaic_settings(divider = c("vspine", "hspine", "hspine")) +
+  geom_mosaic(alpha = 0.3, aes(fill = Survived)) +
+  geom_mosaic_jitter(aes(color = Survived))
 
  ggplot(data = titanic,
         aes(x = product(Class), conds = product(Sex), fill = Survived)) +

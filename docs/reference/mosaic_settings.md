@@ -38,15 +38,39 @@ with `+`.
 
 ## Details
 
+A layer inherits a setting only when its corresponding argument is
+omitted. Settings are resolved in this order: an explicitly supplied
+layer argument (including `expected = NULL`), the plot's
+`mosaic_settings()` value, and the layer default
+([`mosaic()`](https://friendly.github.io/ggmosaic2/reference/mosaic.md),
+`0.01`, or `NULL`).
+
+`divider` and `offset` are inherited by
+[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
+[`stat_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
+[`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md),
+[`stat_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
+[`geom_mosaic_jitter()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_jitter.md),
+and
+[`stat_mosaic_jitter()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_jitter.md).
+`expected` is inherited by the same constructors except the
+mosaic-jitter geom and stat.
+
 The position of `mosaic_settings()` among the layers in a plot has no
 effect. If it is added more than once, the last supplied value for each
 setting is used; omitted arguments do not change earlier settings.
+Settings are local to the plot and do not change package or session
+defaults. They share configuration, not computations or fitted model
+objects, between layers.
 
 ## See also
 
 [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
+[`stat_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
 [`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md),
+[`stat_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
 [`geom_mosaic_jitter()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_jitter.md),
+[`stat_mosaic_jitter()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_jitter.md),
 [`mosaic()`](https://friendly.github.io/ggmosaic2/reference/mosaic.md),
 and
 [`ddecker()`](https://friendly.github.io/ggmosaic2/reference/ddecker.md)
@@ -70,5 +94,12 @@ ggplot(titanic, aes(x = product(Class, Sex))) +
   geom_mosaic_text(display_values = "residual") +
   scale_fill_residual() +
   theme_mosaic()
+
+
+# An explicit layer argument overrides the plot setting. Here NULL turns
+# model fitting off for the mosaic layer.
+ggplot(titanic, aes(x = product(Class, Sex), fill = Survived)) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic(expected = NULL)
 
 ```

@@ -28,9 +28,22 @@ Set the divider, gap size, and model used to calculate expected frequencies
 for mosaic layers in a plot. A value set directly in a layer takes priority.
 }
 \details{
+A layer inherits a setting only when its corresponding argument is omitted.
+Settings are resolved in this order: an explicitly supplied layer argument
+(including \code{expected = NULL}), the plot's \code{mosaic_settings()} value, and the
+layer default (\code{mosaic()}, \code{0.01}, or \code{NULL}).
+
+\code{divider} and \code{offset} are inherited by \code{\link[=geom_mosaic]{geom_mosaic()}}, \code{\link[=stat_mosaic]{stat_mosaic()}},
+\code{\link[=geom_mosaic_text]{geom_mosaic_text()}}, \code{\link[=stat_mosaic_text]{stat_mosaic_text()}}, \code{\link[=geom_mosaic_jitter]{geom_mosaic_jitter()}}, and
+\code{\link[=stat_mosaic_jitter]{stat_mosaic_jitter()}}. \code{expected} is inherited by the same constructors
+except the mosaic-jitter geom and stat.
+
 The position of \code{mosaic_settings()} among the layers in a plot has no
 effect. If it is added more than once, the last supplied value for each
 setting is used; omitted arguments do not change earlier settings.
+Settings are local to the plot and do not change package or session defaults.
+They share configuration, not computations or fitted model objects, between
+layers.
 }
 \examples{
 data(titanic)
@@ -46,10 +59,17 @@ ggplot(titanic, aes(x = product(Class, Sex))) +
   scale_fill_residual() +
   theme_mosaic()
 
+# An explicit layer argument overrides the plot setting. Here NULL turns
+# model fitting off for the mosaic layer.
+ggplot(titanic, aes(x = product(Class, Sex), fill = Survived)) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic(expected = NULL)
+
 }
 \seealso{
-\code{\link[=geom_mosaic]{geom_mosaic()}}, \code{\link[=geom_mosaic_text]{geom_mosaic_text()}},
-\code{\link[=geom_mosaic_jitter]{geom_mosaic_jitter()}}, \code{\link[=mosaic]{mosaic()}}, and \code{\link[=ddecker]{ddecker()}}
+\code{\link[=geom_mosaic]{geom_mosaic()}}, \code{\link[=stat_mosaic]{stat_mosaic()}}, \code{\link[=geom_mosaic_text]{geom_mosaic_text()}},
+\code{\link[=stat_mosaic_text]{stat_mosaic_text()}}, \code{\link[=geom_mosaic_jitter]{geom_mosaic_jitter()}}, \code{\link[=stat_mosaic_jitter]{stat_mosaic_jitter()}},
+\code{\link[=mosaic]{mosaic()}}, and \code{\link[=ddecker]{ddecker()}}
 }
 \author{
 Gavin Klorfine

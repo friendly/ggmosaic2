@@ -44,7 +44,8 @@ limits receive the corresponding endpoint color.}
 \description{
 Provides a red-white-blue color scale centered at 0 for visualizing
 Pearson residuals from loglinear models. Designed for use with
-\code{geom_mosaic()} when \code{expected} parameter is specified.
+\code{geom_mosaic()} when a model is supplied through the layer's
+\code{expected} argument or through \code{\link{mosaic_settings}}.
 }
 \details{
 The default legend always labels -4, 0, and 4. It also labels

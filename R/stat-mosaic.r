@@ -1,11 +1,5 @@
 #' @rdname geom_mosaic
 #' @inheritParams ggplot2::stat_identity
-#' @param expected Optional loglinear model specification for residual shading.
-#'   Positive residuals receive a solid dark blue outline and negative
-#'   residuals a dashed dark red outline by default. Residuals within numerical
-#'   tolerance of zero receive a solid black outline. Set \code{colour = NA}
-#'   to remove the outlines from both the cells and the residual legend.
-#'   See details in \code{\link{prodcalc}}.
 #' @section Computed variables:
 #' \describe{
 #' \item{xmin}{location of bottom left corner}

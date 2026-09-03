@@ -2,7 +2,8 @@
 #'
 #' Provides a red-white-blue color scale centered at 0 for visualizing
 #' Pearson residuals from loglinear models. Designed for use with
-#' \code{geom_mosaic()} when \code{expected} parameter is specified.
+#' \code{geom_mosaic()} when a model is supplied through the layer's
+#' \code{expected} argument or through \code{\link{mosaic_settings}}.
 #'
 #' @param ... Arguments passed to \code{\link[ggplot2]{scale_fill_gradient2}}
 #' @param low Color for negative residuals (default: "darkred")

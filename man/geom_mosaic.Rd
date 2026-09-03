@@ -104,10 +104,12 @@ to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item \code{hspine}  Horizontal spine partition: height constant, width varies.
 \item \code{vbar} Vertical bar partition: height constant, width varies.
 \item \code{hbar}  Horizontal bar partition: width constant, height varies.
-}}
+}
+When omitted, \code{divider} can be inherited from \code{\link[=mosaic_settings]{mosaic_settings()}}.}
 
 \item{offset}{Set the fixed gap at the deepest split. Gaps increase by a
-factor of 1.5 toward the outermost split.}
+factor of 1.5 toward the outermost split. When omitted, the value can be
+inherited from \code{\link[=mosaic_settings]{mosaic_settings()}}.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -122,12 +124,19 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
 
-\item{expected}{Optional loglinear model specification for residual shading.
-Positive residuals receive a solid dark blue outline and negative
-residuals a dashed dark red outline by default. Residuals within numerical
-tolerance of zero receive a solid black outline. Set \code{colour = NA}
-to remove the outlines from both the cells and the residual legend.
-See details in \code{\link{prodcalc}}.}
+\item{expected}{Optional specification for loglinear model residual shading.
+Can be a formula (e.g., \code{~ Var1 + Var2}), a character shortcut
+("independence", "saturated", "conditional"), or NULL (default, no model).
+When omitted, the value can be inherited from \code{\link{mosaic_settings}}.
+An explicitly supplied layer value takes priority; in particular,
+\code{expected = NULL} turns off a plot-level model for that layer.
+When specified, Pearson residuals are calculated and automatically mapped to fill
+(unless fill aesthetic is explicitly set). Use with \code{\link{scale_fill_residual}}
+for a diverging color scale. Positive residuals receive a solid dark blue
+outline and negative residuals a dashed dark red outline by default.
+Residuals within numerical tolerance of zero receive a solid black
+outline. Set \code{colour = NA} to remove the outlines from both the cells
+and the residual legend.}
 
 \item{...}{other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.}
 

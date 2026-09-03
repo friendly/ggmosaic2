@@ -113,10 +113,15 @@ geom_mosaic_text(
 
   - `hbar` Horizontal bar partition: width constant, height varies.
 
+  When omitted, `divider` can be inherited from
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
+
 - offset:
 
   Set the fixed gap at the deepest split. Gaps increase by a factor of
-  1.5 toward the outermost split.
+  1.5 toward the outermost split. When omitted, the value can be
+  inherited from
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
 
 - show.legend:
 
@@ -162,8 +167,9 @@ geom_mosaic_text(
   Character string specifying what values to display in cells. Options:
   "label" (default, factor labels), "observed" (observed counts),
   "expected" (expected values from model), "residual" (Pearson
-  residuals). Use "expected" or "residual" with the `expected`
-  parameter.
+  residuals). "expected" and "residual" require a model supplied
+  directly through `expected` or inherited from
+  [`mosaic_settings`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
 
 - format_digits:
 
@@ -172,11 +178,13 @@ geom_mosaic_text(
 
 - expected:
 
-  Optional loglinear model specification (same as in `geom_mosaic`).
-  Required when using display_values = "expected" or "residual". Can be
-  a formula, character shortcut, or NULL, and can be inherited from
-  [`mosaic_settings`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md)
-  when omitted.
+  Optional loglinear model specification (same as in `geom_mosaic`). An
+  effective model is required when using display_values = "expected" or
+  "residual". Supply a formula or character shortcut directly, or omit
+  the argument to inherit a model from
+  [`mosaic_settings`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
+  An explicitly supplied value takes priority, and `NULL` turns off a
+  plot-level model for this layer.
 
 - ...:
 
@@ -203,10 +211,9 @@ ggplot(data = titanic, aes(x = product(Class), fill = Survived)) +
 
 
 ggplot(data = titanic, aes(x = product(Class, Sex), fill = Survived)) +
-  geom_mosaic(divider = c("vspine", "hspine", "hspine")) +
-  geom_mosaic_text(
-    divider = c("vspine", "hspine", "hspine"), size = 2
-  )
+  mosaic_settings(divider = c("vspine", "hspine", "hspine")) +
+  geom_mosaic() +
+  geom_mosaic_text(size = 2)
 
 
 ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +

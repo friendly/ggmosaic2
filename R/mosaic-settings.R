@@ -14,15 +14,29 @@
 #'   including a model set by an earlier call to `mosaic_settings()`.
 #'
 #' @details
+#' A layer inherits a setting only when its corresponding argument is omitted.
+#' Settings are resolved in this order: an explicitly supplied layer argument
+#' (including `expected = NULL`), the plot's `mosaic_settings()` value, and the
+#' layer default (`mosaic()`, `0.01`, or `NULL`).
+#'
+#' `divider` and `offset` are inherited by [geom_mosaic()], [stat_mosaic()],
+#' [geom_mosaic_text()], [stat_mosaic_text()], [geom_mosaic_jitter()], and
+#' [stat_mosaic_jitter()]. `expected` is inherited by the same constructors
+#' except the mosaic-jitter geom and stat.
+#'
 #' The position of `mosaic_settings()` among the layers in a plot has no
 #' effect. If it is added more than once, the last supplied value for each
 #' setting is used; omitted arguments do not change earlier settings.
+#' Settings are local to the plot and do not change package or session defaults.
+#' They share configuration, not computations or fitted model objects, between
+#' layers.
 #'
 #' @return An object of class `"ggmosaic_settings"` that can be added to a
 #'   ggplot with `+`.
 #'
-#' @seealso [geom_mosaic()], [geom_mosaic_text()],
-#'   [geom_mosaic_jitter()], [mosaic()], and [ddecker()]
+#' @seealso [geom_mosaic()], [stat_mosaic()], [geom_mosaic_text()],
+#'   [stat_mosaic_text()], [geom_mosaic_jitter()], [stat_mosaic_jitter()],
+#'   [mosaic()], and [ddecker()]
 #' @author Gavin Klorfine
 #' @export
 #'
@@ -39,6 +53,12 @@
 #'   geom_mosaic_text(display_values = "residual") +
 #'   scale_fill_residual() +
 #'   theme_mosaic()
+#'
+#' # An explicit layer argument overrides the plot setting. Here NULL turns
+#' # model fitting off for the mosaic layer.
+#' ggplot(titanic, aes(x = product(Class, Sex), fill = Survived)) +
+#'   mosaic_settings(expected = "independence") +
+#'   geom_mosaic(expected = NULL)
 #'
 
 mosaic_settings <- function(divider, offset, expected) {

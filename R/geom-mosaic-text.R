@@ -14,8 +14,10 @@
 #' \item \code{vbar} Vertical bar partition: height constant, width varies.
 #' \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 #' }
+#'   When omitted, `divider` can be inherited from [mosaic_settings()].
 #' @param offset Set the fixed gap at the deepest split. Gaps increase by a
-#'   factor of 1.5 toward the outermost split.
+#'   factor of 1.5 toward the outermost split. When omitted, the value can be
+#'   inherited from [mosaic_settings()].
 #' @param na.rm If \code{FALSE} (the default), removes missing values with a warning. If \code{TRUE} silently removes missing values.
 #' @param as.label Show as a ggplot label (box with round corners)
 #' @param repel Use ggrepel so labels don't overlap
@@ -27,13 +29,16 @@
 #' @param display_values Character string specifying what values to display in cells.
 #'   Options: "label" (default, factor labels), "observed" (observed counts),
 #'   "expected" (expected values from model), "residual" (Pearson residuals).
-#'   Use "expected" or "residual" with the \code{expected} parameter.
+#'   "expected" and "residual" require a model supplied directly through
+#'   \code{expected} or inherited from \code{\link{mosaic_settings}}.
 #' @param format_digits Number of decimal places for formatting numeric values (default: 1).
 #'   Only used when display_values is not "label".
 #' @param expected Optional loglinear model specification (same as in \code{geom_mosaic}).
-#'   Required when using display_values = "expected" or "residual".
-#'   Can be a formula, character shortcut, or NULL, and can be inherited from
-#'   \code{\link{mosaic_settings}} when omitted.
+#'   An effective model is required when using display_values = "expected" or
+#'   "residual". Supply a formula or character shortcut directly, or omit the
+#'   argument to inherit a model from \code{\link{mosaic_settings}}.
+#'   An explicitly supplied value takes priority, and \code{NULL} turns off a
+#'   plot-level model for this layer.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}.
 #'   Text aesthetics that can be controlled include: \code{size} (default: 2.7), \code{colour}/\code{color}, \code{fontface} ('plain', 'bold', 'italic', 'bold.italic'),
 #'   \code{family} (font family), \code{angle} (rotation in degrees), \code{hjust}/\code{vjust} (justification), and \code{lineheight}.
@@ -46,10 +51,9 @@
 #'   geom_mosaic_text()
 #'
 #' ggplot(data = titanic, aes(x = product(Class, Sex), fill = Survived)) +
-#'   geom_mosaic(divider = c("vspine", "hspine", "hspine")) +
-#'   geom_mosaic_text(
-#'     divider = c("vspine", "hspine", "hspine"), size = 2
-#'   )
+#'   mosaic_settings(divider = c("vspine", "hspine", "hspine")) +
+#'   geom_mosaic() +
+#'   geom_mosaic_text(size = 2)
 #'
 #' ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +
 #'   geom_mosaic(aes(x = product(health)), na.rm = TRUE, show.legend = FALSE) +

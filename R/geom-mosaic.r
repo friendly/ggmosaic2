@@ -28,13 +28,17 @@
 #' \item \code{vbar} Vertical bar partition: height constant, width varies.
 #' \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 #' }
+#'   When omitted, `divider` can be inherited from [mosaic_settings()].
 #' @param offset Set the fixed gap at the deepest split. Gaps increase by a
-#'   factor of 1.5 toward the outermost split.
+#'   factor of 1.5 toward the outermost split. When omitted, the value can be
+#'   inherited from [mosaic_settings()].
 #' @param na.rm If \code{FALSE} (the default), removes missing values with a warning. If \code{TRUE} silently removes missing values.
 #' @param expected Optional specification for loglinear model residual shading.
 #'   Can be a formula (e.g., \code{~ Var1 + Var2}), a character shortcut
 #'   ("independence", "saturated", "conditional"), or NULL (default, no model).
 #'   When omitted, the value can be inherited from \code{\link{mosaic_settings}}.
+#'   An explicitly supplied layer value takes priority; in particular,
+#'   \code{expected = NULL} turns off a plot-level model for that layer.
 #'   When specified, Pearson residuals are calculated and automatically mapped to fill
 #'   (unless fill aesthetic is explicitly set). Use with \code{\link{scale_fill_residual}}
 #'   for a diverging color scale. Positive residuals receive a solid dark blue

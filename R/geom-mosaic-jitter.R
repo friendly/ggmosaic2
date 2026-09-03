@@ -20,8 +20,10 @@
 #' \item \code{vbar} Vertical bar partition: height constant, width varies.
 #' \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 #' }
+#'   When omitted, `divider` can be inherited from [mosaic_settings()].
 #' @param offset Set the fixed gap at the deepest split. Gaps increase by a
-#'   factor of 1.5 toward the outermost split.
+#'   factor of 1.5 toward the outermost split. When omitted, the value can be
+#'   inherited from [mosaic_settings()].
 #' @param drop_level Generate points for the max - 1 level
 #' @param seed Random seed passed to \code{\link[base]{set.seed}}. Defaults to
 #'   \code{NA}, which means that \code{set.seed} will not be called.
@@ -39,10 +41,9 @@
 #'   geom_mosaic_jitter(aes(color = Survived), drop_level = TRUE)
 #'
 #' ggplot(data = titanic, aes(x = product(Class, Sex))) +
-#'   geom_mosaic(alpha = 0.3, aes(fill = Survived),
-#'               divider = c("vspine", "hspine", "hspine")) +
-#'   geom_mosaic_jitter(aes(color = Survived),
-#'               divider = c("vspine", "hspine", "hspine"))
+#'   mosaic_settings(divider = c("vspine", "hspine", "hspine")) +
+#'   geom_mosaic(alpha = 0.3, aes(fill = Survived)) +
+#'   geom_mosaic_jitter(aes(color = Survived))
 #'
 #'  ggplot(data = titanic,
 #'         aes(x = product(Class), conds = product(Sex), fill = Survived)) +

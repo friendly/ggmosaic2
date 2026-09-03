@@ -123,10 +123,15 @@ stat_mosaic_jitter(
 
   - `hbar` Horizontal bar partition: width constant, height varies.
 
+  When omitted, `divider` can be inherited from
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
+
 - offset:
 
   Set the fixed gap at the deepest split. Gaps increase by a factor of
-  1.5 toward the outermost split.
+  1.5 toward the outermost split. When omitted, the value can be
+  inherited from
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
 
 - drop_level:
 
@@ -226,10 +231,9 @@ ggplot(data = titanic, aes(x = product(Class))) +
 
 
 ggplot(data = titanic, aes(x = product(Class, Sex))) +
-  geom_mosaic(alpha = 0.3, aes(fill = Survived),
-              divider = c("vspine", "hspine", "hspine")) +
-  geom_mosaic_jitter(aes(color = Survived),
-              divider = c("vspine", "hspine", "hspine"))
+  mosaic_settings(divider = c("vspine", "hspine", "hspine")) +
+  geom_mosaic(alpha = 0.3, aes(fill = Survived)) +
+  geom_mosaic_jitter(aes(color = Survived))
 
 
  ggplot(data = titanic,

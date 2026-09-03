@@ -3,7 +3,9 @@
 Provides a red-white-blue color scale centered at 0 for visualizing
 Pearson residuals from loglinear models. Designed for use with
 [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
-when `expected` parameter is specified.
+when a model is supplied through the layer's `expected` argument or
+through
+[`mosaic_settings`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
 
 ## Usage
 
