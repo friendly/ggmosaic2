@@ -42,7 +42,7 @@ Language: en-US
 URL: https://friendly.github.io/ggmosaic2/, https://github.com/friendly/ggmosaic2
 BugReports: https://github.com/friendly/ggmosaic2/issues
 Depends:
-    ggplot2 (>= 3.5.0),
+    ggplot2 (>= 4.0.0),
     R (>= 4.1.0)
 Imports:
     productplots,

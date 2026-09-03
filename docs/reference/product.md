@@ -18,6 +18,7 @@ product(...)
 
 ``` r
 data(titanic)
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Survived, Class), fill = Survived))
+ggplot(data = titanic,
+       aes(x = product(Survived, Class), fill = Survived)) +
+  geom_mosaic()
 ```

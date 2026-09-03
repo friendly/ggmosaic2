@@ -36,8 +36,9 @@ category labels.
 ``` r
 library(ggmosaic2)
 data(happy)
-ggplot(data = happy) +
-  geom_mosaic(aes(weight=wtssall, x=product(health), fill=happy), na.rm=TRUE) +
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(health), fill = happy)) +
+  geom_mosaic(na.rm = TRUE) +
   theme_mosaic()
 
 ```

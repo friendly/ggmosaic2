@@ -36,6 +36,8 @@
 - [`mosaic()`](https://friendly.github.io/ggmosaic2/reference/mosaic.md)
   : Template for a mosaic plot. A mosaic plot is composed of spines in
   alternating directions.
+- [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md)
+  : Plot-scoped mosaic computation settings
 - [`product()`](https://friendly.github.io/ggmosaic2/reference/product.md)
   : Wrapper for a list
 - [`scale_fill_residual()`](https://friendly.github.io/ggmosaic2/reference/scale_fill_residual.md)

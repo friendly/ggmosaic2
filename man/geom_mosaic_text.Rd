@@ -13,7 +13,7 @@ geom_mosaic_text(
   divider = mosaic(),
   offset = 0.01,
   show.legend = NA,
-  inherit.aes = FALSE,
+  inherit.aes = TRUE,
   as.label = FALSE,
   repel = FALSE,
   repel_params = NULL,
@@ -118,7 +118,8 @@ Only used when display_values is not "label".}
 
 \item{expected}{Optional loglinear model specification (same as in \code{geom_mosaic}).
 Required when using display_values = "expected" or "residual".
-Can be a formula, character shortcut, or NULL.}
+Can be a formula, character shortcut, or NULL, and can be inherited from
+\code{\link{mosaic_settings}} when omitted.}
 
 \item{...}{other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}.
 Text aesthetics that can be controlled include: \code{size} (default: 2.7), \code{colour}/\code{color}, \code{fontface} ('plain', 'bold', 'italic', 'bold.italic'),
@@ -131,57 +132,57 @@ A mosaic plot with text or labels
 \examples{
 data(titanic)
 
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class), fill = Survived)) +
-  geom_mosaic_text(aes(x = product(Class), fill = Survived))
+ggplot(data = titanic, aes(x = product(Class), fill = Survived)) +
+  geom_mosaic() +
+  geom_mosaic_text()
 
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex),  fill = Survived),
-              divider = c("vspine", "hspine", "hspine")) +
-  geom_mosaic_text(aes(x = product(Class, Sex), fill = Survived),
-              divider = c("vspine", "hspine", "hspine"), size = 2)
+ggplot(data = titanic, aes(x = product(Class, Sex), fill = Survived)) +
+  geom_mosaic(divider = c("vspine", "hspine", "hspine")) +
+  geom_mosaic_text(
+    divider = c("vspine", "hspine", "hspine"), size = 2
+  )
 
-ggplot(data = happy) +
-  geom_mosaic(aes(x = product(health), fill = happy), na.rm = TRUE, show.legend = FALSE) +
-  geom_mosaic_text(aes(x = product(happy, health)), na.rm = TRUE)
+ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +
+  geom_mosaic(aes(x = product(health)), na.rm = TRUE, show.legend = FALSE) +
+  geom_mosaic_text(na.rm = TRUE, show.legend = FALSE)
 
 # avoid overlapping text
-ggplot(data = happy) +
-  geom_mosaic(aes(x = product(health), fill = happy), na.rm = TRUE, show.legend = FALSE) +
-  geom_mosaic_text(aes(x = product(happy, health)), na.rm = TRUE, check_overlap = TRUE)
+ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +
+  geom_mosaic(aes(x = product(health)), na.rm = TRUE, show.legend = FALSE) +
+  geom_mosaic_text(na.rm = TRUE, check_overlap = TRUE, show.legend = FALSE)
 
 # or use ggrepel
-ggplot(data = happy) +
-  geom_mosaic(aes(x = product(health), fill = happy), na.rm = TRUE, show.legend = FALSE) +
-  geom_mosaic_text(aes(x = product(happy, health)), na.rm = TRUE, repel = TRUE)
+ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +
+  geom_mosaic(aes(x = product(health)), na.rm = TRUE, show.legend = FALSE) +
+  geom_mosaic_text(na.rm = TRUE, repel = TRUE, show.legend = FALSE)
 
 # and as a label
-ggplot(data = happy) +
-  geom_mosaic(aes(x = product(health), fill = happy), na.rm = TRUE, show.legend = FALSE) +
-  geom_mosaic_text(aes(x = product(happy, health)), na.rm = TRUE, repel = TRUE, as.label=TRUE)
+ggplot(data = happy, aes(x = product(happy, health), fill = happy)) +
+  geom_mosaic(aes(x = product(health)), na.rm = TRUE, show.legend = FALSE) +
+  geom_mosaic_text(
+    na.rm = TRUE, repel = TRUE, as.label = TRUE,
+    fill = "white", show.legend = FALSE
+  )
 
 # Display observed counts in cells
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex), fill = Survived)) +
-  geom_mosaic_text(aes(x = product(Class, Sex)), display_values = "observed")
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(aes(fill = Survived)) +
+  geom_mosaic_text(display_values = "observed")
 
-# Display residuals with residual shading
-# Note: expected parameter must be specified in BOTH layers
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+# Display residuals with one shared model specification
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(aes(x = product(Class, Sex)),
-                   expected = "independence",
-                   display_values = "residual",
+  geom_mosaic_text(display_values = "residual",
                    format_digits = 2)
 
 # Display expected values
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(aes(x = product(Class, Sex)),
-                   expected = "independence",
-                   display_values = "expected",
+  geom_mosaic_text(display_values = "expected",
                    format_digits = 1)
 
 }

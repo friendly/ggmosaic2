@@ -85,20 +85,19 @@ one decimal place. The legend can be hidden normally with
 data(titanic)
 
 # Independence model with residual shading
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual()
 
 
 # Custom colors
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(low = "red", high = "blue")
 
 
 # Custom limits to highlight strong deviations
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex, Survived)),
-              expected = ~ Class + Sex) +
+ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+  geom_mosaic(expected = ~ Class + Sex) +
   scale_fill_residual(limits = c(-4, 4))
 ```
