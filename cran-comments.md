@@ -1,7 +1,7 @@
 
 ## Test environments
 * local Windows 11, R version 4.6.1 (2026-06-24 ucrt)
-* local Mac OS [GK]
+* local macOS Tahoe 26.6.2, R version 4.6.1 (2026-06-24) [GK]
 * ubuntu 16.04 (on travis-ci), R 3.6.3
 * win-builder (R Under development (unstable), 2026-08-31 r90457 ucrt)
 
