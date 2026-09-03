@@ -24,7 +24,7 @@ articles:
       - frequency-table-forms
 
   - title: Legacy
-    desc: The original ggmosaic vignette, inherited as-is from the fork
+    desc: The original ggmosaic vignette, inherited as-is from the fork, no longer maintained
     contents:
       - ggmosaic
 
@@ -89,6 +89,9 @@ reference:
       - StatMosaicText
 
   - title: Templates & apps
+    desc: >
+      `ggmosaic_app()` is deprecated, inherited as-is from `ggmosaic` for the historical
+      record only
     contents:
       - ddecker
       - ggmosaic_app

@@ -5,6 +5,16 @@
   and it supports multiple mosaic layers, `theme_mosaic()`, `coord_flip()`, manual product scales,
   margins, and residual shading.
 
+* Mosaic layers (`geom_mosaic()`, `geom_mosaic_text()`, `geom_mosaic_jitter()`) now resolve their
+  plot mapping at build time, like ordinary `ggplot2` layers, so an `aes()` mapping added or
+  changed after a mosaic layer has already been added is now picked up correctly instead of being
+  frozen at the point the layer was added.
+
+* Added `mosaic_settings()` for sharing `divider`, `offset`, and `expected` across sibling mosaic
+  layers in one plot, so multi-layer plots (e.g. `geom_mosaic()` + `geom_mosaic_text()`) no longer
+  need the same argument repeated on every layer. An explicit layer argument, including
+  `expected = NULL`, still overrides the plot-level setting.
+
 * Improved Pearson residual shading: negative residuals are now dark red and positive residuals
   dark blue, with matching dashed/solid cell outlines (disable via `colour = NA`, or override
   colour/linetype/linewidth directly). Added a custom residual legend with signed labels, observed
@@ -33,6 +43,8 @@
 
 * Fixed `inst/CITATION` for the `ggmosaic2` fork: retitled from `ggmosaic`, authors and year are
   now pulled from `DESCRIPTION` instead of hardcoded, and a broken multi-URL field is fixed.
+
+* Deprecated `ggmosaic_app()`, kept only for the historical record.
 
 # ggmosaic2 0.5.0
 

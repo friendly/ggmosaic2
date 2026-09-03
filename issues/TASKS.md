@@ -53,10 +53,12 @@ Verified against current `R/` source, not just the docs' own claims.
   residuals are implemented; the note in `PULL_REQUEST.md` flags the others as "could be added
   later."
   
-- [ ] Deprecation warnings noted in `check-fixes.md`'s "Future Enhancements": `continuous_scale()`
-  `scale_name`/`trans` args in `R/scale-product.R` (should be `transform`) — not yet addressed.
+- [X] Deprecation warnings noted in `check-fixes.md`'s "Future Enhancements": `continuous_scale()`
+  `scale_name`/`trans` args in `R/scale-product.R` (should be `transform`). Confirmed fixed: both
+  `scale_x_productlist()`/`scale_y_productlist()` now pass `transform = transform` with no
+  `scale_name`/`trans` left, as part of the ggplot2 4.0 migration.
   
-- [ ] No formal test suite (`tests/testthat/`) — `check-fixes.md` explicitly recommends adding
+- [X] No formal test suite (`tests/testthat/`) — `check-fixes.md` explicitly recommends adding
   tests for `divide_once()` edge cases, namespace conflicts, and ggplot2 version compatibility;
   none exist yet, only the manual scripts in `issues/`. Low priority.
   
@@ -76,17 +78,28 @@ Verified against current `R/` source, not just the docs' own claims.
     or use `/init`'s output as a starting point)
   - [X] New package logo — already done (checked off on his list)
 
-- [ ] Revise the `README.Rmd` file. 
+- [X] Revise the `README.Rmd` file. 
   - [X] Add appropriate badges
   - [X] Add dynamic version number and pkgdown build date
   - [X] The main example, HairEyeColor should start with just a basic display, default shading
   - [X] Illustrate point density, use of `geom_mosaic_jitter()`
   - [X] Edit or delete the out of date section "Version compatibility issues with ggplot2"
-  - [ ] Show an example using the `fill = ` aesthetic, which was the only shading in original `ggmosiac`
+  - [X] Show an example using the `fill = ` aesthetic, which was the only shading in original `ggmosiac`
   
 - [X] Edit package citation -- Keep original Jeppson & Hoffman _R Journal_ citation
 
-- [ ] Elide or remove the stale `R/ggmosaic_app/R`. No idea it this works
+- [X] Elide or remove the stale `R/ggmosaic_app/R`. No idea it this works
+  Checked 2026-09-03: confirmed broken — `system.file("shiny", example, package = "ggmosaic")`
+  in `R/ggmosaic_app.R` still references the old package name instead of `"ggmosaic2"`, so it
+  can't find its Shiny app directory. Also confirmed identical in the upstream
+  `haleyjeppson/ggmosaic` repo (same `R/ggmosaic_app.R`, same `inst/shiny/{models,mosaics}`),
+  so this was carried over verbatim by the fork rather than introduced here.
+  Resolved 2026-09-03: rather than delete, marked `ggmosaic_app()` deprecated (`.Deprecated()`
+  warning at call time, roxygen note explaining it's inherited from `ggmosaic` and unmaintained,
+  `@keywords internal`) and kept `R/ggmosaic_app.R`, `man/ggmosaic_app.Rd`, `inst/shiny/`, and
+  `inst/plotly-shiny/` in place for the historical record, per the user's call — it stays
+  exported but broken/unfixed, with `_pkgdown.yml`'s "Templates & apps" section noting the
+  deprecation.
 
 - [ ] Cleanup `issues/`: Many are historical & solved-- perhaps move to a `done/ subfolder.
   - [ ] Going forward, should we do this as formal issues in the GH repo, so progress is visible to others?
