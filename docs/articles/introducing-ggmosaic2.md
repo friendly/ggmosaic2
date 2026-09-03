@@ -32,10 +32,9 @@ with and without the use of
 When three or more variables are used, the top (three or more variables)
 and right (four or more variables) axes will now be utilized. The
 figures compare the historical `haleyjeppson/ggmosaic` output (**Old**)
-with `friendly/ggmosaic2`
+with `friendly/ggmosaic2` (**New**);
 
-(**New**); the current **ggmosaic2** syntax below declares its
-aesthetics globally:
+The current **ggmosaic2** syntax below declares its aesthetics globally:
 
 ``` r
 

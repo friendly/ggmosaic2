@@ -93,9 +93,10 @@ with and without the use of <code><a href="../reference/theme_mosaic.html">theme
 <p>When three or more variables are used, the top (three or more
 variables) and right (four or more variables) axes will now be utilized.
 The figures compare the historical <code>haleyjeppson/ggmosaic</code>
-output (<strong>Old</strong>) with <code>friendly/ggmosaic2</code></p>
-<p>(<strong>New</strong>); the current <strong>ggmosaic2</strong> syntax
-below declares its aesthetics globally:</p>
+output (<strong>Old</strong>) with <code>friendly/ggmosaic2</code>
+(<strong>New</strong>);</p>
+<p>The current <strong>ggmosaic2</strong> syntax below declares its
+aesthetics globally:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -177,7 +178,10 @@ is the innermost split. <code>offset</code> remains at a default of
 </h2>
 <p>The old <strong>ggmosaic</strong> had an <a href="https://github.com/haleyjeppson/ggmosaic/issues/78" class="external-link">issue</a>
 where facet labels would not be independently generated per panel:</p>
-<!-- TODO: Consider whether the old behavior could be useful, i.e, only label Y axis categories in left panel -->
+<!-- TODO: Consider whether the old behavior could be useful, i.e, only label Y axis categories in left panel 
+
+        GK: Old behaviour would still be accessible through `facet_grid()` (as opposed to using the new `facet_mosaic_grid()`--though it might be worth seeing if an argument can be created for `facet_mosaic_grid()` to allow for independent generation of x axis category labels while keeping y axis category labels exclusively on the leftmost panels.
+-->
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -256,6 +260,9 @@ means:</p>
 <span>  <span class="fu"><a href="../reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">30</span>, legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="introducing-ggmosaic2_files/figure-html/residual-outlines-1.png" class="r-plt" alt="" width="86%" style="display: block; margin: auto;"></p>
+<!--
+TODO: Add brief `mosaic_settings()` example/description
+-->
 <!-- 
 GK: We can continue writing here. The below is for the end of the vignette
 -->
