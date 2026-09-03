@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^Rplots\.pdf$
 ^visual_test$
 ^cran-comments\.md$
 ^vtest$
