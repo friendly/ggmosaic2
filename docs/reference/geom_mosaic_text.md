@@ -188,6 +188,10 @@ geom_mosaic_text(
   degrees), `hjust`/`vjust` (justification), and `lineheight`. They may
   also be parameters to the paired geom/stat.
 
+## Author
+
+Gavin Klorfine
+
 ## Examples
 
 ``` r

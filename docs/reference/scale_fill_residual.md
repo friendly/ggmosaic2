@@ -79,6 +79,10 @@ common alignment. Automatically generated numeric labels are rounded to
 one decimal place. The legend can be hidden normally with
 `theme(legend.position = "none")`.
 
+## Author
+
+Gavin Klorfine
+
 ## Examples
 
 ``` r

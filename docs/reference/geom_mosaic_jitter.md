@@ -205,6 +205,10 @@ mapped through `x` or `conds`.
 
   location of top right corner
 
+## Author
+
+Gavin Klorfine
+
 ## Examples
 
 ``` r

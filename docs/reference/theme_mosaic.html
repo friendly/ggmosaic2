@@ -66,7 +66,7 @@ face to axes labels and allows for the convenient rotation of category labels.</
 
 
 <dt id="arg-rot-labels">rot_labels<a class="anchor" aria-label="anchor" href="#arg-rot-labels"></a></dt>
-<dd><p>The angle (in degrees) used to rotate category labels. Defaults to 0 degrees.</p></dd>
+<dd><p>The angle (in degrees) used to rotate category labels. Defaults to 0 degrees, relative to the current axis orientation.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -74,6 +74,14 @@ face to axes labels and allows for the convenient rotation of category labels.</
 the mosaic theme defaults and can therefore override them.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>As with other <code>ggplot2</code> extensions, themes set the general look-and-feel of the plot such as the color of the background, gridlines, the size and color of fonts. <code>theme_mosaic()</code> provides access to the regular ggplot2 theme, but: removes any background, axes ticks, most of the gridlines, and ensures an aspect ratio of 1 for better viewing of the mosaics. This theme also applies a <strong>bold</strong> face to axes labels and allows for the convenient rotation of category labels to avoid overlap</p>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Gavin Klorfine</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

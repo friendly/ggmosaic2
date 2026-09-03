@@ -236,6 +236,10 @@ and vertical roles; for example, `product(predictions, actual)` places
 
   location of top right corner
 
+## Author
+
+Gavin Klorfine
+
 ## Examples
 
 ``` r

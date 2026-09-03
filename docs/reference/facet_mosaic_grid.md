@@ -126,6 +126,10 @@ visible. The panel-specific label positions are retained with
 [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md);
 that theme intentionally hides the tick marks themselves.
 
+## Author
+
+Gavin Klorfine
+
 ## Examples
 
 ``` r

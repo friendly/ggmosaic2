@@ -51,6 +51,10 @@ setting is used; omitted arguments do not change earlier settings.
 and
 [`ddecker()`](https://friendly.github.io/ggmosaic2/reference/ddecker.md)
 
+## Author
+
+Gavin Klorfine
+
 ## Examples
 
 ``` r
