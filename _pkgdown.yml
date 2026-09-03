@@ -1,9 +1,104 @@
 url: https://friendly.github.io/ggmosaic2/
+
 template:
   bootstrap: 5
   bslib:
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
     danger: "#A6081A"
+
 cran:
   icon: fab fa-r-project
   href: https://cloud.r-project.org/package=pkgdown
   aria-label: View on CRAN
+
+articles:
+  - title: Getting started
+    contents:
+      - introducing-ggmosaic2
+
+  - title: Loglinear models & residual shading
+    contents:
+      - loglinear-models
+      - frequency-table-forms
+
+  - title: Legacy
+    desc: The original ggmosaic vignette, inherited as-is from the fork
+    contents:
+      - ggmosaic
+
+reference:
+  - title: Mosaic layers
+    desc: >
+      The main geoms and stats for building mosaic plots, plus the
+      plot-scoped settings and faceting support that let them share
+      a model or layout across layers/panels
+    contents:
+      - geom_mosaic
+      - geom_mosaic_jitter
+      - geom_mosaic_text
+      - mosaic_settings
+      - facet_mosaic_grid
+
+  - title: Scales
+    desc: Scales for the product-formula axes and residual-shaded fill
+    contents:
+      - product
+      - scale_x_productlist
+      - scale_type.productlist
+      - scale_fill_residual
+
+  - title: Theme
+    contents:
+      - theme_mosaic
+
+  - title: Loglinear models
+    desc: Fitting the models behind residual/expected-value shading
+    contents:
+      - fit_loglinear_model
+      - build_model_formula
+      - shortcut_to_formula
+
+  - title: Partitioning & layout
+    desc: >
+      Divider functions that control how a mosaic recursively splits
+      into rectangles, and the lower-level layout calculations behind
+      them
+    contents:
+      - mosaic
+      - hbar
+      - hspine
+      - vbar
+      - vspine
+      - spine
+      - squeeze
+      - prodcalc
+
+  - title: ggproto objects
+    desc: >
+      Underlying Geom/Stat classes, for extending the package (the
+      ScaleContinuousProduct class is documented alongside
+      `scale_x_productlist()` above)
+    contents:
+      - GeomMosaic
+      - GeomMosaicJitter
+      - GeomMosaicText
+      - StatMosaic
+      - StatMosaicJitter
+      - StatMosaicText
+
+  - title: Templates & apps
+    contents:
+      - ddecker
+      - ggmosaic_app
+
+  - title: Data
+    contents:
+      - happy
+      - fly
+      - titanic
+
+  - title: Package
+    contents:
+      - ggmosaic2-package
