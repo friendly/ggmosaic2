@@ -260,9 +260,29 @@ means:</p>
 <span>  <span class="fu"><a href="../reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">30</span>, legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="introducing-ggmosaic2_files/figure-html/residual-outlines-1.png" class="r-plt" alt="" width="86%" style="display: block; margin: auto;"></p>
-<!--
-TODO: Add brief `mosaic_settings()` example/description
--->
+</div>
+<div class="section level2">
+<h2 id="sharing-settings-between-mosaic-layers">Sharing settings between mosaic layers<a class="anchor" aria-label="anchor" href="#sharing-settings-between-mosaic-layers"></a>
+</h2>
+<p>When a plot contains multiple mosaic layers (e.g.,
+<code><a href="../reference/geom_mosaic.html">geom_mosaic()</a></code> and <code><a href="../reference/geom_mosaic_text.html">geom_mosaic_text()</a></code>),
+<code><a href="../reference/mosaic_settings.html">mosaic_settings()</a></code> can be used to set the
+<code>divider</code>, <code>offset</code>, and <code>expected</code>
+arguments once and share them across compatible layers.</p>
+<p>In this example, rather than repeating
+<code>expected = "independence"</code> in each mosaic layer, we specify
+it once using <code><a href="../reference/mosaic_settings.html">mosaic_settings()</a></code>:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="va">Eye</span>, <span class="va">Hair</span><span class="op">)</span>, weight <span class="op">=</span> <span class="va">Freq</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/mosaic_settings.html">mosaic_settings</a></span><span class="op">(</span>expected <span class="op">=</span> <span class="st">"independence"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_mosaic_text.html">geom_mosaic_text</a></span><span class="op">(</span>display_values <span class="op">=</span> <span class="st">"residual"</span>,</span>
+<span>                   format_digits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/scale_fill_residual.html">scale_fill_residual</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></code></pre></div>
+<p><img src="introducing-ggmosaic2_files/figure-html/mosaic-settings-1.png" class="r-plt" alt="" width="86%" style="display: block; margin: auto;"></p>
 <!-- 
 GK: We can continue writing here. The below is for the end of the vignette
 -->

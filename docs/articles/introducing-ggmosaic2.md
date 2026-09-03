@@ -246,6 +246,35 @@ HairEyeColor |>
 
 ![](introducing-ggmosaic2_files/figure-html/residual-outlines-1.png)
 
+## Sharing settings between mosaic layers
+
+When a plot contains multiple mosaic layers (e.g.,
+[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
+and
+[`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md)),
+[`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md)
+can be used to set the `divider`, `offset`, and `expected` arguments
+once and share them across compatible layers.
+
+In this example, rather than repeating `expected = "independence"` in
+each mosaic layer, we specify it once using
+[`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md):
+
+``` r
+
+HairEyeColor |>
+  as.data.frame() |>
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
+  geom_mosaic_text(display_values = "residual",
+                   format_digits = 1) +
+  scale_fill_residual(limits = c(-4,4)) +
+  theme_mosaic(rot_labels = 30)
+```
+
+![](introducing-ggmosaic2_files/figure-html/mosaic-settings-1.png)
+
 ## Other fixes/changes
 
 - Fixed namespace-only usage ([issue
