@@ -64,7 +64,7 @@ HairEyeColor |>
 
 Axis labels had a bold face applied to be consistent with mosaics made
 using **vcd** and **vcdExtra**. Axis ticks were removed, as they are
-unnecessary for mosaic displays.
+unneccessary for mosaic displays.
 
 New to
 [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
@@ -132,7 +132,7 @@ HairEyeColor |>
 
 The new function
 [`facet_mosaic_grid()`](https://friendly.github.io/ggmosaic2/reference/facet_mosaic_grid.md)
-corrects this behavior, generating labels per facet:
+corrects this behaviour, generating labels per facet:
 
 ``` r
 
