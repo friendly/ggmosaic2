@@ -160,15 +160,10 @@ Source: [`vignettes/loglinear-models.Rmd`](../vignettes/loglinear-models.Rmd)
 This is the main user-facing model tutorial and currently teaches the old
 multi-layer contract.
 
-- In the introduction and “Model Specification,” explain that `expected` can
-  be supplied to one layer or shared at plot scope with `mosaic_settings()`.
-- Add a small “Sharing a model across layers” subsection that states the
-  resolution/override rule. This is the best vignette location for the
-  omitted-vs-explicit-`NULL` example.
 - In chunk `residual-labels`, replace the two repeated
   `expected = "independence"` arguments with one
   `mosaic_settings(expected = "independence")` call.
-- Delete or rewrite the sentence immediately after that chunk which currently
+- Delete the sentence immediately after that chunk which currently
   says the same `expected` parameter “must” be specified in both geoms. It is
   now false.
 - Make the same conversion in chunks `expected-values`, `custom-scale`,
@@ -190,52 +185,28 @@ Source:
 - In chunk `residual-labels`, replace the duplicate model arguments with one
   `mosaic_settings()` call and remove the `# Must match!` comment.
 - Do the same in chunk `expected-values`.
-- Add one sentence before the first example explaining that the plot setting
-  keeps the tile and text computations aligned.
-- In “Key Takeaways,” change “Uses `expected` parameter” to acknowledge both
-  the layer argument and plot-level setting.
+- Add an HTML comment before the first example stating that a sentence might be 
+  needed to explain that the plot setting keeps the tile and text computations 
+  aligned.
 - Leave the single-layer residual examples layer-local; they continue to be
   correct and help teach the simpler form.
 
-### 3. `ggmosaic.Rmd` — required for the general API tutorial
+### 3. `ggmosaic.Rmd` -- DO NOT TOUCH
 
 Source: [`vignettes/ggmosaic.Rmd`](../vignettes/ggmosaic.Rmd)
 
-The “Other features of `geom_mosaic()`” section calls `divider` and `offset`
-arguments unique to `geom_mosaic()`. They are now shared by the mosaic,
-mosaic-text, and mosaic-jitter geom/stat families, so this wording is stale.
+This is a legacy vignette from the original `ggmosaic`. Leave it unmodified.
 
-- Rename/reframe the section as mosaic layout settings.
-- Explain the choice between direct per-layer arguments and plot-scoped
-  `mosaic_settings(divider = ..., offset = ...)`.
-- Add a short layered example showing a tile plus labels or jitter inheriting
-  one divider/offset, followed by an intentional per-layer override.
-- Preserve the existing single-layer divider gallery; those calls are not
-  wrong and should not all be converted.
-- While editing, align the offset explanation with the current API: `offset`
-  is the gap at the deepest split and gaps increase by a factor of 1.5 toward
-  outer splits. “Space between the first spine” and “decreases as layers
-  build” are ambiguous and use “layer” for a partition depth.
-
-### 4. `introducing-ggmosaic2.Rmd` — required because it inventories additions
+### 4. `introducing-ggmosaic2.Rmd` — DO NOT TOUCH
 
 Source:
 [`vignettes/introducing-ggmosaic2.Rmd`](../vignettes/introducing-ggmosaic2.Rmd)
 
-Add a short subsection introducing `mosaic_settings()` as a new ggmosaic2 API,
-ideally near “Spacing of cells” or “Residual-Based Shading.” Show one example
-that shares `expected` and either `divider` or `offset` across
-`geom_mosaic()`/`geom_mosaic_text()`. Cover plot locality and layer override
-precedence in prose.
-
-The existing residual-only examples use one mosaic layer and can stay as
-direct `geom_mosaic(expected = ...)` examples. The important change is to stop
-the vignette from inventorying ggmosaic2 additions without mentioning the new
-component.
+I (GK) will add a section to this on my own later.
 
 ## Generated vignette/site outputs
 
-The source of truth is the four `.Rmd` files above. After editing them:
+The source of truth is the four `.Rmd` files above. After editing the specified vignettes:
 
 - rebuild the vignettes and run their code;
 - regenerate the tracked `vignettes/frequency-table-forms.html` and
@@ -253,9 +224,7 @@ The source of truth is the four `.Rmd` files above. After editing them:
   to discuss plot settings.
 - Single-layer examples using `geom_mosaic(expected = ...)`,
   `divider = ...`, or `offset = ...` remain valid.
-- `README.Rmd` and `NEWS.md` are outside the requested roxygen/vignette scope,
-  but a release-facing documentation pass should add a brief
-  `mosaic_settings()` example and NEWS entry there as a follow-up.
+- Do not touch `README.Rmd` and `NEWS.md`.
 
 ## Verification checklist
 
