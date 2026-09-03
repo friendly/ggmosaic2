@@ -36,9 +36,9 @@ A few things were done to alter the basic appearance of mosaics, both with and w
 
 ### Utilizing the top and right axes
 
-When three or more variables are used, the top (three or more variables) and right (four or more variables) axes will now be utilized. The figures compare the historical `haleyjeppson/ggmosaic` output (**Old**) with `friendly/ggmosaic2` 
+When three or more variables are used, the top (three or more variables) and right (four or more variables) axes will now be utilized. The figures compare the historical `haleyjeppson/ggmosaic` output (**Old**) with `friendly/ggmosaic2` (**New**); 
 
-(**New**); the current **ggmosaic2** syntax below declares its aesthetics globally:
+The current **ggmosaic2** syntax below declares its aesthetics globally:
 
 ```{r topright-code, eval=FALSE}
 HairEyeColor |>
@@ -124,7 +124,10 @@ where $d$ is the number of splits and $j = 1$ is the innermost split. `offset` r
 
 The old **ggmosaic** had an [issue](https://github.com/haleyjeppson/ggmosaic/issues/78) where facet labels would not be independently generated per panel:
 
-<!-- TODO: Consider whether the old behavior could be useful, i.e, only label Y axis categories in left panel -->
+<!-- TODO: Consider whether the old behavior could be useful, i.e, only label Y axis categories in left panel 
+
+        GK: Old behaviour would still be accessible through `facet_grid()` (as opposed to using the new `facet_mosaic_grid()`--though it might be worth seeing if an argument can be created for `facet_mosaic_grid()` to allow for independent generation of x axis category labels while keeping y axis category labels exclusively on the leftmost panels.
+-->
 
 ```{r facet-old-code, eval=FALSE}
 HairEyeColor |>
@@ -211,6 +214,10 @@ HairEyeColor |>
   scale_fill_residual(limits = c(-4,4)) +
   theme_mosaic(rot_labels = 30, legend.position = "bottom")
 ```
+
+<!--
+TODO: Add brief `mosaic_settings()` example/description
+-->
 
 <!-- 
 GK: We can continue writing here. The below is for the end of the vignette
