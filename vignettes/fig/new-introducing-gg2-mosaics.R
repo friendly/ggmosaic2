@@ -19,7 +19,7 @@ theme <- HairEyeColor |>
   as.data.frame() |>
   ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
   geom_mosaic() +
-  theme_mosaic() +
+  theme_mosaic(base_size = 12) +
   labs(title = "New") +
   theme(plot.title = element_text(face = "bold", hjust = .5, size = 32))
 
