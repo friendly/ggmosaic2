@@ -93,8 +93,8 @@ with and without the use of <code><a href="../reference/theme_mosaic.html">theme
 <p>When three or more variables are used, the top (three or more
 variables) and right (four or more variables) axes will now be utilized.
 The figures compare the historical <code>haleyjeppson/ggmosaic</code>
-output (<strong>Old</strong>) with <code>friendly/ggmosaic2</code>
-(<strong>New</strong>); the current <strong>ggmosaic2</strong> syntax
+output (<strong>Old</strong>) with <code>friendly/ggmosaic2</code></p>
+<p>(<strong>New</strong>); the current <strong>ggmosaic2</strong> syntax
 below declares its aesthetics globally:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
@@ -107,13 +107,22 @@ below declares its aesthetics globally:</p>
 <h3 id="theme_mosaic">
 <code>theme_mosaic()</code><a class="anchor" aria-label="anchor" href="#theme_mosaic"></a>
 </h3>
+<p>As with other <code>ggplot2</code> extensions, themes set the general
+look-and-feel of the plot such as the color of the background,
+gridlines, the size and color of fonts. <code><a href="../reference/theme_mosaic.html">theme_mosaic()</a></code>
+provides access to the regular ggplot2 theme, but: removes any
+background, axes ticks, most of the gridlines, and ensures an aspect
+ratio of 1 for better viewing of the mosaics. This theme also applies a
+<strong>bold</strong> face to axes labels and allows for the convenient
+rotation of category labels to avoid overlap.</p>
 <p>With <code><a href="../reference/theme_mosaic.html">theme_mosaic()</a></code> applied to the above:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="va">Eye</span>, <span class="va">Hair</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Hair</span>, weight <span class="op">=</span> <span class="va">Freq</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="../reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu"><a href="../reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+<!-- TODO: Replace the separately generated figures with one composed using patchwork or gridExtra. Already in  Suggests, either would work) -->
 <p><img src="fig/theme-old.png" class="r-plt" alt="" width="47%"><img src="fig/theme-new.png" class="r-plt" alt="" width="47%"></p>
 <p>Axis labels had a bold face applied to be consistent with mosaics
 made using <strong>vcd</strong> and <strong>vcdExtra</strong>. Axis
@@ -126,15 +135,19 @@ user-specified angle (in degrees):</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="../reference/product.html">product</a></span><span class="op">(</span><span class="va">Sex</span>, <span class="va">Eye</span>, <span class="va">Hair</span><span class="op">)</span>, fill <span class="op">=</span> <span class="va">Hair</span>, weight <span class="op">=</span> <span class="va">Freq</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="../reference/geom_mosaic.html">geom_mosaic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="../reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu"><a href="../reference/theme_mosaic.html">theme_mosaic</a></span><span class="op">(</span>rot_labels <span class="op">=</span> <span class="fl">30</span>, base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span></code></pre></div>
 <p><img src="introducing-ggmosaic2_files/figure-html/rot-labels-1.png" class="r-plt" alt="" width="86%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="spacing-of-cells">Spacing of cells<a class="anchor" aria-label="anchor" href="#spacing-of-cells"></a>
 </h3>
 <p>You might already have noticed that the innermost spacing of cells in
-mosaic displays has been increased in <strong>ggmosaic2</strong>.
-Re-using an example from “Utilizing the top and right axes,”
+mosaic displays has been increased in <strong>ggmosaic2</strong>. This
+is a perceptual feature of mosaic displays <span class="citation">(Friendly, 1994)</span>: wider gaps at the first splits
+make it easier and compare to see the frequencies of categories at
+different dimensions of the table in the order the mosaic is
+divided.</p>
+<p>Re-using an example from “Utilizing the top and right axes,”
 differentiating between cells is now easier:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
@@ -164,6 +177,7 @@ is the innermost split. <code>offset</code> remains at a default of
 </h2>
 <p>The old <strong>ggmosaic</strong> had an <a href="https://github.com/haleyjeppson/ggmosaic/issues/78" class="external-link">issue</a>
 where facet labels would not be independently generated per panel:</p>
+<!-- TODO: Consider whether the old behavior could be useful, i.e, only label Y axis categories in left panel -->
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">HairEyeColor</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -266,6 +280,17 @@ from <code>haleyjeppson/ggmosaic</code>)</li>
 <li>Fixed fill aesthetic automatically appearing in labels (<a href="https://github.com/haleyjeppson/ggmosaic/issues/39" class="external-link">issue #39</a>
 from <code>haleyjeppson/ggmosaic</code>)</li>
 </ul>
+</div>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-vcd:Friendly:1994" class="csl-entry">
+Friendly, M. (1994). Mosaic displays for multi-way contingency tables.
+<em>Journal of the American Statistical Association</em>, <em>89</em>,
+190–200.
+</div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

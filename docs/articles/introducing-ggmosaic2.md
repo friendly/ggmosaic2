@@ -32,8 +32,10 @@ with and without the use of
 When three or more variables are used, the top (three or more variables)
 and right (four or more variables) axes will now be utilized. The
 figures compare the historical `haleyjeppson/ggmosaic` output (**Old**)
-with `friendly/ggmosaic2` (**New**); the current **ggmosaic2** syntax
-below declares its aesthetics globally:
+with `friendly/ggmosaic2`
+
+(**New**); the current **ggmosaic2** syntax below declares its
+aesthetics globally:
 
 ``` r
 
@@ -47,6 +49,16 @@ HairEyeColor |>
 
 ### `theme_mosaic()`
 
+As with other `ggplot2` extensions, themes set the general look-and-feel
+of the plot such as the color of the background, gridlines, the size and
+color of fonts.
+[`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
+provides access to the regular ggplot2 theme, but: removes any
+background, axes ticks, most of the gridlines, and ensures an aspect
+ratio of 1 for better viewing of the mosaics. This theme also applies a
+**bold** face to axes labels and allows for the convenient rotation of
+category labels to avoid overlap.
+
 With
 [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
 applied to the above:
@@ -57,7 +69,7 @@ HairEyeColor |>
   as.data.frame() |>
   ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
     geom_mosaic() +
-    theme_mosaic()
+    theme_mosaic(base_size = 12)
 ```
 
 ![](fig/theme-old.png)![](fig/theme-new.png)
@@ -77,7 +89,7 @@ HairEyeColor |>
   as.data.frame() |>
   ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
     geom_mosaic() +
-    theme_mosaic(rot_labels = 30)
+    theme_mosaic(rot_labels = 30, base_size = 14)
 ```
 
 ![](introducing-ggmosaic2_files/figure-html/rot-labels-1.png)
@@ -85,9 +97,14 @@ HairEyeColor |>
 ### Spacing of cells
 
 You might already have noticed that the innermost spacing of cells in
-mosaic displays has been increased in **ggmosaic2**. Re-using an example
-from “Utilizing the top and right axes,” differentiating between cells
-is now easier:
+mosaic displays has been increased in **ggmosaic2**. This is a
+perceptual feature of mosaic displays (Friendly, 1994): wider gaps at
+the first splits make it easier and compare to see the frequencies of
+categories at different dimensions of the table in the order the mosaic
+is divided.
+
+Re-using an example from “Utilizing the top and right axes,”
+differentiating between cells is now easier:
 
 ``` r
 
@@ -251,3 +268,8 @@ HairEyeColor |>
 - Fixed fill aesthetic automatically appearing in labels ([issue
   \#39](https://github.com/haleyjeppson/ggmosaic/issues/39) from
   `haleyjeppson/ggmosaic`)
+
+## References
+
+Friendly, M. (1994). Mosaic displays for multi-way contingency tables.
+*Journal of the American Statistical Association*, *89*, 190–200.

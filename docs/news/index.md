@@ -82,6 +82,9 @@
   [`ggmosaic_app()`](https://friendly.github.io/ggmosaic2/reference/ggmosaic_app.md),
   kept only for the historical record.
 
+- The `introducing-ggmosaic2` vignette was edited for clarity and
+  detail.
+
 ## ggmosaic2 0.5.0
 
 `ggmosaic2` is a standalone continuation of `ggmosaic`, which was
