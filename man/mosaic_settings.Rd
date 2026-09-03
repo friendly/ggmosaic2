@@ -2,30 +2,35 @@
 % Please edit documentation in R/mosaic-settings.R
 \name{mosaic_settings}
 \alias{mosaic_settings}
-\title{Plot-scoped mosaic computation settings}
+\title{Settings for mosaic plot layers}
 \usage{
 mosaic_settings(divider, offset, expected)
 }
 \arguments{
-\item{divider}{Divider function, character divider name/vector, or divider
-list accepted by the mosaic layer constructors.}
+\item{divider}{A divider function, a character vector naming divider
+functions, or a list of divider functions.}
 
-\item{offset}{One finite, non-negative number specifying the fixed gap at
-the deepest split.}
+\item{offset}{A single non-negative number giving the gap at the deepest
+split. Gaps increase by a factor of 1.5 toward the outermost split.}
 
-\item{expected}{Optional loglinear model specification used by mosaic and
-text layers. Supply \code{NULL} to explicitly disable a previously supplied
-plot-level model, a formula, or one of \code{"independence"}, \code{"saturated"},
-or \code{"conditional"}.}
+\item{expected}{The log-linear model used to calculate expected frequencies
+and Pearson residuals. Supply a formula or one of \code{"independence"},
+\code{"saturated"}, or \code{"conditional"}. The conditional model requires one or
+more variables mapped to \code{conds}. Supply \code{NULL} to turn off model fitting,
+including a model set by an earlier call to \code{mosaic_settings()}.}
 }
 \value{
-A plot component that can be added to a ggplot with \code{+}.
+An object of class \code{"ggmosaic_settings"} that can be added to a
+ggplot with \code{+}.
 }
 \description{
-Share layout and model parameters across mosaic-family layers in one plot.
-Explicit arguments supplied to an individual layer override these settings.
-Settings can be added before or after the layers because they are resolved
-when the plot is built.
+Set the divider, gap size, and model used to calculate expected frequencies
+for mosaic layers in a plot. A value set directly in a layer takes priority.
+}
+\details{
+The position of \code{mosaic_settings()} among the layers in a plot has no
+effect. If it is added more than once, the last supplied value for each
+setting is used; omitted arguments do not change earlier settings.
 }
 \examples{
 data(titanic)
@@ -38,5 +43,11 @@ ggplot(titanic, aes(x = product(Class, Sex))) +
   ) +
   geom_mosaic() +
   geom_mosaic_text(display_values = "residual") +
-  scale_fill_residual()
+  scale_fill_residual() +
+  theme_mosaic()
+
+}
+\seealso{
+\code{\link[=geom_mosaic]{geom_mosaic()}}, \code{\link[=geom_mosaic_text]{geom_mosaic_text()}},
+\code{\link[=geom_mosaic_jitter]{geom_mosaic_jitter()}}, \code{\link[=mosaic]{mosaic()}}, and \code{\link[=ddecker]{ddecker()}}
 }

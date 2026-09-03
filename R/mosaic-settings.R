@@ -1,20 +1,28 @@
-#' Plot-scoped mosaic computation settings
+#' Settings for mosaic plot layers
 #'
-#' Share layout and model parameters across mosaic-family layers in one plot.
-#' Explicit arguments supplied to an individual layer override these settings.
-#' Settings can be added before or after the layers because they are resolved
-#' when the plot is built.
+#' Set the divider, gap size, and model used to calculate expected frequencies
+#' for mosaic layers in a plot. A value set directly in a layer takes priority.
 #'
-#' @param divider Divider function, character divider name/vector, or divider
-#'   list accepted by the mosaic layer constructors.
-#' @param offset One finite, non-negative number specifying the fixed gap at
-#'   the deepest split.
-#' @param expected Optional loglinear model specification used by mosaic and
-#'   text layers. Supply `NULL` to explicitly disable a previously supplied
-#'   plot-level model, a formula, or one of `"independence"`, `"saturated"`,
-#'   or `"conditional"`.
+#' @param divider A divider function, a character vector naming divider
+#'   functions, or a list of divider functions.
+#' @param offset A single non-negative number giving the gap at the deepest
+#'   split. Gaps increase by a factor of 1.5 toward the outermost split.
+#' @param expected The log-linear model used to calculate expected frequencies
+#'   and Pearson residuals. Supply a formula or one of `"independence"`,
+#'   `"saturated"`, or `"conditional"`. The conditional model requires one or
+#'   more variables mapped to `conds`. Supply `NULL` to turn off model fitting,
+#'   including a model set by an earlier call to `mosaic_settings()`.
 #'
-#' @return A plot component that can be added to a ggplot with `+`.
+#' @details
+#' The position of `mosaic_settings()` among the layers in a plot has no
+#' effect. If it is added more than once, the last supplied value for each
+#' setting is used; omitted arguments do not change earlier settings.
+#'
+#' @return An object of class `"ggmosaic_settings"` that can be added to a
+#'   ggplot with `+`.
+#'
+#' @seealso [geom_mosaic()], [geom_mosaic_text()],
+#'   [geom_mosaic_jitter()], [mosaic()], and [ddecker()]
 #' @export
 #'
 #' @examples
@@ -28,7 +36,10 @@
 #'   ) +
 #'   geom_mosaic() +
 #'   geom_mosaic_text(display_values = "residual") +
-#'   scale_fill_residual()
+#'   scale_fill_residual() +
+#'   theme_mosaic()
+#'
+
 mosaic_settings <- function(divider, offset, expected) {
   values <- list()
 
