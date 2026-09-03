@@ -11,6 +11,27 @@
   [`coord_flip()`](https://ggplot2.tidyverse.org/reference/coord_flip.html),
   manual product scales, margins, and residual shading.
 
+- Mosaic layers
+  ([`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
+  [`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md),
+  [`geom_mosaic_jitter()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_jitter.md))
+  now resolve their plot mapping at build time, like ordinary `ggplot2`
+  layers, so an
+  [`aes()`](https://ggplot2.tidyverse.org/reference/aes.html) mapping
+  added or changed after a mosaic layer has already been added is now
+  picked up correctly instead of being frozen at the point the layer was
+  added.
+
+- Added
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md)
+  for sharing `divider`, `offset`, and `expected` across sibling mosaic
+  layers in one plot, so multi-layer plots
+  (e.g. [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md) +
+  [`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md))
+  no longer need the same argument repeated on every layer. An explicit
+  layer argument, including `expected = NULL`, still overrides the
+  plot-level setting.
+
 - Improved Pearson residual shading: negative residuals are now dark red
   and positive residuals dark blue, with matching dashed/solid cell
   outlines (disable via `colour = NA`, or override
@@ -56,6 +77,10 @@
 - Fixed `inst/CITATION` for the `ggmosaic2` fork: retitled from
   `ggmosaic`, authors and year are now pulled from `DESCRIPTION` instead
   of hardcoded, and a broken multi-URL field is fixed.
+
+- Deprecated
+  [`ggmosaic_app()`](https://friendly.github.io/ggmosaic2/reference/ggmosaic_app.md),
+  kept only for the historical record.
 
 ## ggmosaic2 0.5.0
 
