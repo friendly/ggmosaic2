@@ -19,7 +19,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/friendly/ggmosaic2/blob/HEAD/inst/CITATION)
+[`inst/CITATION`](https://github.com/friendly/ggmosaic2/blob/master/inst/CITATION)
 
 Friendly M, Klorfine G, Jeppson H, Hofmann H, Cook D (2026). *ggmosaic2:
 Mosaic Plots in the 'ggplot2' Framework, Extended*. R package version
