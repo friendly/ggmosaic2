@@ -167,9 +167,9 @@ stat_mosaic(
 - expected:
 
   Optional specification for loglinear model residual shading. Can be a
-  formula (e.g., `~ Var1 + Var2`), a character shortcut
-  ("independence", "saturated", "conditional"), or NULL (default, no
-  model). When omitted, the value can be inherited from
+  formula (e.g., `~ Var1 + Var2`), a character shortcut ("independence",
+  "saturated", "conditional"), or NULL (default, no model). When
+  omitted, the value can be inherited from
   [`mosaic_settings`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
   An explicitly supplied layer value takes priority; in particular,
   `expected = NULL` turns off a plot-level model for that layer. When
