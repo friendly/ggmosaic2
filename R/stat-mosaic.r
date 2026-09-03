@@ -2,8 +2,9 @@
 #' @inheritParams ggplot2::stat_identity
 #' @param expected Optional loglinear model specification for residual shading.
 #'   Positive residuals receive a solid dark blue outline and negative
-#'   residuals a dashed dark red outline by default. Set \code{colour = NA} to
-#'   remove the outlines from both the cells and the residual legend.
+#'   residuals a dashed dark red outline by default. Residuals within numerical
+#'   tolerance of zero receive a solid black outline. Set \code{colour = NA}
+#'   to remove the outlines from both the cells and the residual legend.
 #'   See details in \code{\link{prodcalc}}.
 #' @section Computed variables:
 #' \describe{
@@ -48,9 +49,12 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
 
 
 # Default outlines for residual-shaded cells, determined by residual sign.
-residual_outline_aesthetics <- function(residual) {
-  positive <- !is.na(residual) & residual > 0
-  negative <- !is.na(residual) & residual < 0
+# Treat values within the usual floating-point comparison tolerance as zero so
+# numerical noise from otherwise exact fits does not receive a signed outline.
+residual_outline_aesthetics <- function(
+    residual, tolerance = sqrt(.Machine$double.eps)) {
+  positive <- !is.na(residual) & residual > tolerance
+  negative <- !is.na(residual) & residual < -tolerance
 
   colour <- rep("black", length(residual))
   colour[positive] <- "darkblue"

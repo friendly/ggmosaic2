@@ -37,9 +37,10 @@
 #'   When specified, Pearson residuals are calculated and automatically mapped to fill
 #'   (unless fill aesthetic is explicitly set). Use with \code{\link{scale_fill_residual}}
 #'   for a diverging color scale. Positive residuals receive a solid dark blue
-#'   outline and negative residuals a dashed dark red outline by default. Set
-#'   \code{colour = NA} to remove the outlines from both the cells and the
-#'   residual legend.
+#'   outline and negative residuals a dashed dark red outline by default.
+#'   Residuals within numerical tolerance of zero receive a solid black
+#'   outline. Set \code{colour = NA} to remove the outlines from both the cells
+#'   and the residual legend.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.
 #' @examples
 #'
