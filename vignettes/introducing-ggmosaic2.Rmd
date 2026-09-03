@@ -215,9 +215,23 @@ HairEyeColor |>
   theme_mosaic(rot_labels = 30, legend.position = "bottom")
 ```
 
-<!--
-TODO: Add brief `mosaic_settings()` example/description
--->
+## Sharing settings between mosaic layers
+
+When a plot contains multiple mosaic layers (e.g., `geom_mosaic()` and `geom_mosaic_text()`), `mosaic_settings()` can be used to set the `divider`, `offset`, and `expected` arguments once and share them across compatible layers. 
+
+In this example, rather than repeating `expected = "independence"` in each mosaic layer, we specify it once using `mosaic_settings()`:
+
+```{r mosaic-settings, fig.width=9, fig.height=7, dpi=300, fig.align='center', out.width='86%'}
+HairEyeColor |>
+  as.data.frame() |>
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
+  geom_mosaic_text(display_values = "residual",
+                   format_digits = 1) +
+  scale_fill_residual(limits = c(-4,4)) +
+  theme_mosaic(rot_labels = 30)
+```
 
 <!-- 
 GK: We can continue writing here. The below is for the end of the vignette
