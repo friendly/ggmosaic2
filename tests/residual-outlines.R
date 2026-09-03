@@ -22,11 +22,45 @@ stopifnot(
   all(default_data$linewidth == 0.4)
 )
 
-sign_check <- ggmosaic2:::residual_outline_aesthetics(c(-1e-12, 0, 1e-12))
+outline_tolerance <- sqrt(.Machine$double.eps)
+sign_check <- ggmosaic2:::residual_outline_aesthetics(c(
+  -2 * outline_tolerance,
+  -outline_tolerance,
+  -1e-12,
+  0,
+  1e-12,
+  outline_tolerance,
+  2 * outline_tolerance,
+  NA_real_
+))
 
 stopifnot(
-  identical(sign_check$colour, c("darkred", "black", "darkblue")),
-  identical(sign_check$linetype, c("dashed", "solid", "solid"))
+  identical(
+    sign_check$colour,
+    c("darkred", "black", "black", "black", "black", "black", "darkblue", "black")
+  ),
+  identical(
+    sign_check$linetype,
+    c("dashed", "solid", "solid", "solid", "solid", "solid", "solid", "solid")
+  )
+)
+
+# Saturated models can leave residuals a few orders of magnitude above machine
+# epsilon. These are computational noise and should receive neutral outlines,
+# including when a later plot-level setting replaces an earlier model.
+saturated_plot <- ggplot(outline_data) +
+  aes(weight = Freq, x = product(Hair, Eye, Sex)) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
+  geom_mosaic_text(colour = "black", display_values = "residual") +
+  scale_fill_residual(limits = c(-4, 4)) +
+  mosaic_settings(expected = "saturated")
+saturated_data <- ggplot_build(saturated_plot)$data[[1]]
+
+stopifnot(
+  all(abs(saturated_data$.residual) <= outline_tolerance),
+  all(saturated_data$colour == "black"),
+  all(saturated_data$linetype == "solid")
 )
 
 override_plot <- ggplot(outline_data) +
