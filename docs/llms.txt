@@ -244,6 +244,18 @@ students.](reference/figures/README-example-jitter-1.png)
 
 ## All functions
 
+- [`GeomMosaic`](https://friendly.github.io/ggmosaic2/reference/GeomMosaic.md)
+  : Geom proto
+- [`GeomMosaicJitter`](https://friendly.github.io/ggmosaic2/reference/GeomMosaicJitter.md)
+  : Geom proto
+- [`GeomMosaicText`](https://friendly.github.io/ggmosaic2/reference/GeomMosaicText.md)
+  : Geom proto
+- [`StatMosaic`](https://friendly.github.io/ggmosaic2/reference/StatMosaic.md)
+  : Geom proto
+- [`StatMosaicJitter`](https://friendly.github.io/ggmosaic2/reference/StatMosaicJitter.md)
+  : Geom proto
+- [`StatMosaicText`](https://friendly.github.io/ggmosaic2/reference/StatMosaicText.md)
+  : Geom proto
 - [`ddecker()`](https://friendly.github.io/ggmosaic2/reference/ddecker.md)
   : Template for a double decker plot. A double decker plot is composed
   of a sequence of spines in the same direction, with the final spine in
@@ -252,12 +264,6 @@ students.](reference/figures/README-example-jitter-1.png)
   : Facet mosaic plots with panel-specific axes
 - [`fly`](https://friendly.github.io/ggmosaic2/reference/fly.md) :
   Flying Etiquette Survey Data
-- [`GeomMosaic`](https://friendly.github.io/ggmosaic2/reference/GeomMosaic.md)
-  : Geom proto
-- [`GeomMosaicJitter`](https://friendly.github.io/ggmosaic2/reference/GeomMosaicJitter.md)
-  : Geom proto
-- [`GeomMosaicText`](https://friendly.github.io/ggmosaic2/reference/GeomMosaicText.md)
-  : Geom proto
 - [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
   [`stat_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
   [`stat_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
@@ -295,12 +301,6 @@ students.](reference/figures/README-example-jitter-1.png)
   Spine partition: divide longest dimension.
 - [`squeeze()`](https://friendly.github.io/ggmosaic2/reference/squeeze.md)
   : Internal helper function
-- [`StatMosaic`](https://friendly.github.io/ggmosaic2/reference/StatMosaic.md)
-  : Geom proto
-- [`StatMosaicJitter`](https://friendly.github.io/ggmosaic2/reference/StatMosaicJitter.md)
-  : Geom proto
-- [`StatMosaicText`](https://friendly.github.io/ggmosaic2/reference/StatMosaicText.md)
-  : Geom proto
 - [`theme_mosaic`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
   : Theme for mosaic plots
 - [`titanic`](https://friendly.github.io/ggmosaic2/reference/titanic.md)

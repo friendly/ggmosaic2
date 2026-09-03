@@ -1,6 +1,7 @@
 # Three Forms of Frequency Tables for Mosaic Displays
 
 ``` r
+
 library(ggmosaic2)
 library(vcdExtra)
 library(dplyr)
@@ -16,7 +17,9 @@ visualization and analysis with mosaic plots. This vignette illustrates:
 1.  **The three forms** of frequency tables (table form, frequency form,
     and case form)
 2.  **Conversions** between these forms
-3.  **Using `geom_mosaic()`** with each form
+3.  **Using
+    [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)**
+    with each form
 4.  **Comparing** default shading vs. residual-based shading from
     loglinear models
 
@@ -38,9 +41,11 @@ contain cell frequencies - Dimension names provide variable and level
 information
 
 This is the most compact representation and the natural output from
-`table()` and `xtabs()`.
+[`table()`](https://rdrr.io/r/base/table.html) and
+[`xtabs()`](https://rdrr.io/r/stats/xtabs.html).
 
 ``` r
+
 # HairEyeColor is already in table form
 str(HairEyeColor)
 #>  'table' num [1:4, 1:4, 1:2] 32 53 10 3 11 50 10 30 10 25 ...
@@ -80,12 +85,15 @@ The `HairEyeColor` dataset is a 4 × 4 × 2 contingency table with 592
 observations classified by hair color, eye color, and sex.
 
 Table form can also be displayed as a heatmap-style **color table**,
-using `vcdExtra::color_table()`, which shades each cell background by
-its frequency. This gives a quick visual sense of where the data are
-concentrated, as a complement to the mosaic plots introduced below –
-useful for readers less familiar with reading mosaic displays.
+using
+[`vcdExtra::color_table()`](https://friendly.github.io/vcdExtra/reference/color_table.html),
+which shades each cell background by its frequency. This gives a quick
+visual sense of where the data are concentrated, as a complement to the
+mosaic plots introduced below – useful for readers less familiar with
+reading mosaic displays.
 
 ``` r
+
 color_table(HairEyeColor, shade = "freq")
 ```
 
@@ -99,9 +107,11 @@ coordinates - A frequency column (typically `Freq`) contains the count
 for that cell - Total observations = `sum(df$Freq)`
 
 This form is convenient for modeling and is the output from
-`as.data.frame()` applied to tables.
+[`as.data.frame()`](https://rdrr.io/r/base/as.data.frame.html) applied
+to tables.
 
 ``` r
+
 # Convert table to frequency form
 hair_freq <- as.data.frame(HairEyeColor)
 head(hair_freq, 10)
@@ -124,9 +134,10 @@ sum(hair_freq$Freq)
 #> [1] 592
 ```
 
-Frequency form is ideal for: - Input to modeling functions (`glm()`,
-`loglm()`, etc.) - Filtering specific cells or combinations - Adding
-derived variables - Use with `ggplot2` via the `weight` aesthetic
+Frequency form is ideal for: - Input to modeling functions
+([`glm()`](https://rdrr.io/r/stats/glm.html), `loglm()`, etc.) -
+Filtering specific cells or combinations - Adding derived variables -
+Use with `ggplot2` via the `weight` aesthetic
 
 ### Case Form
 
@@ -139,6 +150,7 @@ This is the “raw data” format and most intuitive for those familiar with
 data collection.
 
 ``` r
+
 # Convert frequency form to case form using vcdExtra::expand.dft()
 hair_case <- expand.dft(hair_freq, freq = "Freq")
 head(hair_case, 10)
@@ -171,11 +183,11 @@ Each observation represents one subject - No need to aggregate
 
 The table below summarizes conversion functions:
 
-| From → To     | Table                | Frequency            | Case           |
-|---------------|----------------------|----------------------|----------------|
-| **Table**     | —                    | `as.data.frame()`    | `expand.dft()` |
-| **Frequency** | `xtabs(Freq ~ ...)`  | —                    | `expand.dft()` |
-| **Case**      | `table()`, `xtabs()` | `count()`, `xtabs()` | —              |
+| From → To | Table | Frequency | Case |
+|----|----|----|----|
+| **Table** | — | [`as.data.frame()`](https://rdrr.io/r/base/as.data.frame.html) | [`expand.dft()`](https://friendly.github.io/vcdExtra/reference/expand.dft.html) |
+| **Frequency** | `xtabs(Freq ~ ...)` | — | [`expand.dft()`](https://friendly.github.io/vcdExtra/reference/expand.dft.html) |
+| **Case** | [`table()`](https://rdrr.io/r/base/table.html), [`xtabs()`](https://rdrr.io/r/stats/xtabs.html) | [`count()`](https://dplyr.tidyverse.org/reference/count.html), [`xtabs()`](https://rdrr.io/r/stats/xtabs.html) | — |
 
 **Note**: These conversions are clearly untidy and hard to remember
 which to use. They have now been implemented in a collection of
@@ -185,6 +197,7 @@ the desired form.
 ### Examples
 
 ``` r
+
 # Case → Frequency (count occurrences)
 hair_case |>
   count(Hair, Eye, Sex, name = "Freq") |>
@@ -211,9 +224,11 @@ identical(hair_table, HairEyeColor)
 ### Working with the Three-Way Table: Hair × Eye × Sex
 
 Let’s demonstrate how to use each of the three forms with
-`geom_mosaic()` using the full `HairEyeColor` dataset.
+[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
+using the full `HairEyeColor` dataset.
 
 ``` r
+
 # From frequency form (most common)
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye, Sex), fill = Eye)) +
@@ -222,9 +237,10 @@ ggplot(data = hair_freq,
        subtitle = "Frequency form with weight aesthetic")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/mosaic-3way-frequency-1.png)
+![](frequency-table-forms_files/figure-html/mosaic-3way-frequency-1.png)
 
 ``` r
+
 # From case form
 ggplot(data = hair_case,
        aes(x = product(Hair, Eye, Sex), fill = Eye)) +
@@ -233,20 +249,23 @@ ggplot(data = hair_case,
        subtitle = "Case form without weight")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/mosaic-3way-case-1.png)
+![](frequency-table-forms_files/figure-html/mosaic-3way-case-1.png)
 
 Both forms produce identical plots. The key difference: - **Frequency
 form**: Use `weight = Freq` in the aesthetic - **Case form**: No weight
 needed (each row counts as 1)
 
 Note: Table form data must first be converted to frequency form using
-`as.data.frame()` before use with `geom_mosaic()`.
+[`as.data.frame()`](https://rdrr.io/r/base/as.data.frame.html) before
+use with
+[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md).
 
 #### Using Conditioning Variables
 
 The `conds` aesthetic allows you to condition on one or more variables:
 
 ``` r
+
 # Condition on Sex
 ggplot(data = hair_freq,
        aes(weight = Freq,
@@ -258,7 +277,7 @@ ggplot(data = hair_freq,
        subtitle = "Conditioned on Sex")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/mosaic-conds-1.png)
+![](frequency-table-forms_files/figure-html/mosaic-conds-1.png)
 
 ## Default Shading vs. Residual-Based Shading
 
@@ -269,10 +288,13 @@ statistically meaningful.
 
 ### Default Shading
 
-By default, `geom_mosaic()` uses the `fill` aesthetic to color tiles,
-typically showing one of the categorical variables:
+By default,
+[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
+uses the `fill` aesthetic to color tiles, typically showing one of the
+categorical variables:
 
 ``` r
+
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
   geom_mosaic() +
@@ -280,7 +302,7 @@ ggplot(data = hair_freq,
        subtitle = "Fill shows Eye color levels")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/default-shading-1.png)
+![](frequency-table-forms_files/figure-html/default-shading-1.png)
 
 This clearly shows the marginal and conditional distributions, but
 doesn’t tell us whether associations are statistically significant.
@@ -307,6 +329,7 @@ For a two-way table, we can visualize just Hair and Eye color. The most
 common model is **independence** (main effects only):
 
 ``` r
+
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye))) +
   geom_mosaic(expected = "independence") +
@@ -315,7 +338,7 @@ ggplot(data = hair_freq,
        subtitle = "Blue = more than expected, Red = fewer than expected")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/residual-2way-1.png)
+![](frequency-table-forms_files/figure-html/residual-2way-1.png)
 
 The residual shading reveals: - **Blue tiles** (positive residuals):
 Black hair with brown eyes, blond hair with blue eyes occur more
@@ -327,9 +350,10 @@ and eye color
 #### Adding Cell Values
 
 We can display the actual residual values in each cell using
-`geom_mosaic_text()`:
+[`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md):
 
 ``` r
+
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye))) +
   geom_mosaic(expected = "independence") +
@@ -343,7 +367,7 @@ ggplot(data = hair_freq,
        subtitle = "Numbers show Pearson residuals")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/residual-labels-1.png)
+![](frequency-table-forms_files/figure-html/residual-labels-1.png)
 
 Values greater than 2 in absolute value indicate significant departures
 from independence.
@@ -354,6 +378,7 @@ For the three-way table, the independence model tests whether all three
 variables are mutually independent:
 
 ``` r
+
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye, Sex))) +
   geom_mosaic(expected = "independence") +
@@ -362,7 +387,7 @@ ggplot(data = hair_freq,
        subtitle = "Model: ~ Hair + Eye + Sex (no interactions)")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/residual-3way-1.png)
+![](frequency-table-forms_files/figure-html/residual-3way-1.png)
 
 #### Custom Models
 
@@ -370,6 +395,7 @@ You can specify custom loglinear models using formula syntax. For
 example, testing whether the Hair-Eye association differs by Sex:
 
 ``` r
+
 # Model: Hair and Eye are associated, but independent of Sex
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye, Sex))) +
@@ -379,7 +405,7 @@ ggplot(data = hair_freq,
        subtitle = "~ Hair * Eye + Sex")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/custom-model-1.png)
+![](frequency-table-forms_files/figure-html/custom-model-1.png)
 
 Residuals close to zero suggest this model fits reasonably well—the
 Hair-Eye association is similar for males and females.
@@ -389,6 +415,7 @@ Hair-Eye association is similar for males and females.
 We can also display the expected counts under a model:
 
 ``` r
+
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye))) +
   geom_mosaic(expected = "independence") +
@@ -402,11 +429,12 @@ ggplot(data = hair_freq,
        subtitle = "Compare with observed to see associations")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/expected-values-1.png)
+![](frequency-table-forms_files/figure-html/expected-values-1.png)
 
 And the observed counts:
 
 ``` r
+
 ggplot(data = hair_freq,
        aes(weight = Freq, x = product(Hair, Eye))) +
   geom_mosaic(aes(fill = Eye)) +
@@ -418,7 +446,7 @@ ggplot(data = hair_freq,
        subtitle = "Actual counts in each cell")
 ```
 
-![](C:/Users/friendly/Dropbox/R/projects/ggmosaic2/docs/articles/frequency-table-forms_files/figure-html/observed-values-1.png)
+![](frequency-table-forms_files/figure-html/observed-values-1.png)
 
 ## Summary
 
@@ -431,10 +459,16 @@ ggplot(data = hair_freq,
       `ggplot2`
     - **Case form**: Intuitive, represents raw individual-level data
 2.  **Converting between forms** is straightforward:
-    - Use `as.data.frame()` for table → frequency
-    - Use `expand.dft()` for frequency → case
-    - Use `xtabs()` or `table()` for case/frequency → table
-3.  **Using with `geom_mosaic()`**:
+    - Use [`as.data.frame()`](https://rdrr.io/r/base/as.data.frame.html)
+      for table → frequency
+    - Use
+      [`expand.dft()`](https://friendly.github.io/vcdExtra/reference/expand.dft.html)
+      for frequency → case
+    - Use [`xtabs()`](https://rdrr.io/r/stats/xtabs.html) or
+      [`table()`](https://rdrr.io/r/base/table.html) for case/frequency
+      → table
+3.  **Using with
+    [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)**:
     - Table/frequency forms require `weight = Freq`
     - Case form works directly (no weight)
     - All forms produce identical visualizations
@@ -451,11 +485,14 @@ ggplot(data = hair_freq,
 
 - **For visualization**: Frequency form with `weight` aesthetic is most
   flexible
-- **For modeling**: Frequency form works with `glm()`, `loglm()`, etc.
+- **For modeling**: Frequency form works with
+  [`glm()`](https://rdrr.io/r/stats/glm.html), `loglm()`, etc.
 - **For raw data**: Case form is most intuitive
-- **For residual plots**: Always use `scale_fill_residual()` and
-  consider adding `geom_mosaic_text()` with
-  `display_values = "residual"`
+- **For residual plots**: Always use
+  [`scale_fill_residual()`](https://friendly.github.io/ggmosaic2/reference/scale_fill_residual.md)
+  and consider adding
+  [`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md)
+  with `display_values = "residual"`
 
 ## References
 
@@ -474,53 +511,56 @@ ggplot(data = hair_freq,
 ## Session Info
 
 ``` r
+
 sessionInfo()
-#> R version 4.5.2 (2025-10-31 ucrt)
-#> Platform: x86_64-w64-mingw32/x64
-#> Running under: Windows 11 x64 (build 22631)
+#> R version 4.6.1 (2026-06-24)
+#> Platform: x86_64-pc-linux-gnu
+#> Running under: Ubuntu 24.04.4 LTS
 #> 
 #> Matrix products: default
-#>   LAPACK version 3.12.1
+#> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 #> 
 #> locale:
-#> [1] LC_COLLATE=English_Canada.utf8  LC_CTYPE=English_Canada.utf8   
-#> [3] LC_MONETARY=English_Canada.utf8 LC_NUMERIC=C                   
-#> [5] LC_TIME=English_Canada.utf8    
+#>  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+#>  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+#>  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+#> [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 #> 
-#> time zone: America/Toronto
-#> tzcode source: internal
+#> time zone: UTC
+#> tzcode source: system (glibc)
 #> 
 #> attached base packages:
 #> [1] grid      stats     graphics  grDevices utils     datasets  methods  
 #> [8] base     
 #> 
 #> other attached packages:
-#> [1] dplyr_1.2.1     vcdExtra_0.9.6  gnm_1.1-5       vcd_1.4-13     
+#> [1] dplyr_1.2.1     vcdExtra_0.9.8  gnm_1.1-5       vcd_1.4-14     
 #> [5] ggmosaic2_0.5.1 ggplot2_4.0.3  
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] gtable_0.3.6        xfun_0.59           bslib_0.11.0       
+#>  [1] gtable_0.3.6        xfun_0.60           bslib_0.12.0       
 #>  [4] htmlwidgets_1.6.4   websocket_1.4.4     ggrepel_0.9.8      
 #>  [7] processx_3.9.0      lattice_0.22-9      vctrs_0.7.3        
-#> [10] tools_4.5.2         generics_0.1.4      tibble_3.3.1       
-#> [13] ca_0.71.1           pkgconfig_2.0.3     Matrix_1.7-5       
-#> [16] data.table_1.18.4   RColorBrewer_1.1-3  S7_0.2.2           
-#> [19] desc_1.4.3          gt_1.3.0            lifecycle_1.0.5    
-#> [22] compiler_4.5.2      farver_2.1.2        textshaping_1.0.5  
-#> [25] chromote_0.5.1      htmltools_0.5.9     sass_0.4.10        
-#> [28] yaml_2.3.12         lazyeval_0.2.3      plotly_4.12.0      
-#> [31] pillar_1.11.1       pkgdown_2.2.0       later_1.4.8        
+#> [10] tools_4.6.1         ps_1.9.3            generics_0.1.4     
+#> [13] tibble_3.3.1        ca_0.71.1           pkgconfig_2.0.3    
+#> [16] Matrix_1.7-5        data.table_1.18.6.1 RColorBrewer_1.1-3 
+#> [19] S7_0.2.2            desc_1.4.3          gt_1.3.0           
+#> [22] lifecycle_1.0.5     compiler_4.6.1      farver_2.1.2       
+#> [25] textshaping_1.0.5   chromote_0.5.1      htmltools_0.5.9    
+#> [28] sass_0.4.10         yaml_2.3.12         plotly_4.12.1      
+#> [31] pillar_1.11.1       pkgdown_2.2.1       later_1.4.8        
 #> [34] jquerylib_0.1.4     tidyr_1.3.2         MASS_7.3-65        
-#> [37] cachem_1.1.0        webshot2_0.1.2.9000 tidyselect_1.2.1   
+#> [37] cachem_1.1.0        webshot2_0.1.2      tidyselect_1.2.1   
 #> [40] digest_0.6.39       purrr_1.2.2         qvcalc_1.0.4       
-#> [43] forcats_1.0.1       fastmap_1.2.0       colorspace_2.1-2   
+#> [43] forcats_1.0.1       fastmap_1.2.0       colorspace_2.1-3   
 #> [46] cli_3.6.6           magrittr_2.0.5      productplots_0.1.2 
-#> [49] dichromat_2.0-0.1   relimp_1.0-5        withr_3.0.3        
-#> [52] scales_1.4.0        promises_1.5.0      rmarkdown_2.31     
-#> [55] httr_1.4.8          otel_0.2.0          nnet_7.3-20        
-#> [58] ragg_1.5.2          zoo_1.8-15          evaluate_1.0.5     
-#> [61] knitr_1.51          lmtest_0.9-40       viridisLite_0.4.3  
-#> [64] rlang_1.2.0         Rcpp_1.1.1-1.1      glue_1.8.1         
-#> [67] xml2_1.6.0          jsonlite_2.0.0      R6_2.6.1           
-#> [70] plyr_1.8.9          systemfonts_1.3.2   fs_2.1.0
+#> [49] relimp_1.0-5        withr_3.0.3         scales_1.4.0       
+#> [52] promises_1.5.0      rmarkdown_2.32      httr_1.4.9         
+#> [55] otel_0.2.0          nnet_7.3-20         ragg_1.5.2         
+#> [58] zoo_1.9-0           evaluate_1.0.5      knitr_1.51         
+#> [61] lmtest_0.9-40       viridisLite_0.4.3   rlang_1.3.0        
+#> [64] Rcpp_1.1.2          glue_1.8.1          xml2_1.6.0         
+#> [67] jsonlite_2.0.0      R6_2.6.1            plyr_1.8.9         
+#> [70] systemfonts_1.3.2   fs_2.1.0
 ```

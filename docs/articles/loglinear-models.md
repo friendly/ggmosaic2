@@ -445,20 +445,22 @@ Each model tells a different story about the associations in the data.
 ``` r
 
 sessionInfo()
-#> R version 4.5.2 (2025-10-31 ucrt)
-#> Platform: x86_64-w64-mingw32/x64
-#> Running under: Windows 11 x64 (build 22631)
+#> R version 4.6.1 (2026-06-24)
+#> Platform: x86_64-pc-linux-gnu
+#> Running under: Ubuntu 24.04.4 LTS
 #> 
 #> Matrix products: default
-#>   LAPACK version 3.12.1
+#> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 #> 
 #> locale:
-#> [1] LC_COLLATE=English_Canada.utf8  LC_CTYPE=English_Canada.utf8   
-#> [3] LC_MONETARY=English_Canada.utf8 LC_NUMERIC=C                   
-#> [5] LC_TIME=English_Canada.utf8    
+#>  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+#>  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+#>  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+#> [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 #> 
-#> time zone: America/Toronto
-#> tzcode source: internal
+#> time zone: UTC
+#> tzcode source: system (glibc)
 #> 
 #> attached base packages:
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -467,18 +469,22 @@ sessionInfo()
 #> [1] dplyr_1.2.1     ggmosaic2_0.5.1 ggplot2_4.0.3  
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] plotly_4.12.0      sass_0.4.10        generics_0.1.4     tidyr_1.3.2       
-#>  [5] productplots_0.1.2 digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5    
-#>  [9] grid_4.5.2         RColorBrewer_1.1-3 fastmap_1.2.0      plyr_1.8.9        
-#> [13] jsonlite_2.0.0     ggrepel_0.9.8      httr_1.4.8         purrr_1.2.2       
-#> [17] viridisLite_0.4.3  scales_1.4.0       lazyeval_0.2.3     textshaping_1.0.5 
-#> [21] jquerylib_0.1.4    cli_3.6.6          rlang_1.2.0        withr_3.0.3       
-#> [25] cachem_1.1.0       yaml_2.3.12        otel_0.2.0         tools_4.5.2       
-#> [29] vctrs_0.7.3        R6_2.6.1           lifecycle_1.0.5    fs_2.1.0          
-#> [33] htmlwidgets_1.6.4  ragg_1.5.2         pkgconfig_2.0.3    desc_1.4.3        
-#> [37] pkgdown_2.2.0      pillar_1.11.1      bslib_0.11.0       gtable_0.3.6      
-#> [41] glue_1.8.1         data.table_1.18.4  Rcpp_1.1.1-1.1     systemfonts_1.3.2 
-#> [45] xfun_0.59          tibble_3.3.1       tidyselect_1.2.1   knitr_1.51        
-#> [49] dichromat_2.0-0.1  farver_2.1.2       htmltools_0.5.9    rmarkdown_2.31    
-#> [53] labeling_0.4.3     compiler_4.5.2     S7_0.2.2
+#>  [1] gtable_0.3.6        jsonlite_2.0.0      compiler_4.6.1     
+#>  [4] Rcpp_1.1.2          tidyselect_1.2.1    tidyr_1.3.2        
+#>  [7] jquerylib_0.1.4     productplots_0.1.2  systemfonts_1.3.2  
+#> [10] scales_1.4.0        textshaping_1.0.5   yaml_2.3.12        
+#> [13] fastmap_1.2.0       plyr_1.8.9          R6_2.6.1           
+#> [16] labeling_0.4.3      generics_0.1.4      knitr_1.51         
+#> [19] htmlwidgets_1.6.4   ggrepel_0.9.8       tibble_3.3.1       
+#> [22] desc_1.4.3          bslib_0.12.0        pillar_1.11.1      
+#> [25] RColorBrewer_1.1-3  rlang_1.3.0         cachem_1.1.0       
+#> [28] xfun_0.60           fs_2.1.0            sass_0.4.10        
+#> [31] S7_0.2.2            otel_0.2.0          viridisLite_0.4.3  
+#> [34] plotly_4.12.1       cli_3.6.6           pkgdown_2.2.1      
+#> [37] withr_3.0.3         magrittr_2.0.5      digest_0.6.39      
+#> [40] grid_4.6.1          lifecycle_1.0.5     vctrs_0.7.3        
+#> [43] data.table_1.18.6.1 evaluate_1.0.5      glue_1.8.1         
+#> [46] farver_2.1.2        ragg_1.5.2          purrr_1.2.2        
+#> [49] httr_1.4.9          rmarkdown_2.32      tools_4.6.1        
+#> [52] pkgconfig_2.0.3     htmltools_0.5.9
 ```
