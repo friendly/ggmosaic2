@@ -171,3 +171,6 @@ ggplot(data = titanic, aes(x = product(Class, Sex))) +
   geom_mosaic_jitter(
               divider = c("vspine", "hspine", "hspine"))
 }
+\author{
+Gavin Klorfine
+}

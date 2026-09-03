@@ -13,6 +13,7 @@
 #' @inheritParams ggplot2::facet_grid
 #'
 #' @return A `Facet` object that can be added to a ggplot.
+#' @author Gavin Klorfine
 #' @export
 #'
 #' @examples

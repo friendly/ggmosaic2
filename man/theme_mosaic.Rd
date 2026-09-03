@@ -8,7 +8,7 @@
 
 \item{base_family}{Base font family. Defaults to \code{""}, which uses the graphics device's default font family.}
 
-\item{rot_labels}{The angle (in degrees) used to rotate category labels. Defaults to 0 degrees.}
+\item{rot_labels}{The angle (in degrees) used to rotate category labels. Defaults to 0 degrees, relative to the current axis orientation.}
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:theme]{ggplot2::theme()}}. These are applied after
 the mosaic theme defaults and can therefore override them.}
@@ -21,6 +21,9 @@ any background, axes ticks, most of the gridlines, and ensures an aspect
 ratio of 1 for better viewing of the mosaics. This theme also applies a bold
 face to axes labels and allows for the convenient rotation of category labels.
 }
+\details{
+As with other \code{ggplot2} extensions, themes set the general look-and-feel of the plot such as the color of the background, gridlines, the size and color of fonts. \code{theme_mosaic()} provides access to the regular ggplot2 theme, but: removes any background, axes ticks, most of the gridlines, and ensures an aspect ratio of 1 for better viewing of the mosaics. This theme also applies a \strong{bold} face to axes labels and allows for the convenient rotation of category labels to avoid overlap
+}
 \examples{
 library(ggmosaic2)
 data(happy)
@@ -29,4 +32,7 @@ ggplot(data = happy,
   geom_mosaic(na.rm = TRUE) +
   theme_mosaic()
 
+}
+\author{
+Gavin Klorfine
 }

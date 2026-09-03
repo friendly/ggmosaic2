@@ -28,6 +28,7 @@
 #'   geom_mosaic(na.rm = TRUE) +
 #'   theme_mosaic()
 #'
+#' @author Gavin Klorfine
 #' @name theme_mosaic
 NULL
 #' @export

@@ -23,6 +23,7 @@
 #'
 #' @seealso [geom_mosaic()], [geom_mosaic_text()],
 #'   [geom_mosaic_jitter()], [mosaic()], and [ddecker()]
+#' @author Gavin Klorfine
 #' @export
 #'
 #' @examples

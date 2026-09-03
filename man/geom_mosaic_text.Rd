@@ -186,3 +186,6 @@ ggplot(data = titanic, aes(x = product(Class, Sex))) +
                    format_digits = 1)
 
 }
+\author{
+Gavin Klorfine
+}

@@ -51,3 +51,6 @@ ggplot(titanic, aes(x = product(Class, Sex))) +
 \code{\link[=geom_mosaic]{geom_mosaic()}}, \code{\link[=geom_mosaic_text]{geom_mosaic_text()}},
 \code{\link[=geom_mosaic_jitter]{geom_mosaic_jitter()}}, \code{\link[=mosaic]{mosaic()}}, and \code{\link[=ddecker]{ddecker()}}
 }
+\author{
+Gavin Klorfine
+}

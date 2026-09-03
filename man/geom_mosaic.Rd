@@ -308,3 +308,6 @@ ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
   scale_fill_residual()
 } # end of don't run
 }
+\author{
+Gavin Klorfine
+}

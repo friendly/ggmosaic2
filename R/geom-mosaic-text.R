@@ -1,5 +1,6 @@
 #' Labeling for Mosaic plots.
 #'
+#' @author Gavin Klorfine
 #' @export
 #'
 #' @description

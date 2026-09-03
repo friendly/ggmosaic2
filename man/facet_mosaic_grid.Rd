@@ -113,3 +113,6 @@ ggplot(facet_data,
   geom_mosaic() +
   facet_mosaic_grid(cols = vars(period))
 }
+\author{
+Gavin Klorfine
+}

@@ -81,3 +81,6 @@ ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
   geom_mosaic(expected = ~ Class + Sex) +
   scale_fill_residual(limits = c(-4, 4))
 }
+\author{
+Gavin Klorfine
+}
