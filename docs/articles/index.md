@@ -14,7 +14,8 @@
 
 ### Legacy
 
-The original ggmosaic vignette, inherited as-is from the fork
+The original ggmosaic vignette, inherited as-is from the fork, no longer
+maintained
 
 - [Mosaic plots with
   \`ggplot2\`](https://friendly.github.io/ggmosaic2/articles/ggmosaic.md):

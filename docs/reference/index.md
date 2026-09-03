@@ -97,12 +97,16 @@ above)
 
 ## Templates & apps
 
+[`ggmosaic_app()`](https://friendly.github.io/ggmosaic2/reference/ggmosaic_app.md)
+is deprecated, inherited as-is from `ggmosaic` for the historical record
+only
+
 - [`ddecker()`](https://friendly.github.io/ggmosaic2/reference/ddecker.md)
   : Template for a double decker plot. A double decker plot is composed
   of a sequence of spines in the same direction, with the final spine in
   the opposite direction.
 - [`ggmosaic_app()`](https://friendly.github.io/ggmosaic2/reference/ggmosaic_app.md)
-  : Launch shiny app
+  : Launch shiny app (deprecated)
 
 ## Data
 
