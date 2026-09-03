@@ -1,3 +1,7 @@
+# Moved from inst/nhanes.R because this historical exploratory script depends
+# on the archived NHANES package and the former ggmosaic package. Keeping it
+# under dev/old preserves it without shipping it or requiring NHANES for checks.
+
 library(NHANES)
 library(ggplot2)
 library(ggmosaic)
