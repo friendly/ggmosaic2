@@ -18,13 +18,7 @@ in a contingency table and is composed of spines in alternating directions."><me
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/frequency-table-forms.html">Three Forms of Frequency Tables for Mosaic Displays</a></li>
-    <li><a class="dropdown-item" href="../articles/ggmosaic.html">Mosaic plots with `ggplot2`</a></li>
-    <li><a class="dropdown-item" href="../articles/introducing-ggmosaic2.html">Introducing ggmosaic2: an enhanced ggmosaic</a></li>
-    <li><a class="dropdown-item" href="../articles/loglinear-models.html">ggmosaic and Loglinear Models</a></li>
-  </ul></li>
+<li class="nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -37,7 +31,7 @@ in a contingency table and is composed of spines in alternating directions."><me
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Mosaic plots.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/master/R/geom-mosaic.r" class="external-link"><code>R/geom-mosaic.r</code></a>, <a href="https://github.com/friendly/ggmosaic2/blob/master/R/stat-mosaic-text.R" class="external-link"><code>R/stat-mosaic-text.R</code></a>, <a href="https://github.com/friendly/ggmosaic2/blob/master/R/stat-mosaic.r" class="external-link"><code>R/stat-mosaic.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/R/geom-mosaic.r" class="external-link"><code>R/geom-mosaic.r</code></a>, <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/R/stat-mosaic-text.R" class="external-link"><code>R/stat-mosaic-text.R</code></a>, <a href="https://github.com/friendly/ggmosaic2/blob/HEAD/R/stat-mosaic.r" class="external-link"><code>R/stat-mosaic.r</code></a></small>
       <div class="d-none name"><code>geom_mosaic.Rd</code></div>
     </div>
 
@@ -179,8 +173,9 @@ the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.or
 <dt id="arg-expected">expected<a class="anchor" aria-label="anchor" href="#arg-expected"></a></dt>
 <dd><p>Optional loglinear model specification for residual shading.
 Positive residuals receive a solid dark blue outline and negative
-residuals a dashed dark red outline by default. Set <code>colour = NA</code> to
-remove the outlines from both the cells and the residual legend.
+residuals a dashed dark red outline by default. Residuals within numerical
+tolerance of zero receive a solid black outline. Set <code>colour = NA</code>
+to remove the outlines from both the cells and the residual legend.
 See details in <code><a href="prodcalc.html">prodcalc</a></code>.</p></dd>
 
 
@@ -390,7 +385,7 @@ on the primary x axis.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

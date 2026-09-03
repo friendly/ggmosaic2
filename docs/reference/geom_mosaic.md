@@ -163,8 +163,10 @@ stat_mosaic(
 
   Optional loglinear model specification for residual shading. Positive
   residuals receive a solid dark blue outline and negative residuals a
-  dashed dark red outline by default. Set `colour = NA` to remove the
-  outlines from both the cells and the residual legend. See details in
+  dashed dark red outline by default. Residuals within numerical
+  tolerance of zero receive a solid black outline. Set `colour = NA` to
+  remove the outlines from both the cells and the residual legend. See
+  details in
   [`prodcalc`](https://friendly.github.io/ggmosaic2/reference/prodcalc.md).
 
 - ...:
