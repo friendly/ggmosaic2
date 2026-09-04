@@ -1,9 +1,6 @@
 # Plan for merging `master` into `expected`
 
-> **Review status:** Gavin has checked this plan only through the sentence
-> **“No new `residual_fill` argument is required.”** Everything after that
-> sentence remains unreviewed. This document is an implementation plan, not a
-> record of completed work.
+**Date: Sept 4, 2026**
 
 ## Goal
 
@@ -165,8 +162,6 @@ fill display; it does not change the fitted model or geometry.
 
 An explicit mapped or fixed fill continues to control ordinary tile styling
 when no residual scale is present. No new `residual_fill` argument is required.
-
-> **Review boundary:** Everything below this point remains unreviewed.
 
 ## Residual-fill activation
 
@@ -517,8 +512,8 @@ example. Include a second version with `scale_fill_residual()` so point density
 and residual shading are shown as separate display choices.
 
 Remove or rewrite examples that recommend `geom_mosaic(jitter = TRUE)`. Update
-NEWS and any vignette discussion of automatic residual fill, since
-model-enabled plots will now remain grey until the residual scale is added.
+any vignette discussion of automatic residual fill, since model-enabled plots
+will now remain grey until the residual scale is added.
 
 Regenerate documentation only after the public signatures and semantics are
 stable.
