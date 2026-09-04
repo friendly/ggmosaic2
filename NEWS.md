@@ -1,4 +1,4 @@
-# ggmosaic2 0.5.1
+## Version 0.5.1
 
 * Added `facet_mosaic_grid()` for mosaic-aware faceting (haleyjeppson/ggmosaic#78): each facet
   panel gets independent x/y product scales and category axes drawn at panel-specific positions,
@@ -48,7 +48,7 @@
 
 * The `introducing-ggmosaic2` vignette was edited for clarity and detail.
 
-# ggmosaic2 0.5.0
+## Version 0.5.0
 
 `ggmosaic2` is a standalone continuation of `ggmosaic`, which was removed from CRAN around
 November 2025 and appeared unmaintained (the loglinear-models/residual-shading pull request
@@ -67,7 +67,7 @@ entry is inherited `ggmosaic` history, prior to the fork.
   the bundled Shiny apps under `inst/shiny/`), which broke building since `ggmosaic` is no longer
   on CRAN. Also pointed `_pkgdown.yml` at the new package's own site.
 
-# ggmosaic2 0.4.1
+## Version 0.4.1
 
 Extensive changes to introduce fitting loglinear models and residual-based shading, described in https://github.com/haleyjeppson/ggmosaic/pull/86
 
@@ -76,11 +76,11 @@ Extensive changes to introduce fitting loglinear models and residual-based shadi
 * added vignette on forms of frequency data
 * fix error from ggmosaic vignette related to `tapply()` in `R/divide.R`
 
-# ggmosaic2 0.3.4
+## Version 0.3.4
 
 - updated for compatible with ggplot2 3.5.0 
 
-# ggmosaic2 0.3.3
+## Version 0.3.3
 
 - A geom, `geom_mosaic_jitter()`, and an associated stat, `stat_mosaic_jitter()`, has been added.
 
@@ -91,8 +91,8 @@ Extensive changes to introduce fitting loglinear models and residual-based shadi
 - A theme for mosaic plots, `theme_mosaic()`, has been added.
 
 
-# ggmosaic2 0.3.0
+## Version 0.3.0
 
-## Breaking changes
+### Breaking changes
 
 - ggmosaic 0.3.0 is now compatible with ggplot2 3.3.0 and tidyr 1.0.0.
