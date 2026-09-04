@@ -2,7 +2,7 @@
 ## Test environments
 * local Windows 11, R version 4.6.1 (2026-06-24 ucrt)
 * local macOS Tahoe 26.6.2, R version 4.6.1 (2026-06-24) [GK]
-* ubuntu 16.04 (on travis-ci), R 3.6.3
+* R-hub `ubuntu-release`: R 4.6.1 (2026-06-24) on Ubuntu 24.04.4 LTS
 * win-builder (R Under development (unstable), 2026-08-31 r90457 ucrt)
 
 ## R CMD check results
@@ -27,10 +27,6 @@ contributors in `DESCRIPTION`.
 The version number picks up from the last CRAN/fork release (0.4.1) rather than resetting, since
 this carries forward that code and history rather than starting fresh. Everything below this
 entry is inherited `ggmosaic` history, prior to the fork.
-
-* Fixed stale `ggmosaic::` self-references left over from the rename (`vignettes/ggmosaic.Rmd`,
-  the bundled Shiny apps under `inst/shiny/`), which broke building since `ggmosaic` is no longer
-  on CRAN. Also pointed `_pkgdown.yml` at the new package's own site.
 
 ### ggmosaic2 0.5.1
 
@@ -81,3 +77,8 @@ entry is inherited `ggmosaic` history, prior to the fork.
 * Deprecated `ggmosaic_app()`, kept only for the historical record.
 
 * The `introducing-ggmosaic2` vignette was edited for clarity and detail.
+
+* Fixed stale `ggmosaic::` self-references left over from the rename (`vignettes/ggmosaic.Rmd`,
+  the bundled Shiny apps under `inst/shiny/`), which broke building since `ggmosaic` is no longer
+  on CRAN. Also pointed `_pkgdown.yml` at the new package's own site.
+
