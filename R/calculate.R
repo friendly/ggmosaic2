@@ -63,15 +63,50 @@ prodcalc <- function(data, formula, divider = mosaic(), cascade = 0, scale_max =
   finest <- margin(data, all_vars)
   finest <- dplyr::rename(finest, .n = ".wt")
 
+  if ("weight2" %in% names(data)) {
+    point_data <- data
+    point_data$.wt <- point_data$weight2
+    point_counts <- margin(point_data, all_vars)
+    point_counts <- dplyr::rename(point_counts, .n2 = ".wt")
+    finest <- dplyr::left_join(finest, point_counts, by = all_vars)
+  }
+
   if (!is.null(expected)) {
     model_formula <- build_model_formula(
       expected, vars$marg, vars$cond,
       variable_labels = variable_labels
     )
-    finest <- fit_loglinear_model(finest, all_vars, model_formula)
+    finest <- fit_loglinear_model(
+      finest, all_vars, model_formula,
+      strict = identical(area, "expected")
+    )
   }
 
   if (identical(area, "expected")) {
+    invalid_expected <- !is.finite(finest$.expected) | finest$.expected < 0
+    if (any(invalid_expected) || anyNA(finest$.expected)) {
+      stop(
+        "Expected-area geometry requires one finite, non-negative fitted ",
+        "value for every cell.",
+        call. = FALSE
+      )
+    }
+
+    if (length(vars$cond)) {
+      group_totals <- stats::aggregate(
+        finest[".expected"], finest[vars$cond], sum
+      )$.expected
+    } else {
+      group_totals <- sum(finest$.expected)
+    }
+    if (any(!is.finite(group_totals) | group_totals <= 0)) {
+      stop(
+        "Expected-area geometry requires a positive fitted total in every ",
+        "conditioning group.",
+        call. = FALSE
+      )
+    }
+
     data_for_wt <- finest[, c(all_vars, ".expected"), drop = FALSE]
     data_for_wt <- dplyr::rename(data_for_wt, .wt = ".expected")
   } else {

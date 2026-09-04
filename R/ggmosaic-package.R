@@ -9,3 +9,5 @@
 #' @importFrom utils getFromNamespace
 ## usethis namespace: end
 NULL
+
+utils::globalVariables(".residual")

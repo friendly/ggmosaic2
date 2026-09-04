@@ -1,13 +1,5 @@
 #' @rdname geom_mosaic
 #' @inheritParams ggplot2::stat_identity
-#' @param expected Optional loglinear model specification for residual shading.
-#'   Positive residuals receive a solid dark blue outline and negative
-#'   residuals a dashed dark red outline by default. Set \code{colour = NA} to
-#'   remove the outlines from both the cells and the residual legend.
-#'   See details in \code{\link{prodcalc}}.
-#' @param area Values used to construct mosaic rectangles: \code{"observed"}
-#'   (the default) or fitted \code{"expected"} counts. Expected-area mosaics
-#'   require a non-\code{NULL} \code{expected} model specification.
 #' @section Computed variables:
 #' \describe{
 #' \item{xmin}{location of bottom left corner}
@@ -21,11 +13,12 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
                         show.legend = NA, inherit.aes = TRUE, offset = 0.01,
                         expected = NULL, area = c("observed", "expected"), ...)
 {
-  area <- match.arg(area)
-  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha"))
-  mapping <- prepared$mapping
+  divider_missing <- missing(divider)
+  offset_missing <- missing(offset)
+  expected_missing <- missing(expected)
+  area_missing <- missing(area)
 
-  add_mosaic_scale_environment(ggplot2::layer(
+  mosaic_layer(
     data = data,
     mapping = mapping,
     stat = StatMosaic,
@@ -33,24 +26,33 @@ stat_mosaic <- function(mapping = NULL, data = NULL, geom = "mosaic",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    check.aes = FALSE,
+    aesthetics = c("fill", "alpha"),
     params = list(
       na.rm = na.rm,
-      divider = divider,
-      offset = offset,
-      expected = expected,
-      area = area,
-      mosaic_spec = prepared$spec,
+      divider = if (divider_missing) .mosaic_inherit_setting else divider,
+      offset = if (offset_missing) .mosaic_inherit_setting else offset,
+      expected = if (expected_missing) .mosaic_inherit_setting else expected,
+      area = if (area_missing) .mosaic_inherit_setting else match.arg(area),
       ...
-    )
-  ))
+    ),
+    setting_defaults = list(
+      divider = mosaic(),
+      offset = 0.01,
+      expected = NULL,
+      area = "observed"
+    ),
+    residual_fill = TRUE
+  )
 }
 
 
 # Default outlines for residual-shaded cells, determined by residual sign.
-residual_outline_aesthetics <- function(residual) {
-  positive <- !is.na(residual) & residual > 0
-  negative <- !is.na(residual) & residual < 0
+# Treat values within the usual floating-point comparison tolerance as zero so
+# numerical noise from otherwise exact fits does not receive a signed outline.
+residual_outline_aesthetics <- function(
+    residual, tolerance = sqrt(.Machine$double.eps)) {
+  positive <- !is.na(residual) & residual > tolerance
+  negative <- !is.na(residual) & residual < -tolerance
 
   colour <- rep("black", length(residual))
   colour[positive] <- "darkblue"
@@ -91,6 +93,7 @@ StatMosaic <- ggplot2::ggproto(
 
   compute_panel = function(self, data, scales, na.rm=FALSE, divider, offset,
                            expected = NULL, area = "observed",
+                           residual_outlines = FALSE,
                            mosaic_spec = NULL) {
 #    cat("compute_panel from StatMosaic\n")
 #       browser()
@@ -175,24 +178,11 @@ StatMosaic <- ggplot2::ggproto(
     if (!is.null(mapped_alpha) && mapped_alpha %in% names(res)) {
       res$alpha <- res[[mapped_alpha]]
     }
-    for (aesthetic in names(mosaic_spec$jitter_aesthetics)) {
-      variable <- mosaic_spec$jitter_aesthetics[[aesthetic]]
-      if (!is.null(variable) && variable %in% names(res)) {
-        res[[aesthetic]] <- res[[variable]]
-      }
-    }
-
-    # Handle residual-based coloring when expected is specified
-    if (!is.null(expected) && ".residual" %in% names(res)) {
-      # Auto-map residuals to fill only if user hasn't specified fill
-      if (is.null(mapped_fill)) {
-        res$fill <- res$.residual
-      }
-
+    # Handle residual outlines when expected is specified. Residual fill is a
+    # proper computed mapping installed by LayerMosaic, not a raw fill value.
+    if (isTRUE(residual_outlines) && !is.null(expected) &&
+        ".residual" %in% names(res)) {
       outline <- residual_outline_aesthetics(res$.residual)
-      # Integrated jitter can use the ordinary colour aesthetic for points;
-      # retain the residual outline separately for rectangle drawing.
-      res$.mosaic_tile_colour <- outline$colour
       if (!"colour" %in% names(data)) {
         res$colour <- outline$colour
       }

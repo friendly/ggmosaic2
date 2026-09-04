@@ -1,5 +1,90 @@
 # Changelog
 
+## ggmosaic2 0.5.1
+
+- Added
+  [`facet_mosaic_grid()`](https://friendly.github.io/ggmosaic2/reference/facet_mosaic_grid.md)
+  for mosaic-aware faceting (haleyjeppson/ggmosaic#78): each facet panel
+  gets independent x/y product scales and category axes drawn at
+  panel-specific positions, and it supports multiple mosaic layers,
+  [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md),
+  [`coord_flip()`](https://ggplot2.tidyverse.org/reference/coord_flip.html),
+  manual product scales, margins, and residual shading.
+
+- Mosaic layers
+  ([`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
+  [`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md),
+  [`geom_mosaic_jitter()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_jitter.md))
+  now resolve their plot mapping at build time, like ordinary `ggplot2`
+  layers, so an
+  [`aes()`](https://ggplot2.tidyverse.org/reference/aes.html) mapping
+  added or changed after a mosaic layer has already been added is now
+  picked up correctly instead of being frozen at the point the layer was
+  added.
+
+- Added
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md)
+  for sharing `divider`, `offset`, and `expected` across sibling mosaic
+  layers in one plot, so multi-layer plots
+  (e.g. [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md) +
+  [`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md))
+  no longer need the same argument repeated on every layer. An explicit
+  layer argument, including `expected = NULL`, still overrides the
+  plot-level setting.
+
+- Improved Pearson residual shading: negative residuals are now dark red
+  and positive residuals dark blue, with matching dashed/solid cell
+  outlines (disable via `colour = NA`, or override
+  colour/linetype/linewidth directly). Added a custom residual legend
+  with signed labels, observed extrema, supplied limits, reference
+  values at -4/0/+4, endpoint colour squishing, and collision-aware
+  ticks/labels, in both vertical and horizontal layouts.
+
+- Fixed mosaic spacing: `offset` is now the fixed gap at the deepest
+  split, with gaps increasing by a factor of 1.5 toward outer splits
+  (previously inconsistent), converted to local rectangle coordinates
+  and safely constrained for very small cells; `offset` is validated as
+  a single finite, non-negative value. **This changes spacing output
+  relative to earlier versions.**
+
+- Fixed namespace-only use (haleyjeppson/ggmosaic#82): calls such as
+  [`ggmosaic2::geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
+  and
+  [`ggmosaic2::product()`](https://friendly.github.io/ggmosaic2/reference/product.md)
+  now work without
+  [`library(ggmosaic2)`](https://friendly.github.io/ggmosaic2/).
+
+- Variables mapped only to `fill` or `alpha` (and `colour` in
+  [`geom_mosaic_jitter()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_jitter.md))
+  remain available to the mosaic calculation and point aesthetics, but
+  are no longer shown on the automatic product axes; only variables
+  mapped through `x` or `conds` are labeled there
+  (haleyjeppson/ggmosaic#39, haleyjeppson/ggmosaic#77). Variables can
+  now be created within
+  [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
+  and factors can be reordered for display.
+
+- [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
+  now passes additional arguments through `...` to
+  [`ggplot2::theme()`](https://ggplot2.tidyverse.org/reference/theme.html).
+
+- Added the `introducing-ggmosaic2` vignette.
+
+- Lightened the default
+  [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
+  tile fill (`grey30` -\> `grey55`).
+
+- Fixed `inst/CITATION` for the `ggmosaic2` fork: retitled from
+  `ggmosaic`, authors and year are now pulled from `DESCRIPTION` instead
+  of hardcoded, and a broken multi-URL field is fixed.
+
+- Deprecated
+  [`ggmosaic_app()`](https://friendly.github.io/ggmosaic2/reference/ggmosaic_app.md),
+  kept only for the historical record.
+
+- The `introducing-ggmosaic2` vignette was edited for clarity and
+  detail.
+
 ## ggmosaic2 0.5.0
 
 `ggmosaic2` is a standalone continuation of `ggmosaic`, which was

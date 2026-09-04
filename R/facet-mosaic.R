@@ -13,6 +13,7 @@
 #' @inheritParams ggplot2::facet_grid
 #'
 #' @return A `Facet` object that can be added to a ggplot.
+#' @author Gavin Klorfine
 #' @export
 #'
 #' @examples
@@ -23,9 +24,9 @@
 #' )
 #' facet_data$n <- c(30, 10, 20, 40, 10, 35, 40, 15)
 #'
-#' ggplot(facet_data) +
-#'   geom_mosaic(aes(weight = n, x = product(response, group),
-#'                   fill = response)) +
+#' ggplot(facet_data,
+#'        aes(weight = n, x = product(response, group), fill = response)) +
+#'   geom_mosaic() +
 #'   facet_mosaic_grid(cols = vars(period))
 facet_mosaic_grid <- function(rows = NULL, cols = NULL, space = "fixed",
                               shrink = TRUE, labeller = "label_value",

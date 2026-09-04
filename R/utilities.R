@@ -15,8 +15,9 @@ parse_product_formula <- getFromNamespace("parse_product_formula", "productplots
 #' @export
 #' @examples
 #' data(titanic)
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Survived, Class), fill = Survived))
+#' ggplot(data = titanic,
+#'        aes(x = product(Survived, Class), fill = Survived)) +
+#'   geom_mosaic()
 product <- function(...) {
   rlang::exprs(...)
 }
@@ -132,52 +133,6 @@ prepare_mosaic_mapping <- function(mapping = NULL,
   )
 }
 
-# Add point mappings to an integrated mosaic-jitter layer without changing
-# the variables that define the mosaic cells. A point aesthetic must therefore
-# refer to a variable that is already part of x, conds, fill, or alpha.
-prepare_integrated_jitter_mapping <- function(mapping, jitter_mapping, spec) {
-  if (is.null(jitter_mapping)) {
-    spec$jitter_aesthetics <- list()
-    return(list(mapping = mapping, spec = spec))
-  }
-  if (!inherits(jitter_mapping, "uneval")) {
-    stop("`jitter_mapping` must be created by `aes()`.", call. = FALSE)
-  }
-
-  allowed <- c("colour", "shape", "size", "stroke")
-  unsupported <- setdiff(names(jitter_mapping), allowed)
-  if (length(unsupported)) {
-    stop(
-      "Unsupported `jitter_mapping` aesthetic", if (length(unsupported) > 1) "s" else "",
-      ": ", paste(unsupported, collapse = ", "),
-      ". Supported aesthetics are colour, shape, size, and stroke.",
-      call. = FALSE
-    )
-  }
-
-  labels <- unname(spec$labels)
-  jitter_aesthetics <- list()
-  for (aesthetic in names(jitter_mapping)) {
-    expression_label <- rlang::as_label(jitter_mapping[[aesthetic]])
-    matches <- which(labels == expression_label)
-    if (!length(matches)) {
-      stop(
-        "`jitter_mapping` variable `", expression_label,
-        "` must also appear in `x`, `conds`, `fill`, or `alpha` so that ",
-        "each mosaic cell has one point-aesthetic value.",
-        call. = FALSE
-      )
-    }
-
-    internal_name <- names(spec$labels)[matches[[1]]]
-    mapping[[aesthetic]] <- jitter_mapping[[aesthetic]]
-    jitter_aesthetics[[aesthetic]] <- internal_name
-  }
-
-  spec$jitter_aesthetics <- jitter_aesthetics
-  list(mapping = mapping, spec = spec)
-}
-
 mosaic_formula <- function(spec, response = "weight") {
   marg <- spec$marg %||% character()
   cond <- spec$cond %||% character()
@@ -190,25 +145,204 @@ mosaic_formula <- function(spec, response = "weight") {
   stats::as.formula(formula)
 }
 
-# ggplot2 discovers extension scale constructors in the plot environment.
-# When ggmosaic2 is used only through `::`, its exported scale functions are
-# not on the attached search path, so give the plot a private environment in
-# which ggplot2 can find them. Attached-package calls can keep returning an
-# ordinary Layer object.
-add_mosaic_scale_environment <- function(layer) {
-  if ("package:ggmosaic2" %in% search()) {
-    return(layer)
+is_residual_fill_mapping <- function(mapping) {
+  if (is.null(mapping)) {
+    return(FALSE)
+  }
+  expression <- rlang::quo_get_expr(mapping)
+  if (!rlang::is_call(expression, "after_stat")) {
+    return(FALSE)
+  }
+  arguments <- rlang::call_args(expression)
+  length(arguments) == 1L && identical(arguments[[1]], quote(.residual))
+}
+
+residual_fill_mapping <- function() {
+  ggplot2::aes(fill = ggplot2::after_stat(.residual))$fill
+}
+
+# `layer_class` is an internal ggplot2 extension point. Keep the lookup and all
+# parent dispatch in one place so compatibility changes are localized.
+.ggplot2_layer_parent <- getFromNamespace("Layer", "ggplot2")
+
+.mosaic_inherit_setting <- structure(
+  "<inherited>",
+  class = "ggmosaic_inherit_setting"
+)
+
+is_mosaic_inherit_setting <- function(x) {
+  inherits(x, "ggmosaic_inherit_setting")
+}
+
+resolve_mosaic_layer_settings <- function(stat_params, defaults,
+                                          plot_settings = list()) {
+  applicable <- intersect(names(defaults), names(stat_params))
+  resolved <- list()
+
+  for (setting in applicable) {
+    value <- stat_params[[setting]]
+    if (is_mosaic_inherit_setting(value)) {
+      if (setting %in% names(plot_settings)) {
+        resolved[setting] <- plot_settings[setting]
+      } else {
+        resolved[setting] <- defaults[setting]
+      }
+    } else {
+      resolved[setting] <- stat_params[setting]
+    }
   }
 
-  structure(list(layer = layer), class = "ggmosaic_namespace_layer")
+  resolved
+}
+
+LayerMosaic <- ggplot2::ggproto(
+  "LayerMosaic", .ggplot2_layer_parent,
+
+  setup_layer = function(self, data, plot) {
+    data <- ggplot2::ggproto_parent(
+      .ggplot2_layer_parent, self
+    )$setup_layer(data, plot)
+
+    final_mapping <- self$computed_mapping
+    explicit_fill <- final_mapping$fill
+    explicit_residual_fill <- is_residual_fill_mapping(explicit_fill)
+    mapping_for_structure <- final_mapping
+    if (explicit_residual_fill) {
+      mapping_for_structure$fill <- NULL
+    }
+
+    prepared <- prepare_mosaic_mapping(
+      mapping_for_structure,
+      self$mosaic_aesthetics
+    )
+    self$mosaic_resolved_settings <- resolve_mosaic_layer_settings(
+      self$stat_params,
+      self$mosaic_setting_defaults,
+      plot$ggmosaic2_settings %||% list()
+    )
+    if (identical(self$mosaic_resolved_settings$area, "expected") &&
+        is.null(self$mosaic_resolved_settings$expected)) {
+      stop(
+        "`area = \"expected\"` requires a non-NULL `expected` specification.",
+        call. = FALSE
+      )
+    }
+
+    self$mosaic_residual_scale <- FALSE
+    if (isTRUE(self$mosaic_supports_residual_fill)) {
+      fill_scale <- plot$scales$get_scales("fill")
+      residual_scale <- is_residual_fill_scale(fill_scale)
+      self$mosaic_residual_scale <- residual_scale
+      fixed_fill <- !is.null(self$aes_params$fill)
+      ordinary_fill <- !is.null(explicit_fill) && !explicit_residual_fill
+
+      if (residual_scale && ordinary_fill) {
+        stop(
+          "`scale_fill_residual()` cannot be used with the explicit fill mapping\n",
+          "in `geom_mosaic()`. Remove `aes(fill = ...)` to shade by residuals, or\n",
+          "remove `scale_fill_residual()` to retain the mapped fill.",
+          call. = FALSE
+        )
+      }
+      if (residual_scale && fixed_fill) {
+        stop(
+          "`scale_fill_residual()` cannot be used with a fixed fill in ",
+          "`geom_mosaic()`. Remove the fixed `fill` to shade by residuals, ",
+          "or remove `scale_fill_residual()` to retain it.",
+          call. = FALSE
+        )
+      }
+
+      expected <- self$mosaic_resolved_settings$expected
+      if (residual_scale && is.null(expected)) {
+        stop(
+          "`scale_fill_residual()` requires a non-NULL effective `expected` ",
+          "model in `geom_mosaic()`.",
+          call. = FALSE
+        )
+      }
+      if (explicit_residual_fill && is.null(expected)) {
+        stop(
+          "`fill = after_stat(.residual)` requires a non-NULL effective ",
+          "`expected` model.",
+          call. = FALSE
+        )
+      }
+      if (explicit_residual_fill ||
+          (residual_scale && !is.null(expected) &&
+           !ordinary_fill && !fixed_fill)) {
+        prepared$mapping$fill <- residual_fill_mapping()
+      }
+    }
+
+    self$computed_mapping <- prepared$mapping
+    self$mosaic_computed_spec <- prepared$spec
+
+    data
+  },
+
+  compute_statistic = function(self, data, layout) {
+    original_params <- self$stat_params
+    on.exit(self$stat_params <- original_params, add = TRUE)
+
+    resolved_params <- original_params
+    for (setting in names(self$mosaic_resolved_settings)) {
+      resolved_params[setting] <- self$mosaic_resolved_settings[setting]
+    }
+
+    if ("mosaic_spec" %in% self$stat$parameters(TRUE)) {
+      resolved_params["mosaic_spec"] <- list(self$mosaic_computed_spec)
+    }
+    if ("residual_outlines" %in% self$stat$parameters(TRUE)) {
+      resolved_params["residual_outlines"] <- list(
+        isTRUE(self$mosaic_residual_scale)
+      )
+    }
+    self$stat_params <- resolved_params
+
+    ggplot2::ggproto_parent(
+      .ggplot2_layer_parent, self
+    )$compute_statistic(data, layout)
+  }
+)
+
+# Construct an ordinary ggplot2 layer immediately. Mosaic mappings and shared
+# settings are resolved later, in LayerMosaic$setup_layer(), when the final
+# plot mapping and metadata are available.
+mosaic_layer <- function(data, mapping, stat, geom, position, show.legend,
+                         inherit.aes, aesthetics, params,
+                         setting_defaults = list(),
+                         residual_fill = FALSE) {
+  layer <- ggplot2::layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    check.aes = FALSE,
+    layer_class = LayerMosaic,
+    params = params
+  )
+  layer$mosaic_aesthetics <- aesthetics
+  layer$mosaic_setting_defaults <- setting_defaults
+  layer$mosaic_supports_residual_fill <- residual_fill
+  layer
 }
 
 #' @export
-ggplot_add.ggmosaic_namespace_layer <- function(object, plot, ...) {
-  plot <- ggplot2::ggplot_add(object$layer, plot, ...)
+ggplot_add.LayerMosaic <- function(object, plot, ...) {
+  plot <- NextMethod()
 
-  if (!exists("scale_x_productlist", envir = plot$plot_env,
-              mode = "function", inherits = TRUE)) {
+  # ggplot2 discovers extension scale constructors in the plot environment.
+  # Install them privately so namespace-only calls work without attaching the
+  # package. This is harmless when the package is attached as well.
+  needs_product_scale <- !exists(
+    "scale_x_productlist", envir = plot$plot_env,
+    mode = "function", inherits = TRUE
+  )
+  if (needs_product_scale) {
     plot$plot_env <- rlang::env(
       plot$plot_env,
       scale_x_productlist = scale_x_productlist,

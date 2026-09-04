@@ -1,5 +1,6 @@
 #' Jittered dots in Mosaic plots.
 #'
+#' @author Gavin Klorfine
 #' @export
 #'
 #' @description
@@ -19,72 +20,97 @@
 #' \item \code{vbar} Vertical bar partition: height constant, width varies.
 #' \item \code{hbar}  Horizontal bar partition: width constant, height varies.
 #' }
+#'   When omitted, `divider` can be inherited from [mosaic_settings()].
 #' @param offset Set the fixed gap at the deepest split. Gaps increase by a
-#'   factor of 1.5 toward the outermost split.
+#'   factor of 1.5 toward the outermost split. When omitted, the value can be
+#'   inherited from [mosaic_settings()].
 #' @param drop_level Generate points for the max - 1 level
 #' @param seed Random seed passed to \code{\link[base]{set.seed}}. Defaults to
 #'   \code{NA}, which means that \code{set.seed} will not be called.
 #' @param expected Optional loglinear model specification. See
-#'   \code{\link{prodcalc}}.
+#'   \code{\link{prodcalc}}. It is used only when the effective
+#'   \code{area = "expected"}. When omitted, it can be inherited from
+#'   \code{\link{mosaic_settings}}.
 #' @param area Values used to construct the point-containing rectangles:
 #'   \code{"observed"} (the default) or fitted \code{"expected"} counts.
-#'   This compatibility interface calculates its own layout; prefer
-#'   \code{geom_mosaic(jitter = TRUE)} when combining tiles and points.
+#'   This layer calculates its own layout. When omitted, the value can be
+#'   inherited from \code{\link{mosaic_settings}}.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with a warning. If \code{TRUE} silently removes missing values.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.
 #' @examples
 #' data(titanic)
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class), fill = Survived), alpha = 0.3) +
-#'   geom_mosaic_jitter(aes(x = product(Class), color = Survived))
+#' ggplot(data = titanic, aes(x = product(Class))) +
+#'   geom_mosaic(aes(fill = Survived), alpha = 0.3) +
+#'   geom_mosaic_jitter(aes(color = Survived))
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class)), alpha = 0.1) +
-#'   geom_mosaic_jitter(aes(x = product(Class), color = Survived), drop_level = TRUE)
+#' ggplot(data = titanic, aes(x = product(Class))) +
+#'   geom_mosaic(alpha = 0.1) +
+#'   geom_mosaic_jitter(aes(color = Survived), drop_level = TRUE)
 #'
-#' ggplot(data = titanic) +
-#'   geom_mosaic(alpha = 0.3, aes(x = product(Class, Sex),  fill = Survived),
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   mosaic_settings(divider = c("vspine", "hspine", "hspine")) +
+#'   geom_mosaic(alpha = 0.3, aes(fill = Survived)) +
+#'   geom_mosaic_jitter(aes(color = Survived))
+#'
+#' # Expected areas with observed-count points and neutral tiles
+#' hec <- as.data.frame(HairEyeColor)
+#' ggplot(hec, aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+#'   mosaic_settings(expected = "independence", area = "expected") +
+#'   geom_mosaic() +
+#'   geom_mosaic_jitter(aes(colour = Hair), seed = 123)
+#'
+#' # Add the scale explicitly when residual shading is wanted
+#' ggplot(hec, aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+#'   mosaic_settings(expected = "independence", area = "expected") +
+#'   geom_mosaic() +
+#'   geom_mosaic_jitter(aes(colour = Hair), seed = 123) +
+#'   scale_fill_residual()
+#'
+#'  ggplot(data = titanic,
+#'         aes(x = product(Class), conds = product(Sex), fill = Survived)) +
+#'   geom_mosaic(alpha = 0.3,
 #'               divider = c("vspine", "hspine", "hspine")) +
-#'   geom_mosaic_jitter(aes(x = product(Class, Sex), color = Survived),
-#'               divider = c("vspine", "hspine", "hspine"))
-#'
-#'  ggplot(data = titanic) +
-#'   geom_mosaic(alpha = 0.3, aes(x = product(Class), conds = product(Sex),  fill = Survived),
-#'               divider = c("vspine", "hspine", "hspine")) +
-#'   geom_mosaic_jitter(aes(x = product(Class), conds = product(Sex), fill = Survived),
+#'   geom_mosaic_jitter(
 #'               divider = c("vspine", "hspine", "hspine"))
 geom_mosaic_jitter <- function(mapping = NULL, data = NULL, stat = "mosaic_jitter",
                                position = "identity", na.rm = FALSE,  divider = mosaic(),
                                offset = 0.01, drop_level = FALSE, seed = NA,
                                expected = NULL,
                                area = c("observed", "expected"),
-                               show.legend = NA, inherit.aes = FALSE, ...)
+                               show.legend = NA, inherit.aes = TRUE, ...)
 {
-  area <- match.arg(area)
-  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha", "colour"))
-  mapping <- prepared$mapping
-  add_mosaic_scale_environment(ggplot2::layer(
+  divider_missing <- missing(divider)
+  offset_missing <- missing(offset)
+  expected_missing <- missing(expected)
+  area_missing <- missing(area)
+
+  mosaic_layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomMosaicJitter,
     position = position,
     show.legend = show.legend,
-    check.aes = FALSE,
-    inherit.aes = FALSE, # only FALSE to turn the warning off
+    inherit.aes = inherit.aes,
+    aesthetics = c("fill", "alpha", "colour"),
     params = list(
       na.rm = na.rm,
-      divider = divider,
-      offset = offset,
+      divider = if (divider_missing) .mosaic_inherit_setting else divider,
+      offset = if (offset_missing) .mosaic_inherit_setting else offset,
       drop_level = drop_level,
       seed = seed,
-      expected = expected,
-      area = area,
-      mosaic_spec = prepared$spec,
+      expected = if (expected_missing) .mosaic_inherit_setting else expected,
+      area = if (area_missing) .mosaic_inherit_setting else match.arg(area),
       ...
+    ),
+    setting_defaults = list(
+      divider = mosaic(),
+      offset = 0.01,
+      expected = NULL,
+      area = "observed"
     )
-  ))
+  )
 }
 
 #' Geom proto

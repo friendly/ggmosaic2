@@ -51,70 +51,20 @@ missing_model_error <- tryCatch(
 )
 stopifnot(grepl("requires a non-NULL `expected`", missing_model_error, fixed = TRUE))
 
-# The preferred API is one layer whose computed cell data contains observed
-# counts, fitted counts, and expected-area geometry.
-integrated_plot <- ggplot(hec) +
-  geom_mosaic(
-    aes(weight = Freq, x = product(Hair, Eye, Sex)),
-    expected = "independence",
-    area = "expected",
-    offset = 0,
-    jitter = TRUE,
-    jitter_mapping = aes(colour = Hair),
-    jitter_size = 2,
-    jitter_alpha = 0.8,
-    seed = 123
-  ) +
-  scale_fill_residual()
-integrated_build <- ggplot_build(integrated_plot)
-integrated_cells <- integrated_build$data[[1]]
-stopifnot(
-  length(integrated_plot$layers) == 1L,
-  nrow(integrated_cells) == nrow(hec),
-  all(c(".n", ".expected", ".residual") %in% names(integrated_cells)),
-  length(unique(integrated_cells$colour)) == length(unique(hec$Hair))
-)
-
-# Rendering produces exactly the observed total, even though expected counts
-# determined the rectangles.
-collect_expected_grobs <- function(grob) {
-  result <- list(grob)
-  if (!is.null(grob$grobs)) {
-    result <- c(
-      result,
-      unlist(lapply(grob$grobs, collect_expected_grobs), recursive = FALSE)
-    )
-  }
-  if (!is.null(grob$children)) {
-    result <- c(
-      result,
-      unlist(lapply(grob$children, collect_expected_grobs), recursive = FALSE)
-    )
-  }
-  result
-}
-
-integrated_grobs <- collect_expected_grobs(ggplotGrob(integrated_plot))
-point_grobs <- Filter(function(grob) inherits(grob, "points"), integrated_grobs)
-point_counts <- vapply(point_grobs, function(grob) length(grob$x), integer(1))
-stopifnot(sum(hec$Freq) %in% point_counts)
-
-# The compatibility jitter layer accepts the same model/layout arguments and
-# derives the same cell boundaries when users deliberately choose two layers.
-compatibility_plot <- ggplot(hec) +
-  geom_mosaic(
-    aes(weight = Freq, x = product(Hair, Eye, Sex)),
-    expected = "independence", area = "expected", offset = 0
-  ) +
-  geom_mosaic_jitter(
-    aes(weight = Freq, x = product(Hair, Eye, Sex), colour = Hair),
-    expected = "independence", area = "expected", offset = 0, seed = 123
-  )
-compatibility_build <- ggplot_build(compatibility_plot)
-tile_geometry <- compatibility_build$data[[1]][
+# Shared settings coordinate two independent layers. Expected counts determine
+# both layouts, while observed counts determine the number of points.
+expected_jitter_plot <- ggplot(
+  hec,
+  aes(weight = Freq, x = product(Hair, Eye, Sex))
+) +
+  mosaic_settings(expected = "independence", area = "expected", offset = 0) +
+  geom_mosaic() +
+  geom_mosaic_jitter(aes(colour = Hair), seed = 123)
+expected_jitter_build <- ggplot_build(expected_jitter_plot)
+tile_geometry <- expected_jitter_build$data[[1]][
   c("label", "xmin", "xmax", "ymin", "ymax")
 ]
-point_geometry <- unique(compatibility_build$data[[2]][
+point_geometry <- unique(expected_jitter_build$data[[2]][
   c("label", "xmin", "xmax", "ymin", "ymax")
 ])
 tile_geometry <- tile_geometry[order(tile_geometry$label), ]
@@ -123,16 +73,79 @@ rownames(tile_geometry) <- NULL
 rownames(point_geometry) <- NULL
 stopifnot(
   isTRUE(all.equal(tile_geometry, point_geometry)),
-  nrow(compatibility_build$data[[2]]) == sum(hec$Freq)
+  nrow(expected_jitter_build$data[[2]]) == sum(hec$Freq),
+  identical(unique(expected_jitter_build$data[[1]]$fill), "grey55"),
+  all(c(".expected", ".residual") %in%
+        names(expected_jitter_build$data[[1]])),
+  all(c(".expected", ".residual") %in%
+        names(expected_jitter_build$data[[2]]))
 )
 
-# Point mappings cannot silently add a new partition to the integrated layout.
-invalid_mapping <- tryCatch(
-  geom_mosaic(
-    aes(weight = Freq, x = product(Hair, Eye)),
-    jitter = TRUE,
-    jitter_mapping = aes(colour = Sex)
-  ),
-  error = conditionMessage
+# Adding the residual scale changes fill, not geometry or point counts.
+shaded_build <- ggplot_build(expected_jitter_plot + scale_fill_residual())
+stopifnot(
+  length(unique(shaded_build$data[[1]]$fill)) > 1L,
+  isTRUE(all.equal(
+    expected_jitter_build$data[[1]][c("xmin", "xmax", "ymin", "ymax")],
+    shaded_build$data[[1]][c("xmin", "xmax", "ymin", "ymax")]
+  )),
+  nrow(shaded_build$data[[2]]) == sum(hec$Freq)
 )
-stopifnot(grepl("must also appear", invalid_mapping, fixed = TRUE))
+
+# A model setting is ignored by observed-area jitter, avoiding an unnecessary
+# fit. The same setting is consumed when area is expected.
+observed_jitter <- ggplot_build(
+  ggplot(hec, aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+    mosaic_settings(expected = "independence") +
+    geom_mosaic_jitter(seed = 123)
+)
+stopifnot(
+  !".expected" %in% names(observed_jitter$data[[1]]),
+  !".residual" %in% names(observed_jitter$data[[1]])
+)
+
+# weight2 controls point counts without changing expected-area geometry.
+hec$PointFreq <- hec$Freq / 2
+weight2_build <- ggplot_build(
+  ggplot(
+    hec,
+    aes(
+      weight = Freq,
+      weight2 = PointFreq,
+      x = product(Hair, Eye, Sex)
+    )
+  ) +
+    mosaic_settings(expected = "independence", area = "expected", offset = 0) +
+    geom_mosaic_jitter(seed = 123)
+)
+stopifnot(nrow(weight2_build$data[[1]]) == sum(round(hec$PointFreq)))
+
+# A zero observed cell can retain positive expected area while contributing no
+# points, provided its row and column margins remain estimable.
+sparse <- expand.grid(A = c("a", "b"), B = c("x", "y"))
+sparse$Freq <- c(0, 4, 3, 2)
+sparse_result <- prodcalc(
+  sparse,
+  Freq ~ A + B,
+  expected = "independence",
+  area = "expected",
+  offset = 0
+)
+sparse_cells <- subset(sparse_result, level == max(level))
+zero_cell <- sparse_cells[sparse_cells$.n == 0, ]
+stopifnot(
+  nrow(zero_cell) == 1L,
+  zero_cell$.expected > 0,
+  (zero_cell$r - zero_cell$l) * (zero_cell$t - zero_cell$b) > 0
+)
+sparse_jitter <- ggplot_build(
+  ggplot(sparse, aes(weight = Freq, x = product(A, B))) +
+    mosaic_settings(expected = "independence", area = "expected", offset = 0) +
+    geom_mosaic_jitter(seed = 123)
+)
+stopifnot(nrow(sparse_jitter$data[[1]]) == sum(sparse$Freq))
+
+# The rejected integrated-jitter API is not part of geom_mosaic().
+stopifnot(!any(c(
+  "jitter", "jitter_mapping", "jitter_size", "jitter_alpha", "seed"
+) %in% names(formals(geom_mosaic))))

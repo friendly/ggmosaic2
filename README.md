@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![Project Status:
@@ -18,7 +19,7 @@ DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/friendly/ggmosai
 
 # ggmosaic2 <img src="man/figures/logo.png" align="right" width="200px" />
 
-*Version 0.5.1, built 2026-08-14*
+*Version 0.5.1, built 2026-09-02*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -33,7 +34,7 @@ charts, stacked bar charts, mosaic plots, and double decker plots.
 
 `ggmosaic2` extends this with support for fitted loglinear models to
 show patterns of association among variables in frequency tables via
-residual-based shading, which was its’ original intention, as opposed to
+residual-based shading, which was its original intention, as opposed to
 the “fill by factor levels” (Marimekko shading) of the original
 `ggmosaic` package. It also adds jittered-point overlays showing
 individual observations, reflecting non-independence as variation in
@@ -111,9 +112,8 @@ library(ggmosaic2)
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), 
-                  weight = Freq)) +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic() +
   theme_mosaic(rot_labels = 45)
 ```
 
@@ -145,18 +145,14 @@ different comparisons among the frequencies.
 library(patchwork)
 p1 <- HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair),
-                  weight = Freq,
-                  fill = Eye)) +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq, fill = Eye)) +
+  geom_mosaic() +
   theme_mosaic(rot_labels = 30) +
   theme(legend.position = "none")
 p2 <- HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair),
-                  weight = Freq,
-                  fill = Sex)) +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq, fill = Sex)) +
+  geom_mosaic() +
   theme_mosaic(rot_labels = 30) +
   theme(legend.position = "none")
 
@@ -176,9 +172,8 @@ shaded red occur less often.
 ``` r
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence") +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(limits = c(-4, 4)) +
   theme_mosaic(rot_labels = 45)
 ```
@@ -205,10 +200,10 @@ set.seed(1945)
 HairEyeColor |>
   as.data.frame() |>
   tidyr::uncount(Freq) |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair)), expected = "independence") +
+  ggplot(aes(x = product(Sex, Eye, Hair))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(limits = c(-4, 4)) +
-  geom_mosaic_jitter(aes(x = product(Sex, Eye, Hair)), alpha = 0.3) +
+  geom_mosaic_jitter(alpha = 0.3) +
   theme_mosaic(rot_labels = 45)
 ```
 

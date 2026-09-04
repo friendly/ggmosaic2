@@ -230,8 +230,9 @@ using the full `HairEyeColor` dataset.
 ``` r
 
 # From frequency form (most common)
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye, Sex), fill = Eye)) +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye, Sex), fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Three-Way Mosaic: Hair × Eye × Sex",
        subtitle = "Frequency form with weight aesthetic")
 ```
@@ -241,8 +242,9 @@ ggplot(data = hair_freq) +
 ``` r
 
 # From case form
-ggplot(data = hair_case) +
-  geom_mosaic(aes(x = product(Hair, Eye, Sex), fill = Eye)) +
+ggplot(data = hair_case,
+       aes(x = product(Hair, Eye, Sex), fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Three-Way Mosaic: Hair × Eye × Sex",
        subtitle = "Case form without weight")
 ```
@@ -265,11 +267,12 @@ The `conds` aesthetic allows you to condition on one or more variables:
 ``` r
 
 # Condition on Sex
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq,
-                  x = product(Hair, Eye),
-                  conds = product(Sex),
-                  fill = Eye)) +
+ggplot(data = hair_freq,
+       aes(weight = Freq,
+           x = product(Hair, Eye),
+           conds = product(Sex),
+           fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Hair × Eye | Sex",
        subtitle = "Conditioned on Sex")
 ```
@@ -292,8 +295,9 @@ categorical variables:
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Hair × Eye Color: Default Shading",
        subtitle = "Fill shows Eye color levels")
 ```
@@ -326,9 +330,9 @@ common model is **independence** (main effects only):
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   labs(title = "Hair × Eye Color: Independence Model",
        subtitle = "Blue = more than expected, Red = fewer than expected")
@@ -350,13 +354,12 @@ We can display the actual residual values in each cell using
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(aes(weight = Freq, x = product(Hair, Eye)),
-                   expected = "independence",  # Must match!
-                   display_values = "residual",
+  geom_mosaic_text(display_values = "residual",
                    format_digits = 1,
                    size = 3.5,
                    colour = "black") +
@@ -376,9 +379,9 @@ variables are mutually independent:
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye, Sex)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   labs(title = "Hair × Eye × Sex: Complete Independence",
        subtitle = "Model: ~ Hair + Eye + Sex (no interactions)")
@@ -394,9 +397,9 @@ example, testing whether the Hair-Eye association differs by Sex:
 ``` r
 
 # Model: Hair and Eye are associated, but independent of Sex
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye, Sex)),
-              expected = ~ Hair * Eye + Sex) +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+  geom_mosaic(expected = ~ Hair * Eye + Sex) +
   scale_fill_residual() +
   labs(title = "Model: (Hair × Eye) Independent of Sex",
        subtitle = "~ Hair * Eye + Sex")
@@ -413,13 +416,12 @@ We can also display the expected counts under a model:
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(aes(weight = Freq, x = product(Hair, Eye)),
-                   expected = "independence",
-                   display_values = "expected",
+  geom_mosaic_text(display_values = "expected",
                    format_digits = 1,
                    size = 3.5,
                    colour = "black") +
@@ -433,10 +435,10 @@ And the observed counts:
 
 ``` r
 
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
-  geom_mosaic_text(aes(weight = Freq, x = product(Hair, Eye)),
-                   display_values = "observed",
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  geom_mosaic(aes(fill = Eye)) +
+  geom_mosaic_text(display_values = "observed",
                    format_digits = 0,
                    size = 3.5,
                    colour = "white") +
@@ -533,26 +535,32 @@ sessionInfo()
 #> [8] base     
 #> 
 #> other attached packages:
-#> [1] dplyr_1.2.1     vcdExtra_0.9.7  gnm_1.1-5       vcd_1.4-14     
+#> [1] dplyr_1.2.1     vcdExtra_0.9.8  gnm_1.1-5       vcd_1.4-14     
 #> [5] ggmosaic2_0.5.1 ggplot2_4.0.3  
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] gtable_0.3.6       xfun_0.60          bslib_0.12.0       htmlwidgets_1.6.4 
-#>  [5] websocket_1.4.4    ggrepel_0.9.8      processx_3.9.0     lattice_0.22-9    
-#>  [9] vctrs_0.7.3        tools_4.6.1        ps_1.9.3           generics_0.1.4    
-#> [13] tibble_3.3.1       ca_0.71.1          pkgconfig_2.0.3    Matrix_1.7-5      
-#> [17] data.table_1.18.4  RColorBrewer_1.1-3 S7_0.2.2           desc_1.4.3        
-#> [21] gt_1.3.0           lifecycle_1.0.5    compiler_4.6.1     farver_2.1.2      
-#> [25] textshaping_1.0.5  chromote_0.5.1     htmltools_0.5.9    sass_0.4.10       
-#> [29] yaml_2.3.12        plotly_4.12.1      pillar_1.11.1      pkgdown_2.2.1     
-#> [33] later_1.4.8        jquerylib_0.1.4    tidyr_1.3.2        MASS_7.3-65       
-#> [37] cachem_1.1.0       webshot2_0.1.2     tidyselect_1.2.1   digest_0.6.39     
-#> [41] purrr_1.2.2        qvcalc_1.0.4       forcats_1.0.1      fastmap_1.2.0     
-#> [45] colorspace_2.1-3   cli_3.6.6          magrittr_2.0.5     productplots_0.1.2
-#> [49] relimp_1.0-5       withr_3.0.3        scales_1.4.0       promises_1.5.0    
-#> [53] rmarkdown_2.31     httr_1.4.8         otel_0.2.0         nnet_7.3-20       
-#> [57] ragg_1.5.2         zoo_1.9-0          evaluate_1.0.5     knitr_1.51        
-#> [61] lmtest_0.9-40      viridisLite_0.4.3  rlang_1.3.0        Rcpp_1.1.2        
-#> [65] glue_1.8.1         xml2_1.6.0         jsonlite_2.0.0     R6_2.6.1          
-#> [69] plyr_1.8.9         systemfonts_1.3.2  fs_2.1.0
+#>  [1] gtable_0.3.6        xfun_0.60           bslib_0.12.0       
+#>  [4] htmlwidgets_1.6.4   websocket_1.4.4     ggrepel_0.9.8      
+#>  [7] processx_3.9.0      lattice_0.22-9      vctrs_0.7.3        
+#> [10] tools_4.6.1         ps_1.9.3            generics_0.1.4     
+#> [13] tibble_3.3.1        ca_0.71.1           pkgconfig_2.0.3    
+#> [16] Matrix_1.7-5        data.table_1.18.6.1 RColorBrewer_1.1-3 
+#> [19] S7_0.2.2            desc_1.4.3          gt_1.3.0           
+#> [22] lifecycle_1.0.5     compiler_4.6.1      farver_2.1.2       
+#> [25] textshaping_1.0.5   chromote_0.5.1      htmltools_0.5.9    
+#> [28] sass_0.4.10         yaml_2.3.12         plotly_4.12.1      
+#> [31] pillar_1.11.1       pkgdown_2.2.1       later_1.4.8        
+#> [34] jquerylib_0.1.4     tidyr_1.3.2         MASS_7.3-65        
+#> [37] cachem_1.1.0        webshot2_0.1.2      tidyselect_1.2.1   
+#> [40] digest_0.6.39       purrr_1.2.2         qvcalc_1.0.4       
+#> [43] forcats_1.0.1       fastmap_1.2.0       colorspace_2.1-3   
+#> [46] cli_3.6.6           magrittr_2.0.5      productplots_0.1.2 
+#> [49] relimp_1.0-5        withr_3.0.3         scales_1.4.0       
+#> [52] promises_1.5.0      rmarkdown_2.32      httr_1.4.9         
+#> [55] otel_0.2.0          nnet_7.3-20         ragg_1.5.2         
+#> [58] zoo_1.9-0           evaluate_1.0.5      knitr_1.51         
+#> [61] lmtest_0.9-40       viridisLite_0.4.3   rlang_1.3.0        
+#> [64] Rcpp_1.1.2          glue_1.8.1          xml2_1.6.0         
+#> [67] jsonlite_2.0.0      R6_2.6.1            plyr_1.8.9         
+#> [70] systemfonts_1.3.2   fs_2.1.0
 ```

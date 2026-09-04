@@ -4,7 +4,7 @@
 \alias{fit_loglinear_model}
 \title{Fit Poisson GLM and calculate Pearson residuals}
 \usage{
-fit_loglinear_model(data, vars, model_formula)
+fit_loglinear_model(data, vars, model_formula, strict = FALSE)
 }
 \arguments{
 \item{data}{Data frame with .n column (observed counts)}
@@ -12,6 +12,9 @@ fit_loglinear_model(data, vars, model_formula)
 \item{vars}{Character vector of all variable names (margins + conds)}
 
 \item{model_formula}{Formula for the GLM}
+
+\item{strict}{If \code{TRUE}, model-fitting failures are errors rather than the
+residual-only compatibility fallback.}
 }
 \value{
 Data frame with added .expected and .residual columns

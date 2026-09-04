@@ -35,13 +35,14 @@ Authors@R:
              comment = c(ORCID="0000-0003-4757-117X")))
 Description: Mosaic plots in the 'ggplot2' framework. Mosaic
     plot functionality is provided in a single 'ggplot2' layer by calling
-    the geom 'mosaic'. This extends the now-defunct `ggmosaic` package  by allowing fitted loglinear models which can be used to
+    the geom 'mosaic'. This extends the now-defunct 'ggmosaic' package by allowing fitted loglinear models which can be used to
     show patterns of association among variables in frequency tables.
 License: GPL (>= 2)
+Language: en-US
 URL: https://friendly.github.io/ggmosaic2/, https://github.com/friendly/ggmosaic2
 BugReports: https://github.com/friendly/ggmosaic2/issues
 Depends:
-    ggplot2 (>= 3.5.0),
+    ggplot2 (>= 4.0.0),
     R (>= 4.1.0)
 Imports:
     productplots,
@@ -56,7 +57,6 @@ Imports:
 Suggests:
     gridExtra,
     knitr,
-    NHANES,
     rmarkdown,
     shiny (>= 1.1.0),
     patchwork,

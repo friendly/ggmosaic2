@@ -96,10 +96,10 @@ product_clean_name <- function(x) {
 # `axis_vars` identifies the variables explicitly mapped through x or conds;
 # variables added only to support non-position aesthetics remain part of the
 # partition but are not shown on the position axes. A NULL value preserves the
-# legacy internal behaviour of labelling every formula variable.
+# legacy internal behavior of labeling every formula variable.
 #
 # The outermost variable of each direction keeps the primary (bottom/left)
-# axis; any inner variables of the same direction are labelled along the
+# axis; any inner variables of the same direction are labeled along the
 # top/right, vcd-style, at the midpoints of the rectangles that touch that
 # side. The secondary information is stashed on the scale objects
 # (sec_name/sec_breaks/sec_labels) and picked up in
@@ -155,7 +155,7 @@ product_scales <- function(res, formula, divider, labels = NULL,
                  labels = as.character(prim[[cols[outer]]]),
                  sec_name = NULL, sec_breaks = NULL, sec_labels = NULL)
 
-    # inner variables of the same direction are labelled along the
+    # inner variables of the same direction are labeled along the
     # opposite side, next to the rectangles that touch the top/right edge
     inner <- setdiff(idx, outer)
     if (length(inner) > 0) {

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggmosaic_app.R
 \name{ggmosaic_app}
 \alias{ggmosaic_app}
-\title{Launch shiny app}
+\title{Launch shiny app (deprecated)}
 \usage{
 ggmosaic_app(example = c("mosaics", "models"), ...)
 }
@@ -12,5 +12,11 @@ ggmosaic_app(example = c("mosaics", "models"), ...)
 \item{...}{arguments passed on.}
 }
 \description{
-Shiny app "EDA with Mosaic Plots" for interactive exploratory model building
+Shiny app "EDA with Mosaic Plots" for interactive exploratory model building.
 }
+\details{
+\strong{Deprecated.} Inherited as-is from the original \code{ggmosaic} package and kept only for the
+historical record. It is not maintained, and currently cannot find its app directory because
+\code{system.file()} still looks up the old \code{ggmosaic} package name rather than \code{ggmosaic2}.
+}
+\keyword{internal}

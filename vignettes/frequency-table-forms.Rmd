@@ -172,16 +172,18 @@ Let's demonstrate how to use each of the three forms with `geom_mosaic()` using 
 
 ```{r mosaic-3way-frequency, fig.height=5}
 # From frequency form (most common)
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye, Sex), fill = Eye)) +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye, Sex), fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Three-Way Mosaic: Hair × Eye × Sex",
        subtitle = "Frequency form with weight aesthetic")
 ```
 
 ```{r mosaic-3way-case, fig.height=5}
 # From case form
-ggplot(data = hair_case) +
-  geom_mosaic(aes(x = product(Hair, Eye, Sex), fill = Eye)) +
+ggplot(data = hair_case,
+       aes(x = product(Hair, Eye, Sex), fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Three-Way Mosaic: Hair × Eye × Sex",
        subtitle = "Case form without weight")
 ```
@@ -198,11 +200,12 @@ The `conds` aesthetic allows you to condition on one or more variables:
 
 ```{r mosaic-conds, fig.height=5}
 # Condition on Sex
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq,
-                  x = product(Hair, Eye),
-                  conds = product(Sex),
-                  fill = Eye)) +
+ggplot(data = hair_freq,
+       aes(weight = Freq,
+           x = product(Hair, Eye),
+           conds = product(Sex),
+           fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Hair × Eye | Sex",
        subtitle = "Conditioned on Sex")
 ```
@@ -216,8 +219,9 @@ One of the most powerful features of mosaic plots is **residual-based shading**,
 By default, `geom_mosaic()` uses the `fill` aesthetic to color tiles, typically showing one of the categorical variables:
 
 ```{r default-shading}
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
+  geom_mosaic() +
   labs(title = "Hair × Eye Color: Default Shading",
        subtitle = "Fill shows Eye color levels")
 ```
@@ -244,9 +248,9 @@ where "expected" frequencies come from the fitted model.
 For a two-way table, we can visualize just Hair and Eye color. The most common model is **independence** (main effects only):
 
 ```{r residual-2way}
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   labs(title = "Hair × Eye Color: Independence Model",
        subtitle = "Blue = more than expected, Red = fewer than expected")
@@ -261,14 +265,15 @@ The residual shading reveals:
 
 We can display the actual residual values in each cell using `geom_mosaic_text()`:
 
+<!-- TODO (GPT): A sentence may be needed here to explain `mosaic_settings()`. -->
+
 ```{r residual-labels}
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(aes(weight = Freq, x = product(Hair, Eye)),
-                   expected = "independence",  # Must match!
-                   display_values = "residual",
+  geom_mosaic_text(display_values = "residual",
                    format_digits = 1,
                    size = 3.5,
                    colour = "black") +
@@ -283,9 +288,9 @@ Values greater than 2 in absolute value indicate significant departures from ind
 For the three-way table, the independence model tests whether all three variables are mutually independent:
 
 ```{r residual-3way}
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye, Sex)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   labs(title = "Hair × Eye × Sex: Complete Independence",
        subtitle = "Model: ~ Hair + Eye + Sex (no interactions)")
@@ -297,9 +302,9 @@ You can specify custom loglinear models using formula syntax. For example, testi
 
 ```{r custom-model}
 # Model: Hair and Eye are associated, but independent of Sex
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye, Sex)),
-              expected = ~ Hair * Eye + Sex) +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+  geom_mosaic(expected = ~ Hair * Eye + Sex) +
   scale_fill_residual() +
   labs(title = "Model: (Hair × Eye) Independent of Sex",
        subtitle = "~ Hair * Eye + Sex")
@@ -312,13 +317,12 @@ Residuals close to zero suggest this model fits reasonably well—the Hair-Eye a
 We can also display the expected counts under a model:
 
 ```{r expected-values}
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye)),
-              expected = "independence") +
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
   scale_fill_residual() +
-  geom_mosaic_text(aes(weight = Freq, x = product(Hair, Eye)),
-                   expected = "independence",
-                   display_values = "expected",
+  geom_mosaic_text(display_values = "expected",
                    format_digits = 1,
                    size = 3.5,
                    colour = "black") +
@@ -329,10 +333,10 @@ ggplot(data = hair_freq) +
 And the observed counts:
 
 ```{r observed-values}
-ggplot(data = hair_freq) +
-  geom_mosaic(aes(weight = Freq, x = product(Hair, Eye), fill = Eye)) +
-  geom_mosaic_text(aes(weight = Freq, x = product(Hair, Eye)),
-                   display_values = "observed",
+ggplot(data = hair_freq,
+       aes(weight = Freq, x = product(Hair, Eye))) +
+  geom_mosaic(aes(fill = Eye)) +
+  geom_mosaic_text(display_values = "observed",
                    format_digits = 0,
                    size = 3.5,
                    colour = "white") +

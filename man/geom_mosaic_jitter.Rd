@@ -18,7 +18,7 @@ geom_mosaic_jitter(
   expected = NULL,
   area = c("observed", "expected"),
   show.legend = NA,
-  inherit.aes = FALSE,
+  inherit.aes = TRUE,
   ...
 )
 
@@ -94,10 +94,12 @@ to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item \code{hspine}  Horizontal spine partition: height constant, width varies.
 \item \code{vbar} Vertical bar partition: height constant, width varies.
 \item \code{hbar}  Horizontal bar partition: width constant, height varies.
-}}
+}
+When omitted, \code{divider} can be inherited from \code{\link[=mosaic_settings]{mosaic_settings()}}.}
 
 \item{offset}{Set the fixed gap at the deepest split. Gaps increase by a
-factor of 1.5 toward the outermost split.}
+factor of 1.5 toward the outermost split. When omitted, the value can be
+inherited from \code{\link[=mosaic_settings]{mosaic_settings()}}.}
 
 \item{drop_level}{Generate points for the max - 1 level}
 
@@ -105,12 +107,14 @@ factor of 1.5 toward the outermost split.}
 \code{NA}, which means that \code{set.seed} will not be called.}
 
 \item{expected}{Optional loglinear model specification. See
-\code{\link{prodcalc}}.}
+\code{\link{prodcalc}}. It is used only when the effective
+\code{area = "expected"}. When omitted, it can be inherited from
+\code{\link{mosaic_settings}}.}
 
 \item{area}{Values used to construct the point-containing rectangles:
 \code{"observed"} (the default) or fitted \code{"expected"} counts.
-This compatibility interface calculates its own layout; prefer
-\code{geom_mosaic(jitter = TRUE)} when combining tiles and points.}
+This layer calculates its own layout. When omitted, the value can be
+inherited from \code{\link{mosaic_settings}}.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -162,23 +166,40 @@ mapped through \code{x} or \code{conds}.
 \examples{
 data(titanic)
 
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class), fill = Survived), alpha = 0.3) +
-  geom_mosaic_jitter(aes(x = product(Class), color = Survived))
+ggplot(data = titanic, aes(x = product(Class))) +
+  geom_mosaic(aes(fill = Survived), alpha = 0.3) +
+  geom_mosaic_jitter(aes(color = Survived))
 
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class)), alpha = 0.1) +
-  geom_mosaic_jitter(aes(x = product(Class), color = Survived), drop_level = TRUE)
+ggplot(data = titanic, aes(x = product(Class))) +
+  geom_mosaic(alpha = 0.1) +
+  geom_mosaic_jitter(aes(color = Survived), drop_level = TRUE)
 
-ggplot(data = titanic) +
-  geom_mosaic(alpha = 0.3, aes(x = product(Class, Sex),  fill = Survived),
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  mosaic_settings(divider = c("vspine", "hspine", "hspine")) +
+  geom_mosaic(alpha = 0.3, aes(fill = Survived)) +
+  geom_mosaic_jitter(aes(color = Survived))
+
+# Expected areas with observed-count points and neutral tiles
+hec <- as.data.frame(HairEyeColor)
+ggplot(hec, aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+  mosaic_settings(expected = "independence", area = "expected") +
+  geom_mosaic() +
+  geom_mosaic_jitter(aes(colour = Hair), seed = 123)
+
+# Add the scale explicitly when residual shading is wanted
+ggplot(hec, aes(weight = Freq, x = product(Hair, Eye, Sex))) +
+  mosaic_settings(expected = "independence", area = "expected") +
+  geom_mosaic() +
+  geom_mosaic_jitter(aes(colour = Hair), seed = 123) +
+  scale_fill_residual()
+
+ ggplot(data = titanic,
+        aes(x = product(Class), conds = product(Sex), fill = Survived)) +
+  geom_mosaic(alpha = 0.3,
               divider = c("vspine", "hspine", "hspine")) +
-  geom_mosaic_jitter(aes(x = product(Class, Sex), color = Survived),
+  geom_mosaic_jitter(
               divider = c("vspine", "hspine", "hspine"))
-
- ggplot(data = titanic) +
-  geom_mosaic(alpha = 0.3, aes(x = product(Class), conds = product(Sex),  fill = Survived),
-              divider = c("vspine", "hspine", "hspine")) +
-  geom_mosaic_jitter(aes(x = product(Class), conds = product(Sex), fill = Survived),
-              divider = c("vspine", "hspine", "hspine"))
+}
+\author{
+Gavin Klorfine
 }

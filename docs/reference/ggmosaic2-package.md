@@ -2,9 +2,9 @@
 
 Mosaic plots in the 'ggplot2' framework. Mosaic plot functionality is
 provided in a single 'ggplot2' layer by calling the geom 'mosaic'. This
-extends the now-defunct \`ggmosaic\` package by allowing fitted
-loglinear models which can be used to show patterns of association among
-variables in frequency tables.
+extends the now-defunct 'ggmosaic' package by allowing fitted loglinear
+models which can be used to show patterns of association among variables
+in frequency tables.
 
 ## See also
 

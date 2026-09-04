@@ -14,10 +14,12 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
                                drop_level = FALSE, seed = NA, expected = NULL,
                                area = c("observed", "expected"), ...)
 {
-  area <- match.arg(area)
-  prepared <- prepare_mosaic_mapping(mapping, c("fill", "alpha", "colour"))
-  mapping <- prepared$mapping
-  add_mosaic_scale_environment(ggplot2::layer(
+  divider_missing <- missing(divider)
+  offset_missing <- missing(offset)
+  expected_missing <- missing(expected)
+  area_missing <- missing(area)
+
+  mosaic_layer(
     data = data,
     mapping = mapping,
     stat = StatMosaicJitter,
@@ -25,19 +27,24 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    check.aes = FALSE,
+    aesthetics = c("fill", "alpha", "colour"),
     params = list(
       na.rm = na.rm,
-      divider = divider,
-      offset = offset,
+      divider = if (divider_missing) .mosaic_inherit_setting else divider,
+      offset = if (offset_missing) .mosaic_inherit_setting else offset,
       drop_level = drop_level,
       seed = seed,
-      expected = expected,
-      area = area,
-      mosaic_spec = prepared$spec,
+      expected = if (expected_missing) .mosaic_inherit_setting else expected,
+      area = if (area_missing) .mosaic_inherit_setting else match.arg(area),
       ...
+    ),
+    setting_defaults = list(
+      divider = mosaic(),
+      offset = 0.01,
+      expected = NULL,
+      area = "observed"
     )
-  ))
+  )
 }
 
 
@@ -95,22 +102,12 @@ StatMosaicJitter <- ggplot2::ggproto(
     }
 
 
+    expected_for_layout <- if (identical(area, "expected")) expected else NULL
     res <- prodcalc(df, formula=formula,
                     divider = divider, cascade=0, scale_max = TRUE,
-                    na.rm = na.rm, offset = offset, expected = expected,
+                    na.rm = na.rm, offset = offset,
+                    expected = expected_for_layout,
                     variable_labels = mosaic_spec$labels, area = area)
-
-    # browser()
-
-    # consider 2nd weight for points
-    if (in_data(df, "weight2")) {
-      formula2 <- mosaic_formula(mosaic_spec, response = "weight2")
-      res2 <- prodcalc(df, formula = formula2, divider = divider,
-                       cascade = 0, scale_max = TRUE, na.rm = na.rm,
-                       offset = offset, expected = expected,
-                       variable_labels = mosaic_spec$labels, area = area)
-      res$.n2 <- res2$.n
-    }
 
 
     # need to set x variable - I'd rather set the scales here.
@@ -174,9 +171,7 @@ StatMosaicJitter <- ggplot2::ggproto(
 
     # generate points
     # consider 2nd weight for point
-    if (in_data(res, ".n2")) {
-      res$.n <- res$.n2
-    }
+    res$.point_count <- if (in_data(res, ".n2")) res$.n2 else res$.n
 
     sub <- subset(res, level==max(res$level))
     if(drop_level) {
@@ -186,6 +181,16 @@ StatMosaicJitter <- ggplot2::ggproto(
         select(ll, all_of(vars), xmin:ymax, -contains("col"))
       )
     }
+
+    point_counts <- sub$.point_count
+    if (any(!is.finite(point_counts) | point_counts < 0, na.rm = TRUE) ||
+        anyNA(point_counts)) {
+      stop(
+        "Jitter point counts must be finite, non-negative values.",
+        call. = FALSE
+      )
+    }
+    sub$.n <- round(point_counts)
 
 
 # create a set of uniformly spread points between 0 and 1 once, when the plot is created.

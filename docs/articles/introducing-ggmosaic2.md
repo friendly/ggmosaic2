@@ -30,21 +30,33 @@ with and without the use of
 ### Utilizing the top and right axes
 
 When three or more variables are used, the top (three or more variables)
-and right (four or more variables) axes will now be utilized. The below
-code is run using `haleyjeppson/ggmosaic` (**Old**) and
-`friendly/ggmosaic2` (**New**):
+and right (four or more variables) axes will now be utilized. The
+figures compare the historical `haleyjeppson/ggmosaic` output (**Old**)
+with `friendly/ggmosaic2` (**New**);
+
+The current **ggmosaic2** syntax below declares its aesthetics globally:
 
 ``` r
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-    geom_mosaic(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq))
+  ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+    geom_mosaic()
 ```
 
 ![](fig/topright-old.png)![](fig/topright-new.png)
 
 ### `theme_mosaic()`
+
+As with other `ggplot2` extensions, themes set the general look-and-feel
+of the plot such as the color of the background, gridlines, the size and
+color of fonts.
+[`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
+provides access to the regular ggplot2 theme, but: removes any
+background, axes ticks, most of the gridlines, and ensures an aspect
+ratio of 1 for better viewing of the mosaics. This theme also applies a
+**bold** face to axes labels and allows for the convenient rotation of
+category labels to avoid overlap.
 
 With
 [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
@@ -54,16 +66,16 @@ applied to the above:
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-    geom_mosaic(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
-    theme_mosaic()
+  ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+    geom_mosaic() +
+    theme_mosaic(base_size = 12)
 ```
 
 ![](fig/theme-old.png)![](fig/theme-new.png)
 
 Axis labels had a bold face applied to be consistent with mosaics made
 using **vcd** and **vcdExtra**. Axis ticks were removed, as they are
-unneccessary for mosaic displays.
+unnecessary for mosaic displays.
 
 New to
 [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
@@ -74,9 +86,9 @@ to a user-specified angle (in degrees):
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-    geom_mosaic(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
-    theme_mosaic(rot_labels = 30)
+  ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+    geom_mosaic() +
+    theme_mosaic(rot_labels = 30, base_size = 14)
 ```
 
 ![](introducing-ggmosaic2_files/figure-html/rot-labels-1.png)
@@ -84,16 +96,21 @@ HairEyeColor |>
 ### Spacing of cells
 
 You might already have noticed that the innermost spacing of cells in
-mosaic displays has been increased in **ggmosaic2**. Re-using an example
-from “Utilizing the top and right axes,” differentiating between cells
-is now easier:
+mosaic displays has been increased in **ggmosaic2**. This is a
+perceptual feature of mosaic displays (Friendly, 1994): wider gaps at
+the first splits make it easier and compare to see the frequencies of
+categories at different dimensions of the table in the order the mosaic
+is divided.
+
+Re-using an example from “Utilizing the top and right axes,”
+differentiating between cells is now easier:
 
 ``` r
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-    geom_mosaic(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+  ggplot(aes(x = product(Sex, Eye, Hair), fill = Hair, weight = Freq)) +
+    geom_mosaic() +
     theme_mosaic()
 ```
 
@@ -121,8 +138,8 @@ labels would not be independently generated per panel:
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Eye, Hair), fill = Hair, weight = Freq)) +
+  ggplot(aes(x = product(Eye, Hair), fill = Hair, weight = Freq)) +
+  geom_mosaic() +
   theme_mosaic() +
   facet_grid(. ~ Sex)
 ```
@@ -131,14 +148,14 @@ HairEyeColor |>
 
 The new function
 [`facet_mosaic_grid()`](https://friendly.github.io/ggmosaic2/reference/facet_mosaic_grid.md)
-corrects this behaviour, generating labels per facet:
+corrects this behavior, generating labels per facet:
 
 ``` r
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Eye, Hair), fill = Hair, weight = Freq)) +
+  ggplot(aes(x = product(Eye, Hair), fill = Hair, weight = Freq)) +
+  geom_mosaic() +
   theme_mosaic() +
   facet_mosaic_grid(. ~ Sex)
 ```
@@ -164,9 +181,8 @@ instead of the `fill` argument of
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence") +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual() +
   theme_mosaic(rot_labels = 30)
 ```
@@ -181,9 +197,8 @@ to the default in **vcd**), you can use the `limits` argument of
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence") +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(limits = c(-4,4)) +
   theme_mosaic(rot_labels = 30)
 ```
@@ -196,9 +211,8 @@ The legend can be re-positioned or disabled through the usual means:
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence") + # `show.legend = FALSE` works as well
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence") + # `show.legend = FALSE` works as well
   scale_fill_residual(limits = c(-4,4)) +
   theme_mosaic(rot_labels = 30, legend.position = "none")
 ```
@@ -209,9 +223,8 @@ HairEyeColor |>
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence") +
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(limits = c(-4,4)) +
   theme_mosaic(rot_labels = 30, legend.position = "bottom")
 ```
@@ -224,15 +237,43 @@ Custom outlines can also be disabled through the usual means:
 
 HairEyeColor |>
   as.data.frame() |>
-  ggplot() +
-  geom_mosaic(aes(x = product(Sex, Eye, Hair), weight = Freq),
-              expected = "independence",
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  geom_mosaic(expected = "independence",
               color = NA) +
   scale_fill_residual(limits = c(-4,4)) +
   theme_mosaic(rot_labels = 30, legend.position = "bottom")
 ```
 
 ![](introducing-ggmosaic2_files/figure-html/residual-outlines-1.png)
+
+## Sharing settings between mosaic layers
+
+When a plot contains multiple mosaic layers (e.g.,
+[`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
+and
+[`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md)),
+[`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md)
+can be used to set the `divider`, `offset`, and `expected` arguments
+once and share them across compatible layers.
+
+In this example, rather than repeating `expected = "independence"` in
+each mosaic layer, we specify it once using
+[`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md):
+
+``` r
+
+HairEyeColor |>
+  as.data.frame() |>
+  ggplot(aes(x = product(Sex, Eye, Hair), weight = Freq)) +
+  mosaic_settings(expected = "independence") +
+  geom_mosaic() +
+  geom_mosaic_text(display_values = "residual",
+                   format_digits = 1) +
+  scale_fill_residual(limits = c(-4,4)) +
+  theme_mosaic(rot_labels = 30)
+```
+
+![](introducing-ggmosaic2_files/figure-html/mosaic-settings-1.png)
 
 ## Other fixes/changes
 
@@ -255,3 +296,8 @@ HairEyeColor |>
 - Fixed fill aesthetic automatically appearing in labels ([issue
   \#39](https://github.com/haleyjeppson/ggmosaic/issues/39) from
   `haleyjeppson/ggmosaic`)
+
+## References
+
+Friendly, M. (1994). Mosaic displays for multi-way contingency tables.
+*Journal of the American Statistical Association*, *89*, 190–200.

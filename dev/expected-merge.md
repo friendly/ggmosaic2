@@ -244,10 +244,11 @@ every participating layer either has no explicit fill or explicitly maps
 `after_stat(.residual)`. Independent fill meanings in one ggplot remain outside
 scope and require a separate multiple-scale facility such as `ggnewscale`.
 
-Residual outlines should remain tied to the presence of valid residuals, not
-to whether residual fill is displayed. Preserve `master`'s positive, negative,
-and numerical-zero outline logic, along with explicit `colour`, `linetype`, or
-`linewidth` overrides.
+Residual outlines should be activated by `scale_fill_residual()` together with
+residual fill. Without the scale, model-enabled tiles should use neutral grey
+fill and no residual-sign outlines. Preserve `master`'s positive, negative,
+and numerical-zero outline logic when the scale is present, along with explicit
+`colour`, `linetype`, or `linewidth` overrides.
 
 ## Expected-area calculation
 
@@ -414,7 +415,7 @@ do not rely on a conflict marker to identify every semantic integration point.
 - Add the computed mapping after structural mapping preparation.
 - Mark and detect `scale_fill_residual()`.
 - Add the explicit-fill conflict validation and error message.
-- Preserve residual outlines independently of fill activation.
+- Activate residual outlines together with `scale_fill_residual()`.
 
 ### 6. Update text and jitter
 
@@ -483,7 +484,9 @@ must not recommend the rejected integrated-jitter API.
   targeted error.
 - Multiple mosaic layers are accepted only when all fill uses are compatible
   with the residual scale.
-- Residual outline sign and zero-tolerance behavior remain unchanged.
+- Without `scale_fill_residual()`, no residual-sign outlines are drawn.
+- With `scale_fill_residual()`, residual outline sign and zero-tolerance
+  behavior remain unchanged.
 
 ### Regression coverage
 

@@ -1,8 +1,15 @@
+is_residual_fill_scale <- function(scale) {
+  !is.null(scale) && isTRUE(scale$ggmosaic_residual_scale)
+}
+
 #' Diverging color scale for Pearson residuals
 #'
 #' Provides a red-white-blue color scale centered at 0 for visualizing
-#' Pearson residuals from loglinear models. Designed for use with
-#' \code{geom_mosaic()} when \code{expected} parameter is specified.
+#' Pearson residuals from loglinear models. Adding this scale explicitly
+#' activates residual fill for model-enabled mosaic layers; without it, those
+#' layers retain their ordinary grey fill. Designed for use with
+#' \code{geom_mosaic()} when a model is supplied through the layer's
+#' \code{expected} argument or through \code{\link{mosaic_settings}}.
 #'
 #' @param ... Arguments passed to \code{\link[ggplot2]{scale_fill_gradient2}}
 #' @param low Color for negative residuals (default: "darkred")
@@ -15,7 +22,7 @@
 #'
 #' @details The default legend always labels -4, 0, and 4. It also labels
 #'   supplied limits and the observed minimum and maximum when those differ
-#'   from the limits. The legend extends to every labelled value, with solid
+#'   from the limits. The legend extends to every labeled value, with solid
 #'   endpoint color beyond supplied limits. When the contributing mosaic cells
 #'   have outlines, positive residuals have a solid dark blue outline, negative
 #'   residuals have a dashed dark red outline, and an unoutlined midpoint band
@@ -23,29 +30,29 @@
 #'   contributing mosaic layer removes these outlines from both the cells and
 #'   the legend. Black ticks are drawn outside the color bar, which stretches
 #'   with the mosaic panel. Nearby vertical labels are separated, and a thin
-#'   elbow connects each displaced label to its exact tick. The neighbouring
+#'   elbow connects each displaced label to its exact tick. The neighboring
 #'   label uses a longer straight tick so nearby text shares a common alignment.
 #'   Automatically generated numeric labels are rounded to one decimal place.
 #'   The legend can be hidden normally with
 #'   `theme(legend.position = "none")`.
+#' @author Gavin Klorfine
 #' @export
 #' @examples
 #' data(titanic)
 #'
 #' # Independence model with residual shading
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic(expected = "independence") +
 #'   scale_fill_residual()
 #'
 #' # Custom colors
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic(expected = "independence") +
 #'   scale_fill_residual(low = "red", high = "blue")
 #'
 #' # Custom limits to highlight strong deviations
-#' ggplot(data = titanic) +
-#'   geom_mosaic(aes(x = product(Class, Sex, Survived)),
-#'               expected = ~ Class + Sex) +
+#' ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+#'   geom_mosaic(expected = ~ Class + Sex) +
 #'   scale_fill_residual(limits = c(-4, 4))
 scale_fill_residual <- function(...,
                                 low = "darkred",
@@ -73,6 +80,8 @@ scale_fill_residual <- function(...,
   if (identical(scale$guide, "colourbar")) {
     scale$guide <- guide_residual()
   }
+
+  scale$ggmosaic_residual_scale <- TRUE
 
   scale
 }
@@ -202,10 +211,10 @@ GuideResidual <- ggplot2::ggproto(
   },
 
   process_layers = function(self, params, layers, data = NULL, theme = NULL) {
-    # Residual fill is added by StatMosaic rather than appearing in the user's
-    # aesthetic mapping, so ggplot2's ordinary mapped-aesthetic check cannot
-    # see it. Retain the guide when such a layer contributes residual data,
-    # while still respecting show.legend = FALSE.
+    # Residual fill can be installed by LayerMosaic at build time rather than
+    # appearing in the user's original aesthetic mapping. Retain the guide
+    # when such a layer contributes residual data, while still respecting
+    # show.legend = FALSE.
     include <- vapply(seq_along(layers), function(index) {
       show <- layers[[index]]$show.legend
       hidden <- isFALSE(show) ||

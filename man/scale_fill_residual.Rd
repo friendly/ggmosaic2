@@ -43,13 +43,16 @@ limits receive the corresponding endpoint color.}
 }
 \description{
 Provides a red-white-blue color scale centered at 0 for visualizing
-Pearson residuals from loglinear models. Designed for use with
-\code{geom_mosaic()} when \code{expected} parameter is specified.
+Pearson residuals from loglinear models. Adding this scale explicitly
+activates residual fill for model-enabled mosaic layers; without it, those
+layers retain their ordinary grey fill. Designed for use with
+\code{geom_mosaic()} when a model is supplied through the layer's
+\code{expected} argument or through \code{\link{mosaic_settings}}.
 }
 \details{
 The default legend always labels -4, 0, and 4. It also labels
 supplied limits and the observed minimum and maximum when those differ
-from the limits. The legend extends to every labelled value, with solid
+from the limits. The legend extends to every labeled value, with solid
 endpoint color beyond supplied limits. When the contributing mosaic cells
 have outlines, positive residuals have a solid dark blue outline, negative
 residuals have a dashed dark red outline, and an unoutlined midpoint band
@@ -57,7 +60,7 @@ residuals have a dashed dark red outline, and an unoutlined midpoint band
 contributing mosaic layer removes these outlines from both the cells and
 the legend. Black ticks are drawn outside the color bar, which stretches
 with the mosaic panel. Nearby vertical labels are separated, and a thin
-elbow connects each displaced label to its exact tick. The neighbouring
+elbow connects each displaced label to its exact tick. The neighboring
 label uses a longer straight tick so nearby text shares a common alignment.
 Automatically generated numeric labels are rounded to one decimal place.
 The legend can be hidden normally with
@@ -67,18 +70,20 @@ The legend can be hidden normally with
 data(titanic)
 
 # Independence model with residual shading
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual()
 
 # Custom colors
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual(low = "red", high = "blue")
 
 # Custom limits to highlight strong deviations
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex, Survived)),
-              expected = ~ Class + Sex) +
+ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+  geom_mosaic(expected = ~ Class + Sex) +
   scale_fill_residual(limits = c(-4, 4))
+}
+\author{
+Gavin Klorfine
 }

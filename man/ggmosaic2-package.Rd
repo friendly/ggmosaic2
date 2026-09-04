@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Mosaic plots in the 'ggplot2' framework. Mosaic plot functionality is provided in a single 'ggplot2' layer by calling the geom 'mosaic'. This extends the now-defunct `ggmosaic` package by allowing fitted loglinear models which can be used to show patterns of association among variables in frequency tables.
+Mosaic plots in the 'ggplot2' framework. Mosaic plot functionality is provided in a single 'ggplot2' layer by calling the geom 'mosaic'. This extends the now-defunct 'ggmosaic' package by allowing fitted loglinear models which can be used to show patterns of association among variables in frequency tables.
 }
 \seealso{
 Useful links:

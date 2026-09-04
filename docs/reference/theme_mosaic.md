@@ -1,7 +1,7 @@
 # Theme for mosaic plots
 
-Themes set the general aspect of the plot such as the colour of the
-background, gridlines, the size and colour of fonts. `theme_mosaic`
+Themes set the general aspect of the plot such as the color of the
+background, gridlines, the size and color of fonts. `theme_mosaic`
 provides access to the regular ggplot2 theme, but removes any
 background, axes ticks, most of the gridlines, and ensures an aspect
 ratio of 1 for better viewing of the mosaics. This theme also applies a
@@ -22,7 +22,7 @@ category labels.
 - rot_labels:
 
   The angle (in degrees) used to rotate category labels. Defaults to 0
-  degrees.
+  degrees, relative to the current axis orientation.
 
 - ...:
 
@@ -31,13 +31,28 @@ category labels.
   These are applied after the mosaic theme defaults and can therefore
   override them.
 
+## Details
+
+As with other `ggplot2` extensions, themes set the general look-and-feel
+of the plot such as the color of the background, gridlines, the size and
+color of fonts. `theme_mosaic()` provides access to the regular ggplot2
+theme, but: removes any background, axes ticks, most of the gridlines,
+and ensures an aspect ratio of 1 for better viewing of the mosaics. This
+theme also applies a **bold** face to axes labels and allows for the
+convenient rotation of category labels to avoid overlap
+
+## Author
+
+Gavin Klorfine
+
 ## Examples
 
 ``` r
 library(ggmosaic2)
 data(happy)
-ggplot(data = happy) +
-  geom_mosaic(aes(weight=wtssall, x=product(health), fill=happy), na.rm=TRUE) +
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(health), fill = happy)) +
+  geom_mosaic(na.rm = TRUE) +
   theme_mosaic()
 
 ```

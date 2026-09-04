@@ -16,7 +16,7 @@ geom_mosaic(
   divider = mosaic(),
   offset = 0.01,
   show.legend = NA,
-  inherit.aes = FALSE,
+  inherit.aes = TRUE,
   expected = NULL,
   ...
 )
@@ -31,6 +31,7 @@ stat_mosaic_text(
   show.legend = NA,
   inherit.aes = TRUE,
   offset = 0.01,
+  expected = NULL,
   ...
 )
 
@@ -136,10 +137,15 @@ stat_mosaic(
 
   - `hbar` Horizontal bar partition: width constant, height varies.
 
+  When omitted, `divider` can be inherited from
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
+
 - offset:
 
   Set the fixed gap at the deepest split. Gaps increase by a factor of
-  1.5 toward the outermost split.
+  1.5 toward the outermost split. When omitted, the value can be
+  inherited from
+  [`mosaic_settings()`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
 
 - show.legend:
 
@@ -160,11 +166,21 @@ stat_mosaic(
 
 - expected:
 
-  Optional loglinear model specification for residual shading. Positive
-  residuals receive a solid dark blue outline and negative residuals a
-  dashed dark red outline by default. Set `colour = NA` to remove the
-  outlines from both the cells and the residual legend. See details in
-  [`prodcalc`](https://friendly.github.io/ggmosaic2/reference/prodcalc.md).
+  Optional specification for loglinear model residual shading. Can be a
+  formula (e.g., `~ Var1 + Var2`), a character shortcut ("independence",
+  "saturated", "conditional"), or NULL (default, no model). When
+  omitted, the value can be inherited from
+  [`mosaic_settings`](https://friendly.github.io/ggmosaic2/reference/mosaic_settings.md).
+  An explicitly supplied layer value takes priority; in particular,
+  `expected = NULL` turns off a plot-level model for that layer. When
+  specified, Pearson residuals are calculated and automatically mapped
+  to fill (unless fill aesthetic is explicitly set). Use with
+  [`scale_fill_residual`](https://friendly.github.io/ggmosaic2/reference/scale_fill_residual.md)
+  for a diverging color scale. Positive residuals receive a solid dark
+  blue outline and negative residuals a dashed dark red outline by
+  default. Residuals within numerical tolerance of zero receive a solid
+  black outline. Set `colour = NA` to remove the outlines from both the
+  cells and the residual legend.
 
 - ...:
 
@@ -233,45 +249,53 @@ and vertical roles; for example, `product(predictions, actual)` places
 
   location of top right corner
 
+## Author
+
+Gavin Klorfine
+
 ## Examples
 
 ``` r
 
 data(titanic)
 
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class), fill = Survived))
+ggplot(data = titanic, aes(x = product(Class), fill = Survived)) +
+  geom_mosaic()
 
 # good practice: use the 'dependent' variable (or most important variable)
 # as fill variable
 
 # if there is only one variable inside `product()`,
 # `product()` can be omitted
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = Class, fill = Survived))
+ggplot(data = titanic, aes(x = Class, fill = Survived)) +
+  geom_mosaic()
 
 
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Age), fill = Survived))
+ggplot(data = titanic,
+       aes(x = product(Class, Age), fill = Survived)) +
+  geom_mosaic()
 
 
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class), conds = product(Age), fill = Survived))
+ggplot(data = titanic,
+       aes(x = product(Class), conds = product(Age), fill = Survived)) +
+  geom_mosaic()
 
 
 # if there is only one variable inside `product()`,
 # `product()` can be omitted
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = Class, conds = Age, fill = Survived))
+ggplot(data = titanic, aes(x = Class, conds = Age, fill = Survived)) +
+  geom_mosaic()
 
 
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Survived, Class), fill = Age))
+ggplot(data = titanic,
+       aes(x = product(Survived, Class), fill = Age)) +
+  geom_mosaic()
 
 
 # Variables can be transformed directly inside mosaic aesthetics
-ggplot(data = mtcars) +
-  geom_mosaic(aes(x = product(factor(gear)), fill = factor(cyl)))
+ggplot(data = mtcars,
+       aes(x = product(factor(gear)), fill = factor(cyl))) +
+  geom_mosaic()
 
 
 # A fill-only variable colours and partitions the tiles without appearing on
@@ -283,81 +307,91 @@ confusion$is_correct <- ifelse(
   confusion$actual == confusion$predictions,
   "Correct prediction", "Incorrect prediction"
 )
-ggplot(confusion) +
-  geom_mosaic(aes(
+ggplot(confusion, aes(
     weight = Freq,
     x = product(predictions, actual),
     fill = is_correct
-  ))
+  )) +
+  geom_mosaic()
 
 
 # Just excluded for timing. Examples are included in testing to make sure they work
 if (FALSE) { # \dontrun{
 data(happy)
 
-ggplot(data = happy) + geom_mosaic(aes(x = product(happy)), divider="hbar")
+ggplot(data = happy, aes(x = product(happy))) +
+  geom_mosaic(divider = "hbar")
 
-ggplot(data = happy) + geom_mosaic(aes(x = product(happy))) +
+ggplot(data = happy, aes(x = product(happy))) +
+  geom_mosaic() +
   coord_flip()
 
 # weighting is important
-ggplot(data = happy) +
-  geom_mosaic(aes(weight=wtssall, x=product(happy)))
+ggplot(data = happy, aes(weight = wtssall, x = product(happy))) +
+  geom_mosaic()
 
-ggplot(data = happy) + geom_mosaic(aes(weight=wtssall, x=product(health), fill=happy)) +
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(health), fill = happy)) +
+  geom_mosaic() +
   theme(axis.text.x=element_text(angle=35))
 
-ggplot(data = happy) +
-  geom_mosaic(aes(weight=wtssall, x=product(health), fill=happy), na.rm=TRUE)
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(health), fill = happy)) +
+  geom_mosaic(na.rm = TRUE)
 
-ggplot(data = happy) +
-  geom_mosaic(aes(weight=wtssall, x=product(health, sex, degree), fill=happy),
-  na.rm=TRUE)
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(health, sex, degree), fill = happy)) +
+  geom_mosaic(na.rm = TRUE)
 
 # here is where a bit more control over the spacing of the bars is helpful:
 # set labels manually:
-ggplot(data = happy) +
-  geom_mosaic(aes(weight=wtssall, x=product(age), fill=happy), na.rm=TRUE, offset=0) +
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(age), fill = happy)) +
+  geom_mosaic(na.rm = TRUE, offset = 0) +
   scale_x_productlist("Age", labels=c(17+1:72))
 
 # thin out labels manually:
 labels <- c(17+1:72)
 labels[labels %% 5 != 0] <- ""
-ggplot(data = happy) +
-  geom_mosaic(aes(weight=wtssall, x=product(age), fill=happy), na.rm=TRUE, offset=0) +
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(age), fill = happy)) +
+  geom_mosaic(na.rm = TRUE, offset = 0) +
   scale_x_productlist("Age", labels=labels)
 
-ggplot(data = happy) +
-  geom_mosaic(aes(weight=wtssall, x=product(age), fill=happy, conds = product(sex)),
-  divider=mosaic("v"), na.rm=TRUE, offset=0.001) +
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(age), fill = happy,
+           conds = product(sex))) +
+  geom_mosaic(divider = mosaic("v"), na.rm = TRUE, offset = 0.001) +
   scale_x_productlist("Age", labels=labels)
 
-ggplot(data = happy) +
-  geom_mosaic(aes(weight=wtssall, x=product(age), fill=happy), na.rm=TRUE, offset = 0) +
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(age), fill = happy)) +
+  geom_mosaic(na.rm = TRUE, offset = 0) +
   facet_grid(sex~.) +
   scale_x_productlist("Age", labels=labels)
 
-ggplot(data = happy) +
-  geom_mosaic(aes(weight = wtssall, x = product(happy, finrela, health)),
-  divider=mosaic("h"))
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(happy, finrela, health))) +
+  geom_mosaic(divider = mosaic("h"))
 
-ggplot(data = happy) +
-  geom_mosaic(aes(weight = wtssall, x = product(happy, finrela, health)), offset=.005)
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(happy, finrela, health))) +
+  geom_mosaic(offset = .005)
 
 # Spine example
-ggplot(data = happy) +
- geom_mosaic(aes(weight = wtssall, x = product(health), fill = health)) +
+ggplot(data = happy,
+       aes(weight = wtssall, x = product(health), fill = health)) +
+ geom_mosaic() +
  facet_grid(happy~.)
 
 # Residual shading with independence model
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex)), expected = "independence") +
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(expected = "independence") +
   scale_fill_residual()
 
 # Custom model formula
-ggplot(data = titanic) +
-  geom_mosaic(aes(x = product(Class, Sex, Survived)),
-              expected = ~ Class + Sex) +
+ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
+  geom_mosaic(expected = ~ Class + Sex) +
   scale_fill_residual()
 } # } # end of don't run
 ```

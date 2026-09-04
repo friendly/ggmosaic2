@@ -131,10 +131,12 @@ build_model_formula <- function(expected, vars, conds = NULL,
 #' @param data Data frame with .n column (observed counts)
 #' @param vars Character vector of all variable names (margins + conds)
 #' @param model_formula Formula for the GLM
+#' @param strict If `TRUE`, model-fitting failures are errors rather than the
+#'   residual-only compatibility fallback.
 #' @return Data frame with added .expected and .residual columns
 #' @keywords internal
 #' @importFrom dplyr select all_of distinct left_join
-fit_loglinear_model <- function(data, vars, model_formula) {
+fit_loglinear_model <- function(data, vars, model_formula, strict = FALSE) {
   # Check for reserved column names
   if (any(c(".expected", ".residual") %in% names(data))) {
     warning("Data contains reserved column names (.expected, .residual). ",
@@ -157,6 +159,9 @@ fit_loglinear_model <- function(data, vars, model_formula) {
 
     # Fit the model
     model <- glm(glm_formula, data = mod_data, family = poisson())
+    if (!isTRUE(model$converged)) {
+      stop("the Poisson model did not converge")
+    }
 
     # Calculate expected values (fitted values from the model)
     # Use newdata to ensure we get predictions for all rows, even if some were dropped during fitting
@@ -184,6 +189,9 @@ fit_loglinear_model <- function(data, vars, model_formula) {
     result
 
   }, error = function(e) {
+    if (isTRUE(strict)) {
+      stop("Loglinear model fitting failed: ", e$message, call. = FALSE)
+    }
     warning("Loglinear model fitting failed: ", e$message,
             "\nProceeding without residual shading.", call. = FALSE)
     # On error, set expected = observed and residuals = 0

@@ -126,6 +126,10 @@ visible. The panel-specific label positions are retained with
 [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md);
 that theme intentionally hides the tick marks themselves.
 
+## Author
+
+Gavin Klorfine
+
 ## Examples
 
 ``` r
@@ -136,8 +140,8 @@ facet_data <- expand.grid(
 )
 facet_data$n <- c(30, 10, 20, 40, 10, 35, 40, 15)
 
-ggplot(facet_data) +
-  geom_mosaic(aes(weight = n, x = product(response, group),
-                  fill = response)) +
+ggplot(facet_data,
+       aes(weight = n, x = product(response, group), fill = response)) +
+  geom_mosaic() +
   facet_mosaic_grid(cols = vars(period))
 ```
