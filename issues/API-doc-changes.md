@@ -228,20 +228,20 @@ The source of truth is the four `.Rmd` files above. After editing the specified 
 
 ## Verification checklist
 
-- [ ] `?mosaic_settings` names every participating geom/stat and documents
+- [x] `?mosaic_settings` names every participating geom/stat and documents
       precedence, omission, explicit `NULL`, plot locality, ordering, and
       repeated-call behavior.
-- [ ] `?geom_mosaic`, `?geom_mosaic_text`, and `?geom_mosaic_jitter` say that
+- [x] `?geom_mosaic`, `?geom_mosaic_text`, and `?geom_mosaic_jitter` say that
       applicable settings are inherited when omitted.
-- [ ] The generated `?geom_mosaic` page retains the complete `expected`
+- [x] The generated `?geom_mosaic` page retains the complete `expected`
       description after resolving the duplicate roxygen block.
-- [ ] No vignette says that `expected` must be repeated in both tile and text
+- [x] No vignette says that `expected` must be repeated in both tile and text
       layers.
-- [ ] No `# Must match!` comments remain in vignette source.
-- [ ] Multi-layer vignette examples use one shared model/layout setting unless
+- [x] No `# Must match!` comments remain in vignette source.
+- [x] Multi-layer vignette examples use one shared model/layout setting unless
       they are deliberately demonstrating an override.
-- [ ] Single-layer/direct-argument examples remain, documenting backward
+- [x] Single-layer/direct-argument examples remain, documenting backward
       compatibility.
-- [ ] `devtools::document()` (or the package's equivalent), vignette builds,
+- [x] `devtools::document()` (or the package's equivalent), vignette builds,
       examples, and `R CMD check` complete successfully.
-- [ ] pkgdown reference and article output is regenerated from source.
+- [x] pkgdown reference and article output is regenerated from source.
