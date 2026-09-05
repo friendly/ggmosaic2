@@ -181,3 +181,16 @@ ScaleContinuousProduct
   to `NULL` to suppress these labels, or supply a
   [`sec_axis`](https://ggplot2.tidyverse.org/reference/sec_axis.html)
   for full control.
+
+## Value
+
+A `ggplot2` position scale that can be added to a plot.
+
+## Examples
+
+``` r
+data(titanic)
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic() +
+  scale_x_productlist("Passenger class / Sex")
+```

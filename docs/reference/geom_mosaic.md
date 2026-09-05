@@ -207,6 +207,10 @@ stat_mosaic(
     geom](https://ggplot2.tidyverse.org/reference/layer_geoms.html)
     documentation.
 
+## Value
+
+A `ggplot2` layer that can be added to a plot.
+
 ## Details
 
 Variables mapped only to `fill` or `alpha` retain their historical role

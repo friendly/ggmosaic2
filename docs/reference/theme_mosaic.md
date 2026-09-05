@@ -31,6 +31,10 @@ category labels.
   These are applied after the mosaic theme defaults and can therefore
   override them.
 
+## Value
+
+A `ggplot2` theme object that can be added to a plot.
+
 ## Details
 
 As with other `ggplot2` extensions, themes set the general look-and-feel
