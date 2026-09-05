@@ -1,9 +1,18 @@
 
+## Resubmission
+
+The initial 2026-09-05 submission was caught by CRAN's automated incoming checks (Debian
+pretest only, not Windows) before any human review: `theme_mosaic.Rd` was missing a `\usage`
+section, because its roxygen2 documentation block had become separated from the function it
+documented. Fixed by consolidating them into a single block; confirmed locally and via
+win-builder and R-hub that `checking Rd contents` and `checking Rd \usage sections` now both
+pass.
+
 ## Test environments
 * local Windows 11, R version 4.6.1 (2026-06-24 ucrt)
 * local macOS Tahoe 26.6.2, R version 4.6.1 (2026-06-24) [GK]
 * R-hub `ubuntu-release`: R 4.6.1 (2026-06-24) on Ubuntu 24.04.4 LTS
-* win-builder (R Under development (unstable), 2026-08-31 r90457 ucrt)
+* win-builder (R Under development (unstable), 2026-09-05 ucrt)
 
 ## R CMD check results
 
