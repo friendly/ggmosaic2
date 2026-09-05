@@ -280,7 +280,7 @@ Scales for the product-formula axes and residual-shaded fill
 
 ## Theme
 
-- [`theme_mosaic`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
+- [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md)
   : Theme for mosaic plots
 
 ## Loglinear models

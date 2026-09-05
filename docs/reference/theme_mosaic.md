@@ -8,6 +8,12 @@ ratio of 1 for better viewing of the mosaics. This theme also applies a
 bold face to axes labels and allows for the convenient rotation of
 category labels.
 
+## Usage
+
+``` r
+theme_mosaic(base_size = 11, base_family = "", rot_labels = 0, ...)
+```
+
 ## Arguments
 
 - base_size:
