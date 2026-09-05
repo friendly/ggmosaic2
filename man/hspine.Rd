@@ -15,6 +15,15 @@ hspine(data, bounds, offset = offset, max = NULL)
 
 \item{max}{maximum value}
 }
+\value{
+A data frame of rectangle boundaries (\code{l}, \code{r}, \code{b}, \code{t}), one row
+per level of \code{data}.
+}
 \description{
 Horizontal spine partition: height constant, width varies.
+}
+\examples{
+data(titanic)
+ggplot(data = titanic, aes(x = product(Class))) +
+  geom_mosaic(divider = "hspine")
 }

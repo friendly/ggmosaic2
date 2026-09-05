@@ -13,6 +13,9 @@
 \item{...}{Additional arguments passed to \code{\link[ggplot2:theme]{ggplot2::theme()}}. These are applied after
 the mosaic theme defaults and can therefore override them.}
 }
+\value{
+A \code{ggplot2} theme object that can be added to a plot.
+}
 \description{
 Themes set the general aspect of the plot such as the color of the
 background, gridlines, the size and color of fonts.

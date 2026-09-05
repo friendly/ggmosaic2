@@ -49,6 +49,12 @@ When specified, adds \code{.expected} and \code{.residual} columns to output.}
 variable names to the expressions shown to users. Used internally by the
 ggplot2 layer wrappers.}
 }
+\value{
+A data frame giving rectangle boundaries (\code{l}, \code{r},
+\code{b}, \code{t}) and computed frequencies for each partition/cell,
+plus \code{.expected}/\code{.residual} columns when \code{expected} is
+supplied.
+}
 \description{
 Calculate frequencies.
 }

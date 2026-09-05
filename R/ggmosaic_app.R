@@ -9,8 +9,15 @@
 #' @param example Selected shiny app to launch.
 #' @param ... arguments passed on.
 #'
+#' @return Called for its side effect of launching a Shiny app; returns the
+#'   result of `shiny::runApp()`.
 #' @export
 #' @keywords internal
+#' @examples
+#' \dontrun{
+#' # Deprecated and currently non-functional; see Details.
+#' ggmosaic_app("mosaics")
+#' }
 ggmosaic_app <- function(example = c("mosaics", "models"), ...) {
   .Deprecated(
     msg = paste(

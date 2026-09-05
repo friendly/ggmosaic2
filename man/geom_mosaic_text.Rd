@@ -131,6 +131,9 @@ Text aesthetics that can be controlled include: \code{size} (default: 2.7), \cod
 \code{family} (font family), \code{angle} (rotation in degrees), \code{hjust}/\code{vjust} (justification), and \code{lineheight}.
 They may also be parameters to the paired geom/stat.}
 }
+\value{
+A \code{ggplot2} layer that can be added to a plot.
+}
 \description{
 A mosaic plot with text or labels
 }

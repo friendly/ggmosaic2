@@ -20,6 +20,8 @@
 #'   Additional arguments passed to [ggplot2::theme()]. These are applied after
 #'   the mosaic theme defaults and can therefore override them.
 #'
+#' @return A `ggplot2` theme object that can be added to a plot.
+#'
 #' @examples
 #' library(ggmosaic2)
 #' data(happy)

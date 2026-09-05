@@ -9,6 +9,11 @@ product(...)
 \arguments{
 \item{...}{Unquoted variables going into the product plot.}
 }
+\value{
+A list of expressions (see \code{\link[rlang:exprs]{rlang::exprs()}}), one per argument,
+used inside \code{aes()} to mark the variables that define the mosaic's
+product formula.
+}
 \description{
 Wrapper for a list
 }

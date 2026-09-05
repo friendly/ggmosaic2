@@ -29,6 +29,7 @@
 #'   Automatically generated numeric labels are rounded to one decimal place.
 #'   The legend can be hidden normally with
 #'   `theme(legend.position = "none")`.
+#' @return A `ggplot2` fill scale that can be added to a plot.
 #' @author Gavin Klorfine
 #' @export
 #' @examples

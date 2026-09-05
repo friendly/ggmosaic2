@@ -12,6 +12,9 @@ parse_product_formula <- getFromNamespace("parse_product_formula", "productplots
 #' Wrapper for a list
 #'
 #' @param ... Unquoted variables going into the product plot.
+#' @return A list of expressions (see [rlang::exprs()]), one per argument,
+#'   used inside `aes()` to mark the variables that define the mosaic's
+#'   product formula.
 #' @export
 #' @examples
 #' data(titanic)

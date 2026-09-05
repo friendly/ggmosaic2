@@ -11,6 +11,10 @@ ggmosaic_app(example = c("mosaics", "models"), ...)
 
 \item{...}{arguments passed on.}
 }
+\value{
+Called for its side effect of launching a Shiny app; returns the
+result of \code{shiny::runApp()}.
+}
 \description{
 Shiny app "EDA with Mosaic Plots" for interactive exploratory model building.
 }
@@ -18,5 +22,11 @@ Shiny app "EDA with Mosaic Plots" for interactive exploratory model building.
 \strong{Deprecated.} Inherited as-is from the original \code{ggmosaic} package and kept only for the
 historical record. It is not maintained, and currently cannot find its app directory because
 \code{system.file()} still looks up the old \code{ggmosaic} package name rather than \code{ggmosaic2}.
+}
+\examples{
+\dontrun{
+# Deprecated and currently non-functional; see Details.
+ggmosaic_app("mosaics")
+}
 }
 \keyword{internal}

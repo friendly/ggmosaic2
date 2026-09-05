@@ -130,6 +130,9 @@ give the geom as \code{"point"}.
 \link[ggplot2:layer_geoms]{layer geom} documentation.
 }}
 }
+\value{
+A \code{ggplot2} layer that can be added to a plot.
+}
 \description{
 A mosaic plat with jittered dots
 }

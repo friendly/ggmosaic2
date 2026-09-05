@@ -41,6 +41,9 @@ limits receive the corresponding endpoint color.}
 
 \item{name}{Legend title}
 }
+\value{
+A \code{ggplot2} fill scale that can be added to a plot.
+}
 \description{
 Provides a red-white-blue color scale centered at 0 for visualizing
 Pearson residuals from loglinear models. Designed for use with

@@ -29,6 +29,7 @@
 #'   \code{NA}, which means that \code{set.seed} will not be called.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with a warning. If \code{TRUE} silently removes missing values.
 #' @param ... other arguments passed on to \code{layer}. These are often aesthetics, used to set an aesthetic to a fixed value, like \code{color = 'red'} or \code{size = 3}. They may also be parameters to the paired geom/stat.
+#' @return A `ggplot2` layer that can be added to a plot.
 #' @examples
 #' data(titanic)
 #'
