@@ -1,6 +1,6 @@
 # Changelog
 
-## ggmosaic2 0.5.1
+## Version 0.5.1
 
 - Added
   [`facet_mosaic_grid()`](https://friendly.github.io/ggmosaic2/reference/facet_mosaic_grid.md)
@@ -85,7 +85,7 @@
 - The `introducing-ggmosaic2` vignette was edited for clarity and
   detail.
 
-## ggmosaic2 0.5.0
+## Version 0.5.0
 
 `ggmosaic2` is a standalone continuation of `ggmosaic`, which was
 removed from CRAN around November 2025 and appeared unmaintained (the
@@ -106,3 +106,48 @@ rather than starting fresh. Everything below this entry is inherited
   (`vignettes/ggmosaic.Rmd`, the bundled Shiny apps under
   `inst/shiny/`), which broke building since `ggmosaic` is no longer on
   CRAN. Also pointed `_pkgdown.yml` at the new package’s own site.
+
+## Version 0.4.1
+
+Extensive changes to introduce fitting loglinear models and
+residual-based shading, described in
+<https://github.com/haleyjeppson/ggmosaic/pull/86>
+
+- added labeling for cells (obs/exp/res)
+- added loglinear-models vignette to explain this
+- added vignette on forms of frequency data
+- fix error from ggmosaic vignette related to
+  [`tapply()`](https://rdrr.io/r/base/tapply.html) in `R/divide.R`
+
+## Version 0.3.4
+
+- updated for compatible with ggplot2 3.5.0
+
+## Version 0.3.3
+
+- A geom,
+  [`geom_mosaic_jitter()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_jitter.md),
+  and an associated stat,
+  [`stat_mosaic_jitter()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_jitter.md),
+  has been added.
+
+- A geom,
+  [`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md),
+  and an associated stat,
+  [`stat_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md),
+  has been added.
+
+- [`geom_mosaic_text()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic_text.md)
+  now supports using labels and ggrepel
+  ([@gregeleu](https://github.com/gregeleu),
+  [\#50](https://github.com/friendly/ggmosaic2/issues/50)).
+
+- A theme for mosaic plots,
+  [`theme_mosaic()`](https://friendly.github.io/ggmosaic2/reference/theme_mosaic.md),
+  has been added.
+
+## Version 0.3.0
+
+### Breaking changes
+
+- ggmosaic 0.3.0 is now compatible with ggplot2 3.3.0 and tidyr 1.0.0.
