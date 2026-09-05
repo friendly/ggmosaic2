@@ -196,6 +196,10 @@ geom_mosaic_text(
   degrees), `hjust`/`vjust` (justification), and `lineheight`. They may
   also be parameters to the paired geom/stat.
 
+## Value
+
+A `ggplot2` layer that can be added to a plot.
+
 ## Author
 
 Gavin Klorfine

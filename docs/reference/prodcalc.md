@@ -72,6 +72,12 @@ prodcalc(
   expressions shown to users. Used internally by the ggplot2 layer
   wrappers.
 
+## Value
+
+A data frame giving rectangle boundaries (`l`, `r`, `b`, `t`) and
+computed frequencies for each partition/cell, plus
+`.expected`/`.residual` columns when `expected` is supplied.
+
 ## Examples
 
 ``` r
