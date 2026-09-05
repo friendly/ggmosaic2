@@ -31,8 +31,6 @@
 #'   theme_mosaic()
 #'
 #' @author Gavin Klorfine
-#' @name theme_mosaic
-NULL
 #' @export
 #' @import ggplot2
 theme_mosaic <- function (base_size = 11, base_family = "", rot_labels = 0, ...)

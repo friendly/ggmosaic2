@@ -3,6 +3,9 @@
 \name{theme_mosaic}
 \alias{theme_mosaic}
 \title{Theme for mosaic plots}
+\usage{
+theme_mosaic(base_size = 11, base_family = "", rot_labels = 0, ...)
+}
 \arguments{
 \item{base_size}{Base font size. Defaults to 11.}
 
