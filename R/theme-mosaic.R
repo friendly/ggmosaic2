@@ -20,6 +20,8 @@
 #'   Additional arguments passed to [ggplot2::theme()]. These are applied after
 #'   the mosaic theme defaults and can therefore override them.
 #'
+#' @return A `ggplot2` theme object that can be added to a plot.
+#'
 #' @examples
 #' library(ggmosaic2)
 #' data(happy)
@@ -29,8 +31,6 @@
 #'   theme_mosaic()
 #'
 #' @author Gavin Klorfine
-#' @name theme_mosaic
-NULL
 #' @export
 #' @import ggplot2
 theme_mosaic <- function (base_size = 11, base_family = "", rot_labels = 0, ...)

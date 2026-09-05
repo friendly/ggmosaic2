@@ -56,6 +56,12 @@ counts from \code{expected} and therefore requires a non-\code{NULL}
 \code{expected} specification. Observed counts are retained in \code{.n}
 in either case.}
 }
+\value{
+A data frame giving rectangle boundaries (\code{l}, \code{r},
+\code{b}, \code{t}) and computed frequencies for each partition/cell,
+plus \code{.expected}/\code{.residual} columns when \code{expected} is
+supplied.
+}
 \description{
 Calculate frequencies.
 }

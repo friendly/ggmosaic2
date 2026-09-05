@@ -20,3 +20,4 @@
 ^.claude$
 ^\.positai$
 ^\.claude$
+^CRAN-SUBMISSION$

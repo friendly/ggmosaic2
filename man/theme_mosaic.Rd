@@ -3,6 +3,9 @@
 \name{theme_mosaic}
 \alias{theme_mosaic}
 \title{Theme for mosaic plots}
+\usage{
+theme_mosaic(base_size = 11, base_family = "", rot_labels = 0, ...)
+}
 \arguments{
 \item{base_size}{Base font size. Defaults to 11.}
 
@@ -12,6 +15,9 @@
 
 \item{...}{Additional arguments passed to \code{\link[ggplot2:theme]{ggplot2::theme()}}. These are applied after
 the mosaic theme defaults and can therefore override them.}
+}
+\value{
+A \code{ggplot2} theme object that can be added to a plot.
 }
 \description{
 Themes set the general aspect of the plot such as the color of the

@@ -25,3 +25,16 @@ spine(data, bounds, offset = offset, max = NULL)
 - max:
 
   maximum value
+
+## Value
+
+A data frame of rectangle boundaries (`l`, `r`, `b`, `t`), one row per
+level of `data`.
+
+## Examples
+
+``` r
+data(titanic)
+ggplot(data = titanic, aes(x = product(Class))) +
+  geom_mosaic(divider = "spine")
+```

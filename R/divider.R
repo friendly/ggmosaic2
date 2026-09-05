@@ -51,7 +51,13 @@ local_offset <- function(offset, bounds, n) {
 #' @param bounds bounds of space to partition
 #' @param offset space between spines
 #' @param max maximum value
+#' @return A data frame of rectangle boundaries (`l`, `r`, `b`, `t`), one row
+#'   per level of `data`.
 #' @export
+#' @examples
+#' data(titanic)
+#' ggplot(data = titanic, aes(x = product(Class))) +
+#'   geom_mosaic(divider = "spine")
 spine <- function(data, bounds, offset = offset, max = NULL) {
   w <- bounds$r - bounds$l
   h <- bounds$t - bounds$b
@@ -70,7 +76,13 @@ spine <- function(data, bounds, offset = offset, max = NULL) {
 #' @param bounds bounds of space to partition
 #' @param offset space between spines
 #' @param max maximum value
+#' @return A data frame of rectangle boundaries (`l`, `r`, `b`, `t`), one row
+#'   per level of `data`.
 #' @export
+#' @examples
+#' data(titanic)
+#' ggplot(data = titanic, aes(x = product(Class))) +
+#'   geom_mosaic(divider = "hspine")
 hspine <- function(data, bounds, offset = offset, max = NULL) {
   n <- length(data)
   # n + 1 offsets
@@ -98,7 +110,13 @@ hspine <- function(data, bounds, offset = offset, max = NULL) {
 #' @param bounds bounds of space to partition
 #' @param offset space between spines
 #' @param max maximum value
+#' @return A data frame of rectangle boundaries (`l`, `r`, `b`, `t`), one row
+#'   per level of `data`.
 #' @export
+#' @examples
+#' data(titanic)
+#' ggplot(data = titanic, aes(x = product(Class))) +
+#'   geom_mosaic(divider = "vspine")
 vspine <- function(data, bounds, offset = offset, max = NULL) {
   rotate(hspine(data, rotate(bounds), offset, max = max))
 }
@@ -109,7 +127,13 @@ vspine <- function(data, bounds, offset = offset, max = NULL) {
 #' @param bounds bounds of space to partition
 #' @param offset space between spines
 #' @param max maximum value
+#' @return A data frame of rectangle boundaries (`l`, `r`, `b`, `t`), one row
+#'   per level of `data`.
 #' @export
+#' @examples
+#' data(titanic)
+#' ggplot(data = titanic, aes(x = product(Class))) +
+#'   geom_mosaic(divider = "hbar")
 hbar <- function(data, bounds, offset = 0.02, max = NULL) {
   if (is.null(max)) max <- 1
 
@@ -138,7 +162,13 @@ hbar <- function(data, bounds, offset = 0.02, max = NULL) {
 #' @param bounds bounds of space to partition
 #' @param offset space between spines
 #' @param max maximum value
+#' @return A data frame of rectangle boundaries (`l`, `r`, `b`, `t`), one row
+#'   per level of `data`.
 #' @export
+#' @examples
+#' data(titanic)
+#' ggplot(data = titanic, aes(x = product(Class))) +
+#'   geom_mosaic(divider = "vbar")
 vbar <- function(data, bounds, offset = 0.02, max = NULL) {
  rotate(hbar(data, rotate(bounds), offset, max = max))
 }
@@ -151,7 +181,15 @@ vbar <- function(data, bounds, offset = 0.02, max = NULL) {
 #' A mosaic plot is composed of spines in alternating directions.
 #'
 #' @param direction direction of first split
+#' @return A function of one argument, the number of splits `n`, that returns
+#'   a character vector of divider function names (`"hspine"`/`"vspine"`) to
+#'   apply at each split -- suitable for the `divider` argument of
+#'   [geom_mosaic()] and related layers.
 #' @export
+#' @examples
+#' data(titanic)
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic(divider = mosaic("v"))
 mosaic <- function(direction = "h") {
   direction <- match.arg(direction, .directions)
   if (direction == "horizontal") {
@@ -169,7 +207,15 @@ mosaic <- function(direction = "h") {
 #' direction, with the final spine in the opposite direction.
 #'
 #' @param direction direction of first split
+#' @return A function of one argument, the number of splits `n`, that returns
+#'   a character vector of divider function names (`"hspine"`/`"vspine"`) to
+#'   apply at each split -- suitable for the `divider` argument of
+#'   [geom_mosaic()] and related layers.
 #' @export
+#' @examples
+#' data(titanic)
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic(divider = ddecker("v"))
 ddecker <- function(direction = "h") {
   direction <- match.arg(direction, .directions)
   if (direction == "horizontal") {

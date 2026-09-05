@@ -11,8 +11,19 @@ ddecker(direction = "h")
 \arguments{
 \item{direction}{direction of first split}
 }
+\value{
+A function of one argument, the number of splits \code{n}, that returns
+a character vector of divider function names (\code{"hspine"}/\code{"vspine"}) to
+apply at each split -- suitable for the \code{divider} argument of
+\code{\link[=geom_mosaic]{geom_mosaic()}} and related layers.
+}
 \description{
 Template for a double decker plot.
 A double decker plot is composed of a sequence of spines in the same
 direction, with the final spine in the opposite direction.
+}
+\examples{
+data(titanic)
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic(divider = ddecker("v"))
 }

@@ -15,6 +15,15 @@ hbar(data, bounds, offset = 0.02, max = NULL)
 
 \item{max}{maximum value}
 }
+\value{
+A data frame of rectangle boundaries (\code{l}, \code{r}, \code{b}, \code{t}), one row
+per level of \code{data}.
+}
 \description{
 Horizontal bar partition: width constant, height varies.
+}
+\examples{
+data(titanic)
+ggplot(data = titanic, aes(x = product(Class))) +
+  geom_mosaic(divider = "hbar")
 }

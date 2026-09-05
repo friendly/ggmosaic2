@@ -63,6 +63,10 @@ scale_fill_residuals(
 
   Legend title
 
+## Value
+
+A `ggplot2` fill scale that can be added to a plot.
+
 ## Details
 
 The default legend always labels -4, 0, and 4. It also labels supplied

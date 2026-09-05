@@ -2,7 +2,7 @@
 
 ## Authors
 
-- **Michael Friendly**. Author, maintainer.
+- **Michael Friendly**. Author, maintainer, copyright holder.
   [](https://orcid.org/0000-0002-3237-0941)
 
 - **Gavin Klorfine**. Author. [](https://orcid.org/0009-0003-0395-4512)

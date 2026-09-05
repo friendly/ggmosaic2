@@ -47,6 +47,7 @@
 #'   Text aesthetics that can be controlled include: \code{size} (default: 2.7), \code{colour}/\code{color}, \code{fontface} ('plain', 'bold', 'italic', 'bold.italic'),
 #'   \code{family} (font family), \code{angle} (rotation in degrees), \code{hjust}/\code{vjust} (justification), and \code{lineheight}.
 #'   They may also be parameters to the paired geom/stat.
+#' @return A `ggplot2` layer that can be added to a plot.
 #' @examples
 #' data(titanic)
 #'

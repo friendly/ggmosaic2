@@ -21,8 +21,8 @@ below, https://github.com/haleyjeppson/ggmosaic/pull/86, was never acted on).
 
 Rather than take
 over the original package name, this work continues independently as `ggmosaic2`, maintained by
-Michael Friendly, with original authors Haley Jeppson, Heike Hofmann, and Di Cook credited as
-contributors in `DESCRIPTION`.
+Michael Friendly, with original authors Haley Jeppson, Heike Hofmann, and Di Cook retained as
+authors in `DESCRIPTION`.
 
 The version number picks up from the last CRAN/fork release (0.4.1) rather than resetting, since
 this carries forward that code and history rather than starting fresh. Everything below this

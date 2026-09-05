@@ -18,7 +18,13 @@ scale_type.productlist <- function(x) {
 #'
 #' @param name set to pseudo waiver function `product_names` by default.
 #' @inheritParams ggplot2::continuous_scale
+#' @return A `ggplot2` position scale that can be added to a plot.
 #' @export
+#' @examples
+#' data(titanic)
+#' ggplot(data = titanic, aes(x = product(Class, Sex))) +
+#'   geom_mosaic() +
+#'   scale_x_productlist("Passenger class / Sex")
 scale_x_productlist <- function(name = ggplot2::waiver(), breaks = product_breaks(),
                                 minor_breaks = NULL, labels = product_labels(),
                                 limits = NULL, expand = ggplot2::waiver(), oob = scales::censor,

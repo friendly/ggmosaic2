@@ -28,6 +28,10 @@
 #' @param variable_labels Optional named character vector mapping internal
 #'   variable names to the expressions shown to users. Used internally by the
 #'   ggplot2 layer wrappers.
+#' @return A data frame giving rectangle boundaries (\code{l}, \code{r},
+#'   \code{b}, \code{t}) and computed frequencies for each partition/cell,
+#'   plus \code{.expected}/\code{.residual} columns when \code{expected} is
+#'   supplied.
 #' @keywords internal
 #' @export
 #' @examples

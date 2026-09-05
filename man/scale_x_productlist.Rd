@@ -132,6 +132,15 @@ right) side whenever more than one variable is split along a direction.
 Set to \code{NULL} to suppress these labels, or supply a
 \code{\link[ggplot2]{sec_axis}} for full control.}
 }
+\value{
+A \code{ggplot2} position scale that can be added to a plot.
+}
 \description{
 Determining scales for mosaics
+}
+\examples{
+data(titanic)
+ggplot(data = titanic, aes(x = product(Class, Sex))) +
+  geom_mosaic() +
+  scale_x_productlist("Passenger class / Sex")
 }
