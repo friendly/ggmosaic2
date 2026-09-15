@@ -3,6 +3,11 @@
 \name{GeomMosaicJitter}
 \alias{GeomMosaicJitter}
 \title{Geom proto}
+\value{
+A \code{ggproto} object inheriting from \code{ggplot2::Geom}, used
+internally by \code{\link[=geom_mosaic_jitter]{geom_mosaic_jitter()}} to draw jittered points within
+mosaic plot cells. Not intended to be called directly.
+}
 \description{
 Geom proto
 }

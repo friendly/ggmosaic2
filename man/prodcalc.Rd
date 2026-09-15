@@ -59,10 +59,8 @@ supplied.
 Calculate frequencies.
 }
 \examples{
-\dontrun{
-library(productplots)
+data(happy)
 prodcalc(happy, ~ happy, "hbar", offset = 0.005)
 prodcalc(happy, ~ happy, "hspine", offset = 0.01)
-}
 }
 \keyword{internal}

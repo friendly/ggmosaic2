@@ -100,8 +100,9 @@
 #'   )) +
 #'   geom_mosaic()
 #'
-#' # Just excluded for timing. Examples are included in testing to make sure they work
-#' \dontrun{
+#' # Wrapped in donttest: still runs under R CMD check --run-donttest and is
+#' # exercised by the package's tests to make sure it works.
+#' \donttest{
 #' data(happy)
 #'
 #' ggplot(data = happy, aes(x = product(happy))) +
@@ -178,7 +179,7 @@
 #' ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
 #'   geom_mosaic(expected = ~ Class + Sex) +
 #'   scale_fill_residual()
-#' } # end of don't run
+#' } # end of donttest
 
 geom_mosaic <- function(mapping = NULL, data = NULL, stat = "mosaic",
                         position = "identity", na.rm = FALSE,  divider = mosaic(), offset = 0.01,
@@ -216,6 +217,9 @@ geom_mosaic <- function(mapping = NULL, data = NULL, stat = "mosaic",
 #'
 #' @format NULL
 #' @usage NULL
+#' @return A `ggproto` object inheriting from `ggplot2::Geom`, used
+#'   internally by [geom_mosaic()] to draw the mosaic tile rectangles. Not
+#'   intended to be called directly.
 #' @export
 #' @importFrom grid grobTree
 GeomMosaic <- ggplot2::ggproto(

@@ -3,6 +3,11 @@
 \name{GeomMosaic}
 \alias{GeomMosaic}
 \title{Geom proto}
+\value{
+A \code{ggproto} object inheriting from \code{ggplot2::Geom}, used
+internally by \code{\link[=geom_mosaic]{geom_mosaic()}} to draw the mosaic tile rectangles. Not
+intended to be called directly.
+}
 \description{
 Geom proto
 }

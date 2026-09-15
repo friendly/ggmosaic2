@@ -3,6 +3,12 @@
 \name{StatMosaic}
 \alias{StatMosaic}
 \title{Geom proto}
+\value{
+A \code{ggproto} object inheriting from \code{ggplot2::Stat}, used
+internally by \code{\link[=stat_mosaic]{stat_mosaic()}} (and \code{\link[=geom_mosaic]{geom_mosaic()}}) to compute the
+rectangle boundaries and cell statistics for a mosaic plot layer. Not
+intended to be called directly.
+}
 \description{
 Geom proto
 }

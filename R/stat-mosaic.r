@@ -65,6 +65,10 @@ residual_outline_aesthetics <- function(
 #'
 #' @format NULL
 #' @usage NULL
+#' @return A `ggproto` object inheriting from `ggplot2::Stat`, used
+#'   internally by [stat_mosaic()] (and [geom_mosaic()]) to compute the
+#'   rectangle boundaries and cell statistics for a mosaic plot layer. Not
+#'   intended to be called directly.
 #' @export
 StatMosaic <- ggplot2::ggproto(
   "StatMosaic", ggplot2::Stat,
