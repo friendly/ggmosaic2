@@ -319,33 +319,40 @@ ggplot(confusion, aes(
   geom_mosaic()
 
 
-# Just excluded for timing. Examples are included in testing to make sure they work
-if (FALSE) { # \dontrun{
+# Wrapped in donttest: still runs under R CMD check --run-donttest and is
+# exercised by the package's tests to make sure it works.
+# \donttest{
 data(happy)
 
 ggplot(data = happy, aes(x = product(happy))) +
   geom_mosaic(divider = "hbar")
 
+
 ggplot(data = happy, aes(x = product(happy))) +
   geom_mosaic() +
   coord_flip()
 
+
 # weighting is important
 ggplot(data = happy, aes(weight = wtssall, x = product(happy))) +
   geom_mosaic()
+
 
 ggplot(data = happy,
        aes(weight = wtssall, x = product(health), fill = happy)) +
   geom_mosaic() +
   theme(axis.text.x=element_text(angle=35))
 
+
 ggplot(data = happy,
        aes(weight = wtssall, x = product(health), fill = happy)) +
   geom_mosaic(na.rm = TRUE)
 
+
 ggplot(data = happy,
        aes(weight = wtssall, x = product(health, sex, degree), fill = happy)) +
   geom_mosaic(na.rm = TRUE)
+
 
 # here is where a bit more control over the spacing of the bars is helpful:
 # set labels manually:
@@ -353,6 +360,7 @@ ggplot(data = happy,
        aes(weight = wtssall, x = product(age), fill = happy)) +
   geom_mosaic(na.rm = TRUE, offset = 0) +
   scale_x_productlist("Age", labels=c(17+1:72))
+
 
 # thin out labels manually:
 labels <- c(17+1:72)
@@ -362,11 +370,13 @@ ggplot(data = happy,
   geom_mosaic(na.rm = TRUE, offset = 0) +
   scale_x_productlist("Age", labels=labels)
 
+
 ggplot(data = happy,
        aes(weight = wtssall, x = product(age), fill = happy,
            conds = product(sex))) +
   geom_mosaic(divider = mosaic("v"), na.rm = TRUE, offset = 0.001) +
   scale_x_productlist("Age", labels=labels)
+
 
 ggplot(data = happy,
        aes(weight = wtssall, x = product(age), fill = happy)) +
@@ -374,13 +384,16 @@ ggplot(data = happy,
   facet_grid(sex~.) +
   scale_x_productlist("Age", labels=labels)
 
+
 ggplot(data = happy,
        aes(weight = wtssall, x = product(happy, finrela, health))) +
   geom_mosaic(divider = mosaic("h"))
 
+
 ggplot(data = happy,
        aes(weight = wtssall, x = product(happy, finrela, health))) +
   geom_mosaic(offset = .005)
+
 
 # Spine example
 ggplot(data = happy,
@@ -388,14 +401,17 @@ ggplot(data = happy,
  geom_mosaic() +
  facet_grid(happy~.)
 
+
 # Residual shading with independence model
 ggplot(data = titanic, aes(x = product(Class, Sex))) +
   geom_mosaic(expected = "independence") +
   scale_fill_residual()
 
+
 # Custom model formula
 ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
   geom_mosaic(expected = ~ Class + Sex) +
   scale_fill_residual()
-} # } # end of don't run
+
+# } # end of donttest
 ```

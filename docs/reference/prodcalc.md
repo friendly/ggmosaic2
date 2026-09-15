@@ -81,9 +81,17 @@ computed frequencies for each partition/cell, plus
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-library(productplots)
+data(happy)
 prodcalc(happy, ~ happy, "hbar", offset = 0.005)
+#>           happy   .wt       l       r b         t level    .n
+#> 1 not too happy  7668 0.00000 0.24625 0 0.2284659     1  7668
+#> 2  pretty happy 33563 0.25125 0.49750 0 1.0000000     1 33563
+#> 3    very happy 18823 0.50250 0.74875 0 0.5608259     1 18823
+#> 4          <NA>  4760 0.75375 1.00000 0 0.1418228     1  4760
 prodcalc(happy, ~ happy, "hspine", offset = 0.01)
-} # }
+#>           happy   .wt         l         r b t level    .n
+#> 1 not too happy  7668 0.0000000 0.1147585 0 1     1  7668
+#> 2  pretty happy 33563 0.1247585 0.6270591 0 1     1 33563
+#> 3    very happy 18823 0.6370591 0.9187623 0 1     1 18823
+#> 4          <NA>  4760 0.9287623 1.0000000 0 1     1  4760
 ```
