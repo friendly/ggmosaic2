@@ -443,7 +443,7 @@ Each model tells a different story about the associations in the data.
 sessionInfo()
 #> R version 4.6.1 (2026-06-24)
 #> Platform: x86_64-pc-linux-gnu
-#> Running under: Ubuntu 24.04.4 LTS
+#> Running under: Ubuntu 24.04.5 LTS
 #> 
 #> Matrix products: default
 #> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -470,7 +470,7 @@ sessionInfo()
 #>  [7] jquerylib_0.1.4     productplots_0.1.2  systemfonts_1.3.2  
 #> [10] scales_1.4.0        textshaping_1.0.5   yaml_2.3.12        
 #> [13] fastmap_1.2.0       plyr_1.8.9          R6_2.6.1           
-#> [16] labeling_0.4.3      generics_0.1.4      knitr_1.51         
+#> [16] labeling_0.4.3      generics_0.1.4      knitr_1.52         
 #> [19] htmlwidgets_1.6.4   ggrepel_0.9.8       tibble_3.3.1       
 #> [22] desc_1.4.3          bslib_0.12.0        pillar_1.11.1      
 #> [25] RColorBrewer_1.1-3  rlang_1.3.0         cachem_1.1.0       
