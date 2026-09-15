@@ -1,5 +1,11 @@
 ## Version 0.5.1
 
+* Addressed CRAN review feedback: added `\value` documentation to the `GeomMosaic`,
+  `GeomMosaicJitter`, `GeomMosaicText`, `StatMosaic`, `StatMosaicJitter`, and `StatMosaicText`
+  ggproto objects; fixed a broken `prodcalc()` example (a stray `library(productplots)` call was
+  masking its `offset` argument) and unwrapped it; and replaced `\dontrun` with `\donttest` for the
+  larger `geom_mosaic()` example block.
+
 * Added `facet_mosaic_grid()` for mosaic-aware faceting (haleyjeppson/ggmosaic#78): each facet
   panel gets independent x/y product scales and category axes drawn at panel-specific positions,
   and it supports multiple mosaic layers, `theme_mosaic()`, `coord_flip()`, manual product scales,

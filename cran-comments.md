@@ -1,12 +1,11 @@
 
 ## Resubmission
 
-The initial 2026-09-05 submission was caught by CRAN's automated incoming checks (Debian
-pretest only, not Windows) before any human review: `theme_mosaic.Rd` was missing a `\usage`
-section, because its roxygen2 documentation block had become separated from the function it
-documented. Fixed by consolidating them into a single block; confirmed locally and via
-win-builder and R-hub that `checking Rd contents` and `checking Rd \usage sections` now both
-pass.
+Addressed CRAN review feedback: added `\value` documentation to the `GeomMosaic`,
+`GeomMosaicJitter`, `GeomMosaicText`, `StatMosaic`, `StatMosaicJitter`, and `StatMosaicText`
+ggproto objects; fixed a broken `prodcalc()` example (a stray `library(productplots)` call was
+masking its `offset` argument) and unwrapped it; and replaced `\dontrun` with `\donttest` for the
+larger `geom_mosaic()` example block.
 
 ## Test environments
 * local Windows 11, R version 4.6.1 (2026-06-24 ucrt)
