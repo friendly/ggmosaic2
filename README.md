@@ -1,9 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![Project Status:
 Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ggmosaic2)](https://CRAN.R-project.org/package=ggmosaic2)
 [![R_Universe](https://friendly.r-universe.dev/badges/ggmosaic2)](https://friendly.r-universe.dev)
 [![Last
 Commit](https://img.shields.io/github/last-commit/friendly/ggmosaic2)](https://github.com/friendly/ggmosaic2/)
@@ -11,14 +13,12 @@ Commit](https://img.shields.io/github/last-commit/friendly/ggmosaic2)](https://g
 [![Ask
 DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/friendly/ggmosaic2)
 <!--
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ggmosaic2)](https://CRAN.R-project.org/package=ggmosaic2)
-
 [![R-CMD-check](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/friendly/ggmosaic2/actions/workflows/R-CMD-check.yaml)
 --> <!-- badges: end -->
 
 # ggmosaic2 <img src="man/figures/logo.png" align="right" width="200px" />
 
-*Version 0.5.1, built 2026-09-05*
+*Version 0.5.1, built 2026-09-16*
 
 `ggmosaic2` is a standalone continuation of the `ggmosaic` package,
 which was removed from CRAN around November 2025 and appeared
@@ -47,18 +47,21 @@ implementation. Full citations are in [References](#references) below.
 
 ## Installation
 
-You can install the latest version of `ggmosaic2` from
-[R-universe](https://friendly.r-universe.dev/ggmosaic2) with:
+Get the released version (0.5.1) from CRAN:
 
 ``` r
-install.packages("ggmosaic2", repos = "https://friendly.r-universe.dev")
+install.packages("ggmosaic2")
 ```
 
-or from GitHub with:
+The current development version (0.5.1) can be installed from
+[R-universe](https://friendly.r-universe.dev/ggmosaic2) or directly from
+the [GitHub repo](https://github.com/friendly/ggmosaic2) via:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("friendly/ggmosaic2")
+if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+install.packages("ggmosaic2", repos = "https://friendly.r-universe.dev")
+# or
+remotes::install_github("friendly/ggmosaic2", build_vignettes = TRUE)
 ```
 
 ## Example
