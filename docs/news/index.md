@@ -2,6 +2,8 @@
 
 ## Version 0.5.1
 
+CRAN release: 2026-09-16
+
 - Addressed CRAN review feedback: added `\value` documentation to the
   `GeomMosaic`, `GeomMosaicJitter`, `GeomMosaicText`, `StatMosaic`,
   `StatMosaicJitter`, and `StatMosaicText` ggproto objects; fixed a
