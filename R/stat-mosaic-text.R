@@ -46,6 +46,10 @@ stat_mosaic_text <- function(mapping = NULL, data = NULL, geom = "Text",
 #'
 #' @format NULL
 #' @usage NULL
+#' @return A `ggproto` object inheriting from `ggplot2::Stat`, used
+#'   internally by [stat_mosaic_text()] (and [geom_mosaic_text()]) to
+#'   compute label positions for a mosaic plot layer. Not intended to be
+#'   called directly.
 #' @export
 StatMosaicText <- ggplot2::ggproto(
   "StatMosaicText", ggplot2::Stat,

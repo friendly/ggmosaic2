@@ -3,6 +3,11 @@
 \name{GeomMosaicText}
 \alias{GeomMosaicText}
 \title{Geom proto}
+\value{
+A \code{ggproto} object inheriting from \code{ggplot2::Geom}, used
+internally by \code{\link[=geom_mosaic_text]{geom_mosaic_text()}} to draw text/label annotations on
+mosaic plot cells. Not intended to be called directly.
+}
 \description{
 Geom proto
 }

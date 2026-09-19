@@ -19,12 +19,12 @@ Useful links:
 ## Author
 
 **Maintainer**: Michael Friendly <friendly@yorku.ca>
-([ORCID](https://orcid.org/0000-0002-3237-0941))
+([ORCID](https://orcid.org/0000-0002-3237-0941)) \[copyright holder\]
 
 Authors:
 
 - Michael Friendly <friendly@yorku.ca>
-  ([ORCID](https://orcid.org/0000-0002-3237-0941))
+  ([ORCID](https://orcid.org/0000-0002-3237-0941)) \[copyright holder\]
 
 - Gavin Klorfine <gklorfin@yorku.ca>
   ([ORCID](https://orcid.org/0009-0003-0395-4512))

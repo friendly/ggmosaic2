@@ -118,6 +118,9 @@ geom_mosaic_jitter <- function(mapping = NULL, data = NULL, stat = "mosaic_jitte
 #'
 #' @format NULL
 #' @usage NULL
+#' @return A `ggproto` object inheriting from `ggplot2::Geom`, used
+#'   internally by [geom_mosaic_jitter()] to draw jittered points within
+#'   mosaic plot cells. Not intended to be called directly.
 #' @export
 #' @importFrom grid grobTree
 #' @importFrom tidyr nest unnest

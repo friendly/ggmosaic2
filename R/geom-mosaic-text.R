@@ -153,6 +153,9 @@ geom_mosaic_text <- function(mapping = NULL, data = NULL, stat = "mosaic",
 #'
 #' @format NULL
 #' @usage NULL
+#' @return A `ggproto` object inheriting from `ggplot2::Geom`, used
+#'   internally by [geom_mosaic_text()] to draw text/label annotations on
+#'   mosaic plot cells. Not intended to be called directly.
 #' @export
 #' @importFrom grid grobTree
 #' @importFrom tidyr nest unnest

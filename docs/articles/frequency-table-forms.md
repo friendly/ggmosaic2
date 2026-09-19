@@ -515,7 +515,7 @@ ggplot(data = hair_freq,
 sessionInfo()
 #> R version 4.6.1 (2026-06-24)
 #> Platform: x86_64-pc-linux-gnu
-#> Running under: Ubuntu 24.04.4 LTS
+#> Running under: Ubuntu 24.04.5 LTS
 #> 
 #> Matrix products: default
 #> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -543,7 +543,7 @@ sessionInfo()
 #>  [4] htmlwidgets_1.6.4   websocket_1.4.4     ggrepel_0.9.8      
 #>  [7] processx_3.9.0      lattice_0.22-9      vctrs_0.7.3        
 #> [10] tools_4.6.1         ps_1.9.3            generics_0.1.4     
-#> [13] tibble_3.3.1        ca_0.71.1           pkgconfig_2.0.3    
+#> [13] tibble_3.3.1        ca_0.72             pkgconfig_2.0.3    
 #> [16] Matrix_1.7-5        data.table_1.18.6.1 RColorBrewer_1.1-3 
 #> [19] S7_0.2.2            desc_1.4.3          gt_1.3.0           
 #> [22] lifecycle_1.0.5     compiler_4.6.1      farver_2.1.2       
@@ -558,7 +558,7 @@ sessionInfo()
 #> [49] relimp_1.0-5        withr_3.0.3         scales_1.4.0       
 #> [52] promises_1.5.0      rmarkdown_2.32      httr_1.4.9         
 #> [55] otel_0.2.0          nnet_7.3-20         ragg_1.5.2         
-#> [58] zoo_1.9-0           evaluate_1.0.5      knitr_1.51         
+#> [58] zoo_1.9-0           evaluate_1.0.5      knitr_1.52         
 #> [61] lmtest_0.9-40       viridisLite_0.4.3   rlang_1.3.0        
 #> [64] Rcpp_1.1.2          glue_1.8.1          xml2_1.6.0         
 #> [67] jsonlite_2.0.0      R6_2.6.1            plyr_1.8.9         

@@ -3,6 +3,12 @@
 \name{StatMosaicJitter}
 \alias{StatMosaicJitter}
 \title{Geom proto}
+\value{
+A \code{ggproto} object inheriting from \code{ggplot2::Stat}, used
+internally by \code{\link[=stat_mosaic_jitter]{stat_mosaic_jitter()}} (and \code{\link[=geom_mosaic_jitter]{geom_mosaic_jitter()}}) to
+compute jittered point positions for a mosaic plot layer. Not intended
+to be called directly.
+}
 \description{
 Geom proto
 }

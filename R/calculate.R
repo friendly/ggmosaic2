@@ -35,11 +35,9 @@
 #' @keywords internal
 #' @export
 #' @examples
-#' \dontrun{
-#' library(productplots)
+#' data(happy)
 #' prodcalc(happy, ~ happy, "hbar", offset = 0.005)
 #' prodcalc(happy, ~ happy, "hspine", offset = 0.01)
-#' }
 prodcalc <- function(data, formula, divider = mosaic(), cascade = 0, scale_max = TRUE,
                      na.rm = FALSE, offset = 0.01, expected = NULL,
                      variable_labels = NULL,

@@ -2,6 +2,20 @@
 
 ## Version 0.5.1
 
+CRAN release: 2026-09-16
+
+- Addressed CRAN review feedback: added `\value` documentation to the
+  `GeomMosaic`, `GeomMosaicJitter`, `GeomMosaicText`, `StatMosaic`,
+  `StatMosaicJitter`, and `StatMosaicText` ggproto objects; fixed a
+  broken
+  [`prodcalc()`](https://friendly.github.io/ggmosaic2/reference/prodcalc.md)
+  example (a stray
+  [`library(productplots)`](https://github.com/hadley/productplots) call
+  was masking its `offset` argument) and unwrapped it; and replaced
+  `\dontrun` with `\donttest` for the larger
+  [`geom_mosaic()`](https://friendly.github.io/ggmosaic2/reference/geom_mosaic.md)
+  example block.
+
 - Added
   [`facet_mosaic_grid()`](https://friendly.github.io/ggmosaic2/reference/facet_mosaic_grid.md)
   for mosaic-aware faceting (haleyjeppson/ggmosaic#78): each facet panel

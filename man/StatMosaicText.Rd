@@ -3,6 +3,12 @@
 \name{StatMosaicText}
 \alias{StatMosaicText}
 \title{Geom proto}
+\value{
+A \code{ggproto} object inheriting from \code{ggplot2::Stat}, used
+internally by \code{\link[=stat_mosaic_text]{stat_mosaic_text()}} (and \code{\link[=geom_mosaic_text]{geom_mosaic_text()}}) to
+compute label positions for a mosaic plot layer. Not intended to be
+called directly.
+}
 \description{
 Geom proto
 }

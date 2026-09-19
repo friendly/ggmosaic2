@@ -52,6 +52,10 @@ stat_mosaic_jitter <- function(mapping = NULL, data = NULL, geom = "mosaic_jitte
 #'
 #' @format NULL
 #' @usage NULL
+#' @return A `ggproto` object inheriting from `ggplot2::Stat`, used
+#'   internally by [stat_mosaic_jitter()] (and [geom_mosaic_jitter()]) to
+#'   compute jittered point positions for a mosaic plot layer. Not intended
+#'   to be called directly.
 #' @export
 StatMosaicJitter <- ggplot2::ggproto(
   "StatMosaicJitter", ggplot2::Stat,

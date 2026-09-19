@@ -250,8 +250,9 @@ ggplot(confusion, aes(
   )) +
   geom_mosaic()
 
-# Just excluded for timing. Examples are included in testing to make sure they work
-\dontrun{
+# Wrapped in donttest: still runs under R CMD check --run-donttest and is
+# exercised by the package's tests to make sure it works.
+\donttest{
 data(happy)
 
 ggplot(data = happy, aes(x = product(happy))) +
@@ -328,7 +329,7 @@ ggplot(data = titanic, aes(x = product(Class, Sex))) +
 ggplot(data = titanic, aes(x = product(Class, Sex, Survived))) +
   geom_mosaic(expected = ~ Class + Sex) +
   scale_fill_residual()
-} # end of don't run
+} # end of donttest
 }
 \author{
 Gavin Klorfine
