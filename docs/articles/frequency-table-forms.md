@@ -513,13 +513,13 @@ ggplot(data = hair_freq,
 ``` r
 
 sessionInfo()
-#> R version 4.6.1 (2026-06-24)
+#> R version 4.6.2 (2026-10-29)
 #> Platform: x86_64-pc-linux-gnu
-#> Running under: Ubuntu 24.04.5 LTS
+#> Running under: Ubuntu 26.04.1 LTS
 #> 
 #> Matrix products: default
 #> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.32.so;  LAPACK version 3.12.0
 #> 
 #> locale:
 #>  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -536,31 +536,31 @@ sessionInfo()
 #> 
 #> other attached packages:
 #> [1] dplyr_1.2.1     vcdExtra_0.9.8  gnm_1.1-5       vcd_1.4-14     
-#> [5] ggmosaic2_0.5.1 ggplot2_4.0.3  
+#> [5] ggmosaic2_0.5.1 ggplot2_4.0.4  
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] gtable_0.3.6        xfun_0.61           bslib_0.12.0       
+#>  [1] gtable_0.3.6        xfun_0.62           bslib_0.12.0       
 #>  [4] htmlwidgets_1.6.4   websocket_1.4.4     ggrepel_0.9.8      
-#>  [7] processx_3.9.0      lattice_0.22-9      vctrs_0.7.3        
-#> [10] tools_4.6.1         ps_1.9.3            generics_0.1.4     
+#>  [7] processx_3.9.0      lattice_0.23-1      vctrs_0.7.3        
+#> [10] tools_4.6.2         ps_1.9.3            generics_0.1.4     
 #> [13] tibble_3.3.1        ca_0.72             pkgconfig_2.0.3    
-#> [16] Matrix_1.7-5        data.table_1.18.6.1 RColorBrewer_1.1-3 
-#> [19] S7_0.2.2            desc_1.4.3          gt_1.3.0           
-#> [22] lifecycle_1.0.5     compiler_4.6.1      farver_2.1.2       
+#> [16] Matrix_1.7-6        data.table_1.18.6.1 RColorBrewer_1.1-3 
+#> [19] S7_0.2.2            desc_1.4.3          gt_1.4.0           
+#> [22] lifecycle_1.0.5     compiler_4.6.2      farver_2.1.2       
 #> [25] textshaping_1.0.5   chromote_0.5.1      htmltools_0.5.9    
 #> [28] sass_0.4.10         yaml_2.3.12         plotly_4.12.1      
 #> [31] pillar_1.11.1       pkgdown_2.2.1       later_1.4.8        
-#> [34] jquerylib_0.1.4     tidyr_1.3.2         MASS_7.3-65        
+#> [34] jquerylib_0.1.4     tidyr_1.3.2         MASS_7.3-66        
 #> [37] cachem_1.1.0        webshot2_0.1.2      tidyselect_1.2.1   
 #> [40] digest_0.6.39       purrr_1.2.2         qvcalc_1.0.4       
-#> [43] forcats_1.0.1       fastmap_1.2.0       colorspace_2.1-3   
+#> [43] forcats_1.0.1       fastmap_1.2.0       colorspace_2.1-4   
 #> [46] cli_3.6.6           magrittr_2.0.5      productplots_0.1.2 
 #> [49] relimp_1.0-5        withr_3.0.3         scales_1.4.0       
 #> [52] promises_1.5.0      rmarkdown_2.32      httr_1.4.9         
-#> [55] otel_0.2.0          nnet_7.3-20         ragg_1.5.2         
+#> [55] otel_0.3.0          nnet_7.3-21         ragg_1.5.2         
 #> [58] zoo_1.9-1           evaluate_1.0.5      knitr_1.52         
 #> [61] lmtest_0.9-40       viridisLite_0.4.3   rlang_1.3.0        
 #> [64] Rcpp_1.1.2          glue_1.8.1          xml2_1.6.0         
 #> [67] jsonlite_2.0.0      R6_2.6.1            plyr_1.8.9         
-#> [70] systemfonts_1.3.2   fs_2.1.0
+#> [70] systemfonts_1.3.3   fs_2.1.0
 ```
